@@ -14,7 +14,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
      */
     constructor(scene, x, y) {
         super(scene, x, y, 'player');
-        this.score = 0;
+        
 
         // Añadimos a la escena y a las físicas
         this.scene.add.existing(this);
@@ -33,11 +33,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
         // Atributos de juego
         this.speed = 300; // Velocidad de movimiento
-        
-        // UI de Puntuación
-        this.label = this.scene.add.text(10, 10, "", { fontSize: 20 });
-        this.updateScore();
-
         // Controles: Añadimos WASD además de cursores (típico en PC)
         this.cursors = this.scene.input.keyboard.createCursorKeys();
         this.wasd = this.scene.input.keyboard.addKeys({
@@ -48,16 +43,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
         });
     }
 
-    point() {
-        this.score++;
-        this.updateScore();
-    }
-
-    updateScore() {
-        this.label.text = 'Score: ' + this.score;
-        // Aseguramos que el texto se quede fijo en la pantalla si la cámara se mueve
-        this.label.setScrollFactor(0); 
-    }
+    
 
     /**
      * Lógica de movimiento Top-Down
