@@ -1,5 +1,5 @@
 {
-    "name": "plantillaphaser",
+    "name": "demophaser",
     "version": "1.0.0",
     "main": "./main.js",
     "description": "Plantilla para juegos con Phaser",
@@ -13,10 +13,10 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/cleongh/plantillaphaser.git"
+        "url": "git+https://github.com/CrisMarkezo/Cool-Sustances-v2.git"
     },
     "keywords": [],
-    "author": "Carlos León <cleon@ucm.es>",
+    "author": "Gabriel Sanchez <gabris03@ucm.es>",
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/cleongh/plantillaphaser/issues"
