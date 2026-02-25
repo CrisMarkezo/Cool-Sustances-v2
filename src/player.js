@@ -2,7 +2,7 @@
 import Phaser from 'phaser';
 
 /**
- * Clase que representa el jugador para un juego Top-Down (estilo Isaac).
+ * Clase que representa el jugador para un juego Top-Down
  */
 export default class Player extends Phaser.GameObjects.Sprite {
 
@@ -20,8 +20,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
 
-        // --- AJUSTES FÍSICOS TOP-DOWN ---
-        this.body.setCollideWorldBounds(); // No salir del mapa
+        
         
         // Importante: Si tu configuración global tiene gravedad, esto la anula para el jugador
         this.body.setAllowGravity(false); 
@@ -84,7 +83,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
         // Phaser nos ayuda a normalizar esto automáticamente.
         
         if (velocityX !== 0 || velocityY !== 0) {
-            // Creamos un vector, lo normalizamos y lo escalamos a la velocidad del jugador
+            
             const velocity = new Phaser.Math.Vector2(velocityX, velocityY).normalize().scale(this.speed);
             
             this.body.setVelocity(velocity.x, velocity.y);
