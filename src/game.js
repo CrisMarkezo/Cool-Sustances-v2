@@ -1,7 +1,8 @@
 import Boot from './scenes/boot.js';
 import End from './scenes/end.js';
 import Level from './scenes/level.js';
-import MenuTutorial from './scenes/menu-tutorial.js';
+import AccionTutorial from './scenes/tutorial/accionTutorial.js';
+import MenuTutorial from './scenes/tutorial/menu-tutorial.js';
 import Phaser from 'phaser';
 
 /**
@@ -18,7 +19,7 @@ let config = {
         autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
     },
     pixelArt: true,
-    scene: [Boot, MenuTutorial, Level, End],
+    scene: [Boot, MenuTutorial, Level, End, AccionTutorial],
     physics: {
         default: 'arcade',
         arcade: {
