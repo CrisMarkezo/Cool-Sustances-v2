@@ -35,13 +35,18 @@ export default class MenuTutorial extends Phaser.Scene {
             console.log('Tienda clickeada');
             this.scene.start('tiendaTutorial');
         });
-        
 
         // boton de escena de accion
         const accionBtn = this.add.image(485, 400, 'accionMenu').setInteractive();
         accionBtn.on('pointerdown', () => {
             console.log('Acción clickeada');
             this.scene.start('accionTutorial');
+        });
+        //boton de dungeon pero es la continuación del lore en este caso
+        const dungeonBtn = this.add.text(485, 150, 'FDI', { fontSize: '20px', fill: '#2b1515' }).setInteractive();
+        dungeonBtn.on('pointerdown', () => {
+            console.log('Salir del tutorial clickeado');
+            this.scene.start('storyScene2');
         });
         
     }
