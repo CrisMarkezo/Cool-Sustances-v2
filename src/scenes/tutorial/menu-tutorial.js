@@ -18,35 +18,52 @@ export default class MenuTutorial extends Phaser.Scene {
     }
 
     create(){
+        // Inicializar el paso del tutorial si no existe
+        if (!this.registry.has('tutorialStep')) {
+            this.registry.set('tutorialStep', 0);
+        }
+        const currentStep = this.registry.get('tutorialStep');
+
         // mostrar onlyMenu de fondo manteniendo proporción
         const menuImg = this.add.image(500, 350, 'onlyMenu');
        
-        
-        // boton de escena de dialogo
-        const dialogoBtn = this.add.image(485, 200, 'dialogoMenu').setInteractive();
-        dialogoBtn.on('pointerdown', () => {
-            console.log('Diálogo clickeado');
-            this.scene.start('dialogoTutorial');
+        // boton de escena de accion
+        const accionBtn = this.add.image(485, 400, 'accionMenu').setInteractive();
+        accionBtn.on('pointerdown', () => {
+            if (currentStep === 0) {
+                console.log('Acción clickeada');
+                this.registry.set('tutorialStep', 1);
+                this.scene.start('accionTutorial');
+            }
         });
 
         // boton de tienda
         const tiendaBtn = this.add.image(485, 300, 'tiendaMenu').setInteractive();
         tiendaBtn.on('pointerdown', () => {
-            console.log('Tienda clickeada');
-            this.scene.start('tiendaTutorial');
+            if (currentStep === 1) {
+                console.log('Tienda clickeada');
+                this.registry.set('tutorialStep', 2);
+                this.scene.start('tiendaTutorial');
+            }
+        });
+        
+        // boton de escena de dialogo
+        const dialogoBtn = this.add.image(485, 200, 'dialogoMenu').setInteractive();
+        dialogoBtn.on('pointerdown', () => {
+            if (currentStep === 2) {
+                console.log('Diálogo clickeado');
+                this.registry.set('tutorialStep', 3);
+                this.scene.start('dialogoTutorial');
+            }
         });
 
-        // boton de escena de accion
-        const accionBtn = this.add.image(485, 400, 'accionMenu').setInteractive();
-        accionBtn.on('pointerdown', () => {
-            console.log('Acción clickeada');
-            this.scene.start('accionTutorial');
-        });
         //boton de dungeon pero es la continuación del lore en este caso
         const dungeonBtn = this.add.text(485, 150, 'FDI', { fontSize: '20px', fill: '#2b1515' }).setInteractive();
         dungeonBtn.on('pointerdown', () => {
-            console.log('Salir del tutorial clickeado');
-            this.scene.start('storyScene2');
+            if (currentStep === 3) {
+                console.log('Salir del tutorial clickeado');
+                this.scene.start('storyScene2');
+            }
         });
         
     }
