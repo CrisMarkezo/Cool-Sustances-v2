@@ -25,13 +25,13 @@ export default class DialogoTutorial extends Phaser.Scene {
             wordWrap: { width: 700 },
             align: 'center'
         }).setOrigin(0.5).setInteractive();
-        const opcion1Bubble = this.add.rectangle(600, 550, 560, 60, 0x7B002C)
+        const opcion1Bubble = this.add.rectangle(600, 550, 560, 60, 0Xe76d2c)
         opcion1Bubble.setStrokeStyle(3, 0x000000)
         const opcion1 = this.add.text(600, 550, 'Bufar y seguir con tu camino', { 
             fontSize: '20px', 
             fill: '#ffffff' 
         }).setOrigin(0.5).setInteractive();
-        const opcion2Bubble = this.add.rectangle(600, 600, 560, 60, 0x7B002C)
+        const opcion2Bubble = this.add.rectangle(600, 600, 560, 60, 0Xe76d2c)
         opcion2Bubble.setStrokeStyle(3, 0x000000)
         const opcion2 = this.add.text(600, 600, 'Aceptar la loncha de jamón para seguir con tu camino', { 
             fontSize: '20px', 

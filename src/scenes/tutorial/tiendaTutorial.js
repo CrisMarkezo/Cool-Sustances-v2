@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 
-import tiendaDia from '../../../assets/sprites/dia/accion_escena_tutorial.jpeg'
+import tiendaDia from '../../../assets/sprites/dia/tienda_escena_tutorial.png'
 import cubatita from '../../../assets/sprites/cubatita.png'
 
 export default class TiendaTutorial extends Phaser.Scene {
@@ -17,25 +17,25 @@ export default class TiendaTutorial extends Phaser.Scene {
 
         const bgImg = this.add.image(500, 350, 'tienda_dia');
         const player = this.add.image(200, 500, 'cubatita');
-        const opcion1Bubble = this.add.rectangle(600, 500, 560, 60, 0x7B002C)
+        const opcion1Bubble = this.add.rectangle(600, 500, 560, 60, 0x6969ec)
         opcion1Bubble.setStrokeStyle(3, 0x000000)
         const opcion1 = this.add.text(600, 500, 'Comprar filtros (2€)', { 
             fontSize: '20px', 
             fill: '#ffffff' 
         }).setOrigin(0.5).setInteractive();
-        const opcion2Bubble = this.add.rectangle(600, 550, 560, 60, 0x7B002C)
+        const opcion2Bubble = this.add.rectangle(600, 550, 560, 60, 0x6969ec)
         opcion2Bubble.setStrokeStyle(3, 0x000000)
         const opcion2 = this.add.text(600, 550, 'Comprar litrona (1€)', { 
             fontSize: '20px', 
             fill: '#ffffff'
         }).setOrigin(0.5).setInteractive();
-        const opcion3Bubble = this.add.rectangle(600, 600, 560, 60, 0x7B002C)
+        const opcion3Bubble = this.add.rectangle(600, 600, 560, 60, 0x6969ec)
         opcion3Bubble.setStrokeStyle(3, 0x000000)
         const opcion3 = this.add.text(600, 600, 'Dar yanotekomo (1)', {
             fontSize: '20px', 
             fill: '#ffffff' 
         }).setOrigin(0.5).setInteractive();
-        const opcion4Bubble = this.add.rectangle(600, 650, 560, 60, 0x7B002C)
+        const opcion4Bubble = this.add.rectangle(600, 650, 560, 60, 0x6969ec)
         opcion4Bubble.setStrokeStyle(3, 0x000000)
         const opcion4 = this.add.text(600, 650, 'Salir de la tienda', { 
             fontSize: '20px', 

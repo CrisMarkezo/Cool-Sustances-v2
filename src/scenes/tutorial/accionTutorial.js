@@ -18,14 +18,14 @@ export default class AccionTutorial extends Phaser.Scene {
         this.add.image(500, 350, 'accion_dia')
         this.add.image(200, 500, 'cubatita')
 
-        const opcion1Bubble = this.add.rectangle(600, 500, 560, 60, 0x7B002C)
+        const opcion1Bubble = this.add.rectangle(600, 500, 560, 60, 0Xe76d2c)
         opcion1Bubble.setStrokeStyle(3, 0x000000)
         const opcion1 = this.add.text(600, 500, 'Recoger dinero del suelo (+2€)', {
             fontSize: '22px',
             color: '#ffffff'
         }).setOrigin(0.5).setInteractive()
 
-        const opcion2Bubble = this.add.rectangle(600, 580, 560, 60, 0x7B002C)
+        const opcion2Bubble = this.add.rectangle(600, 580, 560, 60, 0Xe76d2c)
         opcion2Bubble.setStrokeStyle(3, 0x000000)
         const opcion2 = this.add.text(600, 580, 'Buscar en la basura (+1 yanotekomo)', {
             fontSize: '22px',
