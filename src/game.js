@@ -1,7 +1,11 @@
-import Boot from './boot.js';
-import End from './end.js';
-import Level from './level.js';
+import Boot from './scenes/boot.js';
+import End from './scenes/end.js';
+import Level from './scenes/level.js';
+import AccionTutorial from './scenes/tutorial/accionTutorial.js';
+import MenuTutorial from './scenes/tutorial/menu-tutorial.js';
 import Phaser from 'phaser';
+import TiendaTutorial from './scenes/tutorial/tiendaTutorial.js';
+import DialogoTutorial from './scenes/tutorial/dialogoTutorial.js';
 
 /**
  * Inicio del juego en Phaser. Creamos el archivo de configuración del juego y creamos
@@ -10,14 +14,14 @@ import Phaser from 'phaser';
 let config = {
     type: Phaser.AUTO,
     width: 1000,
-    height: 500,
+    height: 700,
     parent: 'juego',
     scale: {
         //mode: Phaser.Scale.FIT,  
         autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
     },
     pixelArt: true,
-    scene: [Boot, Level, End],
+    scene: [Boot, MenuTutorial, Level, End, AccionTutorial, TiendaTutorial, DialogoTutorial],
     physics: {
         default: 'arcade',
         arcade: {

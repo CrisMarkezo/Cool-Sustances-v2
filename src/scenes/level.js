@@ -1,5 +1,5 @@
-import Platform from './platform.js';
-import Player from './player.js';
+import Platform from '../platform.js';
+import Player from '../player.js';
 import Phaser from 'phaser';
 
 

@@ -1,11 +1,11 @@
 import Phaser from 'phaser'
 
 
-import platform from '../assets/sprites/platform.png'
-import base from '../assets/sprites/base.png'
-import star from '../assets/sprites/star.png'
-import player from '../assets/sprites/player.png'
-/**
+import platform from '../../assets/sprites/platform.png'
+import base from '../../assets/sprites/base.png'
+import star from '../../assets/sprites/star.png'
+import player from '../../assets/sprites/player.png'
+/*
  * Escena para la precarga de los assets que se usarán en el juego.
  * Esta escena se puede mejorar añadiendo una imagen del juego y una 
  * barra de progreso de carga de los assets
@@ -37,6 +37,6 @@ export default class Boot extends Phaser.Scene {
    * nivel del juego
    */
   create() {
-    this.scene.start('level');
+    this.scene.start('phone-tutorial');
   }
 }
