@@ -1,6 +1,6 @@
-import Boot from './boot.js';
-import End from './end.js';
-import Level from './level.js';
+import Boot from './scenes/boot.js';
+import End from './scenes/end.js';
+import Level from './scenes/level.js';
 import Phaser from 'phaser';
 
 /**
@@ -27,4 +27,4 @@ let config = {
     }
 };
 
-new Phaser.Game(config);
+window.game = new Phaser.Game(config);

@@ -1,8 +1,8 @@
 {
-    "name": "demophaser",
+    "name": "coolsustances",
     "version": "1.0.0",
     "main": "./main.js",
-    "description": "Plantilla para juegos con Phaser",
+    "description": "Juego hecho con Phaser",
     "scripts": {
         "build:win": "npm run electron && npx electron-builder --win --config",
         "build:mac": "npm run electron && npx electron-builder --mac --config",
@@ -16,12 +16,12 @@
         "url": "git+https://github.com/CrisMarkezo/Cool-Sustances-v2.git"
     },
     "keywords": [],
-    "author": "Gabriel Sanchez <gabris03@ucm.es>",
+    "author": "Cristian Marquez <cristianmarpin18@gmail.com>",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/cleongh/plantillaphaser/issues"
+        "url": "https://github.com/CrisMarkezo/Cool-Sustances-v2/issues"
     },
-    "homepage": "https://github.com/cleongh/plantillaphaser#readme",
+    "homepage": "https://github.com/CrisMarkezo/Cool-Sustances-v2#readme",
     "type": "module",
     "devDependencies": {
         "electron": "^34.0.1",

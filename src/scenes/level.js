@@ -1,5 +1,5 @@
-import Platform from './platform.js';
-import Player from './player.js';
+import Platform from '../platform.js';
+import Player from '../game_objects/player.js';
 import Phaser from 'phaser';
 
 
@@ -32,6 +32,7 @@ export default class Level extends Phaser.Scene {
         new Platform(this, this.player, this.bases, 500, 200);
         new Platform(this, this.player, this.bases, 150, 100);
         new Platform(this, this.player, this.bases, 850, 100);
+        //this.cameras.main.setBounds(0,0, map.widthPixels, map.heightPixels);
         this.cameras.main.startFollow(this.player);
         this.spawn();
 
