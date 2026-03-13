@@ -18,24 +18,24 @@ export default class DialogoTutorial extends Phaser.Scene {
         const bgImg = this.add.image(500, 350, 'dialogo_dia');
         const player = this.add.image(200, 500, 'cubatita');
         const contextoBubble = this.add.rectangle(500, 100, 800, 150, 0xE1AD01)
-        contextoBubble.setStrokeStyle(3, 0x000000)
+        contextoBubble.setStrokeStyle(3, 0x1F2A44)
         const contexto = this.add.text(500, 100, 'Aparece una señora preguntandote que hace una cosa tan bonita en medio de la calle, ofreciendote una loncha de jamón. ¿Qué haces?', { 
             fontSize: '20px', 
-            fill: '#ffffff',
+            fill: '#1F2A44',
             wordWrap: { width: 700 },
             align: 'center'
         }).setOrigin(0.5).setInteractive();
-        const opcion1Bubble = this.add.rectangle(600, 550, 560, 60, 0Xe76d2c)
-        opcion1Bubble.setStrokeStyle(3, 0x000000)
+        const opcion1Bubble = this.add.rectangle(600, 550, 560, 60, 0xFF7A00)
+        opcion1Bubble.setStrokeStyle(3, 0x1F2A44)
         const opcion1 = this.add.text(600, 550, 'Bufar y seguir con tu camino', { 
             fontSize: '20px', 
-            fill: '#ffffff' 
+            fill: '#1F2A44' 
         }).setOrigin(0.5).setInteractive();
-        const opcion2Bubble = this.add.rectangle(600, 600, 560, 60, 0Xe76d2c)
-        opcion2Bubble.setStrokeStyle(3, 0x000000)
+        const opcion2Bubble = this.add.rectangle(600, 600, 560, 60, 0xFF7A00)
+        opcion2Bubble.setStrokeStyle(3, 0x1F2A44)
         const opcion2 = this.add.text(600, 600, 'Aceptar la loncha de jamón para seguir con tu camino', { 
             fontSize: '20px', 
-            fill: '#ffffff',
+            fill: '#1F2A44',
             wordWrap: { width: 500 },
             align: 'center'
         }).setOrigin(0.5).setInteractive();

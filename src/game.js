@@ -6,6 +6,7 @@ import MenuTutorial from './scenes/tutorial/menu-tutorial.js';
 import Phaser from 'phaser';
 import TiendaTutorial from './scenes/tutorial/tiendaTutorial.js';
 import DialogoTutorial from './scenes/tutorial/dialogoTutorial.js';
+import Menu from './scenes/dia/menu-dia.js'
 
 /**
  * Inicio del juego en Phaser. Creamos el archivo de configuración del juego y creamos
@@ -21,7 +22,7 @@ let config = {
         autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
     },
     pixelArt: true,
-    scene: [Boot, MenuTutorial, Level, End, AccionTutorial, TiendaTutorial, DialogoTutorial],
+    scene: [Boot, MenuTutorial, Level, End, AccionTutorial, TiendaTutorial, DialogoTutorial, Menu],
     physics: {
         default: 'arcade',
         arcade: {

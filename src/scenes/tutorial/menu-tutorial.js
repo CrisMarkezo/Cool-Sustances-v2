@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import onlyMenuImg from '../../../assets/sprites/menu/onlyMenu700.png'
+import onlyMenuImg from '../../../assets/sprites/menu/onlyMenu1.png'
 import dialogoMenuImg from '../../../assets/sprites/menu/dialogoMenu_50.png'
 import tiendaMenuImg from '../../../assets/sprites/menu/tiendaMenu_50.png'
 import accionMenuImg from '../../../assets/sprites/menu/accionMenu_50.png'
@@ -62,7 +62,7 @@ export default class MenuTutorial extends Phaser.Scene {
         dungeonBtn.on('pointerdown', () => {
             if (currentStep === 3) {
                 console.log('Salir del tutorial clickeado');
-                this.scene.start('storyScene2');
+                this.scene.start('phone');
             }
         });
         
