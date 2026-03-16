@@ -18,6 +18,15 @@ export default class AccionTutorial extends Phaser.Scene {
         this.add.image(500, 350, 'accion_dia')
         this.add.image(200, 500, 'cubatita')
 
+        const contextoBubble = this.add.rectangle(500, 100, 800, 150, 0xE1AD01)
+        contextoBubble.setStrokeStyle(3, 0x1F2A44)
+        const contexto = this.add.text(500, 100, 'Siguiendo a la dueña te encuentras con una moneda brillante en el suelo, pero tu gran olfato huele algo delicioso en lo que parece ser un cubo con muchas cosas. ¿Qué haces?', { 
+            fontSize: '15px', 
+            fill: '#1F2A44',
+            wordWrap: { width: 700 },
+            align: 'center'
+        }).setOrigin(0.5).setInteractive();
+
         const opcion1Bubble = this.add.rectangle(600, 500, 560, 60, 0Xe76d2c)
         opcion1Bubble.setStrokeStyle(3, 0x000000)
         const opcion1 = this.add.text(600, 500, 'Recoger dinero del suelo (+2€)', {

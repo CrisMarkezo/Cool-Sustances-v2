@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import onlyMenuImg from '../../../assets/sprites/menu/onlyMenu1.png'
+import MenuSprite from '../../game-objects/menuSprite.js'
 import dialogoMenuImg from '../../../assets/sprites/menu/dialogoMenu_50.png'
 import tiendaMenuImg from '../../../assets/sprites/menu/tiendaMenu_50.png'
 import accionMenuImg from '../../../assets/sprites/menu/accionMenu_50.png'
@@ -11,7 +11,7 @@ export default class MenuTutorial extends Phaser.Scene {
     }
 
     preload(){
-        this.load.image('onlyMenu', onlyMenuImg);
+        MenuSprite.preload(this);
         this.load.image('dialogoMenu', dialogoMenuImg);
         this.load.image('tiendaMenu', tiendaMenuImg);
         this.load.image('accionMenu', accionMenuImg);
@@ -24,8 +24,8 @@ export default class MenuTutorial extends Phaser.Scene {
         }
         const currentStep = this.registry.get('tutorialStep');
 
-        // mostrar onlyMenu de fondo manteniendo proporción
-        const menuImg = this.add.image(500, 350, 'onlyMenu');
+        // mostrar onlyMenu de fondo
+        this.menuSprite = new MenuSprite(this, 500, 350);
        
         // boton de escena de accion
         const accionBtn = this.add.image(485, 400, 'accionMenu').setInteractive();

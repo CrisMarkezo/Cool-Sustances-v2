@@ -1,6 +1,5 @@
 import Phaser from 'phaser'
-import onlyMenuImg1 from '../../../assets/sprites/menu/onlyMenu1.png'
-import onlyMenuImg2 from '../../../assets/sprites/menu/onlyMenu2.png'
+import MenuSprite from '../../game-objects/menuSprite.js'
 import dialogoMenuImg from '../../../assets/sprites/menu/dialogoMenu_50.png'
 import tiendaMenuImg from '../../../assets/sprites/menu/tiendaMenu_50.png'
 import accionMenuImg from '../../../assets/sprites/menu/accionMenu_50.png'
@@ -12,8 +11,7 @@ export default class Menu extends Phaser.Scene {
     }
 
     preload(){
-        this.load.image('onlyMenu1', onlyMenuImg1);
-        this.load.image('onlyMenu2', onlyMenuImg2);
+        MenuSprite.preload(this);
         this.load.image('dialogoMenu', dialogoMenuImg);
         this.load.image('tiendaMenu', tiendaMenuImg);
         this.load.image('accionMenu', accionMenuImg);
@@ -29,8 +27,8 @@ export default class Menu extends Phaser.Scene {
             this.registry.set('position', 1);
         }
 
-        // mostrar onlyMenu de fondo manteniendo proporción
-        const menuImg = this.add.image(500, 350, 'onlyMenu');
+        // mostrar onlyMenu de fondo 
+        this.menuSprite = new MenuSprite(this, 500, 350);
 
         //PRIMERA LINEA 
         // boton de accion 
@@ -170,7 +168,7 @@ export default class Menu extends Phaser.Scene {
         });
 
         //QUINTA LINEA
-        const dialogoBtnQuint1 = this.add.image(500, 200, 'dialogoMenu').setInteractive();
+        const dialogoBtnQuint1 = this.add.image(410, 200, 'dialogoMenu').setInteractive();
         dialogoBtnQuint1.on('pointerdown', () => {
             if (currentStep === 4 && (this.registry.get('position') === 0 || this.registry.get('position') === 1)) {
                 console.log('Dialogo clickeado');
@@ -181,7 +179,7 @@ export default class Menu extends Phaser.Scene {
         });
 
         // boton de accion
-        const accionBtnQuint1 = this.add.image(410, 200, 'accionMenu').setInteractive();
+        const accionBtnQuint1 = this.add.image(500, 200, 'accionMenu').setInteractive();
         accionBtnQuint1.on('pointerdown', () => {
             if (currentStep === 4) {
                 console.log('Acción clickeada');
@@ -191,7 +189,7 @@ export default class Menu extends Phaser.Scene {
             }
         });
 
-        const dialogoBtnQuint2 = this.add.image(500, 200, 'dialogoMenu').setInteractive();
+        const dialogoBtnQuint2 = this.add.image(590, 200, 'dialogoMenu').setInteractive();
         dialogoBtnQuint2.on('pointerdown', () => {
             if (currentStep === 4 && (this.registry.get('position') === 2 || this.registry.get('position') === 1)) {
                 console.log('Dialogo clickeado');

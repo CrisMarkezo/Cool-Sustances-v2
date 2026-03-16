@@ -20,7 +20,7 @@ export default class DialogoTutorial extends Phaser.Scene {
         const contextoBubble = this.add.rectangle(500, 100, 800, 150, 0xE1AD01)
         contextoBubble.setStrokeStyle(3, 0x1F2A44)
         const contexto = this.add.text(500, 100, 'Aparece una señora preguntandote que hace una cosa tan bonita en medio de la calle, ofreciendote una loncha de jamón. ¿Qué haces?', { 
-            fontSize: '20px', 
+            fontSize: '15px', 
             fill: '#1F2A44',
             wordWrap: { width: 700 },
             align: 'center'
