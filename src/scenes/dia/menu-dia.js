@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import MenuSprite from '../../game-objects/menuSprite.js'
+import widgetSprite from '../../game-objects/widgetSprite.js'
 import dialogoMenuImg from '../../../assets/sprites/menu/dialogoMenu_50.png'
 import tiendaMenuImg from '../../../assets/sprites/menu/tiendaMenu_50.png'
 import accionMenuImg from '../../../assets/sprites/menu/accionMenu_50.png'
@@ -12,6 +13,7 @@ export default class Menu extends Phaser.Scene {
 
     preload(){
         MenuSprite.preload(this);
+        widgetSprite.preload(this);
         this.load.image('dialogoMenu', dialogoMenuImg);
         this.load.image('tiendaMenu', tiendaMenuImg);
         this.load.image('accionMenu', accionMenuImg);
@@ -201,8 +203,8 @@ export default class Menu extends Phaser.Scene {
 
 
         //boton de dungeon pero es la continuación del lore en este caso
-        const dungeonBtn = this.add.text(485, 150, 'FDI', { fontSize: '20px', fill: '#2b1515' }).setInteractive();
-        dungeonBtn.on('pointerdown', () => {
+        this.widgetSprite = new widgetSprite(this, 500, 120).setInteractive({ useHandCursor: true });
+        this.widgetSprite.on('pointerdown', () => {
             if (currentStep === 5) {
                 console.log('Salir del tutorial clickeado');
                 this.scene.start('mazmorra');

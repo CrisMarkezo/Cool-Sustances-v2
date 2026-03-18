@@ -20,7 +20,7 @@ export default class MenuSprite extends Phaser.Physics.Arcade.Sprite {
         scene.load.image("onlyMenu1.8", onlyMenuImg18);
         scene.load.image("onlyMenu2", onlyMenuImg2);
     }
-    constructor(scene, x, y, interval = 500) {
+    constructor(scene, x, y, interval = 200) {
         super(scene, x, y, "onlyMenu1");
         scene.add.existing(this);
         const frames = [

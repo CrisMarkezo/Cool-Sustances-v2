@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 
-import accionDia from '../../../assets/sprites/dia/accion_escena_tutorial.jpeg'
+import accionDia from '../../../assets/sprites/dia/UIday.png'
 import cubatita from '../../../assets/sprites/cubatita.png'
 
 export default class AccionTutorial extends Phaser.Scene {
@@ -14,32 +14,51 @@ export default class AccionTutorial extends Phaser.Scene {
     }
 
     create(){
+        let opcion1, opcion2, opcion1Bubble, opcion2Bubble;
 
         this.add.image(500, 350, 'accion_dia')
         this.add.image(200, 500, 'cubatita')
 
-        const contextoBubble = this.add.rectangle(500, 100, 800, 150, 0xE1AD01)
-        contextoBubble.setStrokeStyle(3, 0x1F2A44)
-        const contexto = this.add.text(500, 100, 'Siguiendo a la dueña te encuentras con una moneda brillante en el suelo, pero tu gran olfato huele algo delicioso en lo que parece ser un cubo con muchas cosas. ¿Qué haces?', { 
+        const contextoBubble = this.add.rectangle(400, 250, 500, 150, 0xC8006E)
+        contextoBubble.setStrokeStyle(3, 0Xe76d2c)
+        const contexto = this.add.text(400, 250, 'Siguiendo a la dueña te encuentras con una moneda brillante en el suelo, pero tu gran olfato huele algo delicioso en lo que parece ser un cubo con muchas cosas. ¿Qué haces?', { 
             fontSize: '15px', 
-            fill: '#1F2A44',
-            wordWrap: { width: 700 },
+            fill: '#ffffff',
+            wordWrap: { width: 500 },
             align: 'center'
-        }).setOrigin(0.5).setInteractive();
+        }).setOrigin(0.5)
+        this.input.once('pointerdown', () => {
+            contexto.destroy()
+            contextoBubble.destroy()
 
-        const opcion1Bubble = this.add.rectangle(600, 500, 560, 60, 0Xe76d2c)
-        opcion1Bubble.setStrokeStyle(3, 0x000000)
-        const opcion1 = this.add.text(600, 500, 'Recoger dinero del suelo (+2€)', {
-            fontSize: '22px',
-            color: '#ffffff'
-        }).setOrigin(0.5).setInteractive()
+            opcion1Bubble = this.add.rectangle(650, 500, 360, 60, 0Xe76d2c)
+            opcion1Bubble.setStrokeStyle(3, 0x000000)
+            opcion1 = this.add.text(650, 500, 'Recoger dinero del suelo (+2€)', {
+                fontSize: '22px',
+                color: '#ffffff',
+                wordWrap: { width: 300 },
+                align: 'center'
+            }).setOrigin(0.5).setInteractive()
 
-        const opcion2Bubble = this.add.rectangle(600, 580, 560, 60, 0Xe76d2c)
-        opcion2Bubble.setStrokeStyle(3, 0x000000)
-        const opcion2 = this.add.text(600, 580, 'Buscar en la basura (+1 yanotekomo)', {
-            fontSize: '22px',
-            color: '#ffffff'
-        }).setOrigin(0.5).setInteractive()
+            opcion2Bubble = this.add.rectangle(650, 580, 360, 60, 0Xe76d2c)
+            opcion2Bubble.setStrokeStyle(3, 0x000000)
+            opcion2 = this.add.text(650, 580, 'Buscar en la basura (+1 yanotekomo)', {
+                fontSize: '22px',
+                color: '#ffffff',
+                wordWrap: { width: 300 },
+                align: 'center'
+            }).setOrigin(0.5).setInteractive()
+
+            opcion1.on('pointerdown', () => {
+                mostrarRecompensa('¡Has conseguido 2€!')
+            })
+
+            opcion2.on('pointerdown', () => {
+                mostrarRecompensa('¡Has conseguido 1 yanotekomo!')
+            })
+        })
+
+        
 
 
         const mostrarRecompensa = (mensaje) => {
@@ -48,7 +67,7 @@ export default class AccionTutorial extends Phaser.Scene {
             opcion1Bubble.destroy()
             opcion2Bubble.destroy()
 
-            const bubble = this.add.rectangle(600, 580, 580, 110, 0xffffff)
+            const bubble = this.add.rectangle(600, 580, 300, 110, 0xffffff)
             bubble.setStrokeStyle(4, 0x000000)
 
             this.add.text(600, 580, mensaje, {
@@ -68,14 +87,6 @@ export default class AccionTutorial extends Phaser.Scene {
                 })
             })
         }
-
-        opcion1.on('pointerdown', () => {
-            mostrarRecompensa('¡Has conseguido 2€!')
-        })
-
-        opcion2.on('pointerdown', () => {
-            mostrarRecompensa('¡Has conseguido 1 yanotekomo!')
-        })
 
     }
 }
