@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 
 import accionDia from '../../../assets/sprites/dia/UIday.png'
 import cubatita from '../../../assets/sprites/cubatita.png'
+import InventorySprite from '../../game-objects/inventorySprite.js'
 
 export default class AccionTutorial extends Phaser.Scene {
     constructor(){
@@ -11,18 +12,22 @@ export default class AccionTutorial extends Phaser.Scene {
     preload(){
         this.load.image('accion_dia', accionDia)
         this.load.image('cubatita', cubatita)
+        InventorySprite.preload(this)
     }
 
     create(){
         let opcion1, opcion2, opcion1Bubble, opcion2Bubble;
 
         this.add.image(500, 350, 'accion_dia')
-        this.add.image(200, 500, 'cubatita')
+        //this.add.image(200, 500, 'cubatita')
+        InventorySprite.create(this, 50, 60)
 
-        const contextoBubble = this.add.rectangle(400, 250, 500, 150, 0xC8006E)
+
+        const contextoBubble = this.add.rectangle(325, 250, 500, 150, 0xC8006E)
         contextoBubble.setStrokeStyle(3, 0Xe76d2c)
-        const contexto = this.add.text(400, 250, 'Siguiendo a la dueña te encuentras con una moneda brillante en el suelo, pero tu gran olfato huele algo delicioso en lo que parece ser un cubo con muchas cosas. ¿Qué haces?', { 
-            fontSize: '15px', 
+        const contexto = this.add.text(325, 250, 'Siguiendo a la dueña te encuentras con una moneda brillante en el suelo, pero tu gran olfato huele algo delicioso en lo que parece ser un cubo con muchas cosas. ¿Qué haces?', { 
+            fontFamily: '"Toonway", sans-serif',
+            fontSize: '20px', 
             fill: '#ffffff',
             wordWrap: { width: 500 },
             align: 'center'
@@ -34,6 +39,7 @@ export default class AccionTutorial extends Phaser.Scene {
             opcion1Bubble = this.add.rectangle(650, 500, 360, 60, 0Xe76d2c)
             opcion1Bubble.setStrokeStyle(3, 0x000000)
             opcion1 = this.add.text(650, 500, 'Recoger dinero del suelo (+2€)', {
+                fontFamily: '"Keneric", sans-serif',
                 fontSize: '22px',
                 color: '#ffffff',
                 wordWrap: { width: 300 },
@@ -43,6 +49,7 @@ export default class AccionTutorial extends Phaser.Scene {
             opcion2Bubble = this.add.rectangle(650, 580, 360, 60, 0Xe76d2c)
             opcion2Bubble.setStrokeStyle(3, 0x000000)
             opcion2 = this.add.text(650, 580, 'Buscar en la basura (+1 yanotekomo)', {
+                fontFamily: '"Keneric", sans-serif',
                 fontSize: '22px',
                 color: '#ffffff',
                 wordWrap: { width: 300 },
@@ -71,6 +78,7 @@ export default class AccionTutorial extends Phaser.Scene {
             bubble.setStrokeStyle(4, 0x000000)
 
             this.add.text(600, 580, mensaje, {
+                fontFamily: '"PixelAE-Regular", monospace',
                 fontSize: '28px',
                 color: '#000000',
                 align: 'center'
@@ -78,6 +86,7 @@ export default class AccionTutorial extends Phaser.Scene {
 
             this.time.delayedCall(2000, () => {
                 const continuar = this.add.text(600, 660, 'Presiona aquí para continuar', {
+                    fontFamily: '"PixelAE-Bold", monospace',
                     fontSize: '20px',
                     color: '#0066cc'
                 }).setOrigin(0.5).setInteractive()

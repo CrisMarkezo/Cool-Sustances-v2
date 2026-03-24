@@ -37,6 +37,14 @@ export default class Boot extends Phaser.Scene {
    * nivel del juego
    */
   create() {
-    this.scene.start('phone-tutorial');
+    Promise.all([
+      document.fonts.load('16px "Toonway"'),
+      document.fonts.load('16px "Keneric"'),
+      document.fonts.load('16px "PixelAE-Regular"'),
+      document.fonts.load('16px "PixelAE-Bold"')
+    ]).then(() => {
+      this.scene.start('phone-tutorial');
+    });
+    
   }
 }

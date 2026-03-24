@@ -4,6 +4,7 @@ import widgetSprite from '../../game-objects/widgetSprite.js'
 import dialogoMenuImg from '../../../assets/sprites/menu/dialogoMenu_50.png'
 import tiendaMenuImg from '../../../assets/sprites/menu/tiendaMenu_50.png'
 import accionMenuImg from '../../../assets/sprites/menu/accionMenu_50.png'
+import pezImg from '../../../assets/sprites/menu/pez.png'
 
 export default class Menu extends Phaser.Scene {
 
@@ -17,6 +18,7 @@ export default class Menu extends Phaser.Scene {
         this.load.image('dialogoMenu', dialogoMenuImg);
         this.load.image('tiendaMenu', tiendaMenuImg);
         this.load.image('accionMenu', accionMenuImg);
+        this.load.image('pez', pezImg);
     }
 
     create(){
@@ -28,9 +30,61 @@ export default class Menu extends Phaser.Scene {
         if(!this.registry.has('position')){
             this.registry.set('position', 1);
         }
+        const position = this.registry.get('position');
+        if (!this.registry.has('selectedPath')){
+            this.registry.set('selectedPath', []);
+        }
+        const selectedPath = this.registry.get('selectedPath');
+
+        const getNodePosition = (stepIndex, positionIndex) => {
+            const xByPosition = [410, 500, 590];
+            const yByStep = [450, 390, 330, 260, 200];
+
+            if (stepIndex < 0 || stepIndex >= yByStep.length) return null;
+            if (positionIndex < 0 || positionIndex >= xByPosition.length) return null;
+
+            return { x: xByPosition[positionIndex], y: yByStep[stepIndex] };
+        };
+
+        const drawSelectedPath = () => {
+            const points = [];
+
+            selectedPath.forEach((node, stepIndex) => {
+                if (!node || typeof node.position !== 'number') return;
+                const point = getNodePosition(stepIndex, node.position);
+                if (point) points.push(point);
+            });
+
+            if (points.length > 1) {
+                const graphics = this.add.graphics();
+                graphics.lineStyle(5, 0xf4d35e, 0.9);
+                graphics.beginPath();
+                graphics.moveTo(points[0].x, points[0].y);
+
+                for (let i = 1; i < points.length; i++) {
+                    graphics.lineTo(points[i].x, points[i].y);
+                }
+
+                graphics.strokePath();
+            }
+
+            points.forEach((point) => {
+                this.add.image(point.x, point.y, 'pez').setScale(0.35).setDepth(5);
+            });
+        };
+
+        const goToStepScene = (nextStep, nextPosition, sceneKey) => {
+            const updatedPath = [...this.registry.get('selectedPath')];
+            updatedPath[currentStep] = { position: nextPosition };
+            this.registry.set('selectedPath', updatedPath);
+            this.registry.set('step', nextStep);
+            this.registry.set('position', nextPosition);
+            this.scene.start(sceneKey);
+        };
 
         // mostrar onlyMenu de fondo 
         this.menuSprite = new MenuSprite(this, 500, 350);
+        drawSelectedPath();
 
         //PRIMERA LINEA 
         // boton de accion 
@@ -38,9 +92,7 @@ export default class Menu extends Phaser.Scene {
         accionBtnPrimer1.on('pointerdown', () => {
             if (currentStep === 0) {
                 console.log('Acción clickeada');
-                this.registry.set('step', 1);
-                this.scene.start('accion-primera-1');
-                this.registry.set('position', 0);
+                goToStepScene(1, 0, 'accion-primera-1');
             }
         });
 
@@ -49,9 +101,7 @@ export default class Menu extends Phaser.Scene {
         dialogoBtnPrimer1.on('pointerdown', () => {
             if (currentStep === 0) {
                 console.log('Dialogo clickead0');
-                this.registry.set('step', 1);
-                this.scene.start('dialogo-primera-1');
-                this.registry.set('position', 1);
+                goToStepScene(1, 1, 'dialogo-primera-1');
             }
         });
         
@@ -60,9 +110,7 @@ export default class Menu extends Phaser.Scene {
         accionBtnPrimer2.on('pointerdown', () => {
             if (currentStep === 0) {
                 console.log('Acción clickeada');
-                this.registry.set('step', 1);
-                this.scene.start('accion-primera-2');
-                this.registry.set('position', 2);
+                goToStepScene(1, 2, 'accion-primera-2');
             }
         });
 
@@ -71,11 +119,9 @@ export default class Menu extends Phaser.Scene {
         // boton de dialogo
         const dialogoBtnSegun1 = this.add.image(410, 390, 'dialogoMenu').setInteractive();
         dialogoBtnSegun1.on('pointerdown', () => {
-            if (currentStep === 1 && (this.registry.get('position') === 1 || this.registry.get('position') === 0)) {
+            if (currentStep === 1 && (position === 1 || position === 0)) {
                 console.log('Dialogo clickead0');
-                this.registry.set('step', 2);
-                this.scene.start('dialogo-segunda-1');
-                this.registry.set('position', 0);
+                goToStepScene(2, 0, 'dialogo-segunda-1');
             }
         });
 
@@ -83,9 +129,7 @@ export default class Menu extends Phaser.Scene {
         accionBtnSegun1.on('pointerdown', () => {
             if (currentStep === 1) {
                 console.log('Acción clickeada');
-                this.registry.set('step', 2);
-                this.scene.start('accion-segunda-1');
-                this.registry.set('position', 1);
+                goToStepScene(2, 1, 'accion-segunda-1');
             }
         });
 
@@ -93,11 +137,9 @@ export default class Menu extends Phaser.Scene {
         // boton de escena de dialogo
         const accionBtnSegun2 = this.add.image(590, 390, 'accionMenu').setInteractive();
         accionBtnSegun2.on('pointerdown', () => {
-            if (currentStep === 1 && (this.registry.get('position') === 1 || this.registry.get('position') === 2)) {
+            if (currentStep === 1 && (position === 1 || position === 2)) {
                 console.log('Acción clickeada');
-                this.registry.set('step', 2);
-                this.scene.start('accion-segunda-2');
-                this.registry.set('position', 2);
+                goToStepScene(2, 2, 'accion-segunda-2');
             }
         });
 
@@ -105,11 +147,9 @@ export default class Menu extends Phaser.Scene {
         // boton de dialogo
         const tiendaBtnTercer1 = this.add.image(410, 330, 'tiendaMenu').setInteractive();
         tiendaBtnTercer1.on('pointerdown', () => {
-            if (currentStep === 2 && (this.registry.get('position') === 1 || this.registry.get('position') === 0)) {
+            if (currentStep === 2 && (position === 1 || position === 0)) {
                 console.log('Dialogo clickead0');
-                this.registry.set('step', 3);
-                this.scene.start('tienda-tercera-1');
-                this.registry.set('position', 0);
+                goToStepScene(3, 0, 'tienda-tercera-1');
             }
         });
 
@@ -117,9 +157,7 @@ export default class Menu extends Phaser.Scene {
         tiendaBtnTercer2.on('pointerdown', () => {
             if (currentStep === 2) {
                 console.log('Acción clickeada');
-                this.registry.set('step', 3);
-                this.scene.start('tienda-tercera-2');
-                this.registry.set('position', 1);
+                goToStepScene(3, 1, 'tienda-tercera-2');
             }
         });
 
@@ -127,11 +165,9 @@ export default class Menu extends Phaser.Scene {
         // boton de escena de dialogo
         const dialogoBtnTercer1 = this.add.image(590, 330, 'dialogoMenu').setInteractive();
         dialogoBtnTercer1.on('pointerdown', () => {
-            if (currentStep === 2 && (this.registry.get('position') === 1 || this.registry.get('position') === 2)) {
+            if (currentStep === 2 && (position === 1 || position === 2)) {
                 console.log('Acción clickeada');
-                this.registry.set('step', 3);
-                this.scene.start('dialogo-tercera-1');
-                this.registry.set('position', 2)
+                goToStepScene(3, 2, 'dialogo-tercera-1');
             }
         });
 
@@ -139,11 +175,9 @@ export default class Menu extends Phaser.Scene {
         // boton de dialogo
         const accionBtnCuart1 = this.add.image(410, 260, 'accionMenu').setInteractive();
         accionBtnCuart1.on('pointerdown', () => {
-            if (currentStep === 3 && (this.registry.get('position') === 0 || this.registry.get('position') === 1)) {
+            if (currentStep === 3 && (position === 0 || position === 1)) {
                 console.log('Acción clickeada');
-                this.registry.set('step', 4);
-                this.scene.start('accion-cuarta-1');
-                this.registry.set('position', 0);
+                goToStepScene(4, 0, 'accion-cuarta-1');
             }
         });
 
@@ -151,9 +185,7 @@ export default class Menu extends Phaser.Scene {
         dialogoBtnCuart1.on('pointerdown', () => {
             if (currentStep === 3) {
                 console.log('Dialogo clickeado');
-                this.registry.set('step', 4);
-                this.scene.start('dialogo-cuarta-1');
-                this.registry.set('position', 1);
+                goToStepScene(4, 1, 'dialogo-cuarta-1');
             }
         });
 
@@ -161,22 +193,18 @@ export default class Menu extends Phaser.Scene {
         // boton de escena de dialogo
         const tiendaBtnCuart1 = this.add.image(590, 260, 'tiendaMenu').setInteractive();
         tiendaBtnCuart1.on('pointerdown', () => {
-            if (currentStep === 3 && (this.registry.get('position') === 2 || this.registry.get('position') === 1)) {
+            if (currentStep === 3 && (position === 2 || position === 1)) {
                 console.log('Tienda clickeada');
-                this.registry.set('step', 4);
-                this.scene.start('tienda-cuarta-1');
-                this.registry.set('position', 2);
+                goToStepScene(4, 2, 'tienda-cuarta-1');
             }
         });
 
         //QUINTA LINEA
         const dialogoBtnQuint1 = this.add.image(410, 200, 'dialogoMenu').setInteractive();
         dialogoBtnQuint1.on('pointerdown', () => {
-            if (currentStep === 4 && (this.registry.get('position') === 0 || this.registry.get('position') === 1)) {
+            if (currentStep === 4 && (position === 0 || position === 1)) {
                 console.log('Dialogo clickeado');
-                this.registry.set('step', 5);
-                this.scene.start('dialogo-quinta-1');
-                this.registry.set('position', 0);
+                goToStepScene(5, 0, 'dialogo-quinta-1');
             }
         });
 
@@ -185,19 +213,15 @@ export default class Menu extends Phaser.Scene {
         accionBtnQuint1.on('pointerdown', () => {
             if (currentStep === 4) {
                 console.log('Acción clickeada');
-                this.registry.set('step', 5);
-                this.scene.start('accion-quinta-1');
-                this.registry.set('position', 1);
+                goToStepScene(5, 1, 'accion-quinta-1');
             }
         });
 
         const dialogoBtnQuint2 = this.add.image(590, 200, 'dialogoMenu').setInteractive();
         dialogoBtnQuint2.on('pointerdown', () => {
-            if (currentStep === 4 && (this.registry.get('position') === 2 || this.registry.get('position') === 1)) {
+            if (currentStep === 4 && (position === 2 || position === 1)) {
                 console.log('Dialogo clickeado');
-                this.registry.set('step', 5);
-                this.scene.start('dialogo-quinta-2');
-                this.registry.set('position', 2);
+                goToStepScene(5, 2, 'dialogo-quinta-2');
             }
         });
 
@@ -210,6 +234,21 @@ export default class Menu extends Phaser.Scene {
                 this.scene.start('mazmorra');
             }
         });
+
+        //anuncio en el menú de decoracion, pero podría usarse para otra cosa, como un easter egg o algo así
+        this.add.text(520, 550, 'Do not fret if you want to hurt yourself!', {
+            fontFamily: '"pixelAE-Bold", monospace',
+            fontSize: '10px',
+            fill: '#000000',
+            align: 'center'
+        }).setOrigin(0.5);
+        this.add.text(520, 570, 'Call or text the number 667 if you need asistance', {
+            fontFamily: '"pixelAE-Regular", monospace',
+            fontSize: '9px',
+            fill: '#000000',
+            align: 'center',
+            wordWrap: { width: 200 },
+        }).setOrigin(0.5);
         
     }
 }
