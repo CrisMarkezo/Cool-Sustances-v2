@@ -1,12 +1,8 @@
 import Phaser from 'phaser'
-import WidgetSpriteImg1 from '../../assets/sprites/menu/widget1Menu.png'
-import WidgetSpriteImg2 from '../../assets/sprites/menu/widget2Menu.png'
+
 
 export default class WidgetSprite extends Phaser.Physics.Arcade.Sprite {
-    static preload(scene) {
-        scene.load.image("widget1", WidgetSpriteImg1);
-        scene.load.image("widget2", WidgetSpriteImg2);
-    }
+  
     constructor(scene, x, y, interval = 1200) {
         super(scene, x, y, "widget1");
         scene.add.existing(this);

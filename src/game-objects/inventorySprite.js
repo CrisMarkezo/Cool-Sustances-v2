@@ -1,11 +1,6 @@
 import Phaser from 'phaser'
-import catBox from '../../assets/sprites/dia/Box3.png'
 
 export default class InventorySprite {
-    static preload(scene) {
-        scene.load.spritesheet('catBox', catBox, { frameWidth: 90, frameHeight: 90 });
-    }
-
     static create(scene, x, y) {
         if (!scene.anims.exists('catBoxAnim')) {
             scene.anims.create({

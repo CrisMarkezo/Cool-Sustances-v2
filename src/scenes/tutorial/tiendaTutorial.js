@@ -1,18 +1,10 @@
 import Phaser from 'phaser'
-
-import tiendaDia from '../../../assets/sprites/dia/tienda_escena_tutorial.png'
-import cubatita from '../../../assets/sprites/cubatita.png'
 import InventorySprite from '../../game-objects/inventorySprite.js'
+import RuedaSprite from '../../game-objects/ruedaSprite.js'
 
 export default class TiendaTutorial extends Phaser.Scene {
     constructor(){
         super({key: 'tiendaTutorial'})
-    }
-
-    preload(){
-        this.load.image('tienda_dia', tiendaDia)
-        this.load.image('cubatita', cubatita)
-        InventorySprite.preload(this)
     }
 
     create(){
@@ -20,6 +12,7 @@ export default class TiendaTutorial extends Phaser.Scene {
         const bgImg = this.add.image(500, 350, 'tienda_dia');
         //const player = this.add.image(200, 500, 'cubatita');
         InventorySprite.create(this, 50, 60)
+        RuedaSprite.create(this, 920, 85, 'rueda_tienda')   
         const opcion1Bubble = this.add.rectangle(600, 500, 560, 60, 0x6969ec)
         opcion1Bubble.setStrokeStyle(3, 0x000000)
         const opcion1 = this.add.text(600, 500, 'Comprar filtros (2€)', { 

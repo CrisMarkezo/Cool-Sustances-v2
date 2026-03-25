@@ -1,24 +1,11 @@
 import Phaser from 'phaser'
 import MenuSprite from '../../game-objects/menuSprite.js'
 import WidgetSprite from '../../game-objects/widgetSprite.js'
-import dialogoMenuImg from '../../../assets/sprites/menu/dialogoMenu_50.png'
-import tiendaMenuImg from '../../../assets/sprites/menu/tiendaMenu_50.png'
-import accionMenuImg from '../../../assets/sprites/menu/accionMenu_50.png'
-import pezImg from '../../../assets/sprites/menu/pez.png'
 
 export default class MenuTutorial extends Phaser.Scene {
 
     constructor(){
         super({key: 'phone-tutorial'});
-    }
-
-    preload(){
-        MenuSprite.preload(this);
-        WidgetSprite.preload(this);
-        this.load.image('dialogoMenu', dialogoMenuImg);
-        this.load.image('tiendaMenu', tiendaMenuImg);
-        this.load.image('accionMenu', accionMenuImg);
-        this.load.image('pez', pezImg);
     }
 
     create(){
