@@ -3,6 +3,7 @@ import InventorySprite from '../../game-objects/inventorySprite.js'
 import RuedaSprite from '../../game-objects/ruedaSprite.js'
 import dialogTextSprite from './../../game-objects/dialogTextSprite';
 import nextDialogSprite from './../../game-objects/nextDialogSprite';
+import IconSprite from '../../game-objects/iconSprite.js'
 
 export default class DialogoTutorial extends Phaser.Scene {
     constructor(){
@@ -16,7 +17,15 @@ export default class DialogoTutorial extends Phaser.Scene {
         this.add.image(500, 350, 'dia');
         InventorySprite.create(this, 50, 60)
         RuedaSprite.create(this, 920, 85, 'rueda')
+        IconSprite.create(this, 920, 85, 'dialogo', 1200)
         //this.add.image(200, 500, 'cubatita');
+
+
+        this.add.text(670, 75, 'TUTORIAL: Dialogo', {
+            fontFamily: '"Toonway", sans-serif',
+            fontSize: '28px',
+            color: '#ffffff'
+        }).setOrigin(0.5)
 
         const contextoBubble = this.add.rectangle(325, 250, 500, 150, 0xC8006E)
         contextoBubble.setStrokeStyle(3, 0Xe76d2c)

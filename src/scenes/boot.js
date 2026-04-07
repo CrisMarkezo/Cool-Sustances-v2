@@ -41,6 +41,17 @@ import catBox from '../../assets/sprites/dia/Box3.png'
 import WidgetSpriteImg1 from '../../assets/sprites/menu/widget1Menu.png'
 import WidgetSpriteImg2 from '../../assets/sprites/menu/widget2Menu.png'
 
+import accionIcon1 from '../../assets/sprites/dia/accionIconAnimation1.png'
+import accionIcon2 from '../../assets/sprites/dia/accionIconAnimation2.png'
+import accionIcon3 from '../../assets/sprites/dia/accionIconAnimation3.png'
+import accionIcon4 from '../../assets/sprites/dia/accionIconAnimation4.png'
+
+import dialogoIcon1 from '../../assets/sprites/dia/dialogoIconAnimation1.png'
+import dialogoIcon2 from '../../assets/sprites/dia/dialogoIconAnimation2.png'
+import dialogoIcon3 from '../../assets/sprites/dia/dialogoAnimation3.png'
+
+import tiendaIcon from '../../assets/sprites/dia/tiendaIconScene.png'
+
 /*
  * Escena para la precarga de los assets que se usarán en el juego.
  * Esta escena se puede mejorar añadiendo una imagen del juego y una 
@@ -94,6 +105,16 @@ export default class Boot extends Phaser.Scene {
     this.load.image("widget1", WidgetSpriteImg1);
     this.load.image("widget2", WidgetSpriteImg2);
 
+    this.load.image('accionIcon1', accionIcon1);
+    this.load.image('accionIcon2', accionIcon2);
+    this.load.image('accionIcon3', accionIcon3);
+    this.load.image('accionIcon4', accionIcon4);
+
+    this.load.image('dialogoIcon1', dialogoIcon1);
+    this.load.image('dialogoIcon2', dialogoIcon2);
+    this.load.image('dialogoIcon3', dialogoIcon3);
+
+    this.load.image('tiendaIcon', tiendaIcon);
   }
 
   /**
@@ -105,7 +126,9 @@ export default class Boot extends Phaser.Scene {
       document.fonts.load('16px "Toonway"'),
       document.fonts.load('16px "Keneric"'),
       document.fonts.load('16px "PixelAE-Regular"'),
-      document.fonts.load('16px "PixelAE-Bold"')
+      document.fonts.load('16px "PixelAE-Bold"'),
+      document.fonts.load('16px "ToonwayEmpty"'),
+      document.fonts.load('16px "BKFreakyHand"')
     ]).then(() => {
       this.scene.start('phone-tutorial');
     });

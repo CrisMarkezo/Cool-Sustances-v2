@@ -12,7 +12,15 @@ export default class TiendaTutorial extends Phaser.Scene {
         const bgImg = this.add.image(500, 350, 'tienda_dia');
         //const player = this.add.image(200, 500, 'cubatita');
         InventorySprite.create(this, 50, 60)
-        RuedaSprite.create(this, 920, 85, 'rueda_tienda')   
+        RuedaSprite.create(this, 920, 85, 'rueda_tienda')  
+        const icon = this.add.image(920, 85, 'tiendaIcon').setScale(0.5)
+        
+        this.add.text(670, 77, 'TUTORIAL: Tienda', {
+            fontFamily: '"Toonway", sans-serif',
+            fontSize: '25px',
+            color: '#ffffff'
+        }).setOrigin(0.5)
+        
         const opcion1Bubble = this.add.rectangle(600, 500, 560, 60, 0x6969ec)
         opcion1Bubble.setStrokeStyle(3, 0x000000)
         const opcion1 = this.add.text(600, 500, 'Comprar filtros (2€)', { 

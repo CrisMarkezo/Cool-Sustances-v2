@@ -4,6 +4,7 @@ import InventorySprite from '../../game-objects/inventorySprite.js'
 import RuedaSprite from '../../game-objects/ruedaSprite.js'
 import dialogTextSprite from '../../game-objects/dialogTextSprite.js'
 import nextDialogSprite from '../../game-objects/nextDialogSprite.js'
+import IconSprite from '../../game-objects/iconSprite.js'
 
 export default class AccionTutorial extends Phaser.Scene {
     constructor(){
@@ -17,10 +18,40 @@ export default class AccionTutorial extends Phaser.Scene {
         this.add.image(500, 350, 'dia')
         //this.add.image(200, 500, 'cubatita')
         InventorySprite.create(this, 50, 60)
-        
         RuedaSprite.create(this, 920, 85, 'rueda')
+        IconSprite.create(this, 920, 85, 'accion', 1200)
 
 
+
+
+        inventory_label = game.add.text(w - 100, 20, 'Pause', { font: '24px Arial', fill: '#fff' });
+        inventory_label.inputEnabled = true;
+        inventory_label.events.onInputUp.add(function () {
+            // When the paus button is pressed, we pause the game
+            game.paused = true;
+
+            // Then add the menu
+            this.start.scene.launch('inventory');
+
+        });
+
+        // Add a input listener that can help us return from being paused
+        game.input.onDown.add(unpause, self);
+
+
+
+
+
+        this.add.text(680, 75, 'TUTORIAL: Accion', {
+            fontFamily: '"Toonway", sans-serif',
+            fontSize: '28px',
+            color: '#ffffff'
+        }).setOrigin(0.5)
+        this.add.text(700, 110, 'POR EL DIA CUBATITA', {
+            fontFamily: '"ToonwayEmpty", sans-serif',
+            fontSize: '20px',
+            color: '#ffe2f9'
+        }).setOrigin(0.5)
         const contextoBubble = this.add.rectangle(325, 250, 500, 150, 0xC8006E)
         contextoBubble.setStrokeStyle(3, 0Xe76d2c)
         const contexto = dialogTextSprite.create(this, 325, 250, [
@@ -84,10 +115,10 @@ export default class AccionTutorial extends Phaser.Scene {
             opcion1Bubble.destroy()
             opcion2Bubble.destroy()
 
-            const bubble = this.add.rectangle(650, 580, 300, 110, 0xffffff)
+            const bubble = this.add.rectangle(650, 550, 300, 110, 0xffffff)
             bubble.setStrokeStyle(4, 0x000000)
 
-            this.add.text(650, 580, mensaje, {
+            this.add.text(650, 550, mensaje, {
                 fontFamily: '"PixelAE-Regular", monospace',
                 fontSize: '28px',
                 color: '#000000',
@@ -95,7 +126,7 @@ export default class AccionTutorial extends Phaser.Scene {
             }).setOrigin(0.5)
 
             this.time.delayedCall(2000, () => {
-                const continuar = this.add.text(650, 660, 'Presiona aquí para continuar', {
+                const continuar = this.add.text(650, 630, 'Presiona aquí para continuar', {
                     fontFamily: '"PixelAE-Bold", monospace',
                     fontSize: '20px',
                     color: '#0066cc'

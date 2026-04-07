@@ -17,7 +17,7 @@ export default class dialogTextSprite extends Phaser.GameObjects.Container {
         this.line = [];
         this.wordIndex = 0;
         this.lineIndex = 0;
-        this.wordDelay = 120;
+        this.wordDelay = 100;
         this.lineDelay = 400;
         this.isComplete = false;
 
