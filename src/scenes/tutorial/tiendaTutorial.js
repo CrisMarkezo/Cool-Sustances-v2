@@ -11,14 +11,25 @@ export default class TiendaTutorial extends Phaser.Scene {
 
         const bgImg = this.add.image(500, 350, 'tienda_dia');
         //const player = this.add.image(200, 500, 'cubatita');
-        InventorySprite.create(this, 50, 60)
+        const inventoryBtn = InventorySprite.create(this, 50, 60)
         RuedaSprite.create(this, 920, 85, 'rueda_tienda')  
-        const icon = this.add.image(920, 85, 'tiendaIcon').setScale(0.5)
+        const icon = this.add.image(920, 85, 'tiendaIcon')
         
+        inventoryBtn.on('pointerdown', () => {
+            this.scene.pause()
+            this.scene.launch('inventory', { from: this.scene.key })
+            this.scene.bringToTop('inventory')
+         })
+
         this.add.text(670, 77, 'TUTORIAL: Tienda', {
             fontFamily: '"Toonway", sans-serif',
             fontSize: '25px',
             color: '#ffffff'
+        }).setOrigin(0.5)
+        this.add.text(700, 110, 'POR LA TIENDA CUBATITA', {
+            fontFamily: '"ToonwayEmpty", sans-serif',
+            fontSize: '20px',
+            color: '#ffe2f9'
         }).setOrigin(0.5)
         
         const opcion1Bubble = this.add.rectangle(600, 500, 560, 60, 0x6969ec)

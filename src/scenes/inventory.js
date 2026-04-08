@@ -1,4 +1,4 @@
-import phaser from 'phaser';
+import Phaser from 'phaser';
 
 export default class Inventory extends Phaser.Scene {
 
@@ -6,40 +6,35 @@ export default class Inventory extends Phaser.Scene {
         super('inventory');
     }
 
-    // And finally the method that handels the pause menu
-    unpause(event){
-        // Only act if paused
-        if(game.paused){
-            // Calculate the corners of the menu
-            var x1 = w/2 - 270/2, x2 = w/2 + 270/2,
-                y1 = h/2 - 180/2, y2 = h/2 + 180/2;
+    create(){
+        const sourceSceneKey = this.scene.settings.data?.from;
 
-            // Check if the click was inside the menu
-            if(event.x > x1 && event.x < x2 && event.y > y1 && event.y < y2 ){
-                // The choicemap is an array that will help us see which item was clicked
-                var choisemap = ['one', 'two', 'three', 'four', 'five', 'six'];
+        const overlay = this.add
+            .rectangle(500, 350, 1000, 700, 0x000000, 0.35)
+            .setInteractive();
 
-                // Get menu local coordinates for the click
-                var x = event.x - x1,
-                    y = event.y - y1;
+        const panel = this.add.image(500, 350, 'inventario');
 
-                // Calculate the choice 
-                var choise = Math.floor(x / 90) + 3*Math.floor(y / 90);
-
-                // Display the choice
-                choiseLabel.text = 'You chose menu item: ' + choisemap[choise];
+        const closeInventory = () => {
+            this.scene.stop();
+            if (sourceSceneKey) {
+                this.scene.resume(sourceSceneKey);
             }
-            else{
-                // Remove the menu and the label
-                menu.destroy();
-                choiseLabel.destroy();
+        };
 
-                // Unpause the game
-                game.paused = false;
+        overlay.on('pointerdown', (pointer) => {
+            const bounds = panel.getBounds();
+            const clickedInsidePanel = Phaser.Geom.Rectangle.Contains(bounds, pointer.x, pointer.y);
+
+            if (!clickedInsidePanel) {
+                closeInventory();
             }
-        }
+        });
 
+        this.input.keyboard?.on('keydown-ESC', closeInventory);
 
-        
+        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+            this.input.keyboard?.off('keydown-ESC', closeInventory);
+        });
     }
 }

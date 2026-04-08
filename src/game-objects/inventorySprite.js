@@ -11,6 +11,9 @@ export default class InventorySprite {
             });
         }
 
-        return scene.add.sprite(x, y, 'catBox').play('catBoxAnim');
+        return scene.add
+            .sprite(x, y, 'catBox')
+            .play('catBoxAnim')
+            .setInteractive({ useHandCursor: true });
     }
 }

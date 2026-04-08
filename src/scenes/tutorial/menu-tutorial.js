@@ -25,7 +25,7 @@ export default class MenuTutorial extends Phaser.Scene {
        
         if(currentStep !== 0) {
             this.add.image(485, 450, 'accionMenu').setTint(0x999999); // Deshabilitar el botón de accion
-            this.add.image(485, 450, 'pez'); // Añadir pez para indicar que es el que has elegido
+            this.add.image(500, 430, 'pez').setScale(0.5).setAngle(30); // Añadir pez para indicar que es el que has elegido
         } 
         accionBtn.on('pointerdown', () => {
             if (currentStep === 0) {
@@ -40,7 +40,7 @@ export default class MenuTutorial extends Phaser.Scene {
         const tiendaBtn = this.add.image(485, 350, 'tiendaMenu').setInteractive();
         if (currentStep !== 1) {
             this.add.image(485, 350, 'tiendaMenu').setTint(0x999999); // Deshabilitar el botón de tienda
-            this.add.image(485, 350, 'pez'); // Añadir pez para indicar que es el que has elegido
+            this.add.image(500, 330, 'pez').setScale(0.5).setAngle(30); // Añadir pez para indicar que es el que has elegido
         }
         tiendaBtn.on('pointerdown', () => {
             if (currentStep === 1) {
@@ -54,7 +54,7 @@ export default class MenuTutorial extends Phaser.Scene {
         const dialogoBtn = this.add.image(485, 250, 'dialogoMenu').setInteractive();
         if (currentStep !== 2) {
             this.add.image(485, 250, 'dialogoMenu').setTint(0x999999); // Deshabilitar el botón de dialogo
-            this.add.image(485, 250, 'pez'); // Añadir pez para indicar que es el que has elegido
+            this.add.image(500, 230, 'pez').setScale(0.5).setAngle(30); // Añadir pez para indicar que es el que has elegido
         }
         dialogoBtn.on('pointerdown', () => {
             if (currentStep === 2) {

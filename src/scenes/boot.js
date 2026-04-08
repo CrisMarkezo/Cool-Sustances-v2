@@ -6,18 +6,16 @@ import base from '../../assets/sprites/base.png'
 import star from '../../assets/sprites/star.png'
 import player from '../../assets/sprites/player.png'
 
+import inventario from '../../assets/sprites/inventarioPrueba.jpeg'
+
 import dia from '../../assets/sprites/dia/UIDaySinRueda.png'
 import tiendaDia from '../../assets/sprites/dia/UITiendaSinRueda.png'
 import cubatita from '../../assets/sprites/cubatita.png'
 import ruedaSprite from '../../assets/sprites/dia/UIrueda.png'
 import ruedaSprite2 from '../../assets/sprites/dia/UIruedatienda.png'
 import patas from '../../assets/sprites/dia/patas.png'
-import InventorySprite from '../game-objects/inventorySprite.js'
-import RuedaSprite from '../game-objects/ruedaSprite.js'
 
 
-import WidgetSprite from './../game-objects/widgetSprite';
-import MenuSprite from '../game-objects/menuSprite.js'
 import dialogoMenuImg from '../../assets/sprites/menu/dialogoMenu_50.png'
 import tiendaMenuImg from '../../assets/sprites/menu/tiendaMenu_50.png'
 import accionMenuImg from '../../assets/sprites/menu/accionMenu_50.png'
@@ -81,6 +79,7 @@ export default class Boot extends Phaser.Scene {
     this.load.image('tienda_dia', tiendaDia)
     this.load.image('cubatita', cubatita)    
 
+    this.load.image('inventario', inventario);
     this.load.image('dialogoMenu', dialogoMenuImg);
     this.load.image('tiendaMenu', tiendaMenuImg);
     this.load.image('accionMenu', accionMenuImg);

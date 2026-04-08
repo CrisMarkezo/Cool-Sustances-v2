@@ -17,29 +17,16 @@ export default class AccionTutorial extends Phaser.Scene {
 
         this.add.image(500, 350, 'dia')
         //this.add.image(200, 500, 'cubatita')
-        InventorySprite.create(this, 50, 60)
+        const inventoryBtn = InventorySprite.create(this, 50, 60)
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'accion', 1200)
 
-
-
-
-        inventory_label = game.add.text(w - 100, 20, 'Pause', { font: '24px Arial', fill: '#fff' });
-        inventory_label.inputEnabled = true;
-        inventory_label.events.onInputUp.add(function () {
-            // When the paus button is pressed, we pause the game
-            game.paused = true;
-
-            // Then add the menu
-            this.start.scene.launch('inventory');
-
-        });
-
-        // Add a input listener that can help us return from being paused
-        game.input.onDown.add(unpause, self);
-
-
-
+        inventoryBtn.on('pointerdown', () => {
+            this.scene.pause()
+            this.scene.launch('inventory', { from: this.scene.key })
+            this.scene.bringToTop('inventory')
+        })
+        
 
 
         this.add.text(680, 75, 'TUTORIAL: Accion', {
@@ -52,7 +39,7 @@ export default class AccionTutorial extends Phaser.Scene {
             fontSize: '20px',
             color: '#ffe2f9'
         }).setOrigin(0.5)
-        const contextoBubble = this.add.rectangle(325, 250, 500, 150, 0xC8006E)
+        const contextoBubble = this.add.rectangle(325, 250, 500, 150, 0xE2007C)
         contextoBubble.setStrokeStyle(3, 0Xe76d2c)
         const contexto = dialogTextSprite.create(this, 325, 250, [
             'Siguiendo a la dueña te encuentras con una moneda brillante',
