@@ -6,7 +6,13 @@ import base from '../../assets/sprites/base.png'
 import star from '../../assets/sprites/star.png'
 import player from '../../assets/sprites/player.png'
 
-import inventario from '../../assets/sprites/inventarioPrueba.jpeg'
+import inventario from '../../assets/sprites/inventorio.png'
+
+import settingsOn from '../../assets/sprites/settingsButton.png'
+import settingsOff from '../../assets/sprites/settingsButtonOff.png'
+import settingsPanel from '../../assets/sprites/inventarioPrueba.jpeg'
+
+import startMenu from '../../assets/sprites/startPrueba.jpeg'
 
 import dia from '../../assets/sprites/dia/UIDaySinRueda.png'
 import tiendaDia from '../../assets/sprites/dia/UITiendaSinRueda.png'
@@ -79,7 +85,13 @@ export default class Boot extends Phaser.Scene {
     this.load.image('tienda_dia', tiendaDia)
     this.load.image('cubatita', cubatita)    
 
+    this.load.image('startMenu', startMenu);
+
     this.load.image('inventario', inventario);
+    this.load.image('settingsPanel', settingsPanel);
+    this.load.image('settings', settingsOn);
+    this.load.image('settings2', settingsOff);
+
     this.load.image('dialogoMenu', dialogoMenuImg);
     this.load.image('tiendaMenu', tiendaMenuImg);
     this.load.image('accionMenu', accionMenuImg);
@@ -129,7 +141,7 @@ export default class Boot extends Phaser.Scene {
       document.fonts.load('16px "ToonwayEmpty"'),
       document.fonts.load('16px "BKFreakyHand"')
     ]).then(() => {
-      this.scene.start('phone-tutorial');
+      this.scene.start('start-menu');
     });
     
   }

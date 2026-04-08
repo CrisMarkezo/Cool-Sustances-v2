@@ -27,7 +27,13 @@ export default class AccionTutorial extends Phaser.Scene {
             this.scene.bringToTop('inventory')
         })
         
-
+        const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);
+        settingsBtn.on('pointerdown', () => {
+            this.add.image(20, 670, 'settings2').setScale(0.7);
+            this.scene.pause();
+            this.scene.launch('settings', { from: this.scene.key });
+            this.scene.bringToTop('settings');
+        });
 
         this.add.text(680, 75, 'TUTORIAL: Accion', {
             fontFamily: '"Toonway", sans-serif',

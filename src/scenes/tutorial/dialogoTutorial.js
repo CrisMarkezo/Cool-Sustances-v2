@@ -20,6 +20,14 @@ export default class DialogoTutorial extends Phaser.Scene {
         IconSprite.create(this, 920, 85, 'dialogo', 1200)
         //this.add.image(200, 500, 'cubatita');
 
+        const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);
+        settingsBtn.on('pointerdown', () => {
+            this.add.image(20, 670, 'settings2').setScale(0.7);
+            this.scene.pause();
+            this.scene.launch('settings', { from: this.scene.key });
+            this.scene.bringToTop('settings');
+        });
+
         inventoryBtn.on('pointerdown', () => {
             this.scene.pause()
             this.scene.launch('inventory', { from: this.scene.key })

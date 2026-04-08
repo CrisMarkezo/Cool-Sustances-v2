@@ -14,6 +14,14 @@ export default class TiendaTutorial extends Phaser.Scene {
         const inventoryBtn = InventorySprite.create(this, 50, 60)
         RuedaSprite.create(this, 920, 85, 'rueda_tienda')  
         const icon = this.add.image(920, 85, 'tiendaIcon')
+
+        const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);
+        settingsBtn.on('pointerdown', () => {
+            this.add.image(20, 670, 'settings2').setScale(0.7);
+            this.scene.pause();
+            this.scene.launch('settings', { from: this.scene.key });
+            this.scene.bringToTop('settings');
+        });
         
         inventoryBtn.on('pointerdown', () => {
             this.scene.pause()
