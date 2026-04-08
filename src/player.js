@@ -65,7 +65,7 @@ export default class Player extends GameEntity {
 
         this.barX = 0;
         this.barY = 0;
-        this.barWidth = 55i;
+        this.barWidth = 55;
         this.barHeight = 20;
     }
 
