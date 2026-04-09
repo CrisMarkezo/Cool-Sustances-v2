@@ -78,6 +78,7 @@ import CatGrabbing from '../../assets/sprites/Cat_Grabbing.png';
 import MonsterImg from '../../assets/sprites/Monster.png';
 import healthbar from '../../assets/sprites/healthbar.png';
 
+import star from '../../assets/sprites/star.png';
 
 export default class Boot extends Phaser.Scene {
 
@@ -152,6 +153,8 @@ super({ key: 'boot' });
     this.load.image('monster', MonsterImg);
     this.load.image('healthbar', healthbar);
 
+    this.load.image('star', star);
+
     // Idle
     this.load.spritesheet('cat_idle', CatIdle, {
     frameWidth: 32,
@@ -183,14 +186,10 @@ super({ key: 'boot' });
     frameHeight: 32
     });
 
-
-
-
     this.load.spritesheet('cat_grabbing', CatGrabbing, {
         frameWidth: 32,
         frameHeight: 32
     });
-
 
 
 

@@ -14,6 +14,7 @@ export default class Player extends GameEntity {
         this.body.setDrag(1000); 
 
         this.speed = 100;
+        this.damage = 20;
         this.isAttacking = false;
         this.isGrabbing = false;
         this.isInvincible = false;
@@ -151,6 +152,8 @@ export default class Player extends GameEntity {
             this.attackSprite.setVisible(true);
             this.attackSprite.play('cat_attack');
 
+            const animSpeed = 300 / this.attackCooldown; 
+            this.attackSprite.anims.timeScale = animSpeed;
             this.attackSprite.once('animationcomplete', () => {
                 this.isAttacking = false;
                 this.attackHitbox.body.enable = false;
