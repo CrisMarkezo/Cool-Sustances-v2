@@ -18,12 +18,11 @@ export default class Scratcher extends GameEntity {
         this.hurtbox.body.setSize(10, 10);
         this.hurtbox.body.setAllowGravity(false);
         this.hurtbox.body.moves = false; // No se mueve por físicas externas
-        this.hurtbox.setVisible(false); // Oculta el rectángulo rojo si no lo necesitas para debugear
+        this.hurtbox.setVisible(false); 
         this.hurtbox.setDepth(5);
     }
 
-    // Ya no necesitas el preUpdate/update de sincronización manual aquí, 
-    // porque al ser estático (moves = false) se queda en su x, y iniciales.
+   
 
     scratch() {
         if (this.isScratching) return;

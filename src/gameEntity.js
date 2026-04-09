@@ -19,10 +19,10 @@ export default class GameEntity extends Phaser.Physics.Arcade.Sprite {
         this.healthBarGraphics.setDepth(3000); 
         this.healthBarGraphics.setScrollFactor(1); 
 
-        // 🔥 FIX IMPORTANTE AQUÍ
+       
         this.uiBarGraphics = scene.add.graphics();
         this.uiBarGraphics.setDepth(9999); 
-        this.uiBarGraphics.setScrollFactor(0); // ✅ ahora es UI real
+        this.uiBarGraphics.setScrollFactor(0);
     }
 
     drawHealthBar(x, y, width, height) {
