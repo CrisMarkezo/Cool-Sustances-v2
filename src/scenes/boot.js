@@ -14,7 +14,7 @@ import Rascador from '../../assets/sprites/Rascador.png';
 import CatGrabbing from '../../assets/sprites/Cat_Grabbing.png';
 import MonsterImg from '../../assets/sprites/Monster.png';
 import healthbar from '../../assets/sprites/healthbar.png';
-
+import Star from '../../assets/sprites/star.png';
 
 export default class Boot extends Phaser.Scene {
 
@@ -33,6 +33,7 @@ this.load.tilemapTiledJSON('tutorial', tutorial);
 this.load.image('Inventory', Inventory);
 this.load.image('monster', MonsterImg);
 this.load.image('healthbar', healthbar);
+this.load.image('star', Star);
 
 
 // Idle
@@ -66,7 +67,10 @@ frameWidth: 32,
 frameHeight: 32
 });
 
-
+this.load.spritesheet('star', Star, {
+frameWidth: 32,
+frameHeight: 32
+});
 
 
 this.load.spritesheet('cat_grabbing', CatGrabbing, {

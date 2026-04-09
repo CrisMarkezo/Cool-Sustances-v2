@@ -27,7 +27,6 @@ export default class Phone extends InteractableObject {
                 player.isGrabbing = false;
                 player.anims.play('cat_idle', true);
             });
-
             this.destroy();
         }
 

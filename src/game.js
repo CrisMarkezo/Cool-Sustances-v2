@@ -18,7 +18,7 @@ let config = {
         default: 'arcade',
         arcade: {
             gravity: { y: 0 }, // top-down, sin gravedad
-            debug: false
+            debug: true
         }
     }
 };

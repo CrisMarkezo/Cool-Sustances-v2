@@ -3,6 +3,7 @@ import Player from '../player.js';
 import Scratcher from '../Scratcher.js';
 import Phone from '../Phone.js';
 import Monster from '../Monster.js';
+import PowerUp from '../powerup.js';
 
 export default class Level extends Phaser.Scene {
     constructor() {
@@ -33,15 +34,32 @@ export default class Level extends Phaser.Scene {
         this.player = new Player(this, startX, startY);
         this.monster = new Monster(this, startX - 100, startY, 'monster');
        
+        // Objetos
         this.rascador = new Scratcher(this, startX + 210, startY);
         this.phone = new Phone(this, startX + 100, startY);
         this.phone.setScale(0.5);
         this.phone2 = new Phone(this, startX + 130, startY);
         this.phone2.setScale(0.5);
 
+        this.alcohol = new PowerUp(this, startX + 100, startY + 20, 'star', 'speed', 100);
+        this.alcohol.setScale(0.25);
+        this.queta = new PowerUp(this, startX + 130, startY + 20, 'star', 'damage', 100);
+        this.queta.setScale(0.25);
+
+        this.alcohol2 = new PowerUp(this, startX + 100, startY + 40, 'star', 'max_health', 100);
+        this.alcohol2.setScale(0.25);
+        this.queta2 = new PowerUp(this, startX + 130, startY + 40, 'star', 'attack_speed', 100);
+        this.queta2.setScale(0.25);
+
         this.interactables = this.physics.add.group();
         this.interactables.add(this.phone);
         this.interactables.add(this.phone2);
+
+        this.powerUps = this.physics.add.group();
+        this.powerUps.add(this.alcohol);
+        this.powerUps.add(this.queta);
+         this.powerUps.add(this.alcohol2);
+        this.powerUps.add(this.queta2);
 
         this.physics.add.collider(this.player, colisiones);
         this.physics.add.collider(this.monster, colisiones);
@@ -62,6 +80,14 @@ export default class Level extends Phaser.Scene {
             this.player.attackHitbox,
             this.monster,
             this.hitMonster,
+            null,
+            this
+        );
+
+        this.physics.add.overlap(
+            this.player,
+            this.powerUps,
+            this.handlePowerUpPickup, 
             null,
             this
         );
@@ -137,6 +163,7 @@ export default class Level extends Phaser.Scene {
                 player.nearbyInteractable = obj;
             }
         );
+
     }
 
     renderInventory(firstX, firstY) {
@@ -186,4 +213,8 @@ export default class Level extends Phaser.Scene {
     }
 
     handlePlayerMonsterContact(player, monster) {}
+
+    handlePowerUpPickup(player, powerUp) {
+        powerUp.applyEffect(player);
+    }
 }
