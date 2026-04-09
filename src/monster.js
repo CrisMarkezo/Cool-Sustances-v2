@@ -101,7 +101,7 @@ export default class Monster extends GameEntity {
 
         this.canBeHit = false;
         this.isKnocked = true;
-        this.health -= 20; 
+        this.health -= from.damage; 
 
         if (this.health <= 0) {
             this.die();
