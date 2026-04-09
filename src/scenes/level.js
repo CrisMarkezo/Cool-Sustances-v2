@@ -74,6 +74,7 @@ export default class Level extends Phaser.Scene {
         this.cameras.main.centerOn(this.player.x, this.player.y);
 
         this.keyI = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
+        this.keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
         this.inventoryOpen = false;
 
         this.inventoryUI = this.add.image(
@@ -91,6 +92,11 @@ export default class Level extends Phaser.Scene {
     }
 
     update() {
+        if (Phaser.Input.Keyboard.JustDown(this.keyP)) {
+            this.scene.start('phone-tutorial');
+            return;
+        }
+
         if (Phaser.Input.Keyboard.JustDown(this.keyI)) {
             this.inventoryOpen = !this.inventoryOpen;
             this.inventoryUI.setVisible(this.inventoryOpen);

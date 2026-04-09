@@ -6,15 +6,12 @@ export default class IconSprite extends Phaser.GameObjects.Sprite {
     }
 
     constructor(scene, x, y, iconTexture = 'accion', interval = 1200) {
-            super(scene, x, y, iconTexture);
+            const frames = iconTexture === 'accion'
+                ? ['accionIcon1', 'accionIcon2', 'accionIcon3', 'accionIcon4']
+                : ['dialogoIcon1', 'dialogoIcon2', 'dialogoIcon3'];
+
+            super(scene, x, y, frames[0]);
             scene.add.existing(this);
-            let frames = [];
-            if (iconTexture === 'accion') {
-                frames = ["accionIcon1", "accionIcon2", "accionIcon3", "accionIcon4"];
-            }
-            else {
-                frames = ["dialogoIcon1", "dialogoIcon2", "dialogoIcon3"];
-            }
             let frameIndex = 0;
             
             this.animationEvent = scene.time.addEvent({

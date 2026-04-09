@@ -1,10 +1,8 @@
 import Phaser from 'phaser'
 
-
 import platform from '../../assets/sprites/platform.png'
 import base from '../../assets/sprites/base.png'
 import star from '../../assets/sprites/star.png'
-import player from '../../assets/sprites/player.png'
 
 import inventario from '../../assets/sprites/inventorio.png'
 
@@ -64,7 +62,6 @@ import tiendaIcon from '../../assets/sprites/dia/tiendaIconScene.png'
  * @see {@link https://gamedevacademy.org/creating-a-preloading-screen-in-phaser-3/} como ejemplo
  * sobre cómo hacer una barra de progreso.
  */
-import Phaser from 'phaser';
 import tutorial from '../../assets/sprites/tutorial/tutorial.json';
 import TopDownHouse_DoorsAndWindows from '../../assets/sprites/tutorial/TopDownHouse_DoorsAndWindows.png';
 import TopDownHouse_FloorsAndWalls from '../../assets/sprites/tutorial/TopDownHouse_FloorsAndWalls.png';
@@ -97,7 +94,6 @@ super({ key: 'boot' });
     this.load.image('platform', platform);
     this.load.image('base', base);
     this.load.image('star', star);
-    this.load.image('player', player);
     this.load.image('dia', dia)
     this.load.image('tienda_dia', tiendaDia)
     this.load.image('cubatita', cubatita)    
@@ -206,16 +202,39 @@ super({ key: 'boot' });
    * nivel del juego
    */
   create() {
-    Promise.all([
-      document.fonts.load('16px "Toonway"'),
-      document.fonts.load('16px "Keneric"'),
-      document.fonts.load('16px "PixelAE-Regular"'),
-      document.fonts.load('16px "PixelAE-Bold"'),
-      document.fonts.load('16px "ToonwayEmpty"'),
-      document.fonts.load('16px "BKFreakyHand"')
-    ]).then(() => {
-      this.scene.start('start-menu');
-    });
+        let sceneStarted = false;
+        const startMenuSafely = () => {
+            if (sceneStarted) {
+                return;
+            }
+            sceneStarted = true;
+            this.scene.start('start-menu');
+        };
+
+        const hasFontLoader =
+            typeof document !== 'undefined' &&
+            document.fonts &&
+            typeof document.fonts.load === 'function';
+
+        const fontLoads = hasFontLoader
+            ? [
+                    document.fonts.load('16px "Toonway"'),
+                    document.fonts.load('16px "Keneric"'),
+                    document.fonts.load('16px "PixelAE-Regular"'),
+                    document.fonts.load('16px "PixelAE-Bold"'),
+                    document.fonts.load('16px "ToonwayEmpty"'),
+                    document.fonts.load('16px "BKFreakyHand"')
+                ]
+            : [];
+
+        const fallbackTimer = this.time.delayedCall(1500, startMenuSafely);
+
+        Promise.allSettled(fontLoads)
+            .catch(() => {})
+            .finally(() => {
+                fallbackTimer.remove(false);
+                startMenuSafely();
+            });
     // Animación idle
 this.anims.create({
     key: 'cat_idle',
@@ -274,6 +293,5 @@ this.anims.create({
     repeat: 0        // se reproduce una vez
 });
 
-this.scene.start('level');
   }
 }
