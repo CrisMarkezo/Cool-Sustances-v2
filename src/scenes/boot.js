@@ -1,8 +1,6 @@
 import Phaser from 'phaser'
 
-import platform from '../../assets/sprites/platform.png'
-import base from '../../assets/sprites/base.png'
-import star from '../../assets/sprites/star.png'
+
 
 import inventario from '../../assets/sprites/inventorio.png'
 
@@ -92,9 +90,6 @@ super({ key: 'boot' });
   preload() {
     // Con setPath podemos establecer el prefijo que se añadirá a todos los load que aparecen a continuación
     //this.load.setPath('assets/sprites/');
-    this.load.image('platform', platform);
-    this.load.image('base', base);
-    this.load.image('star', star);
     this.load.image('dia', dia)
     this.load.image('tienda_dia', tiendaDia)
     this.load.image('cubatita', cubatita)    
