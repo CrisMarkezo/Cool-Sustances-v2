@@ -12,17 +12,12 @@ import Inventory from './scenes/inventory.js'
 import StartMenu from './scenes/startMenu.js'
 import Settings from './scenes/settings.js'
 
-/**
- * Inicio del juego en Phaser. Creamos el archivo de configuración del juego y creamos
- * la clase Game de Phaser, encargada de crear e iniciar el juego.
- */
 let config = {
     type: Phaser.AUTO,
     width: 1000,
     height: 700,
     parent: 'juego',
     scale: {
-        //mode: Phaser.Scale.FIT,  
         autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
     },
     pixelArt: true,
@@ -30,7 +25,7 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 400 },
+            gravity: { y: 0 }, // top-down, sin gravedad
             debug: false
         }
     }

@@ -64,13 +64,29 @@ import tiendaIcon from '../../assets/sprites/dia/tiendaIconScene.png'
  * @see {@link https://gamedevacademy.org/creating-a-preloading-screen-in-phaser-3/} como ejemplo
  * sobre cómo hacer una barra de progreso.
  */
+import Phaser from 'phaser';
+import tutorial from '../../assets/sprites/tutorial/tutorial.json';
+import TopDownHouse_DoorsAndWindows from '../../assets/sprites/tutorial/TopDownHouse_DoorsAndWindows.png';
+import TopDownHouse_FloorsAndWalls from '../../assets/sprites/tutorial/TopDownHouse_FloorsAndWalls.png';
+import TopDownHouse_FurnitureState1 from '../../assets/sprites/tutorial/TopDownHouse_FurnitureState1.png';
+import TopDownHouse_SmallItems from '../../assets/sprites/tutorial/TopDownHouse_SmallItems.png';
+import Inventory from '../../assets/sprites/Inventory.png'
+
+import CatIdle from '../../assets/sprites/Cat_Idle.png';
+import CatRun from '../../assets/sprites/Cat_Run.png';
+import CatAttack from '../../assets/sprites/Cat_Attack.png';
+import Phone from '../../assets/sprites/phone.png';
+import Rascador from '../../assets/sprites/Rascador.png';
+import CatGrabbing from '../../assets/sprites/Cat_Grabbing.png';
+import MonsterImg from '../../assets/sprites/Monster.png';
+import healthbar from '../../assets/sprites/healthbar.png';
+
+
 export default class Boot extends Phaser.Scene {
-  /**
-   * Constructor de la escena
-   */
-  constructor() {
-    super({ key: 'boot' });
-  }
+
+constructor() {
+super({ key: 'boot' });
+}
 
   /**
    * Carga de los assets del juego
