@@ -45,6 +45,9 @@ export default class AccionTutorial extends Phaser.Scene {
             fontSize: '20px',
             color: '#ffe2f9'
         }).setOrigin(0.5)
+
+        this.add.image(690, 620, 'bin')
+
         const contextoBubble = this.add.rectangle(325, 250, 500, 150, 0xE2007C)
         contextoBubble.setStrokeStyle(3, 0Xe76d2c)
         const contexto = dialogTextSprite.create(this, 325, 250, [
@@ -69,9 +72,9 @@ export default class AccionTutorial extends Phaser.Scene {
                     nextDialogHint.destroy()
                 }
 
-                opcion1Bubble = this.add.rectangle(650, 500, 360, 60, 0Xe76d2c)
+                opcion1Bubble = this.add.rectangle(650, 320, 360, 60, 0Xe76d2c)
                 opcion1Bubble.setStrokeStyle(3, 0x000000)
-                opcion1 = this.add.text(650, 500, 'Recoger dinero del suelo (+2€)', {
+                opcion1 = this.add.text(650, 320, 'Recoger dinero del suelo (+2€)', {
                     fontFamily: '"Keneric", sans-serif',
                     fontSize: '22px',
                     color: '#ffffff',
@@ -79,9 +82,9 @@ export default class AccionTutorial extends Phaser.Scene {
                     align: 'center'
                 }).setOrigin(0.5).setInteractive()
 
-                opcion2Bubble = this.add.rectangle(650, 580, 360, 60, 0Xe76d2c)
+                opcion2Bubble = this.add.rectangle(650, 400, 360, 60, 0Xe76d2c)
                 opcion2Bubble.setStrokeStyle(3, 0x000000)
-                opcion2 = this.add.text(650, 580, 'Buscar en la basura (+1 yanotekomo)', {
+                opcion2 = this.add.text(650, 400, 'Buscar en la basura (+1 yanotekomo)', {
                     fontFamily: '"Keneric", sans-serif',
                     fontSize: '22px',
                     color: '#ffffff',

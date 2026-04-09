@@ -79,7 +79,7 @@ export default class DialogoTutorial extends Phaser.Scene {
             }).setOrigin(0.5).setInteractive();
             opcion2Bubble = this.add.rectangle(650, 600, 360, 60, 0Xe76d2c)
             opcion2Bubble.setStrokeStyle(3, 0x1F2A44)
-            opcion2 = this.add.text(650, 600, 'Aceptar la loncha de jamón para seguir con tu camino', { 
+            opcion2 = this.add.text(650, 600, 'Aceptar la loncha de jamón y seguir con tu camino', { 
                 fontFamily: '"Keneric", sans-serif',
                 fontSize: '20px', 
                 fill: '#ffffff',

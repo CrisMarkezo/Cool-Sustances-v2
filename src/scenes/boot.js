@@ -20,6 +20,7 @@ import cubatita from '../../assets/sprites/cubatita.png'
 import ruedaSprite from '../../assets/sprites/dia/UIrueda.png'
 import ruedaSprite2 from '../../assets/sprites/dia/UIruedatienda.png'
 import patas from '../../assets/sprites/dia/patas.png'
+import bin from '../../assets/sprites/binAccionTutorial.png'
 
 
 import dialogoMenuImg from '../../assets/sprites/menu/dialogoMenu_50.png'
@@ -92,6 +93,7 @@ export default class Boot extends Phaser.Scene {
     this.load.image('settings', settingsOn);
     this.load.image('settings2', settingsOff);
 
+    this.load.image('bin', bin);
     this.load.image('dialogoMenu', dialogoMenuImg);
     this.load.image('tiendaMenu', tiendaMenuImg);
     this.load.image('accionMenu', accionMenuImg);
