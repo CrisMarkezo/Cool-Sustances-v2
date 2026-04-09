@@ -1,8 +1,6 @@
 import Phaser from 'phaser'
-import onlyMenuImg from '../../../assets/sprites/menu/onlyMenu700.png'
-import dialogoMenuImg from '../../../assets/sprites/menu/dialogoMenu_50.png'
-import tiendaMenuImg from '../../../assets/sprites/menu/tiendaMenu_50.png'
-import accionMenuImg from '../../../assets/sprites/menu/accionMenu_50.png'
+import MenuSprite from '../../game-objects/menuSprite.js'
+import WidgetSprite from '../../game-objects/widgetSprite.js'
 
 export default class MenuTutorial extends Phaser.Scene {
 
@@ -10,25 +8,25 @@ export default class MenuTutorial extends Phaser.Scene {
         super({key: 'phone-tutorial'});
     }
 
-    preload(){
-        this.load.image('onlyMenu', onlyMenuImg);
-        this.load.image('dialogoMenu', dialogoMenuImg);
-        this.load.image('tiendaMenu', tiendaMenuImg);
-        this.load.image('accionMenu', accionMenuImg);
-    }
-
     create(){
         // Inicializar el paso del tutorial si no existe
         if (!this.registry.has('tutorialStep')) {
             this.registry.set('tutorialStep', 0);
         }
+        
+
         const currentStep = this.registry.get('tutorialStep');
 
-        // mostrar onlyMenu de fondo manteniendo proporción
-        const menuImg = this.add.image(500, 350, 'onlyMenu');
-       
+        // mostrar onlyMenu de fondo
+        this.menuSprite = new MenuSprite(this, 500, 350);
+
         // boton de escena de accion
-        const accionBtn = this.add.image(485, 400, 'accionMenu').setInteractive();
+        const accionBtn = this.add.image(485, 450, 'accionMenu').setInteractive();
+       
+        if(currentStep !== 0) {
+            this.add.image(485, 450, 'accionMenu').setTint(0x999999); // Deshabilitar el botón de accion
+            this.add.image(500, 430, 'pez').setScale(0.5).setAngle(30); // Añadir pez para indicar que es el que has elegido
+        } 
         accionBtn.on('pointerdown', () => {
             if (currentStep === 0) {
                 console.log('Acción clickeada');
@@ -38,7 +36,12 @@ export default class MenuTutorial extends Phaser.Scene {
         });
 
         // boton de tienda
-        const tiendaBtn = this.add.image(485, 300, 'tiendaMenu').setInteractive();
+
+        const tiendaBtn = this.add.image(485, 350, 'tiendaMenu').setInteractive();
+        if (currentStep !== 1) {
+            this.add.image(485, 350, 'tiendaMenu').setTint(0x999999); // Deshabilitar el botón de tienda
+            this.add.image(500, 330, 'pez').setScale(0.5).setAngle(30); // Añadir pez para indicar que es el que has elegido
+        }
         tiendaBtn.on('pointerdown', () => {
             if (currentStep === 1) {
                 console.log('Tienda clickeada');
@@ -48,7 +51,11 @@ export default class MenuTutorial extends Phaser.Scene {
         });
         
         // boton de escena de dialogo
-        const dialogoBtn = this.add.image(485, 200, 'dialogoMenu').setInteractive();
+        const dialogoBtn = this.add.image(485, 250, 'dialogoMenu').setInteractive();
+        if (currentStep !== 2) {
+            this.add.image(485, 250, 'dialogoMenu').setTint(0x999999); // Deshabilitar el botón de dialogo
+            this.add.image(500, 230, 'pez').setScale(0.5).setAngle(30); // Añadir pez para indicar que es el que has elegido
+        }
         dialogoBtn.on('pointerdown', () => {
             if (currentStep === 2) {
                 console.log('Diálogo clickeado');
@@ -58,13 +65,27 @@ export default class MenuTutorial extends Phaser.Scene {
         });
 
         //boton de dungeon pero es la continuación del lore en este caso
-        const dungeonBtn = this.add.text(485, 150, 'FDI', { fontSize: '20px', fill: '#2b1515' }).setInteractive();
-        dungeonBtn.on('pointerdown', () => {
+        this.WidgetSprite = new WidgetSprite(this, 485, 125).setInteractive({ useHandCursor: true });
+        this.WidgetSprite.on('pointerdown', () => {
             if (currentStep === 3) {
                 console.log('Salir del tutorial clickeado');
-                this.scene.start('storyScene2');
+                this.scene.start('phone');   
             }
         });
         
+        //anuncio en el menú de decoracion, pero podría usarse para otra cosa, como un easter egg o algo así
+        this.add.text(520, 550, 'Do not fret if you want to hurt yourself!', {
+            fontFamily: '"pixelAE-Bold", monospace',
+            fontSize: '10px',
+            fill: '#000000',
+            align: 'center'
+        }).setOrigin(0.5);
+        this.add.text(520, 570, 'Call or text the number 667 if you need asistance', {
+            fontFamily: '"pixelAE-Regular", monospace',
+            fontSize: '9px',
+            fill: '#000000',
+            align: 'center',
+            wordWrap: { width: 200 },
+        }).setOrigin(0.5);
     }
 }

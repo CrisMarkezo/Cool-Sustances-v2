@@ -1,43 +1,70 @@
 import Phaser from 'phaser'
-
-import tiendaDia from '../../../assets/sprites/dia/tienda_escena_tutorial.png'
-import cubatita from '../../../assets/sprites/cubatita.png'
+import InventorySprite from '../../game-objects/inventorySprite.js'
+import RuedaSprite from '../../game-objects/ruedaSprite.js'
 
 export default class TiendaTutorial extends Phaser.Scene {
     constructor(){
         super({key: 'tiendaTutorial'})
     }
 
-    preload(){
-        this.load.image('tienda_dia', tiendaDia)
-        this.load.image('cubatita', cubatita)
-    }
-
     create(){
 
         const bgImg = this.add.image(500, 350, 'tienda_dia');
-        const player = this.add.image(200, 500, 'cubatita');
+        //const player = this.add.image(200, 500, 'cubatita');
+        const inventoryBtn = InventorySprite.create(this, 50, 60)
+        RuedaSprite.create(this, 920, 85, 'rueda_tienda')  
+        const icon = this.add.image(920, 85, 'tiendaIcon')
+
+        const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);
+        settingsBtn.on('pointerdown', () => {
+            this.add.image(20, 670, 'settings2').setScale(0.7);
+            this.scene.pause();
+            this.scene.launch('settings', { from: this.scene.key });
+            this.scene.bringToTop('settings');
+        });
+        
+        inventoryBtn.on('pointerdown', () => {
+            this.scene.pause()
+            this.scene.launch('inventory', { from: this.scene.key })
+            this.scene.bringToTop('inventory')
+         })
+
+        this.add.text(670, 77, 'TUTORIAL: Tienda', {
+            fontFamily: '"Toonway", sans-serif',
+            fontSize: '25px',
+            color: '#ffffff'
+        }).setOrigin(0.5)
+        this.add.text(700, 110, 'POR LA TIENDA CUBATITA', {
+            fontFamily: '"ToonwayEmpty", sans-serif',
+            fontSize: '20px',
+            color: '#ffe2f9'
+        }).setOrigin(0.5)
+        
         const opcion1Bubble = this.add.rectangle(600, 500, 560, 60, 0x6969ec)
         opcion1Bubble.setStrokeStyle(3, 0x000000)
         const opcion1 = this.add.text(600, 500, 'Comprar filtros (2€)', { 
+            fontFamily: '"Keneric", sans-serif',
             fontSize: '20px', 
             fill: '#ffffff' 
         }).setOrigin(0.5).setInteractive();
         const opcion2Bubble = this.add.rectangle(600, 550, 560, 60, 0x6969ec)
         opcion2Bubble.setStrokeStyle(3, 0x000000)
         const opcion2 = this.add.text(600, 550, 'Comprar litrona (1€)', { 
+            fontFamily: '"Keneric", sans-serif',
             fontSize: '20px', 
             fill: '#ffffff'
         }).setOrigin(0.5).setInteractive();
         const opcion3Bubble = this.add.rectangle(600, 600, 560, 60, 0x6969ec)
         opcion3Bubble.setStrokeStyle(3, 0x000000)
         const opcion3 = this.add.text(600, 600, 'Dar yanotekomo (1)', {
+            fontFamily: '"Keneric", sans-serif',
             fontSize: '20px', 
             fill: '#ffffff' 
         }).setOrigin(0.5).setInteractive();
         const opcion4Bubble = this.add.rectangle(600, 650, 560, 60, 0x6969ec)
         opcion4Bubble.setStrokeStyle(3, 0x000000)
         const opcion4 = this.add.text(600, 650, 'Salir de la tienda', { 
+            fontFamily: '"Keneric", sans-serif',
             fontSize: '20px', 
             fill: '#ffffff' 
         }).setOrigin(0.5).setInteractive();
@@ -57,6 +84,7 @@ export default class TiendaTutorial extends Phaser.Scene {
             bubble.setStrokeStyle(4, 0x000000)
 
             this.add.text(600, 580, mensaje, {
+                fontFamily: '"PixelAE-Regular", monospace',
                 fontSize: '28px',
                 color: '#000000',
                 align: 'center'
@@ -64,6 +92,7 @@ export default class TiendaTutorial extends Phaser.Scene {
 
             this.time.delayedCall(2000, () => {
                 const continuar = this.add.text(600, 660, 'Presiona aquí para continuar', {
+                    fontFamily: '"PixelAE-Bold", monospace',
                     fontSize: '20px',
                     color: '#0066cc'
                 }).setOrigin(0.5).setInteractive()
