@@ -1,11 +1,5 @@
 import Phaser from 'phaser'
 
-
-import platform from '../../assets/sprites/platform.png'
-import base from '../../assets/sprites/base.png'
-import star from '../../assets/sprites/star.png'
-import player from '../../assets/sprites/player.png'
-
 import inventario from '../../assets/sprites/inventorio.png'
 
 import settingsOn from '../../assets/sprites/settingsButton.png'
@@ -64,7 +58,6 @@ import tiendaIcon from '../../assets/sprites/dia/tiendaIconScene.png'
  * @see {@link https://gamedevacademy.org/creating-a-preloading-screen-in-phaser-3/} como ejemplo
  * sobre cómo hacer una barra de progreso.
  */
-import Phaser from 'phaser';
 import tutorial from '../../assets/sprites/tutorial/tutorial.json';
 import TopDownHouse_DoorsAndWindows from '../../assets/sprites/tutorial/TopDownHouse_DoorsAndWindows.png';
 import TopDownHouse_FloorsAndWalls from '../../assets/sprites/tutorial/TopDownHouse_FloorsAndWalls.png';
@@ -81,6 +74,7 @@ import CatGrabbing from '../../assets/sprites/Cat_Grabbing.png';
 import MonsterImg from '../../assets/sprites/Monster.png';
 import healthbar from '../../assets/sprites/healthbar.png';
 
+import star from '../../assets/sprites/star.png';
 
 export default class Boot extends Phaser.Scene {
 
@@ -94,10 +88,6 @@ super({ key: 'boot' });
   preload() {
     // Con setPath podemos establecer el prefijo que se añadirá a todos los load que aparecen a continuación
     //this.load.setPath('assets/sprites/');
-    this.load.image('platform', platform);
-    this.load.image('base', base);
-    this.load.image('star', star);
-    this.load.image('player', player);
     this.load.image('dia', dia)
     this.load.image('tienda_dia', tiendaDia)
     this.load.image('cubatita', cubatita)    
@@ -156,6 +146,8 @@ super({ key: 'boot' });
     this.load.image('monster', MonsterImg);
     this.load.image('healthbar', healthbar);
 
+    this.load.image('star', star);
+
     // Idle
     this.load.spritesheet('cat_idle', CatIdle, {
     frameWidth: 32,
@@ -187,14 +179,10 @@ super({ key: 'boot' });
     frameHeight: 32
     });
 
-
-
-
     this.load.spritesheet('cat_grabbing', CatGrabbing, {
         frameWidth: 32,
         frameHeight: 32
     });
-
 
 
 

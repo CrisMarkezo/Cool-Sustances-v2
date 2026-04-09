@@ -3,6 +3,7 @@ import Player from '../player.js';
 import Scratcher from '../Scratcher.js';
 import Phone from '../Phone.js';
 import Monster from '../Monster.js';
+import PowerUp from '../powuerup.js';
 
 export default class Level extends Phaser.Scene {
     constructor() {
@@ -39,9 +40,24 @@ export default class Level extends Phaser.Scene {
         this.phone2 = new Phone(this, startX + 130, startY);
         this.phone2.setScale(0.5);
 
+        this.alcohol = new PowerUp(this, startX + 100, startY + 20, 'star', 'speed', 100);
+        this.alcohol.setScale(0.25);
+        this.queta = new PowerUp(this, startX + 130, startY + 20, 'star', 'damage', 100);
+        this.queta.setScale(0.25);
+        this.ron = new PowerUp(this, startX + 100, startY + 40, 'star', 'max_health', 100);
+        this.ron.setScale(0.25);
+        this.ginebra = new PowerUp(this, startX + 130, startY + 40, 'star', 'attack_speed', 100);
+        this.ginebra.setScale(0.25);
+
         this.interactables = this.physics.add.group();
         this.interactables.add(this.phone);
         this.interactables.add(this.phone2);
+
+        this.powerUps = this.physics.add.group();
+        this.powerUps.add(this.alcohol);
+        this.powerUps.add(this.queta);
+        this.powerUps.add(this.ginebra);
+        this.powerUps.add(this.ron);
 
         this.physics.add.collider(this.player, colisiones);
         this.physics.add.collider(this.monster, colisiones);
@@ -62,6 +78,14 @@ export default class Level extends Phaser.Scene {
             this.player.attackHitbox,
             this.monster,
             this.hitMonster,
+            null,
+            this
+        );
+
+        this.physics.add.overlap(
+            this.player,
+            this.powerUps,
+            this.handlePowerUpPickup,
             null,
             this
         );
@@ -186,4 +210,8 @@ export default class Level extends Phaser.Scene {
     }
 
     handlePlayerMonsterContact(player, monster) {}
+
+    handlePowerUpPickup(player, powerUp) {
+        powerUp.applyEffect(player);
+    }
 }
