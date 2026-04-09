@@ -16,6 +16,33 @@ import MonsterImg from '../../assets/sprites/Monster.png';
 import healthbar from '../../assets/sprites/healthbar.png';
 import Star from '../../assets/sprites/star.png';
 
+// Dungeon
+import Dungeon from '../../assets/Dungeon/Dungeon_1.json';
+import Ambulance from '../../assets/Dungeon/Ambulance.png';
+import Arbol from '../../assets/Dungeon/arbol.png';
+import Jeep from '../../assets/Dungeon/BLACK_JEEP.png';
+import Luxury from '../../assets/Dungeon/BLACK_LUXURY.png';
+import Blue_Civic from '../../assets/Dungeon/BLUE_CIVIC.png';
+import White_Civic from '../../assets/Dungeon/WHITE_CIVIC.png';
+import Brown_Coupe from '../../assets/Dungeon/BROWN_COUPE.png';
+import Yellow_Coupe from '../../assets/Dungeon/Yellow_COUPE.png';
+import Suv from '../../assets/Dungeon/GREEN_SUV.png';
+import Supercar from '../../assets/Dungeon/RED_SUPERCAR.png';
+import Police from '../../assets/Dungeon/POLICE.png';
+import Taxi from '../../assets/Dungeon/TAXI.png';
+import Bus from '../../assets/Dungeon/BUS.png';
+import Chest_IDLE from '../../assets/Dungeon/Chest_Idle.png';
+import Chest_EMPTY from '../../assets/Dungeon/Chest_Opening_Empty.png';
+import Chest_GOLD from '../../assets/Dungeon/Chest_Opening_Gold.png';
+import Paredes from '../../assets/Dungeon/dungeon.png';
+import Suelo from '../../assets/Dungeon/suelo1-0.png';
+import Suelo_Exterior from '../../assets/Dungeon/suelo1-1.png';
+import Suelo_Disco from '../../assets/Dungeon/suelo1-2.png';
+import Hierba from '../../assets/Dungeon/Grass.png';
+import Calle from '../../assets/Dungeon/street_tileset.png';
+import Poste_Down from '../../assets/Dungeon/lamp_down.png';
+import Poste_Right from '../../assets/Dungeon/lamp_right.png';
+
 export default class Boot extends Phaser.Scene {
 
 constructor() {
@@ -24,6 +51,33 @@ super({ key: 'boot' });
 
 preload() {
 
+    this.load('ambulance', Ambulance);
+    this.load('arbol', Arbol);
+    this.load('jeep', Jeep);
+    this.load('luxury', Luxury);
+    this.load('blue_civic', Blue_Civic);
+    this.load('white_civic', White_Civic);
+    this.load('brown_coupe', Brown_Coupe);
+    this.load('yellow_coupe', Yellow_Coupe);
+    this.load('suv', Suv);
+    this.load('supercar', Supercar);
+    this.load('police', Police);
+    this.load('taxi', Taxi);
+    this.load('bus', Bus);
+    this.load('chest_idle', Chest_IDLE);
+    this.load('chest_empty', Chest_EMPTY);
+    this.load('chest_gold', Chest_GOLD);
+    this.load('paredes', Paredes);
+    this.load('suelo', Suelo);
+    this.load('suelo_exterior', Suelo_Exterior);
+    this.load('suelo_disco', Suelo_Disco);
+    this.load('hierba', Hierba);
+    this.load('calle', Calle);
+    this.load('poste_down', Poste_Down);
+    this.load('poste_right', Poste_Right);
+    this.load.tilemapTiledJSON('dungeon_1', Dungeon);
+
+/*
 this.load.image('Muebles4', TopDownHouse_FurnitureState1);
 this.load.image('Muebles6', TopDownHouse_DoorsAndWindows);
 this.load.image('Paredes y suelos', TopDownHouse_FloorsAndWalls);
@@ -142,6 +196,7 @@ this.anims.create({
     frameRate: 6,   // 6 fps, ajusta para que dure como quieras
     repeat: 0        // se reproduce una vez
 });
+*/
 
 this.scene.start('level');
 
