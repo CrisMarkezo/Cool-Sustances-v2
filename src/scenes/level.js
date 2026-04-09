@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
 import Player from '../player.js';
-import Scratcher from '../Scratcher.js';
+import Scratcher from '../scratcher.js';
 import Phone from '../Phone.js';
-import Monster from '../Monster.js';
+import Monster from '../monster.js';
 import PowerUp from '../powuerup.js';
 
 export default class Level extends Phaser.Scene {
