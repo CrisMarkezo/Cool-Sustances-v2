@@ -1289,7 +1289,7 @@
         {
          "columns":34,
          "firstgid":1,
-         "image":"assets\/32rogues\/tiles.png",
+         "image":"suelo1-1",
          "imageheight":832,
          "imagewidth":544,
          "margin":0,
@@ -1302,7 +1302,7 @@
         {
          "columns":16,
          "firstgid":1769,
-         "image":"Texture\/TX Tileset Grass.png",
+         "image":"Grass.png",
          "imageheight":256,
          "imagewidth":256,
          "margin":0,
@@ -1315,7 +1315,7 @@
         {
          "columns":32,
          "firstgid":2025,
-         "image":"assets\/dungeon.png",
+         "image":"dungeon.png",
          "imageheight":256,
          "imagewidth":512,
          "margin":0,
@@ -1328,7 +1328,7 @@
         {
          "columns":16,
          "firstgid":2537,
-         "image":"assets\/Simple beat-em-up assets\/Assets\/world\/street_tileset.png",
+         "image":"street_tileset.png",
          "imageheight":128,
          "imagewidth":256,
          "margin":0,
@@ -1341,46 +1341,46 @@
         {
          "columns":18,
          "firstgid":2665,
-         "image":"assets\/TopDown Vehicles v1.17\/CIVIC TOPDOWN\/Blue\/Blue_CIVIC_CLEAN_8D_000-sheet.png",
+         "image":"BLUE_CIVIC.png",
          "imageheight":300,
          "imagewidth":300,
          "margin":0,
          "name":"coches",
          "spacing":0,
          "tilecount":324,
-         "tileheight":16,
-         "tilewidth":16
+         "tileheight":100,
+         "tilewidth":100
         }, 
         {
          "columns":18,
          "firstgid":2989,
-         "image":"assets\/TopDown Vehicles v1.17\/CIVIC TOPDOWN\/White\/White_CIVIC_CLEAN_8D_000-sheet.png",
+         "image":"WHITE_CIVIC.png",
          "imageheight":300,
          "imagewidth":300,
          "margin":0,
          "name":"coche2",
          "spacing":0,
          "tilecount":324,
-         "tileheight":16,
-         "tilewidth":16
+         "tileheight":100,
+         "tilewidth":100
         }, 
         {
          "columns":39,
          "firstgid":3313,
-         "image":"assets\/TopDown Vehicles v1.17\/BUS TOPDOWN\/Blue\/BUS_CLEAN_8D0000-sheet.png",
+         "image":"BUS.png",
          "imageheight":630,
          "imagewidth":630,
          "margin":0,
          "name":"bus",
          "spacing":0,
          "tilecount":1521,
-         "tileheight":16,
-         "tilewidth":16
+         "tileheight":210,
+         "tilewidth":210
         }, 
         {
          "columns":16,
          "firstgid":4834,
-         "image":"assets\/mystic_woods_free_2.2\/sprites\/objects\/objects.png",
+         "image":"arbol.png",
          "imageheight":208,
          "imagewidth":256,
          "margin":0,
@@ -1393,7 +1393,7 @@
         {
          "columns":24,
          "firstgid":5042,
-         "image":"assets\/Crafted Odyssey - Cursed Chest\/Cursed_Chest_Idle.png",
+         "image":"Chest_Idle.png",
          "imageheight":64,
          "imagewidth":384,
          "margin":0,
@@ -1406,124 +1406,124 @@
         {
          "columns":18,
          "firstgid":5138,
-         "image":"assets\/TopDown Vehicles v1.17\/POLICE TOPDOWN\/ALL DIRECTION\/POLICE_CLEAN_8D0000-sheet.png",
+         "image":"POLICE.png",
          "imageheight":300,
          "imagewidth":300,
          "margin":0,
          "name":"policia",
          "spacing":0,
          "tilecount":324,
-         "tileheight":16,
-         "tilewidth":16
+         "tileheight":100,
+         "tilewidth":100
         }, 
         {
          "columns":18,
          "firstgid":5462,
-         "image":"assets\/TopDown Vehicles v1.17\/COUPE TOPDOWN\/Brown\/Brown_COUPE_CLEAN_8D_000-sheet.png",
+         "image":"BROWN_COUPE.png",
          "imageheight":300,
          "imagewidth":300,
          "margin":0,
          "name":"coche_3",
          "spacing":0,
          "tilecount":324,
-         "tileheight":16,
-         "tilewidth":16
+         "tileheight":100,
+         "tilewidth":100
         }, 
         {
          "columns":18,
          "firstgid":5786,
-         "image":"assets\/TopDown Vehicles v1.17\/JEEP TOP DOWN\/Black\/Black_JEEP_CLEAN_8D_000-sheet.png",
+         "image":"BLACK_JEEP.png",
          "imageheight":300,
          "imagewidth":300,
          "margin":0,
          "name":"Coche_4",
          "spacing":0,
          "tilecount":324,
-         "tileheight":16,
-         "tilewidth":16
+         "tileheight":100,
+         "tilewidth":100
         }, 
         {
          "columns":26,
          "firstgid":6110,
-         "image":"assets\/TopDown Vehicles v1.17\/AMBULANCE TOPDOWN\/ALL DIRECTION\/AMBULANCE_CLEAN_8D0000-sheet.png",
+         "image":"AMBULANCE.png",
          "imageheight":420,
          "imagewidth":420,
          "margin":0,
          "name":"Coche_5",
          "spacing":0,
          "tilecount":676,
-         "tileheight":16,
-         "tilewidth":16
+         "tileheight":140,
+         "tilewidth":140
         }, 
         {
          "columns":18,
          "firstgid":6786,
-         "image":"assets\/TopDown Vehicles v1.17\/COUPE TOPDOWN\/Yellow\/Yellow_COUPE_CLEAN_8D_000-sheet.png",
+         "image":"YELLOW_COUPE.png",
          "imageheight":300,
          "imagewidth":300,
          "margin":0,
          "name":"Coche_6",
          "spacing":0,
          "tilecount":324,
-         "tileheight":16,
-         "tilewidth":16
+         "tileheight":100,
+         "tilewidth":100
         }, 
         {
          "columns":18,
          "firstgid":7110,
-         "image":"assets\/TopDown Vehicles v1.17\/LUXURY TOPDOWN\/Black\/Black_LUXURY_CLEAN_8D_000-sheet.png",
+         "image":"BLACK_LUXURY.png",
          "imageheight":300,
          "imagewidth":300,
          "margin":0,
          "name":"cochre_6",
          "spacing":0,
          "tilecount":324,
-         "tileheight":16,
-         "tilewidth":16
+         "tileheight":100,
+         "tilewidth":100
         }, 
         {
          "columns":18,
          "firstgid":7434,
-         "image":"assets\/TopDown Vehicles v1.17\/TAXI TOPDOWN\/ALL DIRECTION\/TAXI_CLEAN_8D0000-sheet.png",
+         "image":"TAXI.png",
          "imageheight":300,
          "imagewidth":300,
          "margin":0,
          "name":"coche_7",
          "spacing":0,
          "tilecount":324,
-         "tileheight":16,
-         "tilewidth":16
+         "tileheight":100,
+         "tilewidth":100
         }, 
         {
          "columns":18,
          "firstgid":7758,
-         "image":"assets\/TopDown Vehicles v1.17\/SUV TOPDOWN\/Green\/Green_SUV_CLEAN_8D_000-sheet.png",
+         "image":"GREEN_SUV.png",
          "imageheight":300,
          "imagewidth":300,
          "margin":0,
          "name":"Coche_8",
          "spacing":0,
          "tilecount":324,
-         "tileheight":16,
-         "tilewidth":16
+         "tileheight":100,
+         "tilewidth":100
         }, 
         {
          "columns":18,
          "firstgid":8082,
-         "image":"assets\/TopDown Vehicles v1.17\/SUPERCAR TOPDOWN\/Red\/Red_SUPERCAR_CLEAN_8D_000-sheet.png",
+         "image":"RED_SUPERCAR.png",
          "imageheight":300,
          "imagewidth":300,
          "margin":0,
          "name":"Coche_10",
          "spacing":0,
          "tilecount":324,
-         "tileheight":16,
-         "tilewidth":16
+         "tileheight":100,
+         "tilewidth":100
         }, 
         {
          "columns":4,
          "firstgid":8406,
-         "image":"assets\/Creados\/suelo1-0.png",
+         "image":"suelo1-0.png",
          "imageheight":16,
          "imagewidth":64,
          "margin":0,
@@ -1536,7 +1536,7 @@
         {
          "columns":28,
          "firstgid":8410,
-         "image":"assets\/Cyberpunk platformer - World starter\/tileset\/main_tileset.png",
+         "image":"suelo1-2.png",
          "imageheight":288,
          "imagewidth":448,
          "margin":0,
@@ -1549,7 +1549,7 @@
         {
          "columns":1,
          "firstgid":8914,
-         "image":"assets\/Simple beat-em-up assets\/Assets\/props\/lamp_down.png",
+         "image":"lamp_down.png",
          "imageheight":64,
          "imagewidth":16,
          "margin":0,

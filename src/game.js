@@ -2,6 +2,7 @@ import Boot from './scenes/boot.js';
 import End from './scenes/end.js';
 import Level from './scenes/level.js';
 import MenuTutorial from './scenes/menu-tutorial.js';
+import Dungeon_1 from './scenes/Dungeons/mapa_dungeon_1.js';
 import Phaser from 'phaser';
 
 let config = {
@@ -13,7 +14,7 @@ let config = {
         autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
     },
     pixelArt: true,
-    scene: [Boot, MenuTutorial, Level, End],
+    scene: [Boot, MenuTutorial, Level, End, Dungeon_1],
     physics: {
         default: 'arcade',
         arcade: {
