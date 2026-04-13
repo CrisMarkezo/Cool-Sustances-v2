@@ -14,6 +14,7 @@ export default class TiendaTutorial extends Phaser.Scene {
         const inventoryBtn = InventorySprite.create(this, 50, 60)
         RuedaSprite.create(this, 920, 85, 'rueda_tienda')  
         const icon = this.add.image(920, 85, 'tiendaIcon')
+        const hao = this.add.image(400, 190, 'haoNeutro')
 
         const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);
         settingsBtn.on('pointerdown', () => {
@@ -41,28 +42,28 @@ export default class TiendaTutorial extends Phaser.Scene {
         }).setOrigin(0.5)
         
         const opcion1Bubble = this.add.rectangle(600, 500, 560, 60, 0x6969ec)
-        opcion1Bubble.setStrokeStyle(3, 0x000000)
+        opcion1Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
         const opcion1 = this.add.text(600, 500, 'Comprar filtros (2€)', { 
             fontFamily: '"Keneric", sans-serif',
             fontSize: '20px', 
             fill: '#ffffff' 
         }).setOrigin(0.5).setInteractive();
         const opcion2Bubble = this.add.rectangle(600, 550, 560, 60, 0x6969ec)
-        opcion2Bubble.setStrokeStyle(3, 0x000000)
+        opcion2Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
         const opcion2 = this.add.text(600, 550, 'Comprar litrona (1€)', { 
             fontFamily: '"Keneric", sans-serif',
             fontSize: '20px', 
             fill: '#ffffff'
         }).setOrigin(0.5).setInteractive();
         const opcion3Bubble = this.add.rectangle(600, 600, 560, 60, 0x6969ec)
-        opcion3Bubble.setStrokeStyle(3, 0x000000)
+        opcion3Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
         const opcion3 = this.add.text(600, 600, 'Dar yanotekomo (1)', {
             fontFamily: '"Keneric", sans-serif',
             fontSize: '20px', 
             fill: '#ffffff' 
         }).setOrigin(0.5).setInteractive();
         const opcion4Bubble = this.add.rectangle(600, 650, 560, 60, 0x6969ec)
-        opcion4Bubble.setStrokeStyle(3, 0x000000)
+        opcion4Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
         const opcion4 = this.add.text(600, 650, 'Salir de la tienda', { 
             fontFamily: '"Keneric", sans-serif',
             fontSize: '20px', 
@@ -95,7 +96,7 @@ export default class TiendaTutorial extends Phaser.Scene {
                     fontFamily: '"PixelAE-Bold", monospace',
                     fontSize: '20px',
                     color: '#0066cc'
-                }).setOrigin(0.5).setInteractive()
+                }).setOrigin(0.5).setInteractive({ useHandCursor: true })
 
                 continuar.on('pointerdown', () => {
                     this.scene.start('phone-tutorial')
@@ -104,15 +105,19 @@ export default class TiendaTutorial extends Phaser.Scene {
         }
 
         opcion1.on('pointerdown', () => {
+            hao.setTexture('haoFeliz')
             mostrarRecompensa('¡Has comprado filtros!')
         })
         opcion2.on('pointerdown', () => {
+            hao.setTexture('haoFeliz')
             mostrarRecompensa('¡Has comprado una litrona!')
         })
         opcion3.on('pointerdown', () => {
+            hao.setTexture('haoHorny')
             mostrarRecompensa('¡Has dado 1 yanotekomo!')
         })  
         opcion4.on('pointerdown', () => {
+            hao.setTexture('haoTriste')
             mostrarRecompensa('¡Has salido de la tienda!')
         })
     }

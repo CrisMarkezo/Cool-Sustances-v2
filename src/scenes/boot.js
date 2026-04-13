@@ -12,7 +12,6 @@ import startMenu from '../../assets/sprites/startPrueba.jpeg'
 
 import dia from '../../assets/sprites/dia/UIDaySinRueda.png'
 import tiendaDia from '../../assets/sprites/dia/UITiendaSinRueda.png'
-import cubatita from '../../assets/sprites/cubatita.png'
 import ruedaSprite from '../../assets/sprites/dia/UIrueda.png'
 import ruedaSprite2 from '../../assets/sprites/dia/UIruedatienda.png'
 import patas from '../../assets/sprites/dia/patas.png'
@@ -50,8 +49,18 @@ import accionIcon4 from '../../assets/sprites/dia/accionIconAnimation4.png'
 import dialogoIcon1 from '../../assets/sprites/dia/dialogoIconAnimation1.png'
 import dialogoIcon2 from '../../assets/sprites/dia/dialogoIconAnimation2.png'
 import dialogoIcon3 from '../../assets/sprites/dia/dialogoAnimation3.png'
+import laliNeutro from '../../assets/sprites/dia/characters/laliNeutro.png'
+import laliFeliz from '../../assets/sprites/dia/characters/laliFeliz.png'
+import laliTriste from '../../assets/sprites/dia/characters/laliTriste.png'
+import laliEnfadada from '../../assets/sprites/dia/characters/laliEnfadada.png'
+
 
 import tiendaIcon from '../../assets/sprites/dia/tiendaIconScene.png'
+import haoNeutro from '../../assets/sprites/dia/characters/haoNeutro.png'
+import haoFeliz from '../../assets/sprites/dia/characters/haoFeliz.png'
+import haoTriste from '../../assets/sprites/dia/characters/haoTriste.png'
+import haoEnfadado from '../../assets/sprites/dia/characters/haoEnfadado.png'
+import haoHorny from '../../assets/sprites/dia/characters/haoHorny.png'
 
 /*
  * Escena para la precarga de los assets que se usarán en el juego.
@@ -92,7 +101,6 @@ super({ key: 'boot' });
     //this.load.setPath('assets/sprites/');
     this.load.image('dia', dia)
     this.load.image('tienda_dia', tiendaDia)
-    this.load.image('cubatita', cubatita)    
 
     this.load.image('startMenu', startMenu);
 
@@ -136,6 +144,15 @@ super({ key: 'boot' });
     this.load.image('dialogoIcon3', dialogoIcon3);
 
     this.load.image('tiendaIcon', tiendaIcon);
+    this.load.image('laliNeutro', laliNeutro);
+    this.load.image('laliFeliz', laliFeliz);
+    this.load.image('laliTriste', laliTriste);
+    this.load.image('laliEnfadada', laliEnfadada);
+    this.load.image('haoNeutro', haoNeutro);
+    this.load.image('haoFeliz', haoFeliz);
+    this.load.image('haoTriste', haoTriste);
+    this.load.image('haoEnfadado', haoEnfadado);
+    this.load.image('haoHorny', haoHorny);
 
 
     this.load.image('Muebles4', TopDownHouse_FurnitureState1);

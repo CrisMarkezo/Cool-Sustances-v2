@@ -49,7 +49,7 @@ export default class AccionTutorial extends Phaser.Scene {
         this.add.image(690, 620, 'bin')
 
         const contextoBubble = this.add.rectangle(325, 250, 500, 150, 0xE2007C)
-        contextoBubble.setStrokeStyle(3, 0Xe76d2c)
+        contextoBubble.setStrokeStyle(3, 0Xe76d2c).setInteractive({ useHandCursor: true })
         const contexto = dialogTextSprite.create(this, 325, 250, [
             'Siguiendo a la dueña te encuentras con una moneda brillante',
             'en el suelo, pero tu gran olfato huele algo delicioso en lo que parece ser un cubo con muchas cosas. ¿Qué haces?'
@@ -73,7 +73,7 @@ export default class AccionTutorial extends Phaser.Scene {
                 }
 
                 opcion1Bubble = this.add.rectangle(650, 320, 360, 60, 0Xe76d2c)
-                opcion1Bubble.setStrokeStyle(3, 0x000000)
+                opcion1Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
                 opcion1 = this.add.text(650, 320, 'Recoger dinero del suelo (+2€)', {
                     fontFamily: '"Keneric", sans-serif',
                     fontSize: '22px',
@@ -83,7 +83,7 @@ export default class AccionTutorial extends Phaser.Scene {
                 }).setOrigin(0.5).setInteractive()
 
                 opcion2Bubble = this.add.rectangle(650, 400, 360, 60, 0Xe76d2c)
-                opcion2Bubble.setStrokeStyle(3, 0x000000)
+                opcion2Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
                 opcion2 = this.add.text(650, 400, 'Buscar en la basura (+1 yanotekomo)', {
                     fontFamily: '"Keneric", sans-serif',
                     fontSize: '22px',
@@ -126,7 +126,7 @@ export default class AccionTutorial extends Phaser.Scene {
                     fontFamily: '"PixelAE-Bold", monospace',
                     fontSize: '20px',
                     color: '#0066cc'
-                }).setOrigin(0.5).setInteractive()
+                }).setOrigin(0.5).setInteractive({ useHandCursor: true })
 
                 continuar.on('pointerdown', () => {
                     this.scene.start('phone-tutorial')

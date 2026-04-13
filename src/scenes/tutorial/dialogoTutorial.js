@@ -13,11 +13,14 @@ export default class DialogoTutorial extends Phaser.Scene {
     create(){
 
         let opcion1, opcion2, opcion1Bubble, opcion2Bubble;
+        let respuestaBubble = null;
+        let respuesta = null;
 
         this.add.image(500, 350, 'dia');
         const inventoryBtn = InventorySprite.create(this, 50, 60)
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'dialogo', 1200)
+        const lali = this.add.image(690, 620, 'laliNeutro')
         //this.add.image(200, 500, 'cubatita');
 
         const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);
@@ -48,7 +51,7 @@ export default class DialogoTutorial extends Phaser.Scene {
         const contextoBubble = this.add.rectangle(325, 250, 500, 150, 0xC8006E)
         contextoBubble.setStrokeStyle(3, 0Xe76d2c)
         const contexto = dialogTextSprite.create(this, 325, 250, [
-            'Aparece una señora preguntandote que hace una cosa tan bonita en medio de la calle, ofreciendote una loncha de jamón. ¿Qué haces?'
+            'Aparece una chica preguntandote que hace una cosa tan bonita en medio de la calle, ofreciendote una loncha de jamón. ¿Qué haces?'
         ], {       
             fontFamily: '"Toonway", sans-serif',
             fontSize: '20px', 
@@ -56,6 +59,34 @@ export default class DialogoTutorial extends Phaser.Scene {
             wordWrap: { width: 500 },
             align: 'center'
         });
+
+        const runWhenDialogFinishes = (dialogo, callback, fallbackMs = 2500) => {
+            let done = false;
+            const safeRun = () => {
+                if (done) return;
+                done = true;
+                callback();
+            };
+
+            dialogo.once('complete', safeRun);
+            this.time.delayedCall(fallbackMs, safeRun);
+        };
+
+        const mostrarRespuestaYRecompensa = (mensajeRespuesta, mensajeRecompensa) => {
+            let avanceHecho = false;
+            const avanzar = () => {
+                if (avanceHecho) return;
+                avanceHecho = true;
+                if (nextDialogHint) {
+                    nextDialogHint.destroy();
+                    nextDialogHint = null;
+                }
+                mostrarRecompensa(mensajeRecompensa);
+            };
+
+            respuesta.once('pointerdown', avanzar);
+            this.time.delayedCall(2000, avanzar);
+        };
 
         let nextDialogHint = null;
 
@@ -69,38 +100,81 @@ export default class DialogoTutorial extends Phaser.Scene {
                 nextDialogHint.destroy()
             }
             opcion1Bubble = this.add.rectangle(650, 550, 360, 60, 0Xe76d2c)
-            opcion1Bubble.setStrokeStyle(3, 0x1F2A44)
+            opcion1Bubble.setStrokeStyle(3, 0x1F2A44).setInteractive({ useHandCursor: true })
             opcion1 = this.add.text(650, 550, 'Bufar y seguir con tu camino', { 
                 fontFamily: '"Keneric", sans-serif',
                 fontSize: '20px', 
                 fill: '#ffffff', 
                 wordWrap: { width: 300 },
                 align: 'center'
-            }).setOrigin(0.5).setInteractive();
+            }).setOrigin(0.5).setInteractive({ useHandCursor: true });
             opcion2Bubble = this.add.rectangle(650, 600, 360, 60, 0Xe76d2c)
-            opcion2Bubble.setStrokeStyle(3, 0x1F2A44)
+            opcion2Bubble.setStrokeStyle(3, 0x1F2A44).setInteractive({ useHandCursor: true })
             opcion2 = this.add.text(650, 600, 'Aceptar la loncha de jamón y seguir con tu camino', { 
                 fontFamily: '"Keneric", sans-serif',
                 fontSize: '20px', 
                 fill: '#ffffff',
                 wordWrap: { width: 300 },
                 align: 'center'
-            }).setOrigin(0.5).setInteractive();
+            }).setOrigin(0.5).setInteractive({ useHandCursor: true });
 
-            opcion1.on('pointerdown', () => {
-            mostrarRecompensa('¡Has conseguido dar miedo!')
-            })
-            opcion2.on('pointerdown', () => {
-                mostrarRecompensa('¡Has conseguido loncha de jamón!')
-            })
+            let opcionElegida = false
+
+            const elegirOpcion1 = () => {
+                if (opcionElegida) return
+                opcionElegida = true
+                opcion1.destroy()
+                opcion2.destroy()
+                opcion1Bubble.destroy()
+                opcion2Bubble.destroy()
+                lali.setTexture('laliEnfadada')
+                respuestaBubble = this.add.rectangle(600, 300, 400, 100, 0xffffff)
+                respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
+                respuesta = dialogTextSprite.create(this, 600, 300, ['Jo tio, porque no me quieres...'], {
+                    fontFamily: '"Toonway", monospace',
+                    fontSize: '28px',
+                    color: '#000000',
+                    wordWrap: { width: 380 },
+                    align: 'center'
+                }).setOrigin(0.5).setInteractive({ useHandCursor: true })
+                mostrarRespuestaYRecompensa('Jo tio, porque no me quieres...', '¡Has conseguido el desprecio de la chica!')
+
+            }
+
+            const elegirOpcion2 = () => {
+                if (opcionElegida) return
+                opcionElegida = true
+                opcion1.destroy()
+                opcion2.destroy()
+                opcion1Bubble.destroy()
+                opcion2Bubble.destroy()
+                lali.setTexture('laliFeliz')
+                respuestaBubble = this.add.rectangle(600, 300, 400, 100, 0xffffff)
+                respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
+                respuesta = dialogTextSprite.create(this, 600, 300, ['AYY!!! que mono!'], {
+                    fontFamily: '"Toonway", monospace',
+                    fontSize: '28px',
+                    color: '#000000',
+                    wordWrap: { width: 380 },
+                    align: 'center'
+                }).setOrigin(0.5).setInteractive({ useHandCursor: true })
+                mostrarRespuestaYRecompensa('AYY!!! que mono!', '¡Has conseguido el corazón de la chica!')
+            }
+
+            opcion1.on('pointerdown', elegirOpcion1)
+            opcion1Bubble.on('pointerdown', elegirOpcion1)
+            opcion2.on('pointerdown', elegirOpcion2)
+            opcion2Bubble.on('pointerdown', elegirOpcion2)
         })
         })
 
         const mostrarRecompensa = (mensaje) => {
-            opcion1.destroy()
-            opcion2.destroy()
-            opcion1Bubble.destroy()
-            opcion2Bubble.destroy()
+            if (respuestaBubble) {
+                respuestaBubble.destroy()
+            }
+            if (respuesta) {
+                respuesta.destroy()
+            }
 
             const bubble = this.add.rectangle(650, 580, 300, 110, 0xffffff)
             bubble.setStrokeStyle(4, 0x000000)
@@ -112,7 +186,12 @@ export default class DialogoTutorial extends Phaser.Scene {
                 wordWrap: { width: 280 },
                 align: 'center'
             }).setOrigin(0.5)
-
+            lali.setTexture('laliTriste')
+            const dialogoFinal = dialogTextSprite.create(this, 600, 300, ['Oye pero ahora a donde vas?'], {
+                fontFamily: '"PixelAE-Bold", monospace',
+                fontSize: '20px',
+                color: '#0066cc'
+            })
             this.time.delayedCall(2000, () => {
                 const continuar = this.add.text(650, 660, 'Presiona aquí para continuar', {
                     fontFamily: '"PixelAE-Bold", monospace',
