@@ -1,12 +1,16 @@
 import Phaser from 'phaser';
 import Player from '../../player.js';
 
+import CatIdle from '../../../assets/sprites/Cat_Idle.png';
+import CatRun from '../../../assets/sprites/Cat_Run.png';
+import CatAttack from '../../../assets/sprites/Cat_Attack.png';
+
 // Dungeon
 import Dungeon from '../../../assets/Dungeon/Dungeon_1.json';
 import Ambulance from '../../../assets/Dungeon/Ambulance.png';
 import Arbol from '../../../assets/Dungeon/arbol.png';
 import Jeep from '../../../assets/Dungeon/BLACK_JEEP.png';
-import Luxury from '../../../assets/Dungeon/BLACK_LUXURY.png';
+import Luxury from '../../../assets/Dungeon/BLACKK_LUXURY.png';
 import Blue_Civic from '../../../assets/Dungeon/BLUE_CIVIC.png';
 import White_Civic from '../../../assets/Dungeon/WHITE_CIVIC.png';
 import Brown_Coupe from '../../../assets/Dungeon/BROWN_COUPE.png';
@@ -34,21 +38,21 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
     }
 
     preload(){
-        this.load.spritesheet('ambulance', Ambulance, { frameWidth: 140, frameHeight: 140 });
-        this.load.spritesheet('jeep', Jeep, { frameWidth: 100, frameHeight: 100 });
-        this.load.spritesheet('luxury', Luxury, { frameWidth: 100, frameHeight: 100 });
-        this.load.spritesheet('blue_civic', Blue_Civic, { frameWidth: 100, frameHeight: 100 });
-        this.load.spritesheet('white_civic', White_Civic, { frameWidth: 100, frameHeight: 100 });
-        this.load.spritesheet('brown_coupe', Brown_Coupe, { frameWidth: 100, frameHeight: 100 });
-        this.load.spritesheet('yellow_coupe', Yellow_Coupe, { frameWidth: 100, frameHeight: 100 });
-        this.load.spritesheet('suv', Suv, { frameWidth: 100, frameHeight: 100 });
-        this.load.spritesheet('supercar', Supercar, { frameWidth: 100, frameHeight: 100 });
-        this.load.spritesheet('police', Police, { frameWidth: 100, frameHeight: 100 });
-        this.load.spritesheet('taxi', Taxi, { frameWidth: 100, frameHeight: 100 });
-        this.load.spritesheet('bus', Bus, { frameWidth: 210, frameHeight: 210 });
-        this.load.spritesheet('chest_idle', Chest_IDLE, { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('chest_empty', Chest_EMPTY, { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('chest_gold', Chest_GOLD, { frameWidth: 32, frameHeight: 32 });
+        this.load.image('ambulance', Ambulance);
+        this.load.image('jeep', Jeep);
+        this.load.image('luxury', Luxury);
+        this.load.image('blue_civic', Blue_Civic);
+        this.load.image('white_civic', White_Civic);
+        this.load.image('brown_coupe', Brown_Coupe);
+        this.load.image('yellow_coupe', Yellow_Coupe);
+        this.load.image('suv', Suv);
+        this.load.image('supercar', Supercar);
+        this.load.image('police', Police);
+        this.load.image('taxi', Taxi);
+        this.load.image('bus', Bus);
+        this.load.image('chest_idle', Chest_IDLE);
+        this.load.image('chest_empty', Chest_EMPTY);
+        this.load.image('chest_gold', Chest_GOLD);
 
         this.load.image('arbol', Arbol);
         this.load.image('paredes', Paredes);
@@ -60,6 +64,26 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         this.load.image('poste_down', Poste_Down);
         this.load.image('poste_right', Poste_Right);
         this.load.tilemapTiledJSON('dungeon_1', Dungeon);
+
+        // Idle
+        this.load.spritesheet('cat_idle', CatIdle, {
+        frameWidth: 32,
+        frameHeight: 32
+        });
+
+
+        // Run
+        this.load.spritesheet('cat_run', CatRun, {
+        frameWidth: 32,
+        frameHeight: 32
+        });
+
+
+        //Attack gato
+        this.load.spritesheet('cat_attack', CatAttack, {
+            frameWidth: 32,
+            frameHeight: 32
+        });
     }
 
     create() {
@@ -67,90 +91,85 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
 
         var paredes = map.addTilesetImage('paredes', 'paredes');
         var arboles = map.addTilesetImage('arbol', 'arbol');
-        var bus = map.addTilesetImage('bus', 'bus');
         var calle = map.addTilesetImage('Calle', 'calle');
-        var lamp_down = map.addTilesetImage('calle_3', 'poste_dowm');
+        var lamp_down = map.addTilesetImage('calle_3', 'poste_down');
         var lamp_right = map.addTilesetImage('calle_2', 'poste_right');
         var suelo_disco = map.addTilesetImage('ciberpunk', 'suelo_disco');
-        var supercar = map.addTilesetImage('Coche_10', 'supercar');
-        var police = map.addTilesetImage('policia', 'police');
-        var brown_coupe = map.addTilesetImage('coche_3', 'brown_coupe');
-        var jeep = map.addTilesetImage('Coche_4', 'jeep');
-        var ambulance = map.addTilesetImage('Coche_5', 'ambulance');
-        var yellow_coupe = map.addTilesetImage('Coche_6', 'yellow_coupe');
-        var taxi = map.addTilesetImage('coche_7', 'taxi');
-        var suv = map.addTilesetImage('Coche_8', 'suv');
-        var white_civic = map.addTilesetImage('coche2', 'white_civic');
-        var blue_civic = map.addTilesetImage('coches', 'blue_civic');
-        var luxury = map.addTilesetImage('cochre_6', 'luxury');
-        var chest_idle = map.addTilesetImage('cofre', 'chest_idle');
+        //var chest_idle = map.addTilesetImage('cofre', 'chest_idle');
         var suelo = map.addTilesetImage('disco_suelo', 'suelo');
         var suelo_exterior = map.addTilesetImage('tiles', 'suelo_exterior');
         var hierba = map.addTilesetImage('TX Tileset Grass', 'hierba');
+        var vehiculos = map.getObjectLayer('Vehiculos');
 
-        map.createLayer('Suelo', [calle, suelo, suelo_disco, suelo_exterior, hierba, chest_idle], 0, 0);
+        map.createLayer('Suelo', [paredes, calle, suelo, suelo_disco, suelo_exterior, hierba], 0, 0);
         map.createLayer('Vacio', paredes, 0, 0);
-        map.createLayer('Cosmeticos_suelo', paredes, 0, 0);
+        map.createLayer('Cosmeticos_suelo', [paredes, arboles, lamp_down, lamp_right], 0, 0);
+        var paredes_layer = map.createLayer('Paredes', [paredes, calle, arboles, lamp_down, lamp_right], 0, 0);
         var colisiones_layer = map.createLayer('Colisiones', calle, 0, 0);
-        var paredes_layer = map.createLayer('Paredes', [paredes, calle, bus, supercar, police, brown_coupe, jeep, ambulance, yellow_coupe, taxi, 
-            suv, white_civic, blue_civic, luxury, arboles, lamp_down, lamp_right], 0, 0);
+        colisiones_layer.setVisible(false);
 
         paredes_layer.setCollisionByExclusion([-1],true);
         colisiones_layer.setCollisionByExclusion([-1],true);
 
-
         const startX = map.widthInPixels / 2;
         const startY = map.heightInPixels / 2;
 
-        // this.player = new Player(this, 72, 171);
+        this.player = new Player(this, startX, startY);
+        this.player.speed = 300;
 
-        // this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-        // this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-        // this.cameras.main.startFollow(this.player, true, 0.1, 0.1);
-        // this.cameras.main.setRoundPixels(true);
-        // this.cameras.main.setZoom(5);
-        // this.cameras.main.centerOn(this.player.x, this.player.y);
+        this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+        this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+        this.cameras.main.startFollow(this.player, true, 0.1, 0.1);
+        this.cameras.main.setRoundPixels(true);
+        this.cameras.main.setZoom(2);
+        this.cameras.main.centerOn(this.player.x, this.player.y);
 
-        // this.anims.create({
-        //     key: 'cat_idle',
-        //     frames: this.anims.generateFrameNumbers('cat_idle', {
-        //         start: 0,
-        //         end: 7
-        //     }),
-        //     frameRate: 6,
-        //     repeat: -1
-        // });
+        this.physics.add.collider(this.player, colisiones_layer);
+        this.physics.add.collider(this.player, paredes_layer);
 
-        // // Run (10 frames)
-        // this.anims.create({
-        //     key: 'cat_run',
-        //     frames: this.anims.generateFrameNumbers('cat_run', {
-        //         start: 0,
-        //         end: 9
-        //     }),
-        //     frameRate: 12,
-        //     repeat: -1
-        // });
+        // Animación idle
+        this.anims.create({
+            key: 'cat_idle',
+            frames: this.anims.generateFrameNumbers('cat_idle', {
+                start: 0,
+                end: 7
+            }),
+            frameRate: 6,
+            repeat: -1
+        });
 
 
-        // this.anims.create({
-        //     key: 'cat_attack',
-        //     frames: [
-        //         { key: 'cat_attack', frame: 0 },
-        //         { key: 'cat_attack', frame: 1 },
+        // Run (10 frames)
+        this.anims.create({
+            key: 'cat_run',
+            frames: this.anims.generateFrameNumbers('cat_run', {
+                start: 0,
+                end: 9
+            }),
+            frameRate: 12,
+            repeat: -1
+        });
+
+
+        this.anims.create({
+            key: 'cat_attack',
+            frames: [
+                { key: 'cat_attack', frame: 0 },
+                { key: 'cat_attack', frame: 1 },
 
                 
-        //         { key: 'cat_attack', frame: 2 },
-        //         { key: 'cat_attack', frame: 2 },
-        //         { key: 'cat_attack', frame: 2 },
+                { key: 'cat_attack', frame: 2 },
+                { key: 'cat_attack', frame: 2 },
+                { key: 'cat_attack', frame: 2 },
 
-        //         { key: 'cat_attack', frame: 3 },
-        //         { key: 'cat_attack', frame: 4 },
-        //         { key: 'cat_attack', frame: 5 }
-        //     ],
-        //     frameRate: 14,
-        //     repeat: 0
-        // });
+                { key: 'cat_attack', frame: 3 },
+                { key: 'cat_attack', frame: 4 },
+                { key: 'cat_attack', frame: 5 }
+            ],
+            frameRate: 14,
+            repeat: 0
+        });
+
     }
 
     update() {
