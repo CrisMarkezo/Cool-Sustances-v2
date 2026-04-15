@@ -22,7 +22,7 @@ let config = {
         autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
     },
     pixelArt: true,
-    scene: [Boot, MenuTutorial, Level, End, Dungeon_1 AccionTutorial, TiendaTutorial, DialogoTutorial, Menu, AccionPrimera1, Inventory, StartMenu, Settings],
+    scene: [Boot, MenuTutorial, Level, End, Dungeon_1, AccionTutorial, TiendaTutorial, DialogoTutorial, Menu, AccionPrimera1, Inventory, StartMenu, Settings],
     physics: {
         default: 'arcade',
         arcade: {
