@@ -58,7 +58,7 @@ export default class Level extends Phaser.Scene {
         this.powerUps = this.physics.add.group();
         this.powerUps.add(this.alcohol);
         this.powerUps.add(this.queta);
-         this.powerUps.add(this.alcohol2);
+        this.powerUps.add(this.alcohol2);
         this.powerUps.add(this.queta2);
 
         this.physics.add.collider(this.player, colisiones);

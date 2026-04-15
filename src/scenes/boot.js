@@ -28,7 +28,7 @@ preload() {
 
 
 
-/*
+
 this.load.image('Muebles4', TopDownHouse_FurnitureState1);
 this.load.image('Muebles6', TopDownHouse_DoorsAndWindows);
 this.load.image('Paredes y suelos', TopDownHouse_FloorsAndWalls);
@@ -82,14 +82,13 @@ this.load.spritesheet('cat_grabbing', CatGrabbing, {
     frameWidth: 32,
     frameHeight: 32
 });
-*/
 }
 
 
 
 create() {
 
-/*
+
 // Animación idle
 this.anims.create({
     key: 'cat_idle',
@@ -147,7 +146,6 @@ this.anims.create({
     frameRate: 6,   // 6 fps, ajusta para que dure como quieras
     repeat: 0        // se reproduce una vez
 });
-*/
 
 this.scene.start('dungeon_1');
 
