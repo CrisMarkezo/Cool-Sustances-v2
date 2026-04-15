@@ -1,9 +1,17 @@
 import Boot from './scenes/boot.js';
 import End from './scenes/end.js';
 import Level from './scenes/level.js';
-import MenuTutorial from './scenes/menu-tutorial.js';
 import Dungeon_1 from './scenes/mapa_dungeon_1.js';
+import AccionTutorial from './scenes/tutorial/accionTutorial.js';
+import MenuTutorial from './scenes/tutorial/menu-tutorial.js';
 import Phaser from 'phaser';
+import TiendaTutorial from './scenes/tutorial/tiendaTutorial.js';
+import DialogoTutorial from './scenes/tutorial/dialogoTutorial.js';
+import Menu from './scenes/dia/menu-dia.js'
+import AccionPrimera1 from './scenes/dia/accionPrimera1.js'
+import Inventory from './scenes/inventory.js'
+import StartMenu from './scenes/startMenu.js'
+import Settings from './scenes/settings.js'
 
 let config = {
     type: Phaser.AUTO,
@@ -14,7 +22,7 @@ let config = {
         autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
     },
     pixelArt: true,
-    scene: [Boot, MenuTutorial, Level, End, Dungeon_1],
+    scene: [Boot, MenuTutorial, Level, End, Dungeon_1 AccionTutorial, TiendaTutorial, DialogoTutorial, Menu, AccionPrimera1, Inventory, StartMenu, Settings],
     physics: {
         default: 'arcade',
         arcade: {

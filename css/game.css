@@ -2,6 +2,10 @@ h1 {
   text-align: center;
 }
 
+body {
+  background-color: darkblue;
+}
+
 .game-container {
   display: flex;
   align-items: center;
@@ -11,6 +15,7 @@ h1 {
 
 #juego {
   flex-shrink: 0;
+
 }
 
 .game-title {
@@ -25,5 +30,47 @@ h1 {
   font-style: italic;
   font-family: sans-serif;
   color:chocolate;
-  
+  font-variant: initial;
+}
+
+@font-face {
+  font-family: "Toonway";
+  src: url("../assets/fonts/ToonwayFilled.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ToonwayEmpty";
+  src: url("../assets/fonts/Toonway.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Keneric";
+  src: url("../assets/fonts/Keneric.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "PixelAE-Regular";
+  src: url("../assets/fonts/PixelAE-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "PixelAE-Bold";
+  src: url("../assets/fonts/PixelAE-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "FreakyFont";
+  src: url("../assets/fonts/BKFreakyHand.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }

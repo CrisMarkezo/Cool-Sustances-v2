@@ -1,9 +1,9 @@
 import Phaser from 'phaser';
 import Player from '../player.js';
-import Scratcher from '../Scratcher.js';
+import Scratcher from '../scratcher.js';
 import Phone from '../Phone.js';
-import Monster from '../Monster.js';
-import PowerUp from '../powerup.js';
+import Monster from '../monster.js';
+import PowerUp from '../powuerup.js';
 
 export default class Level extends Phaser.Scene {
     constructor() {
@@ -45,11 +45,10 @@ export default class Level extends Phaser.Scene {
         this.alcohol.setScale(0.25);
         this.queta = new PowerUp(this, startX + 130, startY + 20, 'star', 'damage', 100);
         this.queta.setScale(0.25);
-
-        this.alcohol2 = new PowerUp(this, startX + 100, startY + 40, 'star', 'max_health', 100);
-        this.alcohol2.setScale(0.25);
-        this.queta2 = new PowerUp(this, startX + 130, startY + 40, 'star', 'attack_speed', 100);
-        this.queta2.setScale(0.25);
+        this.ron = new PowerUp(this, startX + 100, startY + 40, 'star', 'max_health', 100);
+        this.ron.setScale(0.25);
+        this.ginebra = new PowerUp(this, startX + 130, startY + 40, 'star', 'attack_speed', 100);
+        this.ginebra.setScale(0.25);
 
         this.interactables = this.physics.add.group();
         this.interactables.add(this.phone);
@@ -58,8 +57,8 @@ export default class Level extends Phaser.Scene {
         this.powerUps = this.physics.add.group();
         this.powerUps.add(this.alcohol);
         this.powerUps.add(this.queta);
-        this.powerUps.add(this.alcohol2);
-        this.powerUps.add(this.queta2);
+        this.powerUps.add(this.ginebra);
+        this.powerUps.add(this.ron);
 
         this.physics.add.collider(this.player, colisiones);
         this.physics.add.collider(this.monster, colisiones);
@@ -87,7 +86,7 @@ export default class Level extends Phaser.Scene {
         this.physics.add.overlap(
             this.player,
             this.powerUps,
-            this.handlePowerUpPickup, 
+            this.handlePowerUpPickup,
             null,
             this
         );
@@ -100,6 +99,7 @@ export default class Level extends Phaser.Scene {
         this.cameras.main.centerOn(this.player.x, this.player.y);
 
         this.keyI = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
+        this.keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
         this.inventoryOpen = false;
 
         this.inventoryUI = this.add.image(
@@ -117,6 +117,11 @@ export default class Level extends Phaser.Scene {
     }
 
     update() {
+        if (Phaser.Input.Keyboard.JustDown(this.keyP)) {
+            this.scene.start('phone-tutorial');
+            return;
+        }
+
         if (Phaser.Input.Keyboard.JustDown(this.keyI)) {
             this.inventoryOpen = !this.inventoryOpen;
             this.inventoryUI.setVisible(this.inventoryOpen);
