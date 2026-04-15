@@ -7,19 +7,19 @@ import CatAttack from '../../../assets/sprites/Cat_Attack.png';
 
 // Dungeon
 import Dungeon from '../../../assets/Dungeon/Dungeon_1.json';
-import Ambulance from '../../../assets/Dungeon/Ambulance.png';
+import Ambulance from '../../../assets/Dungeon/ambulance.png';
 import Arbol from '../../../assets/Dungeon/arbol.png';
-import Jeep from '../../../assets/Dungeon/BLACK_JEEP.png';
-import Luxury from '../../../assets/Dungeon/BLACKK_LUXURY.png';
-import Blue_Civic from '../../../assets/Dungeon/BLUE_CIVIC.png';
-import White_Civic from '../../../assets/Dungeon/WHITE_CIVIC.png';
-import Brown_Coupe from '../../../assets/Dungeon/BROWN_COUPE.png';
-import Yellow_Coupe from '../../../assets/Dungeon/Yellow_COUPE.png';
-import Suv from '../../../assets/Dungeon/GREEN_SUV.png';
-import Supercar from '../../../assets/Dungeon/RED_SUPERCAR.png';
-import Police from '../../../assets/Dungeon/POLICE.png';
-import Taxi from '../../../assets/Dungeon/TAXI.png';
-import Bus from '../../../assets/Dungeon/BUS.png';
+import Jeep from '../../../assets/Dungeon/black_jeep.png';
+import Luxury from '../../../assets/Dungeon/black_luxury.png';
+import Blue_Civic from '../../../assets/Dungeon/blue_civic.png';
+import White_Civic from '../../../assets/Dungeon/white_civic.png';
+import Brown_Coupe from '../../../assets/Dungeon/brown_coupe.png';
+import Yellow_Coupe from '../../../assets/Dungeon/yellow_coupe.png';
+import Suv from '../../../assets/Dungeon/green_suv.png';
+import Supercar from '../../../assets/Dungeon/red_supercar.png';
+import Police from '../../../assets/Dungeon/police.png';
+import Taxi from '../../../assets/Dungeon/taxi.png';
+import Bus from '../../../assets/Dungeon/bus.png';
 import Chest_IDLE from '../../../assets/Dungeon/Chest_Idle.png';
 import Chest_EMPTY from '../../../assets/Dungeon/Chest_Opening_Empty.png';
 import Chest_GOLD from '../../../assets/Dungeon/Chest_Opening_Gold.png';
@@ -99,12 +99,22 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         var suelo = map.addTilesetImage('disco_suelo', 'suelo');
         var suelo_exterior = map.addTilesetImage('tiles', 'suelo_exterior');
         var hierba = map.addTilesetImage('TX Tileset Grass', 'hierba');
-        var vehiculos = map.getObjectLayer('Vehiculos');
+        var taxi = map.addTilesetImage('taxi_tile', 'taxi');
+        var ambulance = map.addTilesetImage('ambulance_tile', 'ambulance');
+        var civic_1 = map.addTilesetImage('white_civic', 'civic_1');
+        var civic_2 = map.addTilesetImage('blue_civic', 'civic_2');
+        var brown_coupe = map.addTilesetImage('brown_coupe_tile', 'brown_coupe');
+        var yellow_coupe = map.addTilesetImage('yellow_coupe_tile', 'yellow_coupe');
+        var supercar = map.addTilesetImage('red_supercar_tile', 'supercar');
+        var luxury = map.addTilesetImage('black_luxury_tile', 'luxury');
+        var suv = map.addTilesetImage('green_suv_tile', 'suv');
+        var jeep = map.addTilesetImage('black_jeep_tile', 'jeep');
+        var bus = map.addTilesetImage('bus_tile', 'bus');
 
         map.createLayer('Suelo', [paredes, calle, suelo, suelo_disco, suelo_exterior, hierba], 0, 0);
         map.createLayer('Vacio', paredes, 0, 0);
         map.createLayer('Cosmeticos_suelo', [paredes, arboles, lamp_down, lamp_right], 0, 0);
-        var paredes_layer = map.createLayer('Paredes', [paredes, calle, arboles, lamp_down, lamp_right], 0, 0);
+        var paredes_layer = map.createLayer('Paredes', [paredes, calle, arboles, lamp_down, lamp_right, taxi, ambulance, civic_1, civic_2, brown_coupe, yellow_coupe, supercar, suv, jeep, bus, luxury], 0, 0);
         var colisiones_layer = map.createLayer('Colisiones', calle, 0, 0);
         colisiones_layer.setVisible(false);
 
