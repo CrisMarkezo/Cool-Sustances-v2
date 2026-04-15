@@ -45,7 +45,7 @@ export default class MenuTutorial extends Phaser.Scene {
                 requiredStep: 3,
                 object: mazmorraBtn,
                 action: () => {
-                    this.scene.start('phone');
+                    this.scene.start('dungeon_1');
                 }
             },
             {
