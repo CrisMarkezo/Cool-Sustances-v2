@@ -8,35 +8,44 @@ import IconSprite from '../../game-objects/iconSprite.js'
 export default class DialogoTutorial extends Phaser.Scene {
     constructor(){
         super({key: 'dialogoTutorial'})
+        // Game state
+        this.contextComplete = false;
+        this.opcionesVisibles = false;
+        this.opcionElegida = 0;
+        this.opcion1 = null;
+        this.opcion2 = null;
+        this.opcion1Bubble = null;
+        this.opcion2Bubble = null;
+        this.respuestaBubble = null;
+        this.respuesta = null;
+        this.nextDialogHint = null;
+
+        // Keyboard keys
+        this.keyA = null;
+        this.keyB = null;
+        this.keySpace = null;
+        this.keyS = null;
+        this.keyI = null;
+        this.keyEnter = null;
+
+        this.lali = null;
+        this.contexto = null;
+        this.contextoBubble = null;
+        this.pico = null;
     }
 
     create(){
+        this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        this.keyB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B);
+        this.keyI = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
+        this.keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+        this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 
-        let opcion1, opcion2, opcion1Bubble, opcion2Bubble;
-        let respuestaBubble = null;
-        let respuesta = null;
-
+        //IU setup
         this.add.image(500, 350, 'dia');
-        const inventoryBtn = InventorySprite.create(this, 50, 60)
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'dialogo', 1200)
-        const lali = this.add.image(690, 620, 'laliNeutro')
-        //this.add.image(200, 500, 'cubatita');
-
-        const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);
-        settingsBtn.on('pointerdown', () => {
-            this.add.image(20, 670, 'settings2').setScale(0.7);
-            this.scene.pause();
-            this.scene.launch('settings', { from: this.scene.key });
-            this.scene.bringToTop('settings');
-        });
-
-        inventoryBtn.on('pointerdown', () => {
-            this.scene.pause()
-            this.scene.launch('inventory', { from: this.scene.key })
-            this.scene.bringToTop('inventory')
-         })
-
         this.add.text(670, 75, 'TUTORIAL: Dialogo', {
             fontFamily: '"Toonway", sans-serif',
             fontSize: '28px',
@@ -47,10 +56,17 @@ export default class DialogoTutorial extends Phaser.Scene {
             fontSize: '20px',
             color: '#ffe2f9'
         }).setOrigin(0.5)
+        //this.add.image(200, 500, 'cubatita');
+        this.lali = this.add.image(700, 500, 'laliNeutro').setScale(1.2);
 
-        const contextoBubble = this.add.rectangle(325, 250, 500, 150, 0xC8006E)
-        contextoBubble.setStrokeStyle(3, 0Xe76d2c)
-        const contexto = dialogTextSprite.create(this, 325, 250, [
+        //Buttons
+        const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);
+        const inventoryBtn = InventorySprite.create(this, 50, 60)
+
+        //Contexto
+        this.contextoBubble = this.add.rectangle(325, 250, 500, 150, 0xC8006E)
+        this.contextoBubble.setStrokeStyle(3, 0Xe76d2c)
+        this.contexto = dialogTextSprite.create(this, 325, 250, [
             'Aparece una chica preguntandote que hace una cosa tan bonita en medio de la calle, ofreciendote una loncha de jamón. ¿Qué haces?'
         ], {       
             fontFamily: '"Toonway", sans-serif',
@@ -60,149 +76,170 @@ export default class DialogoTutorial extends Phaser.Scene {
             align: 'center'
         });
 
-        const runWhenDialogFinishes = (dialogo, callback, fallbackMs = 2500) => {
-            let done = false;
-            const safeRun = () => {
-                if (done) return;
-                done = true;
-                callback();
-            };
+        this.contexto.once('complete', () => {
+            this.contextComplete = true;
+            this.nextDialogHint = nextDialogSprite.create(this, 550, 300)    
+        })
 
-            dialogo.once('complete', safeRun);
-            this.time.delayedCall(fallbackMs, safeRun);
-        };
+    }
+    
+    update(){
+        // Show options when space is pressed (after hint is shown)
+        if (this.contextComplete && !this.opcionesVisibles && this.nextDialogHint && Phaser.Input.Keyboard.JustDown(this.keySpace)) {
+            this.mostrarOpciones();
+        }
+        // Settings menu
+        if (Phaser.Input.Keyboard.JustDown(this.keyS)) {
+            this.add.image(20, 670, 'settings2').setScale(0.7);
+            this.scene.pause();
+            this.scene.launch('settings', { from: this.scene.key });
+            this.scene.bringToTop('settings');
+        }
+        // Inventory menu
+        if (Phaser.Input.Keyboard.JustDown(this.keyI)){
+            this.scene.pause()
+            this.scene.launch('inventory', { from: this.scene.key })
+            this.scene.bringToTop('inventory')
+        }
 
-        const mostrarRespuestaYRecompensa = (mensajeRespuesta, mensajeRecompensa) => {
-            let avanceHecho = false;
-            const avanzar = () => {
-                if (avanceHecho) return;
-                avanceHecho = true;
-                if (nextDialogHint) {
-                    nextDialogHint.destroy();
-                    nextDialogHint = null;
-                }
-                mostrarRecompensa(mensajeRecompensa);
-            };
-
-            respuesta.once('pointerdown', avanzar);
-            this.time.delayedCall(2000, avanzar);
-        };
-
-        let nextDialogHint = null;
-
-        contexto.once('complete', () => {
-            nextDialogHint = nextDialogSprite.create(this, 550, 300)
-            
-            this.input.once('pointerdown', () => {
-            contexto.destroy()
-            contextoBubble.destroy()
-            if (nextDialogHint) {
-                nextDialogHint.destroy()
-            }
-            opcion1Bubble = this.add.rectangle(650, 550, 360, 60, 0Xe76d2c)
-            opcion1Bubble.setStrokeStyle(3, 0x1F2A44).setInteractive({ useHandCursor: true })
-            opcion1 = this.add.text(650, 550, 'Bufar y seguir con tu camino', { 
-                fontFamily: '"Keneric", sans-serif',
-                fontSize: '20px', 
-                fill: '#ffffff', 
-                wordWrap: { width: 300 },
-                align: 'center'
-            }).setOrigin(0.5).setInteractive({ useHandCursor: true });
-            opcion2Bubble = this.add.rectangle(650, 600, 360, 60, 0Xe76d2c)
-            opcion2Bubble.setStrokeStyle(3, 0x1F2A44).setInteractive({ useHandCursor: true })
-            opcion2 = this.add.text(650, 600, 'Aceptar la loncha de jamón y seguir con tu camino', { 
-                fontFamily: '"Keneric", sans-serif',
-                fontSize: '20px', 
-                fill: '#ffffff',
-                wordWrap: { width: 300 },
-                align: 'center'
-            }).setOrigin(0.5).setInteractive({ useHandCursor: true });
-
-            let opcionElegida = false
-
-            const elegirOpcion1 = () => {
-                if (opcionElegida) return
-                opcionElegida = true
-                opcion1.destroy()
-                opcion2.destroy()
-                opcion1Bubble.destroy()
-                opcion2Bubble.destroy()
-                lali.setTexture('laliEnfadada')
-                respuestaBubble = this.add.rectangle(600, 300, 400, 100, 0xffffff)
-                respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
-                respuesta = dialogTextSprite.create(this, 600, 300, ['Jo tio, porque no me quieres...'], {
+        if (this.opcionesVisibles && this.opcionElegida == 0) {
+            if (Phaser.Input.Keyboard.JustDown(this.keyA)) {
+                this.opcionElegida = 1
+                this.opcion1.destroy()
+                this.opcion2.destroy()
+                this.opcion1Bubble.destroy()
+                this.opcion2Bubble.destroy()
+                this.lali.setTexture('laliEnfadada').setScale(1.2)
+                this.pico = this.add.triangle(480, 500, 0, 0, 50, 0, 25, 0, 0xdaff8f)
+                this.pico.setStrokeStyle(4, 0x000000)
+                this.respuestaBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
+                this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
+                this.respuesta = dialogTextSprite.create(this, 400, 300, ['Jo tio, porque no me quieres...'], {
                     fontFamily: '"Toonway", monospace',
                     fontSize: '28px',
                     color: '#000000',
-                    wordWrap: { width: 380 },
+                    wordWrap: { width: 280 },
                     align: 'center'
-                }).setOrigin(0.5).setInteractive({ useHandCursor: true })
-                mostrarRespuestaYRecompensa('Jo tio, porque no me quieres...', '¡Has conseguido el desprecio de la chica!')
-
+                })
+                this.respuesta.once('complete', () => {
+                    this.contextComplete = true;
+                    this.nextDialogHint = nextDialogSprite.create(this, 400, 320)    
+                })        
             }
 
-            const elegirOpcion2 = () => {
-                if (opcionElegida) return
-                opcionElegida = true
-                opcion1.destroy()
-                opcion2.destroy()
-                opcion1Bubble.destroy()
-                opcion2Bubble.destroy()
-                lali.setTexture('laliFeliz')
-                respuestaBubble = this.add.rectangle(600, 300, 400, 100, 0xffffff)
-                respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
-                respuesta = dialogTextSprite.create(this, 600, 300, ['AYY!!! que mono!'], {
+            if (Phaser.Input.Keyboard.JustDown(this.keyB)) {
+                this.opcionElegida = 2
+                this.opcion1.destroy()
+                this.opcion2.destroy()
+                this.opcion1Bubble.destroy()
+                this.opcion2Bubble.destroy()
+                this.lali.setTexture('laliFeliz').setScale(1.2)
+                this.pico = this.add.triangle(480, 500, 0, 0, 50, 0, 25, 0, 0xdaff8f)
+                this.pico.setStrokeStyle(4, 0x000000)
+                this.respuestaBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
+                this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
+                this.respuesta = dialogTextSprite.create(this, 400, 300, ['AYY!!! que mono!'], {
                     fontFamily: '"Toonway", monospace',
                     fontSize: '28px',
                     color: '#000000',
-                    wordWrap: { width: 380 },
+                    wordWrap: { width: 280 },
                     align: 'center'
-                }).setOrigin(0.5).setInteractive({ useHandCursor: true })
-                mostrarRespuestaYRecompensa('AYY!!! que mono!', '¡Has conseguido el corazón de la chica!')
+                })
+                this.respuesta.once('complete', () => {
+                    this.contextComplete = true;
+                    this.nextDialogHint = nextDialogSprite.create(this, 400, 320)    
+                })   
+            }
+        }
+        if (this.opcionElegida == 1 && Phaser.Input.Keyboard.JustDown(this.keySpace)) {
+            this.respuesta.destroy()
+            this.respuestaBubble.destroy()
+            if (this.nextDialogHint) {
+                this.nextDialogHint.destroy()
+            }
+            this.mostrarRecompensa('¡Has perdido el corazón de la chica!')
+            this.opcionElegida = 0; // Reset to prevent multiple triggers
+        }
+        if (this.opcionElegida == 2 && Phaser.Input.Keyboard.JustDown(this.keySpace)) {
+            this.respuesta.destroy()
+            this.respuestaBubble.destroy()
+            if (this.nextDialogHint) {
+                this.nextDialogHint.destroy()
+            }
+            this.mostrarRecompensa('¡Has conseguido una loncha de jamón!')
+            this.opcionElegida = 0; // Reset to prevent multiple triggers
+        }
+
+    }
+
+    mostrarOpciones() {
+        this.contexto.destroy()
+        this.contextoBubble.destroy()
+        if (this.nextDialogHint) {
+            this.nextDialogHint.destroy()
+            this.nextDialogHint = null
+        }
+        this.opcion1Bubble = this.add.rectangle(400, 350, 360, 60, 0Xe76d2c)
+        this.opcion1Bubble.setStrokeStyle(3, 0x1F2A44).setInteractive({ useHandCursor: true })
+        this.opcion1 = this.add.text(400, 350, '(A) Bufar y seguir con tu camino', { 
+            fontFamily: '"Keneric", sans-serif',
+            fontSize: '20px', 
+            fill: '#ffffff', 
+            wordWrap: { width: 300 },
+            align: 'center'
+        }).setOrigin(0.5).setInteractive({ useHandCursor: true });
+        this.opcion2Bubble = this.add.rectangle(400, 400, 360, 60, 0Xe76d2c)
+        this.opcion2Bubble.setStrokeStyle(3, 0x1F2A44).setInteractive({ useHandCursor: true })
+        this.opcion2 = this.add.text(400, 400, '(B) Aceptar la loncha de jamón y seguir con tu camino', { 
+            fontFamily: '"Keneric", sans-serif',
+            fontSize: '20px', 
+            fill: '#ffffff',
+            wordWrap: { width: 300 },
+            align: 'center'
+        }).setOrigin(0.5).setInteractive({ useHandCursor: true });
+        this.opcionesVisibles = true;
+        this.opcionElegida = 0;
+    }
+
+    mostrarRecompensa = (mensaje) => {
+            if (this.respuestaBubble) {
+                this.respuestaBubble.destroy()
+            }
+            if (this.respuesta) {
+                this.respuesta.destroy()
             }
 
-            opcion1.on('pointerdown', elegirOpcion1)
-            opcion1Bubble.on('pointerdown', elegirOpcion1)
-            opcion2.on('pointerdown', elegirOpcion2)
-            opcion2Bubble.on('pointerdown', elegirOpcion2)
-        })
-        })
-
-        const mostrarRecompensa = (mensaje) => {
-            if (respuestaBubble) {
-                respuestaBubble.destroy()
-            }
-            if (respuesta) {
-                respuesta.destroy()
-            }
-
-            const bubble = this.add.rectangle(650, 580, 300, 110, 0xffffff)
+            const bubble = this.add.rectangle(500, 580, 300, 110, 0xffffff)
             bubble.setStrokeStyle(4, 0x000000)
 
-            this.add.text(650, 580, mensaje, {
+            this.add.text(500, 580, mensaje, {
                 fontFamily: '"PixelAE-Regular", monospace',
                 fontSize: '28px',
                 color: '#000000',
                 wordWrap: { width: 280 },
                 align: 'center'
             }).setOrigin(0.5)
-            lali.setTexture('laliTriste')
-            const dialogoFinal = dialogTextSprite.create(this, 600, 300, ['Oye pero ahora a donde vas?'], {
-                fontFamily: '"PixelAE-Bold", monospace',
-                fontSize: '20px',
-                color: '#0066cc'
+            this.lali.setTexture('laliTriste').setScale(0.95)
+            this.pico = this.add.triangle(480, 400, 0, 0, 50, 0, 25, 0, 0xdaff8f)
+            this.pico.setStrokeStyle(4, 0x000000)
+            const dialogoFinalBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
+            dialogoFinalBubble.setStrokeStyle(4, 0x000000)
+            const dialogoFinal = dialogTextSprite.create(this, 400, 300, ['Oye pero ahora a donde vas?'], {
+                fontFamily: '"Toonway", sans-serif',
+                fontSize: '25px',
+                color: '#000000',
+                wordWrap: { width: 280 }
             })
             this.time.delayedCall(2000, () => {
-                const continuar = this.add.text(650, 660, 'Presiona aquí para continuar', {
+                const continuar = this.add.text(500, 660, 'Presiona enter para continuar', {
                     fontFamily: '"PixelAE-Bold", monospace',
                     fontSize: '20px',
-                    color: '#0066cc'
+                    color: '#C8006E'
                 }).setOrigin(0.5).setInteractive()
 
-                continuar.on('pointerdown', () => {
+                this.input.keyboard.once('keydown-SPACE', () => {
                     this.scene.start('phone-tutorial')
                 })
             })
         }
-    }
 }

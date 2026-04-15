@@ -213,6 +213,10 @@ super({ key: 'boot' });
    * nivel del juego
    */
   create() {
+        if (!this.registry.has('money')) {
+            this.registry.set('money', 0);
+        }
+
         let sceneStarted = false;
         const startMenuSafely = () => {
             if (sceneStarted) {
@@ -246,6 +250,7 @@ super({ key: 'boot' });
                 fallbackTimer.remove(false);
                 startMenuSafely();
             });
+
     // Animación idle
 this.anims.create({
     key: 'cat_idle',
@@ -304,5 +309,6 @@ this.anims.create({
     repeat: 0        // se reproduce una vez
 });
 
+        this.scene.start('start-menu');
   }
 }

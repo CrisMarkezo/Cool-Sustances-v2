@@ -6,6 +6,13 @@ export default class MenuTutorial extends Phaser.Scene {
 
     constructor(){
         super({key: 'phone-tutorial'});
+        this.currentStep = 0;
+        this.menuItems = [];
+        this.selectedIndex = 0;
+        this.keyUp = null;
+        this.keyDown = null;
+        this.keyEnter = null;
+        this.keySpace = null;
     }
 
     create(){
@@ -13,65 +20,80 @@ export default class MenuTutorial extends Phaser.Scene {
         if (!this.registry.has('tutorialStep')) {
             this.registry.set('tutorialStep', 0);
         }
-        
 
-        const currentStep = this.registry.get('tutorialStep');
+        this.currentStep = this.registry.get('tutorialStep');
 
         // mostrar onlyMenu de fondo
         this.menuSprite = new MenuSprite(this, 500, 350);
 
-        // boton de escena de accion
-        const accionBtn = this.add.image(485, 450, 'accionMenu').setInteractive();
-       
-        if(currentStep !== 0) {
-            this.add.image(485, 450, 'accionMenu').setTint(0x999999); // Deshabilitar el botón de accion
-            this.add.image(500, 430, 'pez').setScale(0.5).setAngle(30); // Añadir pez para indicar que es el que has elegido
-        } 
-        accionBtn.on('pointerdown', () => {
-            if (currentStep === 0) {
-                console.log('Acción clickeada');
-                this.registry.set('tutorialStep', 1);
-                this.scene.start('accionTutorial');
+        // Configurar teclas de navegación
+        this.keyUp = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        this.keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
+        this.keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+        this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+        // Crear items de menú 
+        const mazmorraBtn = new WidgetSprite(this, 485, 125).setInteractive({ useHandCursor: true });
+        const dialogoBtn = this.add.image(485, 250, 'dialogoMenu').setInteractive({ useHandCursor: true });
+        const tiendaBtn = this.add.image(485, 350, 'tiendaMenu').setInteractive({ useHandCursor: true });
+        const accionBtn = this.add.image(485, 450, 'accionMenu').setInteractive({ useHandCursor: true });
+
+        this.menuItems = [
+            {
+                key: 'mazmorra',
+                displayName: 'Mazmorra',
+                requiredStep: 3,
+                object: mazmorraBtn,
+                action: () => {
+                    this.scene.start('phone');
+                }
+            },
+            {
+                key: 'dialogo',
+                displayName: 'Dialogo',
+                requiredStep: 2,
+                object: dialogoBtn,
+                action: () => {
+                    this.registry.set('tutorialStep', 3);
+                    this.scene.start('dialogoTutorial');
+                }
+            },
+            {
+                key: 'tienda',
+                displayName: 'Tienda',
+                requiredStep: 1,
+                object: tiendaBtn,
+                action: () => {
+                    this.registry.set('tutorialStep', 2);
+                    this.scene.start('tiendaTutorial');
+                }
+            },
+            {
+                key: 'accion',
+                displayName: 'Accion',
+                requiredStep: 0,
+                object: accionBtn,
+                action: () => {
+                    this.registry.set('tutorialStep', 1);
+                    this.scene.start('accionTutorial');
+                }
             }
-        });
+        ];
 
-        // boton de tienda
-
-        const tiendaBtn = this.add.image(485, 350, 'tiendaMenu').setInteractive();
-        if (currentStep !== 1) {
-            this.add.image(485, 350, 'tiendaMenu').setTint(0x999999); // Deshabilitar el botón de tienda
-            this.add.image(500, 330, 'pez').setScale(0.5).setAngle(30); // Añadir pez para indicar que es el que has elegido
+        this.selectedIndex = this.menuItems.findIndex((item) => item.requiredStep === this.currentStep);
+        if (this.selectedIndex < 0) {
+            this.selectedIndex = 0;
         }
-        tiendaBtn.on('pointerdown', () => {
-            if (currentStep === 1) {
-                console.log('Tienda clickeada');
-                this.registry.set('tutorialStep', 2);
-                this.scene.start('tiendaTutorial');
-            }
-        });
-        
-        // boton de escena de dialogo
-        const dialogoBtn = this.add.image(485, 250, 'dialogoMenu').setInteractive();
-        if (currentStep !== 2) {
-            this.add.image(485, 250, 'dialogoMenu').setTint(0x999999); // Deshabilitar el botón de dialogo
-            this.add.image(500, 230, 'pez').setScale(0.5).setAngle(30); // Añadir pez para indicar que es el que has elegido
-        }
-        dialogoBtn.on('pointerdown', () => {
-            if (currentStep === 2) {
-                console.log('Diálogo clickeado');
-                this.registry.set('tutorialStep', 3);
-                this.scene.start('dialogoTutorial');
-            }
+
+        this.menuItems.forEach((item, index) => {
+            item.object.on('pointerdown', () => {
+                this.selectedIndex = index;
+                this.updateSelectionVisuals();
+                this.tryActivateSelection();
+            });
         });
 
-        //boton de dungeon pero es la continuación del lore en este caso
-        this.WidgetSprite = new WidgetSprite(this, 485, 125).setInteractive({ useHandCursor: true });
-        this.WidgetSprite.on('pointerdown', () => {
-            if (currentStep === 3) {
-                console.log('Salir del tutorial clickeado');
-                this.scene.start('phone');   
-            }
-        });
+        this.updateSelectionVisuals();
         
         //anuncio en el menú de decoracion, pero podría usarse para otra cosa, como un easter egg o algo así
         this.add.text(520, 550, 'Do not fret if you want to hurt yourself!', {
@@ -87,5 +109,49 @@ export default class MenuTutorial extends Phaser.Scene {
             align: 'center',
             wordWrap: { width: 200 },
         }).setOrigin(0.5);
+    }
+
+    update() {
+        if (Phaser.Input.Keyboard.JustDown(this.keyUp)) {
+            this.selectedIndex = (this.selectedIndex - 1 + this.menuItems.length) % this.menuItems.length;
+            this.updateSelectionVisuals();
+        }
+
+        if (Phaser.Input.Keyboard.JustDown(this.keyDown)) {
+            this.selectedIndex = (this.selectedIndex + 1) % this.menuItems.length;
+            this.updateSelectionVisuals();
+        }
+
+        if (Phaser.Input.Keyboard.JustDown(this.keyEnter) || Phaser.Input.Keyboard.JustDown(this.keySpace)) {
+            this.tryActivateSelection();
+        }
+    }
+
+    updateSelectionVisuals() {
+        this.menuItems.forEach((item, index) => {
+            const isUnlocked = item.requiredStep === this.currentStep;
+            const isSelected = index === this.selectedIndex;
+
+            if (isUnlocked && isSelected) {
+                item.object.setTint(0xffdf9f);
+                item.object.setScale(1.4);
+            } else if (isUnlocked) {
+                item.object.clearTint();
+                item.object.setScale(1);
+            } else {
+                item.object.setTint(0x777777);
+                item.object.setScale(1);
+            }
+        });
+    }
+
+    tryActivateSelection() {
+        const item = this.menuItems[this.selectedIndex];
+        if (!item) return;
+
+        const isUnlocked = item.requiredStep === this.currentStep;
+        if (!isUnlocked) return;
+
+        item.action();
     }
 }
