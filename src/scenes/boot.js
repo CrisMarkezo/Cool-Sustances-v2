@@ -84,18 +84,17 @@ import Rascador from '../../assets/sprites/Rascador.png';
 import CatGrabbing from '../../assets/sprites/Cat_Grabbing.png';
 import MonsterImg from '../../assets/sprites/Monster.png';
 import healthbar from '../../assets/sprites/healthbar.png';
+import Star from '../../assets/sprites/star.png';
+
 
 import star from '../../assets/sprites/star.png';
 
 export default class Boot extends Phaser.Scene {
 
 constructor() {
-super({ key: 'boot' });
+    super({ key: 'boot' });
 }
 
-  /**
-   * Carga de los assets del juego
-   */
   preload() {
     // Con setPath podemos establecer el prefijo que se añadirá a todos los load que aparecen a continuación
     //this.load.setPath('assets/sprites/');

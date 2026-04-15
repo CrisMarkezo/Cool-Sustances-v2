@@ -34,6 +34,7 @@ export default class Level extends Phaser.Scene {
         this.player = new Player(this, startX, startY);
         this.monster = new Monster(this, startX - 100, startY, 'monster');
        
+        // Objetos
         this.rascador = new Scratcher(this, startX + 210, startY);
         this.phone = new Phone(this, startX + 100, startY);
         this.phone.setScale(0.5);
@@ -167,6 +168,7 @@ export default class Level extends Phaser.Scene {
                 player.nearbyInteractable = obj;
             }
         );
+
     }
 
     renderInventory(firstX, firstY) {
