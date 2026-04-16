@@ -2,33 +2,33 @@ import Phaser from 'phaser';
 import Player from '../player.js';
 
 // Dungeon (Mapa)
-import Dungeon from '../../assets/Dungeon/Dungeon_1.json';
-import Ambulance from '../../assets/Dungeon/ambulance.png';
-import Arbol from '../../assets/Dungeon/arbol.png';
-import Jeep from '../../assets/Dungeon/black_jeep.png';
-import Luxury from '../../assets/Dungeon/black_luxury.png';
-import Blue_Civic from '../../assets/Dungeon/blue_civic.png';
-import White_Civic from '../../assets/Dungeon/white_civic.png';
-import Brown_Coupe from '../../assets/Dungeon/brown_coupe.png';
-import Yellow_Coupe from '../../assets/Dungeon/yellow_coupe.png';
-import Suv from '../../assets/Dungeon/green_suv.png';
-import Supercar from '../../assets/Dungeon/red_supercar.png';
-import Police from '../../assets/Dungeon/police.png';
-import Taxi from '../../assets/Dungeon/taxi.png';
-import Bus from '../../assets/Dungeon/bus.png';
-import Paredes from '../../assets/Dungeon/dungeon.png';
-import Suelo from '../../assets/Dungeon/suelo1-0.png';
-import Suelo_Exterior from '../../assets/Dungeon/suelo1-1.png';
-import Suelo_Disco from '../../assets/Dungeon/suelo1-2.png';
-import Hierba from '../../assets/Dungeon/Grass.png';
-import Calle from '../../assets/Dungeon/street_tileset.png';
-import Poste_Down from '../../assets/Dungeon/lamp_down.png';
-import Poste_Right from '../../assets/Dungeon/lamp_right.png';
+import Dungeon from '../../assets/dungeon/Dungeon_1.json';
+import Ambulance from '../../assets/dungeon/ambulance.png';
+import Arbol from '../../assets/dungeon/arbol.png';
+import Jeep from '../../assets/dungeon/black_jeep.png';
+import Luxury from '../../assets/dungeon/black_luxury.png';
+import Blue_Civic from '../../assets/dungeon/blue_civic.png';
+import White_Civic from '../../assets/dungeon/white_civic.png';
+import Brown_Coupe from '../../assets/dungeon/brown_coupe.png';
+import Yellow_Coupe from '../../assets/dungeon/yellow_coupe.png';
+import Suv from '../../assets/dungeon/green_suv.png';
+import Supercar from '../../assets/dungeon/red_supercar.png';
+import Police from '../../assets/dungeon/police.png';
+import Taxi from '../../assets/dungeon/taxi.png';
+import Bus from '../../assets/dungeon/bus.png';
+import Paredes from '../../assets/dungeon/dungeon.png';
+import Suelo from '../../assets/dungeon/suelo1-0.png';
+import Suelo_Exterior from '../../assets/dungeon/suelo1-1.png';
+import Suelo_Disco from '../../assets/dungeon/suelo1-2.png';
+import Hierba from '../../assets/dungeon/Grass.png';
+import Calle from '../../assets/dungeon/street_tileset.png';
+import Poste_Down from '../../assets/dungeon/lamp_down.png';
+import Poste_Right from '../../assets/dungeon/lamp_right.png';
 
 // Objetos
-import Chest_IDLE from '../../assets/Dungeon/Chest_Idle.png';
-import Chest_EMPTY from '../../assets/Dungeon/Chest_Opening_Empty.png';
-import Chest_GOLD from '../../assets/Dungeon/Chest_Opening_Gold.png';
+import Chest_IDLE from '../../assets/dungeon/Chest_Idle.png';
+import Chest_EMPTY from '../../assets/dungeon/Chest_Opening_Empty.png';
+import Chest_GOLD from '../../assets/dungeon/Chest_Opening_Gold.png';
 import Chest from '../chest.js';
 
 export default class mapa_dungeon_1 extends Phaser.Scene {
