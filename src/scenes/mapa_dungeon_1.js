@@ -20,7 +20,7 @@ import Paredes from '../../assets/dungeon/dungeon.png';
 import Suelo from '../../assets/dungeon/suelo1-0.png';
 import Suelo_Exterior from '../../assets/dungeon/suelo1-1.png';
 import Suelo_Disco from '../../assets/dungeon/suelo1-2.png';
-import Hierba from '../../assets/dungeon/Grass.png';
+import Hierba from '../../assets/dungeon/grass.png';
 import Calle from '../../assets/dungeon/street_tileset.png';
 import Poste_Down from '../../assets/dungeon/lamp_down.png';
 import Poste_Right from '../../assets/dungeon/lamp_right.png';
