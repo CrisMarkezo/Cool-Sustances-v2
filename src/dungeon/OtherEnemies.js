@@ -125,7 +125,7 @@ export class SummonerEnemy extends EnemyTemplate {
             this.scene,
             this.x + offsetX,
             this.y + offsetY
-        );
+        ;
 
         this.activeSummons.push(minion);
         this.scene.dungeonManager.getEnemyGroup().add(minion, true);
