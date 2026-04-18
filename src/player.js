@@ -59,34 +59,26 @@ export default class Player extends GameEntity {
         this.lastMoveX = 1; 
         this.lastMoveY = 0;
 
-        this.lifeBar = scene.add.image(0, 0, 'healthbar');
-        this.lifeBar.setOrigin(0, 0.5);
-        this.lifeBar.setScrollFactor(0);
-        this.lifeBar.setDepth(9999);
-
-        this.barX = 0;
-        this.barY = 0;
-        this.barWidth = 55;
-        this.barHeight = 20;
+        this.healthBarGraphics = scene.add.graphics();
+        this.healthBarGraphics.setDepth(15);
+        this.healthBarWidth = 40;
+        this.healthBarHeight = 6;
+        this.displayHealth = this.health;
     }
 
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
 
-        const cam = this.scene.cameras.main;
-        const x = cam.width / 2-1000;
-        const y = cam.height / 2-200;
+        const barX = this.x - this.healthBarWidth / 2;
+        const barY = this.y + 20;
 
-        this.lifeBar.setPosition(x, y);
+        this.healthBarGraphics.clear();
+        this.healthBarGraphics.fillStyle(0x222222);
+        this.healthBarGraphics.fillRect(barX, barY, this.healthBarWidth, this.healthBarHeight);
 
-        const percentage = this.health / this.maxHealth;
-
-        this.lifeBar.setCrop(
-            this.barX+910,
-            this.barY+30,
-            this.barWidth * percentage,
-            this.barHeight
-        );
+        const healthPercentage = this.displayHealth / this.maxHealth;
+        this.healthBarGraphics.fillStyle(0xff0000);
+        this.healthBarGraphics.fillRect(barX, barY, this.healthBarWidth * healthPercentage, this.healthBarHeight);
 
         if (this.health <= 0) return;
 
@@ -181,6 +173,13 @@ export default class Player extends GameEntity {
             this.body.setVelocity(0, 0);
         }
 
+        this.scene.tweens.add({
+            targets: this,
+            displayHealth: this.health,
+            duration: 300,
+            ease: 'Quad.easeOut'
+        });
+
         this.isInvincible = true;
         this.isKnocked = true;
 
@@ -213,5 +212,19 @@ export default class Player extends GameEntity {
                 this.isInvincible = false;
             }
         });
+    }
+
+    heal(amount) {
+        const previousHealth = this.health;
+        this.health = Math.min(this.health + amount, this.maxHealth);
+
+        if (previousHealth < this.health) {
+            this.scene.tweens.add({
+                targets: this,
+                displayHealth: this.health,
+                duration: 300,
+                ease: 'Quad.easeOut'
+            });
+        }
     }
 }
