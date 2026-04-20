@@ -22,7 +22,7 @@ export function trySpendMoney(scene, amount) {
 
 export function createMoneyHud(scene) {
     const money = getMoney(scene);
-    const moneyBubble = scene.add.ellipse(250, 100, 180, 40, 0xE2007C).setOrigin(0.5);
+    const moneyBubble = scene.add.ellipse(250, 100, 220, 80, 0xE2007C).setOrigin(0.5).setStrokeStyle(4, 0xFFFFFF);
     const moneyText = scene.add.text(250, 100, `Dinero:${money}€`, {
         fontFamily: '"Toonway", sans-serif',
         fontSize: '24px',

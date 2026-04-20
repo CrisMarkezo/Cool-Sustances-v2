@@ -20,23 +20,28 @@ export default class AccionTutorial extends Phaser.Scene {
         this.opcion1Bubble = null;
         this.opcion2Bubble = null;
         this.nextDialogHint = null;
+        this.selectedOption = 0;
+        this.optionBubbles = [];
         
         // Keyboard keys
         this.keyA = null;
         this.keyB = null;
+        this.keyE = null;
         this.keySpace = null;
+        this.keyR = null;
+        this.keyW = null;
         this.keyS = null;
-        this.keyI = null;
+        this.keyQ = null;
     }
 
     create(){
         // Setup keyboard keys
-        this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-        this.keyB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B);
-        this.keyI = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
-        this.keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
-        this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+        this.keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
+        this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
 
         createMoneyHud(this)
         this.add.image(500, 350, 'dia')
@@ -85,25 +90,25 @@ export default class AccionTutorial extends Phaser.Scene {
             this.mostrarOpciones();
         }
 
-        // Handle option selection with A or B keys
+        // Handle option selection with W/S and confirm with E
         if (this.opcionesVisibles && !this.opcionElegida) {
-            if (Phaser.Input.Keyboard.JustDown(this.keyA)) {
-                this.opcionElegida = true
-                addMoney(this, 2)
-                this.mostrarRecompensa('¡Has conseguido 2€!')
+            if (Phaser.Input.Keyboard.JustDown(this.keyW)) {
+                this.moverSeleccion(-1)
             }
-            if (Phaser.Input.Keyboard.JustDown(this.keyB)) {
-                this.opcionElegida = true
-                this.mostrarRecompensa('¡Has conseguido 1 yanotekomo!')
+            if (Phaser.Input.Keyboard.JustDown(this.keyS)) {
+                this.moverSeleccion(1)
+            }
+            if (Phaser.Input.Keyboard.JustDown(this.keyE)) {
+                this.confirmarSeleccion()
             }
         }
-        if (Phaser.Input.Keyboard.JustDown(this.keyS)) {
+        if (Phaser.Input.Keyboard.JustDown(this.keyR)) {
             this.add.image(20, 670, 'settings2').setScale(0.7);
             this.scene.pause();
             this.scene.launch('settings', { from: this.scene.key });
             this.scene.bringToTop('settings');
         }
-        if (Phaser.Input.Keyboard.JustDown(this.keyI)){
+        if (Phaser.Input.Keyboard.JustDown(this.keyQ)){
             this.scene.pause()
             this.scene.launch('inventory', { from: this.scene.key })
             this.scene.bringToTop('inventory')
@@ -119,10 +124,11 @@ export default class AccionTutorial extends Phaser.Scene {
         }
 
         this.opcionesVisibles = true;
+        this.selectedOption = 0;
 
         this.opcion1Bubble = this.add.rectangle(650, 320, 360, 60, 0Xe76d2c)
         this.opcion1Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion1 = this.add.text(650, 320, '(A) Recoger dinero del suelo (+2€)', {
+        this.opcion1 = this.add.text(650, 320, 'Recoger dinero del suelo (+2€)', {
             fontFamily: '"Keneric", sans-serif',
             fontSize: '22px',
             color: '#ffffff',
@@ -132,13 +138,44 @@ export default class AccionTutorial extends Phaser.Scene {
 
         this.opcion2Bubble = this.add.rectangle(650, 380, 360, 60, 0Xe76d2c)
         this.opcion2Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion2 = this.add.text(650, 380, '(B) Buscar en la basura (+1 yanotekomo)', {
+        this.opcion2 = this.add.text(650, 380, 'Buscar en la basura (+1 yanotekomo)', {
             fontFamily: '"Keneric", sans-serif',
             fontSize: '22px',
             color: '#ffffff',
             wordWrap: { width: 300 },
             align: 'center'
         }).setOrigin(0.5).setInteractive()
+
+        this.optionBubbles = [this.opcion1Bubble, this.opcion2Bubble]
+        this.actualizarSeleccionVisual()
+    }
+
+    moverSeleccion(direction) {
+        if (!this.optionBubbles.length) return
+
+        const total = this.optionBubbles.length
+        this.selectedOption = (this.selectedOption + direction + total) % total
+        this.actualizarSeleccionVisual()
+    }
+
+    actualizarSeleccionVisual() {
+        this.optionBubbles.forEach((bubble, index) => {
+            const isSelected = index === this.selectedOption
+            bubble.setFillStyle(isSelected ? 0x8a3a00 : 0xE76d2c)
+            bubble.setStrokeStyle(isSelected ? 5 : 3, isSelected ? 0xffde59 : 0x000000)
+        })
+    }
+
+    confirmarSeleccion() {
+        if (this.selectedOption === 0) {
+            this.opcionElegida = true
+            addMoney(this, 2)
+            this.mostrarRecompensa('¡Has conseguido 2€!')
+            return
+        }
+
+        this.opcionElegida = true
+        this.mostrarRecompensa('¡Has conseguido 1 yanotekomo!')
     }
 
     mostrarRecompensa = (mensaje) => {
@@ -146,6 +183,7 @@ export default class AccionTutorial extends Phaser.Scene {
         this.opcion2.destroy()
         this.opcion1Bubble.destroy()
         this.opcion2Bubble.destroy()
+            this.optionBubbles = []
 
         const bubble = this.add.rectangle(650, 350, 300, 110, 0xffffff)
         bubble.setStrokeStyle(4, 0x000000)

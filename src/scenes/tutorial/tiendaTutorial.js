@@ -22,17 +22,21 @@ export default class TiendaTutorial extends Phaser.Scene {
         this.opcion3Bubble = null;
         this.opcion4Bubble = null;
         this.nextDialogHint = null;
+        this.selectedOption = 0;
+        this.optionBubbles = [];
 
         // Keyboard keys
+        this.keyUp = null;
+        this.keyDown = null;
+        this.keyR = null;
+        this.keyE = null;
         this.keyA = null;
         this.keyB = null;
         this.keyC = null;
         this.keyD = null;
-        this.keyI = null;
-        this.keyEnter = null;
      
         this.keySpace = null;
-        this.keyS = null;
+        this.keyQ = null;
 
         this.hao = null
         this.pico = null
@@ -60,23 +64,21 @@ export default class TiendaTutorial extends Phaser.Scene {
 
 
         //keyboard keys set up
-        this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-        this.keyB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B);
-        this.keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
-        this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-        this.keyI = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
-        this.keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+        this.keyUp = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        this.keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        this.keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
         this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        this.keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
 
         const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);
         const inventoryBtn = InventorySprite.create(this, 50, 60)
 
         //contexto
         this.mostrarContexto([
-            '你好，欢迎光临我的店铺！',
-            '你好，欢迎光临我的店铺！这里应有尽有',
-            '助你安然度过今夜。你想买点什么',
+            '你好咪咪，',
+            '欢迎来到我的商店，我这里应有尽有',
+            '我可是很多能祝你度过此夜，你想要什么?',
             '(Hola, Bienvenido a mi tienda! Aquí tenemos de todo para ayudarte a pasar la noche. ¿Qué te gustaría comprar?)'
         ])
         
@@ -88,54 +90,26 @@ export default class TiendaTutorial extends Phaser.Scene {
             this.mostrarOpciones();
         }
 
-        if (Phaser.Input.Keyboard.JustDown(this.keyS)) {
+        if (Phaser.Input.Keyboard.JustDown(this.keyR)) {
             this.add.image(20, 670, 'settings2').setScale(0.7);
             this.scene.pause();
             this.scene.launch('settings', { from: this.scene.key });
             this.scene.bringToTop('settings');
         }
-        if (Phaser.Input.Keyboard.JustDown(this.keyI)){
+        if (Phaser.Input.Keyboard.JustDown(this.keyQ)){
             this.scene.pause()
             this.scene.launch('inventory', { from: this.scene.key })
             this.scene.bringToTop('inventory')
         }
         if (this.opcionesVisibles && !this.opcionElegida) {
-            if (Phaser.Input.Keyboard.JustDown(this.keyA)) {       
-                if (trySpendMoney(this, 2)) {
-                    this.opcionElegida = true
-                    this.hao.setTexture('haoFeliz')
-                    this.mostrarRecompensa('¡Has comprado filtros (-2€)!')
-                } else {
-                    this.hao.setTexture('haoEnfadado')
-                    this.mostrarContexto([
-                        '看来你买滤镜的钱不够.', '快去赚点钱，这样才能买到它们',
-                        'Parece que no tienes suficiente dinero para comprar los filtros. ¡Consigue más dinero para poder comprarlos!'
-                    ])
-                }
+            if (Phaser.Input.Keyboard.JustDown(this.keyUp)) {
+                this.moverSeleccion(-1)
             }
-            if (Phaser.Input.Keyboard.JustDown(this.keyB)) {
-                if (trySpendMoney(this, 1)) {
-                    this.opcionElegida = true
-                    this.hao.setTexture('haoFeliz')
-                    this.mostrarRecompensa('¡Has comprado una litrona (-1€)!')
-                } else {
-                    this.hao.setTexture('haoEnfadado')
-                    this.mostrarContexto([
-                        '看来你买滤镜的钱不够.', '快去赚点钱，这样才能买到它们',
-                        'Parece que no tienes suficiente dinero para comprar los filtros. ¡Consigue más dinero para poder comprarlos!'
-                    ])
-                }
+            if (Phaser.Input.Keyboard.JustDown(this.keyDown)) {
+                this.moverSeleccion(1)
             }
-            if (Phaser.Input.Keyboard.JustDown(this.keyC)) {
-                this.opcionElegida = true
-                this.hao.setTexture('haoHorny').setScale(0.9)
-                this.mostrarRecompensa('¡Has conseguido 1€ (+1€)!')
-                addMoney(this, 1)
-            }
-            if (Phaser.Input.Keyboard.JustDown(this.keyD)) {
-                this.opcionElegida = true
-                this.hao.setTexture('haoTriste')
-                this.mostrarRecompensa('¡Has salido de la tienda sin comprar nada!')
+            if (Phaser.Input.Keyboard.JustDown(this.keyE)) {
+                this.confirmarSeleccion()
             }
         }
     }
@@ -193,34 +167,98 @@ export default class TiendaTutorial extends Phaser.Scene {
         }
 
         this.opcionesVisibles = true;
+        this.selectedOption = 0;
         this.opcion1Bubble = this.add.rectangle(650, 500, 560, 60, 0x6969ec)
         this.opcion1Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion1 = this.add.text(650, 500, '(A)Comprar filtros (2€)', { 
+        this.opcion1 = this.add.text(650, 500, 'Comprar filtros (2€)', { 
             fontFamily: '"Keneric", sans-serif',
             fontSize: '20px', 
             fill: '#ffffff' 
         }).setOrigin(0.5);
         this.opcion2Bubble = this.add.rectangle(650, 550, 560, 60, 0x6969ec)
         this.opcion2Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion2 = this.add.text(650, 550, '(B) Comprar litrona (1€)', { 
+        this.opcion2 = this.add.text(650, 550, 'Comprar litrona (1€)', { 
             fontFamily: '"Keneric", sans-serif',
             fontSize: '20px', 
             fill: '#ffffff'
         }).setOrigin(0.5);
         this.opcion3Bubble = this.add.rectangle(650, 600, 560, 60, 0x6969ec)
         this.opcion3Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion3 = this.add.text(650, 600, '(C) Dar yanotekomo (1)', {
+        this.opcion3 = this.add.text(650, 600, 'Dar yanotekomo (+1€)', {
             fontFamily: '"Keneric", sans-serif',
             fontSize: '20px', 
             fill: '#ffffff' 
         }).setOrigin(0.5);
         this.opcion4Bubble = this.add.rectangle(650, 650, 560, 60, 0x6969ec)
         this.opcion4Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion4 = this.add.text(650, 650, '(D) Salir de la tienda', { 
+        this.opcion4 = this.add.text(650, 650, 'Salir de la tienda', { 
             fontFamily: '"Keneric", sans-serif',
             fontSize: '20px', 
             fill: '#ffffff' 
         }).setOrigin(0.5);
+
+        this.optionBubbles = [this.opcion1Bubble, this.opcion2Bubble, this.opcion3Bubble, this.opcion4Bubble];
+        this.actualizarSeleccionVisual();
+    }
+
+    moverSeleccion(direction) {
+        if (!this.optionBubbles.length) return;
+
+        const total = this.optionBubbles.length;
+        this.selectedOption = (this.selectedOption + direction + total) % total;
+        this.actualizarSeleccionVisual();
+    }
+
+    actualizarSeleccionVisual() {
+        this.optionBubbles.forEach((bubble, index) => {
+            const isSelected = index === this.selectedOption;
+            bubble.setFillStyle(isSelected ? 0x2f2f8f : 0x6969ec);
+            bubble.setStrokeStyle(isSelected ? 5 : 3, isSelected ? 0xffde59 : 0x000000);
+        });
+    }
+
+    confirmarSeleccion() {
+        if (this.selectedOption === 0) {
+            if (trySpendMoney(this, 2)) {
+                this.opcionElegida = true
+                this.hao.setTexture('haoFeliz')
+                this.mostrarRecompensa('¡Has comprado filtros (-2€)!')
+            } else {
+                this.hao.setTexture('haoEnfadado')
+                this.mostrarContexto([
+                    '看来你买滤镜的钱不够.', '快去赚点钱，这样才能买到它们',
+                    'Parece que no tienes suficiente dinero para comprar los filtros. ¡Consigue más dinero para poder comprarlos!'
+                ])
+            }
+            return;
+        }
+
+        if (this.selectedOption === 1) {
+            if (trySpendMoney(this, 1)) {
+                this.opcionElegida = true
+                this.hao.setTexture('haoFeliz')
+                this.mostrarRecompensa('¡Has comprado una litrona (-1€)!')
+            } else {
+                this.hao.setTexture('haoEnfadado')
+                this.mostrarContexto([
+                    '看来你买滤镜的钱不够.', '快去赚点钱，这样才能买到它们',
+                    'Parece que no tienes suficiente dinero para comprar los filtros. ¡Consigue más dinero para poder comprarlos!'
+                ])
+            }
+            return;
+        }
+
+        if (this.selectedOption === 2) {
+            this.opcionElegida = true
+            this.hao.setTexture('haoHorny').setScale(0.9)
+            this.mostrarRecompensa('¡Has conseguido 1€ (+1€)!')
+            addMoney(this, 1)
+            return;
+        }
+
+        this.opcionElegida = true
+        this.hao.setTexture('haoTriste')
+        this.mostrarRecompensa('¡Has salido de la tienda sin comprar nada!')
     }
 
     mostrarRecompensa = (mensaje) => {
@@ -232,6 +270,7 @@ export default class TiendaTutorial extends Phaser.Scene {
             this.opcion2Bubble.destroy()
             this.opcion3Bubble.destroy()
             this.opcion4Bubble.destroy()
+            this.optionBubbles = []
 
             const bubble = this.add.rectangle(600, 580, 580, 110, 0xffffff)
             bubble.setStrokeStyle(4, 0x000000)

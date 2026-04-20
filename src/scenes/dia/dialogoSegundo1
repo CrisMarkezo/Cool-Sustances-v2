@@ -5,9 +5,9 @@ import dialogTextSprite from './../../game-objects/dialogTextSprite';
 import nextDialogSprite from './../../game-objects/nextDialogSprite';
 import IconSprite from '../../game-objects/iconSprite.js'
 
-export default class DialogoTutorial extends Phaser.Scene {
+export default class DialogoSegundo1 extends Phaser.Scene {
     constructor(){
-        super({key: 'dialogoTutorial'})
+        super({key: 'dialogo-segunda-1'})
         // Game state
         this.contextComplete = false;
         this.opcionesVisibles = false;
@@ -33,7 +33,7 @@ export default class DialogoTutorial extends Phaser.Scene {
         this.keyS = null;
         this.keyEnter = null;
 
-        this.lali = null;
+        this.character = null;
         this.contexto = null;
         this.contextoBubble = null;
         this.pico = null;
@@ -54,7 +54,7 @@ export default class DialogoTutorial extends Phaser.Scene {
         this.add.image(500, 350, 'dia');
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'dialogo', 1200)
-        this.add.text(670, 75, 'TUTORIAL: Dialogo', {
+        this.add.text(670, 75, 'Dialogo', {
             fontFamily: '"Toonway", sans-serif',
             fontSize: '28px',
             color: '#ffffff'
@@ -65,7 +65,7 @@ export default class DialogoTutorial extends Phaser.Scene {
             color: '#ffe2f9'
         }).setOrigin(0.5)
         //this.add.image(200, 500, 'cubatita');
-        this.lali = this.add.image(700, 500, 'laliNeutro').setScale(1.2);
+        this.character = this.add.image(700, 500, 'laliNeutro').setScale(1.2);
 
         //Buttons
         const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);

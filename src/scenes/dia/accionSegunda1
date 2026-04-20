@@ -7,9 +7,9 @@ import nextDialogSprite from '../../game-objects/nextDialogSprite.js'
 import IconSprite from '../../game-objects/iconSprite.js'
 import { addMoney, createMoneyHud } from '../../utils/money.js'
 
-export default class AccionPrimera1 extends Phaser.Scene {
+export default class AccionSegunda1 extends Phaser.Scene {
     constructor(){
-        super({key: 'accion-primera-1'})
+        super({key: 'accion-segunda-1'})
         
         // Game state
         this.contextComplete = false;
