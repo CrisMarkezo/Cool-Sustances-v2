@@ -19,6 +19,12 @@ export default class AccionTutorial extends Phaser.Scene {
         this.opcion2 = null;
         this.opcion1Bubble = null;
         this.opcion2Bubble = null;
+        this.contextTutorialBubble = null;
+        this.contextTutorial = null;
+        this.contextTutorialComplete = false;
+        this.selectTutorialBubble = null;
+        this.selectTutorial = null;
+        this.selectTutorialComplete = false;
         this.nextDialogHint = null;
         this.selectedOption = 0;
         this.optionBubbles = [];
@@ -76,6 +82,23 @@ export default class AccionTutorial extends Phaser.Scene {
             wordWrap: { width: 500 },
             align: 'center'
         })
+        this.contextTutorialBubble = this.add.rectangle(325, 450, 500, 150, 0x00C4FF)
+        this.contextTutorialBubble.setStrokeStyle(3, 0X000000)
+        this.contextTutorial = dialogTextSprite.create(this, 325, 450, [
+            'Nos econtramos en la escena de accion, donde el objetivo es conseguir recursos para sobrevivir en el dia a dia.',
+            'Primero nos presentan con el contexto de la escena, donde nos dan pistas sobre los objetos que nos podemos encontrar.', 'Dale al espacio cuando acabes de leer para continuar.'
+        ], {
+            fontFamily: '"PixelAE-Regular", monospace',
+            fontSize: '16px', 
+            fill: '#000000',
+            wordWrap: { width: 480 },
+            align: 'center'
+        })
+
+        
+        this.contextTutorial.once('complete', () => {
+            this.contextTutorialComplete = true;
+        })
 
         this.contexto.once('complete', () => {
             this.contextComplete = true;
@@ -85,6 +108,18 @@ export default class AccionTutorial extends Phaser.Scene {
 
     update(){
         
+        if(this.contextTutorialComplete && Phaser.Input.Keyboard.JustDown(this.keySpace)){
+            this.contextTutorial.destroy()
+            this.contextTutorialBubble.destroy()
+            this.contextTutorialComplete = false; // Para evitar que se vuelva a entrar en este bloque
+            return 
+        }
+        if (this.selectTutorialComplete && Phaser.Input.Keyboard.JustDown(this.keySpace)) {
+            this.selectTutorial.destroy()
+            this.selectTutorialBubble.destroy()
+            this.selectTutorialComplete = false; // Para evitar que se vuelva a entrar en este bloque
+            return
+        }
         // Show options when space is pressed (after hint is shown)
         if (this.contextComplete && !this.opcionesVisibles && this.nextDialogHint && Phaser.Input.Keyboard.JustDown(this.keySpace)) {
             this.mostrarOpciones();
@@ -146,8 +181,25 @@ export default class AccionTutorial extends Phaser.Scene {
             align: 'center'
         }).setOrigin(0.5).setInteractive()
 
+        this.selectTutorialBubble = this.add.rectangle(325, 500, 500, 150, 0x00C4FF)
+        this.selectTutorialBubble.setStrokeStyle(3, 0X000000)
+        this.selectTutorial = dialogTextSprite.create(this, 325, 500, [
+            'Aqui tienes las opciones que puedes elegir, se navegan con las teclas W y S y seleccionas con la tecla E.',
+            'En este caso, ambas opciones son buenas, solo que una te da dinero y la otra te da un recurso que puede ser útil para otras cosas que aparezcan después. ¡Elige la que más te guste!'
+        ], {
+            fontFamily: '"PixelAE-Regular", monospace',
+            fontSize: '16px', 
+            fill: '#000000',
+            wordWrap: { width: 480 },
+            align: 'center'
+        })
+
         this.optionBubbles = [this.opcion1Bubble, this.opcion2Bubble]
         this.actualizarSeleccionVisual()
+        
+        this.selectTutorial.once('complete', () => {
+            this.selectTutorialComplete = true;
+        })
     }
 
     moverSeleccion(direction) {

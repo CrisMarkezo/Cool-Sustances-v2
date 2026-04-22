@@ -8,6 +8,11 @@ import TiendaTutorial from './scenes/tutorial/tiendaTutorial.js';
 import DialogoTutorial from './scenes/tutorial/dialogoTutorial.js';
 import Menu from './scenes/dia/menu-dia.js'
 import AccionPrimera1 from './scenes/dia/accionPrimera1.js'
+import AccionPrimera2 from './scenes/dia/accionPrimera2.js'
+import AccionSegunda1 from './scenes/dia/accionSegunda1.js'
+import AccionSegunda2 from './scenes/dia/accionSegunda2.js'
+import DialogoPrimero1 from './scenes/dia/dialogoPrimero1'
+import DialogoSegundo1 from './scenes/dia/dialogoSegundo1'
 import Inventory from './scenes/inventory.js'
 import StartMenu from './scenes/startMenu.js'
 import Settings from './scenes/settings.js'
@@ -21,7 +26,25 @@ let config = {
         autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
     },
     pixelArt: true,
-    scene: [Boot, MenuTutorial, Level, End, AccionTutorial, TiendaTutorial, DialogoTutorial, Menu, AccionPrimera1, Inventory, StartMenu, Settings],
+    scene: [
+        Boot,
+        MenuTutorial,
+        Level,
+        End,
+        AccionTutorial,
+        TiendaTutorial,
+        DialogoTutorial,
+        Menu,
+        AccionPrimera1,
+        AccionPrimera2,
+        AccionSegunda1,
+        AccionSegunda2,
+        DialogoPrimero1,
+        DialogoSegundo1,
+        Inventory,
+        StartMenu,
+        Settings,
+    ],
     physics: {
         default: 'arcade',
         arcade: {

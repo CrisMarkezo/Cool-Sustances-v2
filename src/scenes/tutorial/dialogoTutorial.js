@@ -19,6 +19,9 @@ export default class DialogoTutorial extends Phaser.Scene {
         this.respuestaBubble = null;
         this.respuesta = null;
         this.nextDialogHint = null;
+        this.contextTutorial = null;
+        this.contextTutorialBubble = null;
+        this.contextTutorialComplete = false;
         this.selectedOption = 0;
         this.optionBubbles = [];
 
@@ -84,6 +87,23 @@ export default class DialogoTutorial extends Phaser.Scene {
             align: 'center'
         });
 
+        this.contextTutorialBubble = this.add.rectangle(325, 450, 500, 150, 0x00C4FF)
+        this.contextTutorialBubble.setStrokeStyle(3, 0X000000)
+        this.contextTutorial = dialogTextSprite.create(this, 325, 450, [
+            'Nos econtramos en la escena de dialogo. En esta escena puedes interactuar con los personajes y tomar decisiones que afectarán tus relaciones con dichos personajes.',
+            'Puedes elegir diferentes respuestas para subir tu relación con ellos o no, pero recuerda que si te llevas bien con ellos puede que te hagan un favor.'
+        ], {
+            fontFamily: '"PixelAE-Regular", monospace',
+            fontSize: '16px', 
+            fill: '#000000',
+            wordWrap: { width: 480 },
+            align: 'center'
+        })
+                
+        this.contextTutorial.once('complete', () => {
+            this.contextTutorialComplete = true;
+        })
+
         this.contexto.once('complete', () => {
             this.contextComplete = true;
             this.nextDialogHint = nextDialogSprite.create(this, 550, 300)    
@@ -92,6 +112,13 @@ export default class DialogoTutorial extends Phaser.Scene {
     }
     
     update(){
+
+        if(this.contextTutorialComplete && Phaser.Input.Keyboard.JustDown(this.keySpace)){
+            this.contextTutorial.destroy()
+            this.contextTutorialBubble.destroy()
+            this.contextTutorialComplete = false; // Para evitar que se vuelva a entrar en este bloque
+            return 
+        }
         // Show options when space is pressed (after hint is shown)
         if (this.contextComplete && !this.opcionesVisibles && this.nextDialogHint && Phaser.Input.Keyboard.JustDown(this.keySpace)) {
             this.mostrarOpciones();
