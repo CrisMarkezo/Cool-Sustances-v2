@@ -24,6 +24,8 @@ import Hierba from '../../assets/dungeon/Grass.png';
 import Calle from '../../assets/dungeon/street_tileset.png';
 import Poste_Down from '../../assets/dungeon/lamp_down.png';
 import Poste_Right from '../../assets/dungeon/lamp_right.png';
+import Adornos_1 from '../../assets/dungeon/decorations.png'
+import Adornos_2 from '../../assets/dungeon/decorations_2.png'
 
 // Objetos
 import Chest_IDLE from '../../assets/dungeon/Chest_Idle.png';
@@ -55,12 +57,12 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
             frameHeight: 64
         });
          this.load.spritesheet('chest_empty', Chest_EMPTY, {
-            frameWidth: 32,
-            frameHeight: 32
+            frameWidth: 64,
+            frameHeight: 64
         });
          this.load.spritesheet('chest_gold', Chest_GOLD, {
-            frameWidth: 32,
-            frameHeight: 32
+            frameWidth: 64,
+            frameHeight: 64
         });
 
         this.load.image('arbol', Arbol);
@@ -72,6 +74,8 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         this.load.image('calle', Calle);
         this.load.image('poste_down', Poste_Down);
         this.load.image('poste_right', Poste_Right);
+        this.load.image('adornos_1', Adornos_1);
+        this.load.image('adornos_2', Adornos_2);
         this.load.tilemapTiledJSON('dungeon_1', Dungeon);
     }
 
@@ -88,6 +92,9 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         var suelo = map.addTilesetImage('disco_suelo', 'suelo');
         var suelo_exterior = map.addTilesetImage('tiles', 'suelo_exterior');
         var hierba = map.addTilesetImage('TX Tileset Grass', 'hierba');
+        var decoraciones = map.addTilesetImage('decoraciones', 'adornos_1')
+        var decoraciones_2 = map.addTilesetImage('decoraciones_2', 'adornos_2')
+
         var taxi = map.addTilesetImage('taxi_tile', 'taxi');
         var ambulance = map.addTilesetImage('ambulance_tile', 'ambulance');
         var civic_1 = map.addTilesetImage('white_civic_tile', 'white_civic');
@@ -101,14 +108,14 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         var bus = map.addTilesetImage('bus_tile', 'bus');
         var police = map.addTilesetImage('police_tile', 'police');
 
-        map.createLayer('Suelo', [paredes, calle, suelo, suelo_disco, suelo_exterior, hierba], 0, 0);
-        
-        map.createLayer('Cosmeticos_suelo', [paredes, arboles, lamp_down, lamp_right], 0, 0);
+        var suelo = map.createLayer('Suelo', [paredes, calle, suelo, suelo_disco, suelo_exterior, hierba], 0, 0);
+        var cosmeticos_suelo = map.createLayer('Cosmeticos_suelo', [paredes, arboles, lamp_down, lamp_right, decoraciones, decoraciones_2], 0, 0);
         var vacio_layer = map.createLayer('Vacio', paredes, 0, 0);
         var paredes_layer = map.createLayer('Paredes', [paredes, calle, arboles, lamp_down, lamp_right, taxi, 
             ambulance, civic_1, civic_2, brown_coupe, yellow_coupe, supercar, suv, jeep, bus, luxury, police], 0, 0);
         var colisiones_layer = map.createLayer('Colisiones', calle, 0, 0);
         
+        cosmeticos_suelo.setDepth(20);
         colisiones_layer.setVisible(false);
         paredes_layer.setCollisionByExclusion([-1],true);
         colisiones_layer.setCollisionByExclusion([-1],true);
@@ -151,7 +158,39 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
             repeat: -1
         });
 
+        this.anims.create({
+            key: 'chest_opening_gold_anim',
+            frames: [
+                { key: 'chest_gold', frame: 0 },
+                { key: 'chest_gold', frame: 1 },
+                { key: 'chest_gold', frame: 2 },
+                { key: 'chest_gold', frame: 3 },
+                { key: 'chest_gold', frame: 4 },
+                { key: 'chest_gold', frame: 5 },
+            ],
+            frameRate: 10,
+            repeat: 0
+        });
+
+        this.anims.create({
+            key: 'chest_empty_anim',
+            frames: [
+                { key: 'chest_empty', frame: 0 },
+                { key: 'chest_empty', frame: 1 },
+                { key: 'chest_empty', frame: 2 },
+                { key: 'chest_empty', frame: 3 },
+                { key: 'chest_empty', frame: 4 },
+                { key: 'chest_empty', frame: 5 },
+            ],
+            frameRate: 10,
+            repeat: 0
+        });
+
         this.createChest(map);
+    }
+
+    update(){
+        
     }
 
     createChest(map){

@@ -13,11 +13,11 @@ export default class PowerUp extends Phaser.Physics.Arcade.Sprite {
 
     interact(player) {
 
-        if (player.isGrabbing) return;
+        if (player.isGrabbing) 
+            return;
 
         player.isGrabbing = true;
         player.setVelocity(0);
-        this.applyEffect(player);
 
         player.anims.play('cat_grabbing', true);
 
@@ -25,6 +25,8 @@ export default class PowerUp extends Phaser.Physics.Arcade.Sprite {
             player.isGrabbing = false;
             player.anims.play('cat_idle', true);
         });
+
+        this.applyEffect(player);
         this.destroy();
     }
 

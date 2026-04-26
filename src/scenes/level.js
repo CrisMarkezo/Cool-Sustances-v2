@@ -3,7 +3,7 @@ import Player from '../player.js';
 import Scratcher from '../scratcher.js';
 import Phone from '../Phone.js';
 import Monster from '../monster.js';
-import PowerUp from '../powuerup.js';
+import PowerUp from '../powerup.js';
 
 export default class Level extends Phaser.Scene {
     constructor() {
@@ -118,7 +118,7 @@ export default class Level extends Phaser.Scene {
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(this.keyP)) {
-            this.scene.start('phone-tutorial');
+            this.scene.start('dungeon_1');
             return;
         }
 

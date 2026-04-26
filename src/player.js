@@ -11,8 +11,8 @@ export default class Player extends GameEntity {
         this.setCollideWorldBounds(true);
         this.body.setAllowGravity(false);
         this.setDepth(10);
-        this.body.setDrag(1000); 
 
+        this.body.setSize(20, 22); // Cambia la hitbox
         this.speed = 100;
         this.damage = 20;
         this.isAttacking = false;

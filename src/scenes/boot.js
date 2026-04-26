@@ -308,6 +308,6 @@ this.anims.create({
     repeat: 0        // se reproduce una vez
 });
 
-        this.scene.start('Dungeon_1');
+        // this.scene.start('dungeon_1');
   }
 }
