@@ -58,7 +58,7 @@ export default class Menu extends Phaser.Scene {
 
             if (points.length > 1) {
                 const graphics = this.add.graphics();
-                graphics.lineStyle(5, 0xf4d35e, 0.9);
+                graphics.lineStyle(5, 0x56beab, 0.9);
                 graphics.beginPath();
                 graphics.moveTo(points[0].x, points[0].y);
 
@@ -248,6 +248,17 @@ export default class Menu extends Phaser.Scene {
             const isCurrentRow = node.step === this.currentStep;
             const isReachable = isCurrentRow && this.isReachablePosition(node.position);
             const isSelected = selectedNode === node;
+            const completedNode = this.selectedPath[node.step];
+            const isCompleted =
+                node.step < this.currentStep &&
+                completedNode &&
+                completedNode.position === node.position;
+
+            if (isCompleted) {
+                node.object.clearTint();
+                node.object.setScale(1);
+                return;
+            }
 
             if (isSelected) {
                 node.object.clearTint();

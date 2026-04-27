@@ -199,7 +199,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
             this.opcion1Bubble.destroy()
             this.opcion2Bubble.destroy()
             this.optionBubbles = []
-            this.lali.setTexture('laliEnfadada').setScale(1.2)
+            this.character.setTexture('laliEnfadada').setScale(1.2)
             this.pico = this.add.triangle(480, 500, 0, 0, 50, 0, 25, 0, 0xdaff8f)
             this.pico.setStrokeStyle(4, 0x000000)
             this.respuestaBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
@@ -224,7 +224,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
         this.opcion1Bubble.destroy()
         this.opcion2Bubble.destroy()
         this.optionBubbles = []
-        this.lali.setTexture('laliFeliz').setScale(1.2)
+        this.character.setTexture('laliFeliz').setScale(1.2)
         this.pico = this.add.triangle(480, 500, 0, 0, 50, 0, 25, 0, 0xdaff8f)
         this.pico.setStrokeStyle(4, 0x000000)
         this.respuestaBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
@@ -260,7 +260,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
                 wordWrap: { width: 280 },
                 align: 'center'
             }).setOrigin(0.5)
-            this.lali.setTexture('laliTriste').setScale(0.95)
+            this.character.setTexture('laliTriste').setScale(0.95)
             this.pico = this.add.triangle(480, 400, 0, 0, 50, 0, 25, 0, 0xdaff8f)
             this.pico.setStrokeStyle(4, 0x000000)
             const dialogoFinalBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
@@ -279,7 +279,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
                 }).setOrigin(0.5).setInteractive()
 
                 this.input.keyboard.once('keydown-SPACE', () => {
-                    this.scene.start('phone-tutorial')
+                    this.scene.start('phone')
                 })
             })
         }

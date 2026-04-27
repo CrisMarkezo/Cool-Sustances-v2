@@ -67,8 +67,8 @@ export default class AccionPrimera2 extends Phaser.Scene {
         this.contextoBubble = this.add.rectangle(325, 250, 500, 150, 0xE2007C)
         this.contextoBubble.setStrokeStyle(3, 0Xe76d2c)
         this.contexto = dialogTextSprite.create(this, 325, 250, [
-            'Te despiertas en lo que tus nuevos dueños llaman techito, y ves en una de las esquinas un montón de pipas con una bolsa sin acabar. ',
-            'Pero uno de los que se encuentran en techito parece ser que quiere darte algo. ¿Qué haces?'
+            'Te despiertas debajo de una mesa, tus nuevos dueños están sentados alrededor. Todos parecen tener una botella en la mano, ves que uno de ellos deja un cubo lleno de esas botellas. ',
+            'Al mismo tiempo, escuchas un ruido, rodando aparece una moneda y una mano intentando cogerla. ¿Qué haces?'
         ], {
             fontFamily: '"Toonway", sans-serif',
             fontSize: '20px', 
@@ -128,7 +128,7 @@ export default class AccionPrimera2 extends Phaser.Scene {
 
         this.opcion1Bubble = this.add.rectangle(650, 320, 360, 60, 0Xe76d2c)
         this.opcion1Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion1 = this.add.text(650, 320, 'Recoger pipas del suelo', {
+        this.opcion1 = this.add.text(650, 320, 'Coger la moneda', {
             fontFamily: '"Keneric", sans-serif',
             fontSize: '22px',
             color: '#ffffff',
@@ -138,7 +138,7 @@ export default class AccionPrimera2 extends Phaser.Scene {
 
         this.opcion2Bubble = this.add.rectangle(650, 380, 360, 60, 0Xe76d2c)
         this.opcion2Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion2 = this.add.text(650, 380, 'Aceptar la ofrenda', {
+        this.opcion2 = this.add.text(650, 380, 'Coger una botella del cubo', {
             fontFamily: '"Keneric", sans-serif',
             fontSize: '22px',
             color: '#ffffff',
@@ -169,11 +169,11 @@ export default class AccionPrimera2 extends Phaser.Scene {
     confirmarSeleccion() {
         if (this.selectedOption === 0) {
             this.opcionElegida = true
-            this.mostrarRecompensa('¡Has conseguido una bolsa de pipas!')
+            this.mostrarRecompensa('¡Has conseguido una moneda!')
             return
         }
         this.opcionElegida = true
-        this.mostrarRecompensa('¡Has conseguido 1 catWeed!')
+        this.mostrarRecompensa('¡Has conseguido una cerveza!')
     }
 
     mostrarRecompensa = (mensaje) => {
@@ -203,7 +203,7 @@ export default class AccionPrimera2 extends Phaser.Scene {
             }).setOrigin(0.5).setInteractive({ useHandCursor: true })
 
             this.input.keyboard.once('keydown-SPACE', () => {
-                    this.scene.start('phone-tutorial')
+                    this.scene.start('phone')
             })
         })
     }

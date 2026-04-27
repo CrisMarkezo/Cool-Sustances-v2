@@ -199,7 +199,7 @@ export default class TiendaTutorial extends Phaser.Scene {
         this.selectedOption = 0;
         this.opcion1Bubble = this.add.rectangle(650, 500, 560, 60, 0x6969ec)
         this.opcion1Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion1 = this.add.text(650, 500, 'Comprar filtros (2€)', { 
+        this.opcion1 = this.add.text(650, 500, 'Comprar cigarros (2€)', { 
             fontFamily: '"Keneric", sans-serif',
             fontSize: '20px', 
             fill: '#ffffff' 

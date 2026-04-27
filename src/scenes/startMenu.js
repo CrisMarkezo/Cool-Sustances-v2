@@ -17,7 +17,7 @@ export default class StartMenu extends phaser.Scene {
             color: '#ffffff'
         }).setOrigin(0.5)
         empezarBtn.on('pointerdown', () => {
-            this.scene.start('level');
+            this.scene.start('phone');
         })
         const continuarBtn = this.add.rectangle(500, 350, 320, 70, 0x000000, 0.55)
             .setStrokeStyle(2, 0xffffff, 0.5)

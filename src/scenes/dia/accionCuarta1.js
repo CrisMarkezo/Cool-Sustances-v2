@@ -203,7 +203,7 @@ export default class AccionCuarta1 extends Phaser.Scene {
             }).setOrigin(0.5).setInteractive({ useHandCursor: true })
 
             this.input.keyboard.once('keydown-SPACE', () => {
-                    this.scene.start('phone-tutorial')
+                    this.scene.start('phone')
             })
         })
     }

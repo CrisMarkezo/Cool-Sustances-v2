@@ -185,7 +185,7 @@ export default class AccionTutorial extends Phaser.Scene {
         this.selectTutorialBubble.setStrokeStyle(3, 0X000000)
         this.selectTutorial = dialogTextSprite.create(this, 325, 500, [
             'Aqui tienes las opciones que puedes elegir, se navegan con las teclas W y S y seleccionas con la tecla E.',
-            'En este caso, ambas opciones son buenas, solo que una te da dinero y la otra te da un recurso que puede ser útil para otras cosas que aparezcan después. ¡Elige la que más te guste!'
+            'Una vez elegida la opción, puedes ver los diferentes objetos que tienes en el inventario, que se encuentra pulsando la tecla I. ¡Elige la que más te guste!'
         ], {
             fontFamily: '"PixelAE-Regular", monospace',
             fontSize: '16px', 

@@ -67,8 +67,8 @@ export default class AccionPrimera1 extends Phaser.Scene {
         this.contextoBubble = this.add.rectangle(325, 250, 500, 150, 0xE2007C)
         this.contextoBubble.setStrokeStyle(3, 0Xe76d2c)
         this.contexto = dialogTextSprite.create(this, 325, 250, [
-            'Te despiertas en lo que tus nuevos dueños llaman techito, y ves en una de las esquinas un montón de pipas con una bolsa sin acabar. ',
-            'Pero uno de los que se encuentran en techito parece ser que quiere darte algo. ¿Qué haces?'
+            'Te despiertas en lo que tus nuevos dueños llaman techito, y ves en una de las esquinas un montón de colillas y una cajetilla sin acabar. ',
+            'Pero uno de los que se encuentran en techito parece ser que tiene algo en la mano que huele MUY bien. ¿Qué haces?'
         ], {
             fontFamily: '"Toonway", sans-serif',
             fontSize: '20px', 
@@ -128,7 +128,7 @@ export default class AccionPrimera1 extends Phaser.Scene {
 
         this.opcion1Bubble = this.add.rectangle(650, 320, 360, 60, 0Xe76d2c)
         this.opcion1Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion1 = this.add.text(650, 320, 'Recoger pipas del suelo', {
+        this.opcion1 = this.add.text(650, 320, 'Recoger cajetilla del suelo', {
             fontFamily: '"Keneric", sans-serif',
             fontSize: '22px',
             color: '#ffffff',
@@ -138,7 +138,7 @@ export default class AccionPrimera1 extends Phaser.Scene {
 
         this.opcion2Bubble = this.add.rectangle(650, 380, 360, 60, 0Xe76d2c)
         this.opcion2Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion2 = this.add.text(650, 380, 'Aceptar la ofrenda', {
+        this.opcion2 = this.add.text(650, 380, 'Robar lo que tiene en la mano', {
             fontFamily: '"Keneric", sans-serif',
             fontSize: '22px',
             color: '#ffffff',
@@ -169,7 +169,7 @@ export default class AccionPrimera1 extends Phaser.Scene {
     confirmarSeleccion() {
         if (this.selectedOption === 0) {
             this.opcionElegida = true
-            this.mostrarRecompensa('¡Has conseguido una bolsa de pipas!')
+            this.mostrarRecompensa('¡Has conseguido unos cigarros!')
             return
         }
         this.opcionElegida = true
@@ -203,7 +203,7 @@ export default class AccionPrimera1 extends Phaser.Scene {
             }).setOrigin(0.5).setInteractive({ useHandCursor: true })
 
             this.input.keyboard.once('keydown-SPACE', () => {
-                    this.scene.start('phone-tutorial')
+                    this.scene.start('phone')
             })
         })
     }
