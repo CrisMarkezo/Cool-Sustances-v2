@@ -22,6 +22,9 @@ export default class AccionPrimera2 extends Phaser.Scene {
         this.nextDialogHint = null;
         this.selectedOption = 0;
         this.optionBubbles = [];
+        this.character = null;
+        this.chatBubble = null;
+        this.chat = null;
         
         // Keyboard keys
         this.keyA = null;
@@ -48,7 +51,7 @@ export default class AccionPrimera2 extends Phaser.Scene {
         const inventoryBtn = InventorySprite.create(this, 50, 60)
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'accion', 1200)
-        
+        this.character = this.add.image(690, 350, 'mikelNeutro').setScale(0.9);
         const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);
 
         this.add.text(680, 75, 'Accion', {
@@ -168,20 +171,36 @@ export default class AccionPrimera2 extends Phaser.Scene {
 
     confirmarSeleccion() {
         if (this.selectedOption === 0) {
+            this.opcion1.destroy()
+            this.opcion2.destroy()
+            this.opcion1Bubble.destroy()
+            this.opcion2Bubble.destroy()
+            this.optionBubbles = []
             this.opcionElegida = true
+            this.character.setTexture('mikelTriste')
+            this.chatBubble = this.add.ellipse(400, 300, 200, 100, 0xdaff8f)
+            this.chatBubble.setStrokeStyle(4, 0x000000);
+            this.chat = dialogTextSprite.create(this, 400, 300, ['Oye y mi moneda?'], {
+                fontFamily: '"Toonway", monospace',
+                fontSize: '28px',
+                color: '#000000',
+                wordWrap: { width: 280 },
+                align: 'center'
+            })
             this.mostrarRecompensa('¡Has conseguido una moneda!')
             return
         }
-        this.opcionElegida = true
-        this.mostrarRecompensa('¡Has conseguido una cerveza!')
-    }
-
-    mostrarRecompensa = (mensaje) => {
         this.opcion1.destroy()
         this.opcion2.destroy()
         this.opcion1Bubble.destroy()
         this.opcion2Bubble.destroy()
-            this.optionBubbles = []
+        this.optionBubbles = []
+        this.opcionElegida = true
+        this.character.setTexture('mikelFeliz')
+        this.mostrarRecompensa('¡Has conseguido una cerveza!')
+    }
+
+    mostrarRecompensa = (mensaje) => {
 
         const bubble = this.add.rectangle(650, 350, 300, 110, 0xffffff)
         bubble.setStrokeStyle(4, 0x000000)

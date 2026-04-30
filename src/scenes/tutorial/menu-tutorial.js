@@ -115,7 +115,7 @@ export default class MenuTutorial extends Phaser.Scene {
         if (this.currentStep === 0) { 
             this.tutorialBubble = this.add.rectangle(200, 100, 400, 200, 0x00C4FF).setOrigin(0.5).setStrokeStyle(4, 0x000000);
             this.tutorialOverlayVisible = true;
-            this.tutorialText = dialogTextSprite.create(this, 200, 100, ['Bienvenido a tu nuevo telefono! Aqui podras elegir a donde ir durante el dia.', 'Como ves hay algunas partes mas oscuras que otras, ese se debe a que primero tienes que elegir las que vienen antes para poder acceder a ellas.', 
+            this.tutorialText = dialogTextSprite.create(this, 200, 100, ['Bienvenido a tu nuevo telefono! Aqui podras elegir a donde ir durante el dia.', 'Como ves hay algunas partes mas oscuras que otras, eso se debe a que primero tienes que elegir las que vienen antes para poder acceder a ellas.', 
                 'Se usa W/S para navegar y E para seleccionar. Vamos a elegir la primera escena!'], {
                 fontFamily: '"PixelAE-Regular", monospace',
                 fontSize: '18px',

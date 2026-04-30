@@ -219,6 +219,8 @@ export default class AccionTutorial extends Phaser.Scene {
     }
 
     confirmarSeleccion() {
+        const levelScene = this.scene.get('level');
+        
         if (this.selectedOption === 0) {
             this.opcionElegida = true
             addMoney(this, 2)
@@ -227,6 +229,9 @@ export default class AccionTutorial extends Phaser.Scene {
         }
 
         this.opcionElegida = true
+        if (levelScene?.player?.inventory) {
+            levelScene.player.inventory.addItem({ id: 'yanotekomo', name: 'Yanotekomo', texture: 'yanotekomo' })
+        }
         this.mostrarRecompensa('¡Has conseguido 1 yanotekomo!')
     }
 

@@ -2,7 +2,10 @@ import Phaser from 'phaser'
 
 
 
-import inventario from '../../assets/sprites/inventorio.png'
+import inventario from '../../assets/sprites/UIinventario.png'
+
+import yanotekomo from '../../assets/sprites/objetos/yanotekomo.png'
+import phoneItem from '../../assets/sprites/objetos/phoneItem.png'
 
 import settingsOn from '../../assets/sprites/settingsButton.png'
 import settingsOff from '../../assets/sprites/settingsButtonOff.png'
@@ -89,9 +92,9 @@ import star from '../../assets/sprites/star.png';
 
 export default class Boot extends Phaser.Scene {
 
-constructor() {
-super({ key: 'boot' });
-}
+    constructor() {
+        super({ key: 'boot' });
+    }
 
   /**
    * Carga de los assets del juego
@@ -104,6 +107,8 @@ super({ key: 'boot' });
 
     this.load.image('startMenu', startMenu);
 
+    this.load.image('inventario', inventario);
+    this.load.image('yanotekomo', yanotekomo);
     this.load.image('inventario', inventario);
     this.load.image('settingsPanel', settingsPanel);
     this.load.image('settings', settingsOn);

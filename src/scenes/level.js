@@ -104,7 +104,7 @@ export default class Level extends Phaser.Scene {
         this.inventoryUI = this.add.image(
             this.cameras.main.centerX,
             this.cameras.main.centerY,
-            'Inventory'
+            'inventario'
         );
 
         this.inventoryUI.setScrollFactor(0);

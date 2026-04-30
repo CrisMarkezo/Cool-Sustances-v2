@@ -13,7 +13,6 @@ import AccionSegunda1 from './scenes/dia/accionSegunda1.js'
 import AccionSegunda2 from './scenes/dia/accionSegunda2.js'
 import DialogoPrimero1 from './scenes/dia/dialogoPrimero1'
 import DialogoSegundo1 from './scenes/dia/dialogoSegundo1'
-import Inventory from './scenes/inventory.js'
 import StartMenu from './scenes/startMenu.js'
 import Settings from './scenes/settings.js'
 import DialogoTercera1 from './scenes/dia/dialogoTercera1';
@@ -25,6 +24,7 @@ import DialogoQuinta2 from './scenes/dia/dialogoQuinta2.js';
 import TiendaTercera1 from './scenes/dia/tiendaTercera1';
 import TiendaTercera2 from './scenes/dia/tiendaTercera2.js';
 import TiendaCuarta1 from './scenes/dia/tiendaCuarta1';
+import Inventory from './Inventory';
 
 let config = {
     type: Phaser.AUTO,
