@@ -85,10 +85,10 @@ import CatGrabbing from '../../assets/sprites/Cat_Grabbing.png';
 import MonsterImg from '../../assets/sprites/Monster.png';
 import healthbar from '../../assets/sprites/healthbar.png';
 import Star from '../../assets/sprites/star.png';
-import yanotekomo from '../../assets/sprites/objetos/yanotekomo.png';
-
 
 import star from '../../assets/sprites/star.png';
+import yanotekomo from '../../assets/sprites/objetos/yanotekomo.png';
+import halcon from '../../assets/sprites/objetos/halcon.png';
 
 export default class Boot extends Phaser.Scene {
 
@@ -167,6 +167,7 @@ constructor() {
 
     this.load.image('star', star);
     this.load.image('yanotekomo', yanotekomo);
+    this.load.image('halcon', halcon);
 
     // Idle
     this.load.spritesheet('cat_idle', CatIdle, {

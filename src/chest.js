@@ -64,7 +64,7 @@ export default class Chest extends InteractableObject {
     }
 
     spawnPowerUp(player) {
-        this.objeto = new PowerUp(this.scene, this.x, this.y - 10, 'yanotekomo', this.tipo, 100);
+        this.objeto = new PowerUp(this.scene, this.x, this.y - 10, 'halcon', this.tipo, 100);
         this.objeto.setScale(0.15);
         this.objeto.configure(player);
     }
