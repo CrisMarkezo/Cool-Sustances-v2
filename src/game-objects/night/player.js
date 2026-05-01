@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
-import Inventory from './Inventory.js';
-import GameEntity from './gameEntity.js';
+import Inventory from '../../Inventory.js';
+import GameEntity from '../../gameEntity.js';
 
 export default class Player extends GameEntity {
     constructor(scene, x, y) {

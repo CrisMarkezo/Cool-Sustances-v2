@@ -977,7 +977,7 @@
                         {
                          "name":"tipo",
                          "type":"string",
-                         "value":"speed"
+                         "value":"attack_speed"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1007,8 +1007,8 @@
                  "type":"",
                  "visible":true,
                  "width":64,
-                 "x":2784,
-                 "y":1728
+                 "x":2752,
+                 "y":1760
                 }, 
                 {
                  "gid":8830,
@@ -1025,7 +1025,7 @@
                         {
                          "name":"tipo",
                          "type":"string",
-                         "value":"speed"
+                         "value":"health"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1049,7 +1049,7 @@
                         {
                          "name":"tipo",
                          "type":"string",
-                         "value":"speed"
+                         "value":"health"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1097,7 +1097,7 @@
                         {
                          "name":"tipo",
                          "type":"string",
-                         "value":"speed"
+                         "value":"damage"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1169,7 +1169,7 @@
                         {
                          "name":"tipo",
                          "type":"string",
-                         "value":"speed"
+                         "value":"damage"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1193,7 +1193,7 @@
                         {
                          "name":"tipo",
                          "type":"string",
-                         "value":"speed"
+                         "value":"health"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1225,6 +1225,102 @@
                  "width":64,
                  "x":688,
                  "y":1648
+                }, 
+                {
+                 "gid":8830,
+                 "height":64,
+                 "id":59,
+                 "name":"cofre_12",
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"empty",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"tipo",
+                         "type":"string",
+                         "value":"speed"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":2288,
+                 "y":1360
+                }, 
+                {
+                 "gid":8830,
+                 "height":64,
+                 "id":60,
+                 "name":"cofre_13",
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"empty",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"tipo",
+                         "type":"string",
+                         "value":"speed"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":2288,
+                 "y":1520
+                }, 
+                {
+                 "gid":8830,
+                 "height":64,
+                 "id":61,
+                 "name":"cofre_14",
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"empty",
+                         "type":"bool",
+                         "value":false
+                        }, 
+                        {
+                         "name":"tipo",
+                         "type":"string",
+                         "value":"attack_speed"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":608,
+                 "y":2288
+                }, 
+                {
+                 "gid":8830,
+                 "height":64,
+                 "id":62,
+                 "name":"cofre_15",
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"empty",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"tipo",
+                         "type":"string",
+                         "value":"attack_speed"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":480,
+                 "y":2544
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1233,7 +1329,7 @@
          "y":0
         }],
  "nextlayerid":13,
- "nextobjectid":59,
+ "nextobjectid":63,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.12.1",

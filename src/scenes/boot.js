@@ -89,6 +89,7 @@ import Star from '../../assets/sprites/star.png';
 import star from '../../assets/sprites/star.png';
 import yanotekomo from '../../assets/sprites/objetos/yanotekomo.png';
 import halcon from '../../assets/sprites/objetos/halcon.png';
+import vaper from '../../assets/sprites/objetos/vaper.png';
 
 export default class Boot extends Phaser.Scene {
 
@@ -168,6 +169,7 @@ constructor() {
     this.load.image('star', star);
     this.load.image('yanotekomo', yanotekomo);
     this.load.image('halcon', halcon);
+    this.load.image('vaper', vaper);
 
     // Idle
     this.load.spritesheet('cat_idle', CatIdle, {

@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import Player from '../player.js';
+import Player from '../game-objects/night/player.js';
 
 // Dungeon (Mapa)
 import Dungeon from '../../assets/dungeon/Dungeon_1.json';
@@ -31,7 +31,7 @@ import Adornos_2 from '../../assets/dungeon/decorations_2.png'
 import Chest_IDLE from '../../assets/dungeon/Chest_Idle.png';
 import Chest_EMPTY from '../../assets/dungeon/Chest_Opening_Empty.png';
 import Chest_GOLD from '../../assets/dungeon/Chest_Opening_Gold.png';
-import Chest from '../chest.js';
+import Chest from '../game-objects/night/chest.js';
 
 export default class mapa_dungeon_1 extends Phaser.Scene {
     constructor() {

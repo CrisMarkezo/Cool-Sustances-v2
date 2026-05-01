@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import GameEntity from './gameEntity.js';
+import GameEntity from '../../gameEntity.js';
 
 export default class Monster extends GameEntity {
     constructor(scene, x, y, texture) {

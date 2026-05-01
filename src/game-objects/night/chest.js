@@ -1,6 +1,10 @@
-import InteractableObject from "./InteractableObject";
+import InteractableObject from "../../InteractableObject";
 import Phaser from "phaser";
-import PowerUp from "./powerup";
+import PowerUp from "../powerups/powerup";
+import Halcon from "../powerups/halcon";
+import Vaper from "../powerups/vaper";
+import Kebab from "../powerups/kebab";
+import Redbull from "../powerups/redbull";
 
 export default class Chest extends InteractableObject {
 
@@ -56,7 +60,6 @@ export default class Chest extends InteractableObject {
         this.player.nearbyInteractable = null;
         if (!this.empty){
             this.anims.play('chest_opening_gold_anim',true);
-            // Añadir que el jugador obtenga el objeto que esta dentro del cofre
             this.spawnPowerUp(player);
         }   
         else 
@@ -64,8 +67,22 @@ export default class Chest extends InteractableObject {
     }
 
     spawnPowerUp(player) {
-        this.objeto = new PowerUp(this.scene, this.x, this.y - 10, 'halcon', this.tipo, 100);
-        this.objeto.setScale(0.15);
+        switch (this.tipo) {
+            case 'health':
+                this.objeto = new Kebab(this.scene, this.x, this.y - 10);
+                break;
+            case 'speed':
+                this.objeto = new Redbull(this.scene, this.x, this.y - 10);
+                break;
+            case 'damage':
+                this.objeto = new Vaper(this.scene, this.x, this.y - 10);
+                this.objeto.setScale(0.10);
+                break;
+            case 'attack_speed':
+                this.objeto = new Halcon(this.scene, this.x, this.y - 10);
+                this.objeto.setScale(0.15);
+                break;
+        }
         this.objeto.configure(player);
     }
 }

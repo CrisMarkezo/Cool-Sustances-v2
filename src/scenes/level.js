@@ -1,9 +1,9 @@
 import Phaser from 'phaser';
-import Player from '../player.js';
+import Player from '../game-objects/night/player.js';
 import Scratcher from '../scratcher.js';
-import Phone from '../Phone.js';
-import Monster from '../monster.js';
-import PowerUp from '../powerup.js';
+import Phone from '../game-objects/night/Phone.js';
+import Monster from '../game-objects/night/monster.js';
+import PowerUp from '../game-objects/powerups/powerup.js';
 
 export default class Level extends Phaser.Scene {
     constructor() {

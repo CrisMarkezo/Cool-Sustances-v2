@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import InteractableObject from './InteractableObject';
+import InteractableObject from '../../InteractableObject';
 
 export default class PowerUp extends InteractableObject {
 
@@ -59,28 +59,6 @@ export default class PowerUp extends InteractableObject {
 
     // Método que se llama cuando el jugador consigue el objeto
     applyEffect(player) {
-        switch (this.type) {
-            case 'max_health':
-                player.maxHealth += this.parameter; 
-                player.health +=  this.parameter;
-                break;
-
-            case 'health':
-                player.health = Math.min(player.health + this.parameter, player.maxHealth);
-                break;
-
-            case 'speed':
-                player.speed += this.parameter; 
-                break;
-
-            case 'damage':
-                player.damage += this.parameter;
-                break;
-
-            case 'attack_speed':
-                player.attackCooldown = Math.max(0, player.attackCooldown - this.parameter);
-                break;
-        }
-        this.destroy();
+        // Método abstracto
     }
 }
