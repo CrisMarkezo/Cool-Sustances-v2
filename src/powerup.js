@@ -1,14 +1,41 @@
 import Phaser from 'phaser';
+import InteractableObject from './InteractableObject';
 
-export default class PowerUp extends Phaser.Physics.Arcade.Sprite {
+export default class PowerUp extends InteractableObject {
 
     constructor(scene, x, y, texture, type, num) {
         super(scene, x, y, texture);
 
+        scene.physics.add.existing(this);
         scene.add.existing(this);
 
+        this.body.setSize(100, 100);
+        
         this.type = type;
-        this.parameter = num; 
+        this.parameter = num;
+        this.interactionRadius = 50; 
+    }
+
+    configure(player){
+        this.player = player;
+        this.body.allowGravity = false;
+        this.body.immovable = true;
+    }   
+
+    preUpdate(t, dt) {
+        super.preUpdate(t, dt);
+
+        if (!this.player) return;
+
+        const distancia = Phaser.Math.Distance.Between(this.x, this.y, this.player.x, this.player.y);
+
+        if (distancia < this.interactionRadius) {
+            if (!this.player.nearbyInteractable || this.player.nearbyInteractable === this) {
+                this.player.nearbyInteractable = this;
+            }
+        } else if (this.player.nearbyInteractable === this) {
+            this.player.nearbyInteractable = null;
+        }
     }
 
     interact(player) {
@@ -17,7 +44,7 @@ export default class PowerUp extends Phaser.Physics.Arcade.Sprite {
             return;
 
         player.isGrabbing = true;
-        player.setVelocity(0);
+        player.body.setVelocity(0);
 
         player.anims.play('cat_grabbing', true);
 
@@ -25,9 +52,9 @@ export default class PowerUp extends Phaser.Physics.Arcade.Sprite {
             player.isGrabbing = false;
             player.anims.play('cat_idle', true);
         });
+        player.nearbyInteractable = null;
 
         this.applyEffect(player);
-        this.destroy();
     }
 
     // Método que se llama cuando el jugador consigue el objeto

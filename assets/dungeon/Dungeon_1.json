@@ -967,7 +967,6 @@
                  "height":64,
                  "id":43,
                  "name":"cofre_8",
-                 "opacity":1,
                  "properties":[
                         {
                          "name":"empty",
@@ -977,7 +976,7 @@
                         {
                          "name":"tipo",
                          "type":"string",
-                         "value":""
+                         "value":"speed"
                         }],
                  "rotation":0,
                  "type":"",
@@ -991,7 +990,6 @@
                  "height":64,
                  "id":44,
                  "name":"cofre_7",
-                 "opacity":1,
                  "properties":[
                         {
                          "name":"empty",
@@ -1001,7 +999,7 @@
                         {
                          "name":"tipo",
                          "type":"string",
-                         "value":""
+                         "value":"speed"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1015,7 +1013,6 @@
                  "height":64,
                  "id":45,
                  "name":"cofre_9",
-                 "opacity":1,
                  "properties":[
                         {
                          "name":"empty",
@@ -1025,7 +1022,7 @@
                         {
                          "name":"tipo",
                          "type":"string",
-                         "value":""
+                         "value":"speed"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1039,7 +1036,6 @@
                  "height":64,
                  "id":46,
                  "name":"cofre_6",
-                 "opacity":1,
                  "properties":[
                         {
                          "name":"empty",
@@ -1049,7 +1045,7 @@
                         {
                          "name":"tipo",
                          "type":"string",
-                         "value":""
+                         "value":"speed"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1063,7 +1059,6 @@
                  "height":64,
                  "id":47,
                  "name":"cofre_3",
-                 "opacity":1,
                  "properties":[
                         {
                          "name":"empty",
@@ -1073,7 +1068,7 @@
                         {
                          "name":"tipo",
                          "type":"string",
-                         "value":""
+                         "value":"speed"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1087,7 +1082,6 @@
                  "height":64,
                  "id":48,
                  "name":"cofre_1",
-                 "opacity":1,
                  "properties":[
                         {
                          "name":"empty",
@@ -1097,7 +1091,7 @@
                         {
                          "name":"tipo",
                          "type":"string",
-                         "value":""
+                         "value":"speed"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1111,7 +1105,6 @@
                  "height":64,
                  "id":49,
                  "name":"cofre_2",
-                 "opacity":1,
                  "properties":[
                         {
                          "name":"empty",
@@ -1135,7 +1128,6 @@
                  "height":64,
                  "id":53,
                  "name":"cofre_4",
-                 "opacity":1,
                  "properties":[
                         {
                          "name":"empty",
@@ -1145,7 +1137,7 @@
                         {
                          "name":"tipo",
                          "type":"string",
-                         "value":""
+                         "value":"speed"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1159,7 +1151,6 @@
                  "height":64,
                  "id":54,
                  "name":"cofre_5",
-                 "opacity":1,
                  "properties":[
                         {
                          "name":"empty",
@@ -1169,7 +1160,7 @@
                         {
                          "name":"tipo",
                          "type":"string",
-                         "value":""
+                         "value":"speed"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1183,7 +1174,6 @@
                  "height":64,
                  "id":57,
                  "name":"cofre_10",
-                 "opacity":1,
                  "properties":[
                         {
                          "name":"empty",
@@ -1193,7 +1183,7 @@
                         {
                          "name":"tipo",
                          "type":"string",
-                         "value":""
+                         "value":"speed"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1207,7 +1197,6 @@
                  "height":64,
                  "id":58,
                  "name":"cofre_11",
-                 "opacity":1,
                  "properties":[
                         {
                          "name":"empty",
@@ -1217,7 +1206,7 @@
                         {
                          "name":"tipo",
                          "type":"string",
-                         "value":""
+                         "value":"speed"
                         }],
                  "rotation":0,
                  "type":"",
@@ -1236,7 +1225,7 @@
  "nextobjectid":59,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.12.1",
+ "tiledversion":"1.11.2",
  "tileheight":16,
  "tilesets":[
         {

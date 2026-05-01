@@ -16,7 +16,7 @@ export default class Chest extends InteractableObject {
         this.body.immovable = true;
         this.empty = this.data.values.empty;
         if(!this.empty)
-            this.objeto = this.data.values.tipo;
+            this.tipo = this.data.values.tipo;
         this.body.setSize(20, 20);
     }   
 
@@ -57,16 +57,15 @@ export default class Chest extends InteractableObject {
         if (!this.empty){
             this.anims.play('chest_opening_gold_anim',true);
             // Añadir que el jugador obtenga el objeto que esta dentro del cofre
-            this.spawnPowerUp();
+            this.spawnPowerUp(player);
         }   
         else 
             this.anims.play('chest_empty_anim',true);
     }
 
-    spawnPowerUp() {
-        // this.objeto = new PowerUp(this, this.x, this.y - 10, 'star', this.tipo, 100);
-        // this.objeto.body.setAllowGravity(false);
-        // this.objeto.setScale(0.25);
-        // this.scene.physics.add.overlap(this.player, powerUp, this.objeto.applyEffect(this.player));
+    spawnPowerUp(player) {
+        this.objeto = new PowerUp(this.scene, this.x, this.y - 10, 'yanotekomo', this.tipo, 100);
+        this.objeto.setScale(0.15);
+        this.objeto.configure(player);
     }
 }

@@ -85,6 +85,7 @@ import CatGrabbing from '../../assets/sprites/Cat_Grabbing.png';
 import MonsterImg from '../../assets/sprites/Monster.png';
 import healthbar from '../../assets/sprites/healthbar.png';
 import Star from '../../assets/sprites/star.png';
+import yanotekomo from '../../assets/sprites/objetos/yanotekomo.png';
 
 
 import star from '../../assets/sprites/star.png';
@@ -165,6 +166,7 @@ constructor() {
     this.load.image('healthbar', healthbar);
 
     this.load.image('star', star);
+    this.load.image('yanotekomo', yanotekomo);
 
     // Idle
     this.load.spritesheet('cat_idle', CatIdle, {
@@ -222,7 +224,7 @@ constructor() {
                 return;
             }
             sceneStarted = true;
-            this.scene.start('start-menu');
+            this.scene.start('dungeon_1'); // start-menu
         };
 
         const hasFontLoader =

@@ -13,6 +13,8 @@ export default class Player extends GameEntity {
         this.setDepth(10);
 
         this.body.setSize(20, 22); // Cambia la hitbox
+        this.body.setMaxVelocity(400, 400);
+
         this.speed = 100;
         this.damage = 20;
         this.isAttacking = false;
