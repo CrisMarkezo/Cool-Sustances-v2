@@ -32,8 +32,10 @@ export default class Level extends Phaser.Scene {
         this.player = new Player(this, startX, startY);
         this.monster = new Monster(this, startX - 100, startY, 'boss');
         this.rascador = new Scratcher(this, startX + 210, startY);
+
         this.phone = new Phone(this, startX + 100, startY);
         this.phone.setScale(0.5);
+
         this.phone2 = new Phone(this, startX + 130, startY);
         this.phone2.setScale(0.5);
 
@@ -67,23 +69,23 @@ export default class Level extends Phaser.Scene {
 
         this.inventoryItems = this.add.group();
 
-        // 🪧 TUTORIAL
+        // 🪧 TUTORIAL (FIX HUD a cámara)
         this.tutorialText = this.add.text(
             0,
             0,
             'WASD: moverse | ESPACIO: atacar\nE: interactuar | Golpea el rascador',
             {
                 fontFamily: 'Arial',
-                fontSize: 'px',
+                fontSize: '8px',
                 color: '#f5e6c8',
                 align: 'center',
                 backgroundColor: '#4b2e1a',
-                padding: { x: 6, y: 4 },
+                padding: { x: 6, y:  4},
                 resolution: 2
             }
         );
 
-        this.tutorialText.setOrigin(0.5, 0);
+        this.tutorialText.setOrigin(0.5, 1);
         this.tutorialText.setDepth(3000);
 
         this.isGameOver = false;
@@ -93,21 +95,17 @@ export default class Level extends Phaser.Scene {
         this.gameOverImage.setVisible(false);
         this.gameOverImage.setScale(0.2);
 
-        // =========================================================
-        // 🚪 PUERTA (RECTÁNGULO NEGRO)
-        // =========================================================
-        this.hasRascadorItem = false; // 🔑 flag futuro
+        this.hasRascadorItem = false;
 
-        const doorX = startX+192;
-        const doorY = startY-55;
+        const doorX = startX + 192;
+        const doorY = startY - 55;
 
         this.doorZone = this.add.rectangle(doorX, doorY, 25, 45, 0x000000);
         this.physics.add.existing(this.doorZone, true);
 
         this.physics.add.overlap(this.player, this.doorZone, () => {
             if (this.hasRascadorItem && !this.isGameOver) {
-                this.triggerGameOver(); // 🔴 ahora mismo: GAME OVER
-                // futuro: this.scene.start('level2');
+                this.triggerGameOver();
             }
         }, null, this);
     }
@@ -124,8 +122,12 @@ export default class Level extends Phaser.Scene {
             return;
         }
 
+        // ✅ FIX REAL: HUD pegado al borde inferior de la cámara
         if (this.tutorialText) {
-            this.tutorialText.setPosition(this.player.x, this.player.y + 25);
+            this.tutorialText.setPosition(
+                cam.worldView.centerX,
+                cam.worldView.bottom - 5
+            );
         }
 
         if (Phaser.Input.Keyboard.JustDown(this.keyI)) {
@@ -160,10 +162,6 @@ export default class Level extends Phaser.Scene {
         this.physics.pause();
         this.player.body.setVelocity(0, 0);
         this.gameOverImage.setVisible(true);
-        this.gameOverImage.setPosition(
-            this.cameras.main.worldView.centerX,
-            this.cameras.main.worldView.centerY
-        );
     }
 
     renderInventory(firstX, firstY) {
@@ -193,8 +191,6 @@ export default class Level extends Phaser.Scene {
         if (!rascador.isScratching) {
             rascador.scratch();
             hitbox.body.enable = false;
-
-            // 🔑 SIMULA que obtiene el objeto del rascador
             this.hasRascadorItem = true;
 
             if (this.tutorialText) {
