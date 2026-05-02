@@ -24,8 +24,13 @@ import Hierba from '../../assets/dungeon/Grass.png';
 import Calle from '../../assets/dungeon/street_tileset.png';
 import Poste_Down from '../../assets/dungeon/lamp_down.png';
 import Poste_Right from '../../assets/dungeon/lamp_right.png';
-import Adornos_1 from '../../assets/dungeon/decorations.png'
-import Adornos_2 from '../../assets/dungeon/decorations_2.png'
+import Adornos_1 from '../../assets/dungeon/decorations.png';
+import Adornos_2 from '../../assets/dungeon/decorations_2.png';
+import Banio from '../../assets/dungeon/dirty_publicbathroom_set_withshadow.png';
+import Decorative from '../../assets/dungeon/decorative.png';
+import Estrella from '../../assets/dungeon/estrella.png';
+import Suelo_Boss from '../../assets/dungeon/mainlevbuild.png';
+import Fondo_Boss from '../../assets/dungeon/Space Background.png'
 
 // Objetos
 import Chest_IDLE from '../../assets/dungeon/Chest_Idle.png';
@@ -52,6 +57,24 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         this.load.image('taxi', Taxi);
         this.load.image('bus', Bus);
 
+        this.load.image('arbol', Arbol);
+        this.load.image('paredes', Paredes);
+        this.load.image('suelo', Suelo);
+        this.load.image('suelo_exterior', Suelo_Exterior);
+        this.load.image('suelo_disco', Suelo_Disco);
+        this.load.image('suelo_boss', Suelo_Boss);
+        this.load.image('hierba', Hierba);
+        this.load.image('calle', Calle);
+        this.load.image('poste_down', Poste_Down);
+        this.load.image('poste_right', Poste_Right);
+        this.load.image('adornos_1', Adornos_1);
+        this.load.image('adornos_2', Adornos_2);
+        this.load.image('banio', Banio);
+        this.load.image('estrella', Estrella);
+        this.load.image('decorative', Decorative);
+        this.load.image('fondo', Fondo_Boss);
+        this.load.image('suelo_boss', Suelo_Boss);
+
         this.load.spritesheet('chest_idle', Chest_IDLE, {
             frameWidth: 64,
             frameHeight: 64
@@ -65,17 +88,6 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
             frameHeight: 64
         });
 
-        this.load.image('arbol', Arbol);
-        this.load.image('paredes', Paredes);
-        this.load.image('suelo', Suelo);
-        this.load.image('suelo_exterior', Suelo_Exterior);
-        this.load.image('suelo_disco', Suelo_Disco);
-        this.load.image('hierba', Hierba);
-        this.load.image('calle', Calle);
-        this.load.image('poste_down', Poste_Down);
-        this.load.image('poste_right', Poste_Right);
-        this.load.image('adornos_1', Adornos_1);
-        this.load.image('adornos_2', Adornos_2);
         this.load.tilemapTiledJSON('dungeon_1', Dungeon);
     }
 
@@ -92,8 +104,13 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         var suelo = map.addTilesetImage('disco_suelo', 'suelo');
         var suelo_exterior = map.addTilesetImage('tiles', 'suelo_exterior');
         var hierba = map.addTilesetImage('TX Tileset Grass', 'hierba');
-        var decoraciones = map.addTilesetImage('decoraciones', 'adornos_1')
-        var decoraciones_2 = map.addTilesetImage('decoraciones_2', 'adornos_2')
+        var decoraciones = map.addTilesetImage('decoraciones', 'adornos_1');
+        var decoraciones_2 = map.addTilesetImage('decoraciones_2', 'adornos_2');
+        var estrella = map.addTilesetImage('estrella3', 'estrella');
+        var decorative = map.addTilesetImage('CATacombs', 'decorative');
+        var fondo = map.addTilesetImage('fondo_infierno', 'fondo');
+        var banio = map.addTilesetImage('baño_publico', 'banio');
+        var suelo_boss = map.addTilesetImage('Suelo', 'suelo_boss');
 
         var taxi = map.addTilesetImage('taxi_tile', 'taxi');
         var ambulance = map.addTilesetImage('ambulance_tile', 'ambulance');
@@ -108,18 +125,20 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         var bus = map.addTilesetImage('bus_tile', 'bus');
         var police = map.addTilesetImage('police_tile', 'police');
 
-        var suelo = map.createLayer('Suelo', [paredes, calle, suelo, suelo_disco, suelo_exterior, hierba], 0, 0);
-        var cosmeticos_suelo = map.createLayer('Cosmeticos_suelo', [paredes, arboles, lamp_down, lamp_right, decoraciones, decoraciones_2], 0, 0);
-        var vacio_layer = map.createLayer('Vacio', paredes, 0, 0);
-        var paredes_layer = map.createLayer('Paredes', [paredes, calle, arboles, lamp_down, lamp_right, taxi, 
-            ambulance, civic_1, civic_2, brown_coupe, yellow_coupe, supercar, suv, jeep, bus, luxury, police], 0, 0);
+        var suelo = map.createLayer('Suelo', [paredes, calle, suelo, suelo_disco, suelo_exterior, hierba, banio, suelo_boss, decorative], 0, 0);
+        var fondo_layer = map.createLayer('Fondo', [fondo, estrella], 0, 0);
+        var cosmeticos_suelo = map.createLayer('Cosmeticos_suelo', [paredes, arboles, lamp_down, lamp_right, 
+            decoraciones, decoraciones_2, banio, suelo_boss, decorative], 0, 0);
+        var vacio_layer = map.createLayer('Vacio', [paredes, banio, suelo_boss], 0, 0);
         var colisiones_layer = map.createLayer('Colisiones', calle, 0, 0);
+        var paredes_layer = map.createLayer('Paredes', [paredes, calle, arboles, lamp_down, lamp_right, taxi, 
+            ambulance, civic_1, civic_2, brown_coupe, yellow_coupe, supercar, suv, jeep, bus, luxury, police, banio, suelo_boss, decorative], 0, 0);
+        
         
         cosmeticos_suelo.setDepth(20);
         colisiones_layer.setVisible(false);
         paredes_layer.setCollisionByExclusion([-1],true);
         colisiones_layer.setCollisionByExclusion([-1],true);
-        vacio_layer.setCollisionByExclusion([-1],true);
 
         const startX = map.widthInPixels / 2;
         const startY = map.heightInPixels / 2;
