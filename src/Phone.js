@@ -3,7 +3,7 @@ import InteractableObject from './InteractableObject.js';
 export default class Phone extends InteractableObject {
 
     constructor(scene, x, y) {
-        super(scene, x, y, 'phone', 0);
+        super(scene, x, y, 'telefono', 0);
     }
 
     interact(player) {
@@ -13,7 +13,8 @@ export default class Phone extends InteractableObject {
         const added = player.inventory.addItem({
             id: 'phone',
             name: 'Teléfono',
-            texture: 'phone'
+            texture: 'telefono',
+            frame: 0
         });
 
         if (added) {
@@ -30,7 +31,5 @@ export default class Phone extends InteractableObject {
 
             this.destroy();
         }
-
     }
-
 }
