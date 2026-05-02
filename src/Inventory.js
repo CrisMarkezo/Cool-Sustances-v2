@@ -2,12 +2,13 @@ export default class Inventory {
     constructor(rows = 2, cols = 2) {
         this.rows = rows;
         this.cols = cols;
-        // Definimos un tamaño estándar para los iconos en el inventario
-        this.slotSize = 1; 
-
         this.slots = Array.from({ length: rows }, () =>
             Array(cols).fill(null)
         );
+    }
+
+    getCapacity() {
+        return this.rows * this.cols;
     }
 
     addItem(item) {

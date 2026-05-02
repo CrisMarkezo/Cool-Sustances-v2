@@ -51,7 +51,7 @@ export default class AccionPrimera1 extends Phaser.Scene {
         const inventoryBtn = InventorySprite.create(this, 50, 60)
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'accion', 1200)
-        this.character = this.add.image(690, 350, 'ikerNeutro').setScale(0.9);
+        this.character = this.add.image(690, 500, 'ikerNeutro');
         
         const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);
 
@@ -66,7 +66,6 @@ export default class AccionPrimera1 extends Phaser.Scene {
             color: '#ffe2f9'
         }).setOrigin(0.5)
 
-        this.add.image(690, 620, 'bin')
 
         this.contextoBubble = this.add.rectangle(325, 250, 500, 150, 0xE2007C)
         this.contextoBubble.setStrokeStyle(3, 0Xe76d2c)
@@ -132,9 +131,9 @@ export default class AccionPrimera1 extends Phaser.Scene {
 
         this.character.setTexture('ikerFeliz')
 
-        this.opcion1Bubble = this.add.rectangle(650, 320, 360, 60, 0Xe76d2c)
+        this.opcion1Bubble = this.add.rectangle(325, 320, 360, 60, 0Xe76d2c)
         this.opcion1Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion1 = this.add.text(650, 320, 'Recoger cajetilla del suelo', {
+        this.opcion1 = this.add.text(325, 320, 'Recoger cajetilla del suelo', {
             fontFamily: '"Keneric", sans-serif',
             fontSize: '22px',
             color: '#ffffff',
@@ -142,9 +141,9 @@ export default class AccionPrimera1 extends Phaser.Scene {
             align: 'center'
         }).setOrigin(0.5).setInteractive()
 
-        this.opcion2Bubble = this.add.rectangle(650, 380, 360, 60, 0Xe76d2c)
+        this.opcion2Bubble = this.add.rectangle(325, 380, 360, 60, 0Xe76d2c)
         this.opcion2Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion2 = this.add.text(650, 380, 'Robar lo que tiene en la mano', {
+        this.opcion2 = this.add.text(325, 380, 'Robar lo que tiene en la mano', {
             fontFamily: '"Keneric", sans-serif',
             fontSize: '22px',
             color: '#ffffff',
@@ -205,10 +204,10 @@ export default class AccionPrimera1 extends Phaser.Scene {
 
     mostrarRecompensa = (mensaje) => {
 
-        const bubble = this.add.rectangle(650, 350, 300, 110, 0xffffff)
+        const bubble = this.add.rectangle(500, 580, 300, 110, 0xffffff)
         bubble.setStrokeStyle(4, 0x000000)
 
-        this.add.text(650, 350, mensaje, {
+        this.add.text(500, 580, mensaje, {
             fontFamily: '"PixelAE-Regular", monospace',
             fontSize: '28px',
             color: '#000000',
@@ -218,7 +217,7 @@ export default class AccionPrimera1 extends Phaser.Scene {
         }).setOrigin(0.5)
 
         this.time.delayedCall(2000, () => {
-            const continuar = this.add.text(650, 430, 'Presiona espacio para continuar', {
+            const continuar = this.add.text(500, 660, 'Presiona espacio para continuar', {
                 fontFamily: '"PixelAE-Bold", monospace',
                 fontSize: '20px',
                 color: '#ff028d'

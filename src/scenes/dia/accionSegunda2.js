@@ -67,7 +67,7 @@ export default class AccionSegunda2 extends Phaser.Scene {
         this.contextoBubble = this.add.rectangle(325, 250, 500, 150, 0xE2007C)
         this.contextoBubble.setStrokeStyle(3, 0Xe76d2c)
         this.contexto = dialogTextSprite.create(this, 325, 250, [
-            'Te despiertas en lo que tus nuevos dueños llaman techito, y ves en una de las esquinas un montón de pipas con una bolsa sin acabar. ',
+            'Dos personas se alejan de la mesa, una de ellas huele un poco afrutado, le sigues. ',
             'Pero uno de los que se encuentran en techito parece ser que quiere darte algo. ¿Qué haces?'
         ], {
             fontFamily: '"Toonway", sans-serif',

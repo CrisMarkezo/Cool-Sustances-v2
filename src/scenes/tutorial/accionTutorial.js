@@ -144,9 +144,25 @@ export default class AccionTutorial extends Phaser.Scene {
             this.scene.bringToTop('settings');
         }
         if (Phaser.Input.Keyboard.JustDown(this.keyQ)){
-            this.scene.pause()
-            this.scene.launch('inventory', { from: this.scene.key })
-            this.scene.bringToTop('inventory')
+            console.log('🔵 Q pressed - attempting to open inventory');
+            try {
+                console.log('🔵 Pausing accionTutorial...');
+                this.scene.pause()
+                console.log('🔵 Launching inventory scene...');
+                this.scene.launch('inventory', { from: this.scene.key })
+                console.log('🔵 Bringing inventory to top...');
+                this.scene.bringToTop('inventory')
+                console.log('✅ Inventory opened successfully');
+            } catch (err) {
+                console.error('❌ Error opening inventory:', err);
+                console.error('Stack:', err.stack);
+                // Try to resume if there was an error
+                try {
+                    this.scene.resume()
+                } catch (e) {
+                    console.error('Could not resume scene:', e);
+                }
+            }
         }
     }
 
@@ -219,19 +235,18 @@ export default class AccionTutorial extends Phaser.Scene {
     }
 
     confirmarSeleccion() {
-        const levelScene = this.scene.get('level');
+        const inventory = this.registry.get('inventory');
         
         if (this.selectedOption === 0) {
             this.opcionElegida = true
             addMoney(this, 2)
+            inventory?.addItem({ id: 'moneda', name: 'Moneda', texture: 'star' })
             this.mostrarRecompensa('¡Has conseguido 2€!')
             return
         }
 
         this.opcionElegida = true
-        if (levelScene?.player?.inventory) {
-            levelScene.player.inventory.addItem({ id: 'yanotekomo', name: 'Yanotekomo', texture: 'yanotekomo' })
-        }
+        inventory?.addItem({ id: 'yanotekomo', name: 'Yanotekomo', texture: 'yanotekomo' })
         this.mostrarRecompensa('¡Has conseguido 1 yanotekomo!')
     }
 

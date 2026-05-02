@@ -24,7 +24,7 @@ import DialogoQuinta2 from './scenes/dia/dialogoQuinta2.js';
 import TiendaTercera1 from './scenes/dia/tiendaTercera1';
 import TiendaTercera2 from './scenes/dia/tiendaTercera2.js';
 import TiendaCuarta1 from './scenes/dia/tiendaCuarta1';
-import Inventory from './Inventory';
+import InventoryScene from './scenes/inventory.js';
 
 let config = {
     type: Phaser.AUTO,
@@ -59,7 +59,7 @@ let config = {
         TiendaTercera1,
         TiendaTercera2,
         TiendaCuarta1,
-        Inventory,
+        InventoryScene,
         StartMenu,
         Settings,
     ],

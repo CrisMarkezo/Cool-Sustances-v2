@@ -1,5 +1,7 @@
 import Phaser from 'phaser'
 
+import InventoryData from '../Inventory.js';
+
 
 
 import inventario from '../../assets/sprites/UIinventario.png'
@@ -56,6 +58,19 @@ import laliNeutro from '../../assets/sprites/dia/characters/laliNeutro.png'
 import laliFeliz from '../../assets/sprites/dia/characters/laliFeliz.png'
 import laliTriste from '../../assets/sprites/dia/characters/laliTriste.png'
 import laliEnfadada from '../../assets/sprites/dia/characters/laliEnfadada.png'
+import mikelNeutro from '../../assets/sprites/dia/characters/mikelNeutro.png'
+import mikelFeliz from '../../assets/sprites/dia/characters/mikelFeliz.png'
+import mikelTriste from '../../assets/sprites/dia/characters/mikelTriste.png'
+import mikelEnfadado from '../../assets/sprites/dia/characters/mikelEnfadado.png'
+import ikerNeutro from '../../assets/sprites/dia/characters/ikerNeutro.png'
+import ikerFeliz from '../../assets/sprites/dia/characters/ikerFeliz.png'
+import ikerTriste from '../../assets/sprites/dia/characters/ikerTriste.png'
+import ikerEnfadado from '../../assets/sprites/dia/characters/ikerEnfadado.png'
+import anaNeutro from '../../assets/sprites/dia/characters/anaNeutro.png'
+import anaFeliz from '../../assets/sprites/dia/characters/anaFeliz.png'
+import anaTriste from '../../assets/sprites/dia/characters/anaTriste.png'
+import anaHorny from '../../assets/sprites/dia/characters/anaHorny.png'
+import anaEnfadada from '../../assets/sprites/dia/characters/anaEnfadada.png'
 
 
 import tiendaIcon from '../../assets/sprites/dia/tiendaIconScene.png'
@@ -158,6 +173,19 @@ export default class Boot extends Phaser.Scene {
     this.load.image('haoTriste', haoTriste);
     this.load.image('haoEnfadado', haoEnfadado);
     this.load.image('haoHorny', haoHorny);
+    this.load.image('mikelNeutro', mikelNeutro);
+    this.load.image('mikelFeliz', mikelFeliz);
+    this.load.image('mikelTriste', mikelTriste);
+    this.load.image('mikelEnfadado', mikelEnfadado);
+    this.load.image('ikerNeutro', ikerNeutro);
+    this.load.image('ikerFeliz', ikerFeliz);
+    this.load.image('ikerTriste', ikerTriste);
+    this.load.image('ikerEnfadado', ikerEnfadado);
+    this.load.image('anaNeutro', anaNeutro);
+    this.load.image('anaFeliz', anaFeliz);
+    this.load.image('anaTriste', anaTriste);
+    this.load.image('anaHorny', anaHorny);
+    this.load.image('anaEnfadada', anaEnfadada);
 
 
     this.load.image('Muebles4', TopDownHouse_FurnitureState1);
@@ -220,6 +248,10 @@ export default class Boot extends Phaser.Scene {
   create() {
         if (!this.registry.has('money')) {
             this.registry.set('money', 0);
+        }
+
+        if (!this.registry.has('inventory')) {
+            this.registry.set('inventory', new InventoryData(2, 2));
         }
 
         let sceneStarted = false;
@@ -314,6 +346,5 @@ this.anims.create({
     repeat: 0        // se reproduce una vez
 });
 
-        this.scene.start('start-menu');
   }
 }
