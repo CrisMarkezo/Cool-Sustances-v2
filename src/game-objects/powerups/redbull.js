@@ -7,7 +7,7 @@ export default class Redbull extends PowerUp {
     }
 
     applyEffect(player) {
-        player.attackCooldown = Math.max(0, player.attackCooldown - this.parameter);
+        player.speed += this.parameter;
         this.destroy();
     }
 }

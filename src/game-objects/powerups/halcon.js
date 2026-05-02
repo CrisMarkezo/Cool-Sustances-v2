@@ -7,7 +7,7 @@ export default class Halcon extends PowerUp {
     }
 
     applyEffect(player) {
-        player.speed += this.parameter;
+        player.health = Math.min(player.health + this.parameter, player.maxHealth);
         this.destroy();
     }
 }

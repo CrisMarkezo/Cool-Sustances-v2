@@ -1,4 +1,4 @@
-import InteractableObject from '../../InteractableObject.js';
+import InteractableObject from './InteractableObject.js';
 
 export default class Phone extends InteractableObject {
 

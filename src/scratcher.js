@@ -1,4 +1,4 @@
-import GameEntity from './gameEntity.js';
+import GameEntity from './game-objects/night/gameEntity.js';
 import Phone from './Phone.js';
 
 export default class Scratcher extends GameEntity {
