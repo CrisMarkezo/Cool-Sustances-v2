@@ -1,6 +1,7 @@
 import Boot from './scenes/boot.js';
 import End from './scenes/end.js';
 import Level from './scenes/level.js';
+import Dungeon_1 from './scenes/mapa_dungeon_1.js';
 import AccionTutorial from './scenes/tutorial/accionTutorial.js';
 import MenuTutorial from './scenes/tutorial/menu-tutorial.js';
 import Phaser from 'phaser';
@@ -62,6 +63,8 @@ let config = {
         InventoryScene,
         StartMenu,
         Settings,
+      Dungeon_01,
+      Inventory
     ],
     physics: {
         default: 'arcade',
