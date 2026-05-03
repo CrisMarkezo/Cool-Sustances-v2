@@ -5,9 +5,9 @@ import dialogTextSprite from './../../game-objects/dialogTextSprite';
 import nextDialogSprite from './../../game-objects/nextDialogSprite';
 import IconSprite from '../../game-objects/iconSprite.js'
 
-export default class DialogoTutorial extends Phaser.Scene {
+export default class DialogoQuinta2 extends Phaser.Scene {
     constructor(){
-        super({key: 'dialogoTutorial'})
+        super({key: 'dialogo-quinta-2'})
         // Game state
         this.contextComplete = false;
         this.opcionesVisibles = false;
@@ -19,9 +19,6 @@ export default class DialogoTutorial extends Phaser.Scene {
         this.respuestaBubble = null;
         this.respuesta = null;
         this.nextDialogHint = null;
-        this.contextTutorial = null;
-        this.contextTutorialBubble = null;
-        this.contextTutorialComplete = false;
         this.selectedOption = 0;
         this.optionBubbles = [];
 
@@ -36,7 +33,7 @@ export default class DialogoTutorial extends Phaser.Scene {
         this.keyS = null;
         this.keyEnter = null;
 
-        this.lali = null;
+        this.character = null;
         this.contexto = null;
         this.contextoBubble = null;
         this.pico = null;
@@ -57,7 +54,7 @@ export default class DialogoTutorial extends Phaser.Scene {
         this.add.image(500, 350, 'dia');
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'dialogo', 1200)
-        this.add.text(670, 75, 'TUTORIAL: Dialogo', {
+        this.add.text(670, 75, 'Dialogo', {
             fontFamily: '"Toonway", sans-serif',
             fontSize: '28px',
             color: '#ffffff'
@@ -68,7 +65,7 @@ export default class DialogoTutorial extends Phaser.Scene {
             color: '#ffe2f9'
         }).setOrigin(0.5)
         //this.add.image(200, 500, 'cubatita');
-        this.lali = this.add.image(700, 500, 'laliNeutro').setScale(1.2);
+        this.character = this.add.image(700, 500, 'laliNeutro').setScale(1.2);
 
         //Buttons
         const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);
@@ -87,23 +84,6 @@ export default class DialogoTutorial extends Phaser.Scene {
             align: 'center'
         });
 
-        this.contextTutorialBubble = this.add.rectangle(325, 450, 500, 150, 0x00C4FF)
-        this.contextTutorialBubble.setStrokeStyle(3, 0X000000)
-        this.contextTutorial = dialogTextSprite.create(this, 325, 450, [
-            'Nos econtramos en la escena de dialogo. En esta escena puedes interactuar con los personajes y tomar decisiones que afectarán tus relaciones con dichos personajes.',
-            'Puedes elegir diferentes respuestas para subir tu relación con ellos o no, pero recuerda que si te llevas bien con ellos puede que te hagan un favor.'
-        ], {
-            fontFamily: '"PixelAE-Regular", monospace',
-            fontSize: '16px', 
-            fill: '#000000',
-            wordWrap: { width: 480 },
-            align: 'center'
-        })
-                
-        this.contextTutorial.once('complete', () => {
-            this.contextTutorialComplete = true;
-        })
-
         this.contexto.once('complete', () => {
             this.contextComplete = true;
             this.nextDialogHint = nextDialogSprite.create(this, 550, 300)    
@@ -112,13 +92,6 @@ export default class DialogoTutorial extends Phaser.Scene {
     }
     
     update(){
-
-        if(this.contextTutorialComplete && Phaser.Input.Keyboard.JustDown(this.keySpace)){
-            this.contextTutorial.destroy()
-            this.contextTutorialBubble.destroy()
-            this.contextTutorialComplete = false; // Para evitar que se vuelva a entrar en este bloque
-            return 
-        }
         // Show options when space is pressed (after hint is shown)
         if (this.contextComplete && !this.opcionesVisibles && this.nextDialogHint && Phaser.Input.Keyboard.JustDown(this.keySpace)) {
             this.mostrarOpciones();
@@ -226,7 +199,7 @@ export default class DialogoTutorial extends Phaser.Scene {
             this.opcion1Bubble.destroy()
             this.opcion2Bubble.destroy()
             this.optionBubbles = []
-            this.lali.setTexture('laliEnfadada').setScale(1.2)
+            this.character.setTexture('laliEnfadada').setScale(1.2)
             this.pico = this.add.triangle(480, 500, 0, 0, 50, 0, 25, 0, 0xdaff8f)
             this.pico.setStrokeStyle(4, 0x000000)
             this.respuestaBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
@@ -251,7 +224,7 @@ export default class DialogoTutorial extends Phaser.Scene {
         this.opcion1Bubble.destroy()
         this.opcion2Bubble.destroy()
         this.optionBubbles = []
-        this.lali.setTexture('laliFeliz').setScale(1.2)
+        this.character.setTexture('laliFeliz').setScale(1.2)
         this.pico = this.add.triangle(480, 500, 0, 0, 50, 0, 25, 0, 0xdaff8f)
         this.pico.setStrokeStyle(4, 0x000000)
         this.respuestaBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
@@ -287,7 +260,7 @@ export default class DialogoTutorial extends Phaser.Scene {
                 wordWrap: { width: 280 },
                 align: 'center'
             }).setOrigin(0.5)
-            this.lali.setTexture('laliTriste').setScale(0.95)
+            this.character.setTexture('laliTriste').setScale(0.95)
             this.pico = this.add.triangle(480, 400, 0, 0, 50, 0, 25, 0, 0xdaff8f)
             this.pico.setStrokeStyle(4, 0x000000)
             const dialogoFinalBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
@@ -306,7 +279,7 @@ export default class DialogoTutorial extends Phaser.Scene {
                 }).setOrigin(0.5).setInteractive()
 
                 this.input.keyboard.once('keydown-SPACE', () => {
-                    this.scene.start('phone-tutorial')
+                    this.scene.start('phone')
                 })
             })
         }

@@ -5,9 +5,9 @@ import dialogTextSprite from '../../game-objects/dialogTextSprite.js'
 import nextDialogSprite from '../../game-objects/nextDialogSprite.js'
 import { addMoney, createMoneyHud, trySpendMoney } from '../../utils/money.js'
 
-export default class TiendaTutorial extends Phaser.Scene {
+export default class TiendaCuarta1 extends Phaser.Scene {
     constructor(){
-        super({key: 'tiendaTutorial'})
+        super({key: 'tienda-cuarta-1'});
 
         // Game state
         this.contextComplete = false;
@@ -21,9 +21,6 @@ export default class TiendaTutorial extends Phaser.Scene {
         this.opcion2Bubble = null;
         this.opcion3Bubble = null;
         this.opcion4Bubble = null;
-        this.contextTutorial = null;
-        this.contextTutorialBubble = null;
-        this.contextTutorialComplete = false;
         this.nextDialogHint = null;
         this.selectedOption = 0;
         this.optionBubbles = [];
@@ -85,35 +82,10 @@ export default class TiendaTutorial extends Phaser.Scene {
             '(Hola, Bienvenido a mi tienda! Aquí tenemos de todo para ayudarte a pasar la noche. ¿Qué te gustaría comprar?)'
         ])
 
-
-        this.contextTutorialBubble = this.add.rectangle(325, 620, 500, 200, 0x00C4FF)
-        this.contextTutorialBubble.setStrokeStyle(3, 0X000000)
-        this.contextTutorial = dialogTextSprite.create(this, 325, 620, [
-            'Nos econtramos en la escena de la tienda! Aquí puedes comprar distintos objetos.',
-            'Ciertos objetos serán utiles para sobrevivir en el evento del final del dia y otros son objetos para intercambiar con personajes y nos den objetos especiales o dinero.',
-            'El dinero se encuentra en la parte superior izquierda, y se gasta al comprar objetos. ¡Ten cuidado de no quedarte sin dinero!',
-        ], {
-            fontFamily: '"PixelAE-Regular", monospace',
-            fontSize: '16px', 
-            fill: '#000000',
-            wordWrap: { width: 480 },
-            align: 'center'
-        })
-        
-                
-        this.contextTutorial.once('complete', () => {
-            this.contextTutorialComplete = true;
-        })
         
     }
 
     update(){
-        if(this.contextTutorialComplete && Phaser.Input.Keyboard.JustDown(this.keySpace)){
-            this.contextTutorial.destroy()
-            this.contextTutorialBubble.destroy()
-            this.contextTutorialComplete = false; // Para evitar que se vuelva a entrar en este bloque
-            return 
-        }
         // Show options when space is pressed (after hint is shown)
         if (this.contextComplete && !this.opcionesVisibles && this.nextDialogHint && Phaser.Input.Keyboard.JustDown(this.keySpace)) {
             this.mostrarOpciones();
@@ -199,7 +171,7 @@ export default class TiendaTutorial extends Phaser.Scene {
         this.selectedOption = 0;
         this.opcion1Bubble = this.add.rectangle(650, 500, 560, 60, 0x6969ec)
         this.opcion1Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion1 = this.add.text(650, 500, 'Comprar cigarros (2€)', { 
+        this.opcion1 = this.add.text(650, 500, 'Comprar filtros (2€)', { 
             fontFamily: '"Keneric", sans-serif',
             fontSize: '20px', 
             fill: '#ffffff' 
@@ -319,7 +291,7 @@ export default class TiendaTutorial extends Phaser.Scene {
                 }).setOrigin(0.5).setInteractive({ useHandCursor: true })
 
                 this.input.keyboard.once('keydown-SPACE', () => {
-                    this.scene.start('phone-tutorial')
+                    this.scene.start('phone')
                 })
             })
         }

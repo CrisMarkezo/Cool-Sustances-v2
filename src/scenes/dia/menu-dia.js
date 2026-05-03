@@ -6,45 +6,59 @@ export default class Menu extends Phaser.Scene {
 
     constructor(){
         super({key: 'phone'});
+
+        this.currentStep = 0;
+        this.currentPosition = 1;
+        this.selectedPath = [];
+
+        this.menuNodes = [];
+        this.currentRowNodes = [];
+        this.selectedIndex = 0;
+
+        this.keyLeft = null;
+        this.keyRight = null;
+        this.keyUp = null;
+        this.keyDown = null;
+        this.keyE = null;
+        this.keyEnter = null;
+
+        this.xByPosition = [410, 500, 590];
+        this.yByStep = [450, 390, 330, 260, 200];
     }
 
     create(){
-        // Inicializar el paso del tutorial si no existe
+        // Inicializar el progreso si no existe
         if (!this.registry.has('step')) {
             this.registry.set('step', 0);
         }
-        const currentStep = this.registry.get('step');
+
         if(!this.registry.has('position')){
             this.registry.set('position', 1);
         }
-        const position = this.registry.get('position');
+
         if (!this.registry.has('selectedPath')){
             this.registry.set('selectedPath', []);
         }
-        const selectedPath = this.registry.get('selectedPath');
 
-        const getNodePosition = (stepIndex, positionIndex) => {
-            const xByPosition = [410, 500, 590];
-            const yByStep = [450, 390, 330, 260, 200];
+        this.currentStep = this.registry.get('step');
+        this.currentPosition = this.registry.get('position');
+        this.selectedPath = this.registry.get('selectedPath');
 
-            if (stepIndex < 0 || stepIndex >= yByStep.length) return null;
-            if (positionIndex < 0 || positionIndex >= xByPosition.length) return null;
-
-            return { x: xByPosition[positionIndex], y: yByStep[stepIndex] };
-        };
+        // mostrar onlyMenu de fondo
+        this.menuSprite = new MenuSprite(this, 500, 350);
 
         const drawSelectedPath = () => {
             const points = [];
 
-            selectedPath.forEach((node, stepIndex) => {
+            this.selectedPath.forEach((node, stepIndex) => {
                 if (!node || typeof node.position !== 'number') return;
-                const point = getNodePosition(stepIndex, node.position);
+                const point = this.getNodePosition(stepIndex, node.position);
                 if (point) points.push(point);
             });
 
             if (points.length > 1) {
                 const graphics = this.add.graphics();
-                graphics.lineStyle(5, 0xf4d35e, 0.9);
+                graphics.lineStyle(5, 0x56beab, 0.9);
                 graphics.beginPath();
                 graphics.moveTo(points[0].x, points[0].y);
 
@@ -60,169 +74,29 @@ export default class Menu extends Phaser.Scene {
             });
         };
 
-        const goToStepScene = (nextStep, nextPosition, sceneKey) => {
-            const updatedPath = [...this.registry.get('selectedPath')];
-            updatedPath[currentStep] = { position: nextPosition };
-            this.registry.set('selectedPath', updatedPath);
-            this.registry.set('step', nextStep);
-            this.registry.set('position', nextPosition);
-            this.scene.start(sceneKey);
-        };
-
-        // mostrar onlyMenu de fondo 
-        this.menuSprite = new MenuSprite(this, 500, 350);
+        // Mantener el trazado del recorrido ya realizado
         drawSelectedPath();
 
-        //PRIMERA LINEA 
-        // boton de accion 
-        const accionBtnPrimer1 = this.add.image(410, 450, 'accionMenu').setInteractive();
-        accionBtnPrimer1.on('pointerdown', () => {
-            if (currentStep === 0) {
-                console.log('Acción clickeada');
-                goToStepScene(1, 0, 'accion-primera-1');
-            }
-        });
+        this.createNodes();
 
-        // boton de dialogo
-        const dialogoBtnPrimer1 = this.add.image(500, 450, 'dialogoMenu').setInteractive();
-        dialogoBtnPrimer1.on('pointerdown', () => {
-            if (currentStep === 0) {
-                console.log('Dialogo clickead0');
-                goToStepScene(1, 1, 'dialogo-primera-1');
-            }
-        });
-        
-        // boton de accion
-        const accionBtnPrimer2 = this.add.image(590, 450, 'accionMenu').setInteractive();
-        accionBtnPrimer2.on('pointerdown', () => {
-            if (currentStep === 0) {
-                console.log('Acción clickeada');
-                goToStepScene(1, 2, 'accion-primera-2');
-            }
-        });
-
-        //SEGUNDA LINEA
-
-        // boton de dialogo
-        const dialogoBtnSegun1 = this.add.image(410, 390, 'dialogoMenu').setInteractive();
-        dialogoBtnSegun1.on('pointerdown', () => {
-            if (currentStep === 1 && (position === 1 || position === 0)) {
-                console.log('Dialogo clickead0');
-                goToStepScene(2, 0, 'dialogo-segunda-1');
-            }
-        });
-
-        const accionBtnSegun1 = this.add.image(500, 390, 'accionMenu').setInteractive();
-        accionBtnSegun1.on('pointerdown', () => {
-            if (currentStep === 1) {
-                console.log('Acción clickeada');
-                goToStepScene(2, 1, 'accion-segunda-1');
-            }
-        });
-
-        
-        // boton de escena de dialogo
-        const accionBtnSegun2 = this.add.image(590, 390, 'accionMenu').setInteractive();
-        accionBtnSegun2.on('pointerdown', () => {
-            if (currentStep === 1 && (position === 1 || position === 2)) {
-                console.log('Acción clickeada');
-                goToStepScene(2, 2, 'accion-segunda-2');
-            }
-        });
-
-        //TERCERA LINEA
-        // boton de dialogo
-        const tiendaBtnTercer1 = this.add.image(410, 330, 'tiendaMenu').setInteractive();
-        tiendaBtnTercer1.on('pointerdown', () => {
-            if (currentStep === 2 && (position === 1 || position === 0)) {
-                console.log('Dialogo clickead0');
-                goToStepScene(3, 0, 'tienda-tercera-1');
-            }
-        });
-
-        const tiendaBtnTercer2 = this.add.image(500, 330, 'tiendaMenu').setInteractive();
-        tiendaBtnTercer2.on('pointerdown', () => {
-            if (currentStep === 2) {
-                console.log('Acción clickeada');
-                goToStepScene(3, 1, 'tienda-tercera-2');
-            }
-        });
-
-        
-        // boton de escena de dialogo
-        const dialogoBtnTercer1 = this.add.image(590, 330, 'dialogoMenu').setInteractive();
-        dialogoBtnTercer1.on('pointerdown', () => {
-            if (currentStep === 2 && (position === 1 || position === 2)) {
-                console.log('Acción clickeada');
-                goToStepScene(3, 2, 'dialogo-tercera-1');
-            }
-        });
-
-        //CUARTA LINEA
-        // boton de dialogo
-        const accionBtnCuart1 = this.add.image(410, 260, 'accionMenu').setInteractive();
-        accionBtnCuart1.on('pointerdown', () => {
-            if (currentStep === 3 && (position === 0 || position === 1)) {
-                console.log('Acción clickeada');
-                goToStepScene(4, 0, 'accion-cuarta-1');
-            }
-        });
-
-        const dialogoBtnCuart1 = this.add.image(500, 260, 'dialogoMenu').setInteractive();
-        dialogoBtnCuart1.on('pointerdown', () => {
-            if (currentStep === 3) {
-                console.log('Dialogo clickeado');
-                goToStepScene(4, 1, 'dialogo-cuarta-1');
-            }
-        });
-
-        
-        // boton de escena de dialogo
-        const tiendaBtnCuart1 = this.add.image(590, 260, 'tiendaMenu').setInteractive();
-        tiendaBtnCuart1.on('pointerdown', () => {
-            if (currentStep === 3 && (position === 2 || position === 1)) {
-                console.log('Tienda clickeada');
-                goToStepScene(4, 2, 'tienda-cuarta-1');
-            }
-        });
-
-        //QUINTA LINEA
-        const dialogoBtnQuint1 = this.add.image(410, 200, 'dialogoMenu').setInteractive();
-        dialogoBtnQuint1.on('pointerdown', () => {
-            if (currentStep === 4 && (position === 0 || position === 1)) {
-                console.log('Dialogo clickeado');
-                goToStepScene(5, 0, 'dialogo-quinta-1');
-            }
-        });
-
-        // boton de accion
-        const accionBtnQuint1 = this.add.image(500, 200, 'accionMenu').setInteractive();
-        accionBtnQuint1.on('pointerdown', () => {
-            if (currentStep === 4) {
-                console.log('Acción clickeada');
-                goToStepScene(5, 1, 'accion-quinta-1');
-            }
-        });
-
-        const dialogoBtnQuint2 = this.add.image(590, 200, 'dialogoMenu').setInteractive();
-        dialogoBtnQuint2.on('pointerdown', () => {
-            if (currentStep === 4 && (position === 2 || position === 1)) {
-                console.log('Dialogo clickeado');
-                goToStepScene(5, 2, 'dialogo-quinta-2');
-            }
-        });
-
-
-        //boton de dungeon pero es la continuación del lore en este caso
         this.widgetSprite = new widgetSprite(this, 500, 120).setInteractive({ useHandCursor: true });
         this.widgetSprite.on('pointerdown', () => {
-            if (currentStep === 5) {
-                console.log('Salir del tutorial clickeado');
+            if (this.currentStep === 5) {
                 this.scene.start('mazmorra');
             }
         });
 
-        //anuncio en el menú de decoracion, pero podría usarse para otra cosa, como un easter egg o algo así
+        this.keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        this.keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        this.keyUp = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        this.keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+        this.keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+
+        this.buildCurrentRowSelection();
+        this.updateSelectionVisuals();
+
+        // anuncio en el menú de decoracion, pero podría usarse para otra cosa
         this.add.text(520, 550, 'Do not fret if you want to hurt yourself!', {
             fontFamily: '"pixelAE-Bold", monospace',
             fontSize: '10px',
@@ -236,6 +110,178 @@ export default class Menu extends Phaser.Scene {
             align: 'center',
             wordWrap: { width: 200 },
         }).setOrigin(0.5);
-        
+    }
+
+    update() {
+        if (this.currentStep < 5) {
+            if (Phaser.Input.Keyboard.JustDown(this.keyLeft) || Phaser.Input.Keyboard.JustDown(this.keyUp)) {
+                this.moveSelection(-1);
+            }
+
+            if (Phaser.Input.Keyboard.JustDown(this.keyRight) || Phaser.Input.Keyboard.JustDown(this.keyDown)) {
+                this.moveSelection(1);
+            }
+
+            if (Phaser.Input.Keyboard.JustDown(this.keyE) || Phaser.Input.Keyboard.JustDown(this.keyEnter)) {
+                this.activateSelectedNode();
+            }
+            return;
+        }
+
+        if (this.currentStep === 5 && (Phaser.Input.Keyboard.JustDown(this.keyE) || Phaser.Input.Keyboard.JustDown(this.keyEnter))) {
+            this.scene.start('mazmorra');
+        }
+    }
+
+    getNodePosition(stepIndex, positionIndex) {
+        if (stepIndex < 0 || stepIndex >= this.yByStep.length) return null;
+        if (positionIndex < 0 || positionIndex >= this.xByPosition.length) return null;
+
+        return { x: this.xByPosition[positionIndex], y: this.yByStep[stepIndex] };
+    }
+
+    createNodes() {
+        const nodeLayout = [
+            [
+                { key: 'accionMenu', scene: 'accion-primera-1' },
+                { key: 'dialogoMenu', scene: 'dialogo-primera-1' },
+                { key: 'accionMenu', scene: 'accion-primera-2' },
+            ],
+            [
+                { key: 'dialogoMenu', scene: 'dialogo-segunda-1' },
+                { key: 'accionMenu', scene: 'accion-segunda-1' },
+                { key: 'accionMenu', scene: 'accion-segunda-2' },
+            ],
+            [
+                { key: 'tiendaMenu', scene: 'tienda-tercera-1' },
+                { key: 'tiendaMenu', scene: 'tienda-tercera-2' },
+                { key: 'dialogoMenu', scene: 'dialogo-tercera-1' },
+            ],
+            [
+                { key: 'accionMenu', scene: 'accion-cuarta-1' },
+                { key: 'dialogoMenu', scene: 'dialogo-cuarta-1' },
+                { key: 'tiendaMenu', scene: 'tienda-cuarta-1' },
+            ],
+            [
+                { key: 'dialogoMenu', scene: 'dialogo-quinta-1' },
+                { key: 'accionMenu', scene: 'accion-quinta-1' },
+                { key: 'dialogoMenu', scene: 'dialogo-quinta-2' },
+            ],
+        ];
+
+        this.menuNodes = [];
+
+        nodeLayout.forEach((row, stepIndex) => {
+            row.forEach((nodeConfig, positionIndex) => {
+                const point = this.getNodePosition(stepIndex, positionIndex);
+                const object = this.add.image(point.x, point.y, nodeConfig.key).setInteractive({ useHandCursor: true });
+
+                const node = {
+                    step: stepIndex,
+                    position: positionIndex,
+                    scene: nodeConfig.scene,
+                    object,
+                };
+
+                object.on('pointerdown', () => {
+                    this.tryActivateNode(node);
+                });
+
+                this.menuNodes.push(node);
+            });
+        });
+    }
+
+    buildCurrentRowSelection() {
+        this.currentRowNodes = this.menuNodes
+            .filter((node) => node.step === this.currentStep && this.isReachablePosition(node.position))
+            .sort((a, b) => a.position - b.position);
+
+        if (!this.currentRowNodes.length) {
+            this.selectedIndex = 0;
+            return;
+        }
+
+        const selectedByPosition = this.currentRowNodes.findIndex((node) => node.position === this.currentPosition);
+        this.selectedIndex = selectedByPosition >= 0 ? selectedByPosition : 0;
+    }
+
+    isReachablePosition(nextPosition) {
+        if (this.currentStep === 0) return true;
+        return Math.abs(nextPosition - this.currentPosition) <= 1;
+    }
+
+    moveSelection(direction) {
+        if (!this.currentRowNodes.length) return;
+
+        const total = this.currentRowNodes.length;
+        this.selectedIndex = (this.selectedIndex + direction + total) % total;
+        this.updateSelectionVisuals();
+    }
+
+    activateSelectedNode() {
+        const node = this.currentRowNodes[this.selectedIndex];
+        if (!node) return;
+
+        this.tryActivateNode(node);
+    }
+
+    tryActivateNode(node) {
+        if (!node) return;
+        if (this.currentStep !== node.step) return;
+        if (!this.isReachablePosition(node.position)) return;
+
+        const updatedPath = [...this.registry.get('selectedPath')];
+        updatedPath[this.currentStep] = { position: node.position };
+
+        this.registry.set('selectedPath', updatedPath);
+        this.registry.set('step', this.currentStep + 1);
+        this.registry.set('position', node.position);
+
+        this.scene.start(node.scene);
+    }
+
+    updateSelectionVisuals() {
+        const selectedNode = this.currentRowNodes[this.selectedIndex];
+
+        this.menuNodes.forEach((node) => {
+            const isCurrentRow = node.step === this.currentStep;
+            const isReachable = isCurrentRow && this.isReachablePosition(node.position);
+            const isSelected = selectedNode === node;
+            const completedNode = this.selectedPath[node.step];
+            const isCompleted =
+                node.step < this.currentStep &&
+                completedNode &&
+                completedNode.position === node.position;
+
+            if (isCompleted) {
+                node.object.clearTint();
+                node.object.setScale(1);
+                return;
+            }
+
+            if (isSelected) {
+                node.object.clearTint();
+                node.object.setScale(1.2);
+                return;
+            }
+
+            if (isReachable) {
+                node.object.clearTint();
+                node.object.setScale(1);
+                return;
+            }
+
+            node.object.setTint(0x454545);
+            node.object.setScale(1);
+        });
+
+        if (this.currentStep === 5) {
+            this.widgetSprite.clearTint();
+            this.widgetSprite.setScale(1.08);
+        } else {
+            this.widgetSprite.setTint(0x454545);
+            this.widgetSprite.setScale(1);
+        }
     }
 }

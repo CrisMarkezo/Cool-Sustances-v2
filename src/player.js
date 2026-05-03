@@ -38,7 +38,8 @@ export default class Player extends GameEntity {
         this.space = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.keyE = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
 
-        this.inventory = new Inventory(3, 3);
+        this.inventory = scene.registry.get('inventory') || new Inventory(3, 3);
+        scene.registry.set('inventory', this.inventory);
         this.nearbyInteractable = null;
 
         this.attackHitbox = scene.add.rectangle(this.x, this.y, 20, 20, 0xff0000);

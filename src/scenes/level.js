@@ -105,7 +105,7 @@ export default class Level extends Phaser.Scene {
         this.inventoryUI = this.add.image(
             this.cameras.main.centerX,
             this.cameras.main.centerY,
-            'Inventory'
+            'inventario'
         );
 
         this.inventoryUI.setScrollFactor(0);
@@ -174,32 +174,32 @@ export default class Level extends Phaser.Scene {
     renderInventory(firstX, firstY) {
         this.inventoryItems.clear(true, true);
 
-        const inv = this.player.inventory.slots;
-        const cols = this.player.inventory.cols;
-        const rows = this.player.inventory.rows;
-
         const slotSpacing = 85;    
         const itemVisualSize = 64; 
+        const items = this.player.inventory.getFlatItems();
 
-        for (let i = 0; i < rows; i++) {
-            for (let j = 0; j < cols; j++) {
-                const item = inv[i][j];
+        for (let index = 0; index < items.length; index++) {
+            const item = items[index];
+            const row = Math.floor(index / 2);
+            const col = index % 2;
+            const x = firstX + (col * slotSpacing);
+            const y = firstY + (row * slotSpacing);
 
-                if (item) {
-                    const x = firstX + (j * slotSpacing);
-                    const y = firstY + (i * slotSpacing); 
+            const textureKey = typeof item.texture === 'string'
+                ? item.texture
+                : item.texture?.key;
 
-                    const textureKey = item.texture.key || item.texture;
-                    const icon = this.add.image(x, y, textureKey);
-
-                    icon.setScrollFactor(0);
-                    icon.setDepth(2200);
-                    
-                    icon.setDisplaySize(itemVisualSize, itemVisualSize);
-
-                    this.inventoryItems.add(icon);
-                }
+            if (!textureKey) {
+                continue;
             }
+
+            const icon = this.add.image(x, y, textureKey);
+
+            icon.setScrollFactor(0);
+            icon.setDepth(2200);
+            icon.setDisplaySize(itemVisualSize, itemVisualSize);
+
+            this.inventoryItems.add(icon);
         }
     }
 

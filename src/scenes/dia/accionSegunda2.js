@@ -7,9 +7,9 @@ import nextDialogSprite from '../../game-objects/nextDialogSprite.js'
 import IconSprite from '../../game-objects/iconSprite.js'
 import { addMoney, createMoneyHud } from '../../utils/money.js'
 
-export default class AccionTutorial extends Phaser.Scene {
+export default class AccionSegunda2 extends Phaser.Scene {
     constructor(){
-        super({key: 'accionTutorial'})
+        super({key: 'accion-segunda-2'})
         
         // Game state
         this.contextComplete = false;
@@ -19,12 +19,6 @@ export default class AccionTutorial extends Phaser.Scene {
         this.opcion2 = null;
         this.opcion1Bubble = null;
         this.opcion2Bubble = null;
-        this.contextTutorialBubble = null;
-        this.contextTutorial = null;
-        this.contextTutorialComplete = false;
-        this.selectTutorialBubble = null;
-        this.selectTutorial = null;
-        this.selectTutorialComplete = false;
         this.nextDialogHint = null;
         this.selectedOption = 0;
         this.optionBubbles = [];
@@ -57,7 +51,7 @@ export default class AccionTutorial extends Phaser.Scene {
         
         const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);
 
-        this.add.text(680, 75, 'TUTORIAL: Accion', {
+        this.add.text(680, 75, 'Accion', {
             fontFamily: '"Toonway", sans-serif',
             fontSize: '28px',
             color: '#ffffff'
@@ -73,31 +67,14 @@ export default class AccionTutorial extends Phaser.Scene {
         this.contextoBubble = this.add.rectangle(325, 250, 500, 150, 0xE2007C)
         this.contextoBubble.setStrokeStyle(3, 0Xe76d2c)
         this.contexto = dialogTextSprite.create(this, 325, 250, [
-            'Siguiendo a la dueña te encuentras con una moneda brillante',
-            'en el suelo, pero tu gran olfato huele algo delicioso en lo que parece ser un cubo con muchas cosas. ¿Qué haces?'
+            'Dos personas se alejan de la mesa, una de ellas huele un poco afrutado, le sigues. Mientras camina se le cae algo del bolsillo, es una moneda de 1 euro.',
+            ' Al mismo tiempo hueles algo delicioso alrededor. ¿Qué haces?'
         ], {
             fontFamily: '"Toonway", sans-serif',
             fontSize: '20px', 
             fill: '#ffffff',
             wordWrap: { width: 500 },
             align: 'center'
-        })
-        this.contextTutorialBubble = this.add.rectangle(325, 450, 500, 150, 0x00C4FF)
-        this.contextTutorialBubble.setStrokeStyle(3, 0X000000)
-        this.contextTutorial = dialogTextSprite.create(this, 325, 450, [
-            'Nos econtramos en la escena de accion, donde el objetivo es conseguir recursos para sobrevivir en el dia a dia.',
-            'Primero nos presentan con el contexto de la escena, donde nos dan pistas sobre los objetos que nos podemos encontrar.', 'Dale al espacio cuando acabes de leer para continuar.'
-        ], {
-            fontFamily: '"PixelAE-Regular", monospace',
-            fontSize: '16px', 
-            fill: '#000000',
-            wordWrap: { width: 480 },
-            align: 'center'
-        })
-
-        
-        this.contextTutorial.once('complete', () => {
-            this.contextTutorialComplete = true;
         })
 
         this.contexto.once('complete', () => {
@@ -108,18 +85,6 @@ export default class AccionTutorial extends Phaser.Scene {
 
     update(){
         
-        if(this.contextTutorialComplete && Phaser.Input.Keyboard.JustDown(this.keySpace)){
-            this.contextTutorial.destroy()
-            this.contextTutorialBubble.destroy()
-            this.contextTutorialComplete = false; // Para evitar que se vuelva a entrar en este bloque
-            return 
-        }
-        if (this.selectTutorialComplete && Phaser.Input.Keyboard.JustDown(this.keySpace)) {
-            this.selectTutorial.destroy()
-            this.selectTutorialBubble.destroy()
-            this.selectTutorialComplete = false; // Para evitar que se vuelva a entrar en este bloque
-            return
-        }
         // Show options when space is pressed (after hint is shown)
         if (this.contextComplete && !this.opcionesVisibles && this.nextDialogHint && Phaser.Input.Keyboard.JustDown(this.keySpace)) {
             this.mostrarOpciones();
@@ -144,25 +109,9 @@ export default class AccionTutorial extends Phaser.Scene {
             this.scene.bringToTop('settings');
         }
         if (Phaser.Input.Keyboard.JustDown(this.keyQ)){
-            console.log('🔵 Q pressed - attempting to open inventory');
-            try {
-                console.log('🔵 Pausing accionTutorial...');
-                this.scene.pause()
-                console.log('🔵 Launching inventory scene...');
-                this.scene.launch('inventory', { from: this.scene.key })
-                console.log('🔵 Bringing inventory to top...');
-                this.scene.bringToTop('inventory')
-                console.log('✅ Inventory opened successfully');
-            } catch (err) {
-                console.error('❌ Error opening inventory:', err);
-                console.error('Stack:', err.stack);
-                // Try to resume if there was an error
-                try {
-                    this.scene.resume()
-                } catch (e) {
-                    console.error('Could not resume scene:', e);
-                }
-            }
+            this.scene.pause()
+            this.scene.launch('inventory', { from: this.scene.key })
+            this.scene.bringToTop('inventory')
         }
     }
 
@@ -179,7 +128,7 @@ export default class AccionTutorial extends Phaser.Scene {
 
         this.opcion1Bubble = this.add.rectangle(650, 320, 360, 60, 0Xe76d2c)
         this.opcion1Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion1 = this.add.text(650, 320, 'Recoger dinero del suelo (+2€)', {
+        this.opcion1 = this.add.text(650, 320, 'Recoger la moneda del suelo', {
             fontFamily: '"Keneric", sans-serif',
             fontSize: '22px',
             color: '#ffffff',
@@ -189,7 +138,7 @@ export default class AccionTutorial extends Phaser.Scene {
 
         this.opcion2Bubble = this.add.rectangle(650, 380, 360, 60, 0Xe76d2c)
         this.opcion2Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion2 = this.add.text(650, 380, 'Buscar en la basura (+1 yanotekomo)', {
+        this.opcion2 = this.add.text(650, 380, 'Seguir tu olfato', {
             fontFamily: '"Keneric", sans-serif',
             fontSize: '22px',
             color: '#ffffff',
@@ -197,25 +146,8 @@ export default class AccionTutorial extends Phaser.Scene {
             align: 'center'
         }).setOrigin(0.5).setInteractive()
 
-        this.selectTutorialBubble = this.add.rectangle(325, 500, 500, 150, 0x00C4FF)
-        this.selectTutorialBubble.setStrokeStyle(3, 0X000000)
-        this.selectTutorial = dialogTextSprite.create(this, 325, 500, [
-            'Aqui tienes las opciones que puedes elegir, se navegan con las teclas W y S y seleccionas con la tecla E.',
-            'Una vez elegida la opción, puedes ver los diferentes objetos que tienes en el inventario, que se encuentra pulsando la tecla I. ¡Elige la que más te guste!'
-        ], {
-            fontFamily: '"PixelAE-Regular", monospace',
-            fontSize: '16px', 
-            fill: '#000000',
-            wordWrap: { width: 480 },
-            align: 'center'
-        })
-
         this.optionBubbles = [this.opcion1Bubble, this.opcion2Bubble]
         this.actualizarSeleccionVisual()
-        
-        this.selectTutorial.once('complete', () => {
-            this.selectTutorialComplete = true;
-        })
     }
 
     moverSeleccion(direction) {
@@ -235,18 +167,13 @@ export default class AccionTutorial extends Phaser.Scene {
     }
 
     confirmarSeleccion() {
-        const inventory = this.registry.get('inventory');
-        
         if (this.selectedOption === 0) {
             this.opcionElegida = true
-            addMoney(this, 2)
-            inventory?.addItem({ id: 'moneda', name: 'Moneda', texture: 'star' })
-            this.mostrarRecompensa('¡Has conseguido 2€!')
+            this.mostrarRecompensa('¡Has conseguido +1€!')
             return
         }
-
         this.opcionElegida = true
-        inventory?.addItem({ id: 'yanotekomo', name: 'Yanotekomo', texture: 'yanotekomo' })
+        
         this.mostrarRecompensa('¡Has conseguido 1 yanotekomo!')
     }
 
@@ -277,7 +204,7 @@ export default class AccionTutorial extends Phaser.Scene {
             }).setOrigin(0.5).setInteractive({ useHandCursor: true })
 
             this.input.keyboard.once('keydown-SPACE', () => {
-                    this.scene.start('phone-tutorial')
+                    this.scene.start('phone')
             })
         })
     }
