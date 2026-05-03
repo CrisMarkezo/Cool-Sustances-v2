@@ -129,7 +129,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
             if (this.nextDialogHint) {
                 this.nextDialogHint.destroy()
             }
-            this.mostrarRecompensa('¡Has perdido el corazón de la chica!')
+            this.mostrarRecompensa('¡Has conseguido más velocidad!')
             this.opcionElegida = 0; // Reset to prevent multiple triggers
         }
         if (this.opcionElegida == 2 && Phaser.Input.Keyboard.JustDown(this.keySpace)) {
@@ -138,7 +138,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
             if (this.nextDialogHint) {
                 this.nextDialogHint.destroy()
             }
-            this.mostrarRecompensa('¡Has conseguido una loncha de jamón!')
+            this.mostrarRecompensa('¡Has conseguido más información!')
             this.opcionElegida = 0; // Reset to prevent multiple triggers
         }
 

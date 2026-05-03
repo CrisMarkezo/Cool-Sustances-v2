@@ -67,8 +67,8 @@ export default class AccionSegunda2 extends Phaser.Scene {
         this.contextoBubble = this.add.rectangle(325, 250, 500, 150, 0xE2007C)
         this.contextoBubble.setStrokeStyle(3, 0Xe76d2c)
         this.contexto = dialogTextSprite.create(this, 325, 250, [
-            'Dos personas se alejan de la mesa, una de ellas huele un poco afrutado, le sigues. ',
-            'Pero uno de los que se encuentran en techito parece ser que quiere darte algo. ¿Qué haces?'
+            'Dos personas se alejan de la mesa, una de ellas huele un poco afrutado, le sigues. Mientras camina se le cae algo del bolsillo, es una moneda de 1 euro.',
+            ' Al mismo tiempo hueles algo delicioso alrededor. ¿Qué haces?'
         ], {
             fontFamily: '"Toonway", sans-serif',
             fontSize: '20px', 
@@ -128,7 +128,7 @@ export default class AccionSegunda2 extends Phaser.Scene {
 
         this.opcion1Bubble = this.add.rectangle(650, 320, 360, 60, 0Xe76d2c)
         this.opcion1Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion1 = this.add.text(650, 320, 'Recoger pipas del suelo', {
+        this.opcion1 = this.add.text(650, 320, 'Recoger la moneda del suelo', {
             fontFamily: '"Keneric", sans-serif',
             fontSize: '22px',
             color: '#ffffff',
@@ -138,7 +138,7 @@ export default class AccionSegunda2 extends Phaser.Scene {
 
         this.opcion2Bubble = this.add.rectangle(650, 380, 360, 60, 0Xe76d2c)
         this.opcion2Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion2 = this.add.text(650, 380, 'Aceptar la ofrenda', {
+        this.opcion2 = this.add.text(650, 380, 'Seguir tu olfato', {
             fontFamily: '"Keneric", sans-serif',
             fontSize: '22px',
             color: '#ffffff',
@@ -169,11 +169,12 @@ export default class AccionSegunda2 extends Phaser.Scene {
     confirmarSeleccion() {
         if (this.selectedOption === 0) {
             this.opcionElegida = true
-            this.mostrarRecompensa('¡Has conseguido una bolsa de pipas!')
+            this.mostrarRecompensa('¡Has conseguido +1€!')
             return
         }
         this.opcionElegida = true
-        this.mostrarRecompensa('¡Has conseguido 1 catWeed!')
+        
+        this.mostrarRecompensa('¡Has conseguido 1 yanotekomo!')
     }
 
     mostrarRecompensa = (mensaje) => {
