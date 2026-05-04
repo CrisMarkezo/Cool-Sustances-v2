@@ -95,7 +95,11 @@ import CatIdle from '../../assets/sprites/Cat_Idle.png';
 import CatRun from '../../assets/sprites/Cat_Run.png';
 import CatAttack from '../../assets/sprites/Cat_Attack.png';
 import Phone from '../../assets/sprites/telefono.png';
+import Disc from '../../assets/sprites/phone.png';
 import Rascador from '../../assets/sprites/Rascador.png';
+import RatImg from '../../assets/sprites/rat.png';
+import Rat1Img from '../../assets/sprites/rat1.png';
+import Rat2Img from '../../assets/sprites/rat2.png';
 import CatGrabbing from '../../assets/sprites/Cat_Grabbing.png';
 import MonsterImg from '../../assets/sprites/Monster.png';
 import BossImg from '../../assets/sprites/boss.png';
@@ -211,7 +215,20 @@ export default class Boot extends Phaser.Scene {
         this.load.image('comic_1', Comic_1);
         this.load.image('comic_2', Comic_2);
 
-        // Idle
+        this.load.image('phone', Phone);
+        this.load.image('disc', Disc);
+
+
+        this.load.spritesheet('bossPhase', BossPhaseImg, {
+            frameWidth: 32,
+            frameHeight: 32
+        });
+
+        this.load.spritesheet('bossColours', BossColoursImg, {
+            frameWidth: 32,
+            frameHeight: 32
+        });
+
         this.load.spritesheet('cat_idle', CatIdle, {
         frameWidth: 32,
         frameHeight: 32
@@ -248,15 +265,20 @@ export default class Boot extends Phaser.Scene {
             frameHeight: 32
         });
 
-        this.load.spritesheet('bossPhase', BossPhaseImg, {
-                frameWidth: 32,
-                frameHeight: 32
-        });
-
-        this.load.spritesheet('bossColours', BossColoursImg, {
+        this.load.spritesheet('rat', RatImg, {
             frameWidth: 32,
             frameHeight: 32
-        });  
+        });
+
+        this.load.spritesheet('rat1', Rat1Img, {
+            frameWidth: 32,
+            frameHeight: 32
+        });
+
+        this.load.spritesheet('rat2', Rat2Img, {
+            frameWidth: 32,
+            frameHeight: 32
+        });
     }
 
     create() {
@@ -353,5 +375,25 @@ export default class Boot extends Phaser.Scene {
             repeat: -1
         });
 
+        this.anims.create({
+            key: 'rat_move',
+            frames: this.anims.generateFrameNumbers('rat', { start: 0, end: 2 }),
+            frameRate: 6,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'rat1_move',
+            frames: this.anims.generateFrameNumbers('rat1', { start: 0, end: 2 }),
+            frameRate: 6,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'rat2_move',
+            frames: this.anims.generateFrameNumbers('rat2', { start: 0, end: 2 }),
+            frameRate: 6,
+            repeat: -1
+        });
     }
 }
