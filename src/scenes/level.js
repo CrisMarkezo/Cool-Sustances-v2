@@ -3,6 +3,7 @@ import Player from '../player.js';
 import Scratcher from '../Scratcher.js';
 import Phone from '../Phone.js';
 import Monster from '../Monster.js';
+import Boss from '../Boss.js';
 
 export default class Level extends Phaser.Scene {
     constructor() {
@@ -23,14 +24,15 @@ export default class Level extends Phaser.Scene {
         map.createLayer('cama', muebles4, 0, 0);
         map.createLayer('planta', objetos, 0, 0);
 
-        const colisiones = map.createLayer('colisiones', paredes, 0, 0);
-        colisiones.setCollisionByExclusion([-1]);
+        this.colisiones = map.createLayer('colisiones', paredes, 0, 0);
+        this.colisiones.setCollisionByExclusion([-1]);
 
         const startX = map.widthInPixels / 2;
         const startY = map.heightInPixels / 2;
 
         this.player = new Player(this, startX, startY);
-        this.monster = new Monster(this, startX - 100, startY, 'boss');
+        this.monster = new Monster(this, startX - 100, startY);
+        this.boss = new Boss(this, startX - 50, startY + 45);
         this.rascador = new Scratcher(this, startX + 210, startY);
 
         this.phone = new Phone(this, startX + 100, startY);
@@ -43,15 +45,19 @@ export default class Level extends Phaser.Scene {
         this.interactables.add(this.phone);
         this.interactables.add(this.phone2);
 
-        this.physics.add.collider(this.player, colisiones);
-        this.physics.add.collider(this.monster, colisiones);
+        this.physics.add.collider(this.player, this.colisiones);
+        this.physics.add.collider(this.monster, this.colisiones);
+        this.physics.add.collider(this.boss, this.colisiones);
+
         this.physics.add.overlap(this.player, this.monster, this.handlePlayerMonsterContact, null, this);
+        this.physics.add.overlap(this.player, this.boss, this.handlePlayerMonsterContact, null, this);
 
         this.physics.add.overlap(this.player.attackHitbox, this.rascador.hurtbox, () => {
             this.hitRascador(this.player.attackHitbox, this.rascador);
         }, null, this);
 
         this.physics.add.overlap(this.player.attackHitbox, this.monster, this.hitMonster, null, this);
+        this.physics.add.overlap(this.player.attackHitbox, this.boss, this.hitMonster, null, this);
 
         this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
@@ -69,7 +75,6 @@ export default class Level extends Phaser.Scene {
 
         this.inventoryItems = this.add.group();
 
-        // 🪧 TUTORIAL (FIX HUD a cámara)
         this.tutorialText = this.add.text(
             0,
             0,
@@ -80,7 +85,7 @@ export default class Level extends Phaser.Scene {
                 color: '#f5e6c8',
                 align: 'center',
                 backgroundColor: '#4b2e1a',
-                padding: { x: 6, y:  4},
+                padding: { x: 6, y: 4 },
                 resolution: 2
             }
         );
@@ -95,17 +100,20 @@ export default class Level extends Phaser.Scene {
         this.gameOverImage.setVisible(false);
         this.gameOverImage.setScale(0.2);
 
-        this.hasRascadorItem = false;
-
+        // PUERTA
         const doorX = startX + 192;
         const doorY = startY - 55;
 
-        this.doorZone = this.add.rectangle(doorX, doorY, 25, 45, 0x000000);
+        this.doorVisual = this.add.rectangle(doorX, doorY, 25, 45, 0x000000);
+
+        //ÚNICA HITBOX AZUL (Solo para colisión de cambio de escena)
+        
+        this.doorZone = this.add.rectangle(doorX, doorY - 12, 12, 15, 0x0000ff, 0.5); 
         this.physics.add.existing(this.doorZone, true);
 
         this.physics.add.overlap(this.player, this.doorZone, () => {
-            if (this.hasRascadorItem && !this.isGameOver) {
-                this.triggerGameOver();
+            if (this.playerHasItem() && !this.isGameOver) {
+                this.triggerGameOver(); 
             }
         }, null, this);
     }
@@ -122,7 +130,42 @@ export default class Level extends Phaser.Scene {
             return;
         }
 
-        // ✅ FIX REAL: HUD pegado al borde inferior de la cámara
+        // CONFIGURACIÓN DEL RECTÁNGULO ROJO 
+        const offsetY = 34;
+        const width = 30;
+        const height = 50;
+
+        // DEBUG VISUAL ROJO (Mantenido según tu petición)
+        if (!this.debugRect) {
+            this.debugRect = this.add.rectangle(
+                this.doorZone.x,
+                this.doorVisual.y + offsetY, // Usamos doorVisual como referencia base
+                width,
+                height,
+                0xff0000,
+                0.3
+            );
+        } else {
+            this.debugRect.setPosition(this.doorZone.x, this.doorVisual.y + offsetY);
+        }
+
+        if (this.playerHasItem() && this.colisiones) {
+            const tileStartX = this.colisiones.worldToTileX(this.doorZone.x - width / 2);
+            const tileEndX = this.colisiones.worldToTileX(this.doorZone.x + width / 2);
+
+            const tileStartY = this.colisiones.worldToTileY(this.doorVisual.y + offsetY - height / 2);
+            const tileEndY = this.colisiones.worldToTileY(this.doorVisual.y + offsetY + height / 2);
+
+            for (let x = tileStartX; x <= tileEndX; x++) {
+                for (let y = tileStartY; y <= tileEndY; y++) {
+                    const tile = this.colisiones.getTileAt(x, y);
+                    if (tile && tile.collides) {
+                        tile.setCollision(false, false, false, false);
+                    }
+                }
+            }
+        }
+
         if (this.tutorialText) {
             this.tutorialText.setPosition(
                 cam.worldView.centerX,
@@ -150,11 +193,25 @@ export default class Level extends Phaser.Scene {
         if (this.inventoryOpen) return;
 
         this.monster.update(this.player);
+        this.boss.update(this.player);
+
         this.player.nearbyInteractable = null;
 
         this.physics.overlap(this.player, this.interactables, (player, obj) => {
             player.nearbyInteractable = obj;
         });
+    }
+
+    playerHasItem() {
+        const inv = this.player.inventory.slots;
+
+        for (let i = 0; i < inv.length; i++) {
+            for (let j = 0; j < inv[i].length; j++) {
+                if (inv[i][j]) return true;
+            }
+        }
+
+        return false;
     }
 
     triggerGameOver() {
@@ -191,7 +248,6 @@ export default class Level extends Phaser.Scene {
         if (!rascador.isScratching) {
             rascador.scratch();
             hitbox.body.enable = false;
-            this.hasRascadorItem = true;
 
             if (this.tutorialText) {
                 this.tutorialText.destroy();
