@@ -1,24 +1,33 @@
 import Phaser from 'phaser';
-import Inventory from './Inventory.js';
+import Inventory from '../../Inventory.js';
 import GameEntity from './gameEntity.js';
 
 export default class Player extends GameEntity {
     constructor(scene, x, y) {
-        super(scene, x, y, 'cat_idle', 0); 
+        super(scene, x, y, 'cat_idle', 0);
 
         this.uiBarGraphics = null;
 
         this.setCollideWorldBounds(true);
         this.body.setAllowGravity(false);
         this.setDepth(10);
-        this.body.setDrag(1000); 
+
+        this.body.setSize(20, 22); // Cambia la hitbox
+        this.body.setMaxVelocity(400, 400);
+
+        //Llaves
+        this.llave_almacen = true;
+        this.llave_balcon = true;
+        this.llave_basura = true;
+        this.llave_boss = false;
 
         this.speed = 100;
         this.damage = 20;
         this.isAttacking = false;
         this.isGrabbing = false;
         this.isInvincible = false;
-        this.isKnocked = false; 
+        this.isKnocked = false;
+        this.isPushing = false;
         this.invincibilityDuration = 1500;
         this.damageKnockbackForce = 180;
 
@@ -57,17 +66,22 @@ export default class Player extends GameEntity {
 
         this.lockedOffsetX = 0;
         this.lockedOffsetY = 0;
-        this.lastMoveX = 1; 
+        this.lastMoveX = 1;
         this.lastMoveY = 0;
 
+        // --- BARRA DE VIDA (UI) ---
         this.lifeBar = scene.add.image(0, 0, 'healthbar');
-        this.lifeBar.setOrigin(0, 0.5);
-        this.lifeBar.setScrollFactor(0);
+        
+        // Mantenemos origen (1, 0) para anclar por la esquina superior derecha
+        this.lifeBar.setOrigin(1, 0);
         this.lifeBar.setDepth(9999);
 
-        this.barX = 0;
-        this.barY = 0;
-        this.barWidth = 55;
+        // Parámetros del PNG original
+        this.barX = 910;
+        this.barY = 30;
+        
+        // AJUSTE CROP: 53 píxeles para ignorar el borde derecho del PNG
+        this.barWidth = 53;
         this.barHeight = 20;
     }
 
@@ -75,16 +89,27 @@ export default class Player extends GameEntity {
         super.preUpdate(t, dt);
 
         const cam = this.scene.cameras.main;
-        const x = cam.width / 2-1000;
-        const y = cam.height / 2-200;
+        var velocidadActual = this.speed;
 
-        this.lifeBar.setPosition(x, y);
+        // --- AJUSTES DE POSICIÓN Y ANTIVIBRACIÓN ---
+        this.lifeBar.setScale(0.5);
 
-        const percentage = this.health / this.maxHealth;
+        // Margen X: Menos es más a la derecha (estaba en 12, ahora 6)
+        const marginX = 0;
+        // Margen Y: Menos es más arriba (estaba en 2, ahora 1)
+        const marginY = -8;
 
+        // Math.round evita que la barra vibre al seguir a la cámara con zoom
+        const finalX = Math.round(cam.worldView.right - marginX);
+        const finalY = Math.round(cam.worldView.y + marginY);
+        
+        this.lifeBar.setPosition(finalX, finalY);
+
+        // --- RECORTE Y LÓGICA ---
+        const percentage = Math.max(0, this.health / this.maxHealth);
         this.lifeBar.setCrop(
-            this.barX+910,
-            this.barY+30,
+            this.barX,
+            this.barY,
             this.barWidth * percentage,
             this.barHeight
         );
@@ -114,9 +139,11 @@ export default class Player extends GameEntity {
             this.lastMoveY = vy;
         }
 
+        velocidadActual = this.isPushing ? (this.speed * 0.1) : this.speed;
+
         if (!this.isGrabbing && !this.isKnocked) {
             if (vx !== 0 || vy !== 0) {
-                const velocity = new Phaser.Math.Vector2(vx, vy).normalize().scale(this.speed);
+                const velocity = new Phaser.Math.Vector2(vx, vy).normalize().scale(velocidadActual);
                 this.body.setVelocity(velocity.x, velocity.y);
 
                 if (!this.isAttacking && this.anims.currentAnim?.key !== 'cat_run') {
@@ -153,7 +180,7 @@ export default class Player extends GameEntity {
             this.attackSprite.setVisible(true);
             this.attackSprite.play('cat_attack');
 
-            const animSpeed = 300 / this.attackCooldown; 
+            const animSpeed = 300 / this.attackCooldown;
             this.attackSprite.anims.timeScale = animSpeed;
             this.attackSprite.once('animationcomplete', () => {
                 this.isAttacking = false;
@@ -170,6 +197,8 @@ export default class Player extends GameEntity {
             this.attackSprite.setPosition(this.x + this.lockedOffsetX, this.y + this.lockedOffsetY);
             this.attackHitbox.setPosition(this.x + this.lockedOffsetX, this.y + this.lockedOffsetY);
         }
+
+        this.isPushing = false;
     }
 
     takeDamage(source) {

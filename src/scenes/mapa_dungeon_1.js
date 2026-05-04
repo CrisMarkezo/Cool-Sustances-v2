@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import Player from '../player.js';
+import Player from '../game-objects/night/player.js';
 
 // Dungeon (Mapa)
 import Dungeon from '../../assets/dungeon/Dungeon_1.json';
@@ -24,12 +24,29 @@ import Hierba from '../../assets/dungeon/Grass.png';
 import Calle from '../../assets/dungeon/street_tileset.png';
 import Poste_Down from '../../assets/dungeon/lamp_down.png';
 import Poste_Right from '../../assets/dungeon/lamp_right.png';
+import Adornos_1 from '../../assets/dungeon/decorations.png';
+import Adornos_2 from '../../assets/dungeon/decorations_2.png';
+import Banio from '../../assets/dungeon/dirty_publicbathroom_set_withshadow.png';
+import Decorative from '../../assets/dungeon/decorative.png';
+import Estrella from '../../assets/dungeon/estrella.png';
+import Suelo_Boss from '../../assets/dungeon/mainlevbuild.png';
+import Fondo_Boss from '../../assets/dungeon/Space Background.png'
 
 // Objetos
 import Chest_IDLE from '../../assets/dungeon/Chest_Idle.png';
 import Chest_EMPTY from '../../assets/dungeon/Chest_Opening_Empty.png';
 import Chest_GOLD from '../../assets/dungeon/Chest_Opening_Gold.png';
-import Chest from '../chest.js';
+import Llave_Boss from '../../assets/dungeon/llave_boss.png';
+import Barrote from '../../assets/dungeon/barrote_boss.png';
+import Cubo_png from '../../assets/dungeon/cubo.png';
+import Puerta_1 from '../../assets/dungeon/puerta_1.png';
+
+import Chest from '../game-objects/night/chest.js';
+import Boss_Door from '../game-objects/night/boss_door.js';
+import Cubo from '../game-objects/night/cubo.js';
+import Garbage_Door from '../game-objects/night/garbage_door.js';
+import Balcony_Door from '../game-objects/night/balcony_door.js';
+import Warehouse_Door from '../game-objects/night/warehouse_door.js';
 
 export default class mapa_dungeon_1 extends Phaser.Scene {
     constructor() {
@@ -50,28 +67,49 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         this.load.image('taxi', Taxi);
         this.load.image('bus', Bus);
 
-        this.load.spritesheet('chest_idle', Chest_IDLE, {
-            frameWidth: 64,
-            frameHeight: 64
-        });
-         this.load.spritesheet('chest_empty', Chest_EMPTY, {
-            frameWidth: 32,
-            frameHeight: 32
-        });
-         this.load.spritesheet('chest_gold', Chest_GOLD, {
-            frameWidth: 32,
-            frameHeight: 32
-        });
-
         this.load.image('arbol', Arbol);
         this.load.image('paredes', Paredes);
         this.load.image('suelo', Suelo);
         this.load.image('suelo_exterior', Suelo_Exterior);
         this.load.image('suelo_disco', Suelo_Disco);
+        this.load.image('suelo_boss', Suelo_Boss);
         this.load.image('hierba', Hierba);
         this.load.image('calle', Calle);
         this.load.image('poste_down', Poste_Down);
         this.load.image('poste_right', Poste_Right);
+        this.load.image('adornos_1', Adornos_1);
+        this.load.image('adornos_2', Adornos_2);
+        this.load.image('banio', Banio);
+        this.load.image('estrella', Estrella);
+        this.load.image('decorative', Decorative);
+        this.load.image('fondo', Fondo_Boss);
+        this.load.image('suelo_boss', Suelo_Boss);
+        this.load.image('barrote', Barrote);
+        this.load.image('llave_boss', Llave_Boss);
+
+        this.load.spritesheet('puerta_1', Puerta_1, {
+            frameWidth: 32,
+            frameHeight: 32
+        });
+
+        this.load.spritesheet('cubo', Cubo_png, {
+            frameWidth: 32,
+            frameHeight: 32
+        });
+
+        this.load.spritesheet('chest_idle', Chest_IDLE, {
+            frameWidth: 64,
+            frameHeight: 64
+        });
+         this.load.spritesheet('chest_empty', Chest_EMPTY, {
+            frameWidth: 64,
+            frameHeight: 64
+        });
+         this.load.spritesheet('chest_gold', Chest_GOLD, {
+            frameWidth: 64,
+            frameHeight: 64
+        });
+
         this.load.tilemapTiledJSON('dungeon_1', Dungeon);
     }
 
@@ -88,6 +126,14 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         var suelo = map.addTilesetImage('disco_suelo', 'suelo');
         var suelo_exterior = map.addTilesetImage('tiles', 'suelo_exterior');
         var hierba = map.addTilesetImage('TX Tileset Grass', 'hierba');
+        var decoraciones = map.addTilesetImage('decoraciones', 'adornos_1');
+        var decoraciones_2 = map.addTilesetImage('decoraciones_2', 'adornos_2');
+        var estrella = map.addTilesetImage('estrella3', 'estrella');
+        var decorative = map.addTilesetImage('CATacombs', 'decorative');
+        var fondo = map.addTilesetImage('fondo_infierno', 'fondo');
+        var banio = map.addTilesetImage('baño_publico', 'banio');
+        var suelo_boss = map.addTilesetImage('Suelo', 'suelo_boss');
+
         var taxi = map.addTilesetImage('taxi_tile', 'taxi');
         var ambulance = map.addTilesetImage('ambulance_tile', 'ambulance');
         var civic_1 = map.addTilesetImage('white_civic_tile', 'white_civic');
@@ -101,24 +147,26 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         var bus = map.addTilesetImage('bus_tile', 'bus');
         var police = map.addTilesetImage('police_tile', 'police');
 
-        map.createLayer('Suelo', [paredes, calle, suelo, suelo_disco, suelo_exterior, hierba], 0, 0);
-        
-        map.createLayer('Cosmeticos_suelo', [paredes, arboles, lamp_down, lamp_right], 0, 0);
-        var vacio_layer = map.createLayer('Vacio', paredes, 0, 0);
-        var paredes_layer = map.createLayer('Paredes', [paredes, calle, arboles, lamp_down, lamp_right, taxi, 
-            ambulance, civic_1, civic_2, brown_coupe, yellow_coupe, supercar, suv, jeep, bus, luxury, police], 0, 0);
+        var suelo = map.createLayer('Suelo', [paredes, calle, suelo, suelo_disco, suelo_exterior, hierba, banio, suelo_boss, decorative], 0, 0);
+        var fondo_layer = map.createLayer('Fondo', [fondo, estrella, suelo_exterior, banio], 0, 0);
+        var cosmeticos_suelo = map.createLayer('Cosmeticos_suelo', [paredes, arboles, lamp_down, lamp_right, 
+            decoraciones, decoraciones_2, banio, suelo_boss, decorative, calle], 0, 0);
+        var vacio_layer = map.createLayer('Vacio', [paredes, banio, suelo_boss], 0, 0);
         var colisiones_layer = map.createLayer('Colisiones', calle, 0, 0);
+        var paredes_layer = map.createLayer('Paredes', [paredes, calle, arboles, lamp_down, lamp_right, taxi, 
+            ambulance, civic_1, civic_2, brown_coupe, yellow_coupe, supercar, suv, jeep, bus, luxury, police, 
+            banio, suelo_boss, decorative, decoraciones_2, suelo_exterior], 0, 0);
         
+        cosmeticos_suelo.setDepth(20);
         colisiones_layer.setVisible(false);
         paredes_layer.setCollisionByExclusion([-1],true);
         colisiones_layer.setCollisionByExclusion([-1],true);
-        vacio_layer.setCollisionByExclusion([-1],true);
 
         const startX = map.widthInPixels / 2;
         const startY = map.heightInPixels / 2;
 
         this.player = new Player(this, startX-270, startY+1320);
-        this.player.speed = 200;
+        this.player.speed = 400;
 
         this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -151,7 +199,44 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
             repeat: -1
         });
 
+        this.anims.create({
+            key: 'chest_opening_gold_anim',
+            frames: [
+                { key: 'chest_gold', frame: 0 },
+                { key: 'chest_gold', frame: 1 },
+                { key: 'chest_gold', frame: 2 },
+                { key: 'chest_gold', frame: 3 },
+                { key: 'chest_gold', frame: 4 },
+                { key: 'chest_gold', frame: 5 },
+            ],
+            frameRate: 10,
+            repeat: 0
+        });
+
+        this.anims.create({
+            key: 'chest_empty_anim',
+            frames: [
+                { key: 'chest_empty', frame: 0 },
+                { key: 'chest_empty', frame: 1 },
+                { key: 'chest_empty', frame: 2 },
+                { key: 'chest_empty', frame: 3 },
+                { key: 'chest_empty', frame: 4 },
+                { key: 'chest_empty', frame: 5 },
+            ],
+            frameRate: 10,
+            repeat: 0
+        });
+
         this.createChest(map);
+        this.createPuertaBoss(map);
+        this.createCubos(map, paredes_layer);
+        this.createPuertaBasura(map);
+        this.createPuertaBalcon(map);
+        this.createPuertaAlmacen(map);
+    }
+
+    update(){
+        
     }
 
     createChest(map){
@@ -161,5 +246,65 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
             this.physics.add.collider(this.player, objetosArr[i]);
             objetosArr[i].play('chest_idle_anim');
         }
+    }
+
+    createPuertaBoss(map){
+        var objetosArr = map.createFromObjects('Puerta_Boss', {gid: 10477, classType: Boss_Door, key: 'barrote'});
+        for (var i = 0; i < objetosArr.length; i++){
+            objetosArr[i].configure(this.player, objetosArr);
+            this.physics.add.collider(this.player, objetosArr[i]);
+        }
+    }
+
+    createPuertaBasura(map){
+        var objetosArr = map.createFromObjects('Puerta_Basurero', {gid: 1131, classType: Garbage_Door, key: 'puerta_1'});
+        for (var i = 0; i < objetosArr.length; i++){
+            objetosArr[i].configure(this.player, objetosArr);
+            this.physics.add.collider(this.player, objetosArr[i]);
+        }
+    }
+
+    createPuertaBalcon(map){
+        var objetosArr = map.createFromObjects('Puerta_Balcon', {id: 97, classType: Balcony_Door, key: 'puerta_1'});
+        for (var i = 0; i < objetosArr.length; i++){
+            objetosArr[i].configure(this.player, objetosArr);
+            this.physics.add.collider(this.player, objetosArr[i]);
+        }
+    }
+
+    createPuertaAlmacen(map){
+        var objetosArr = map.createFromObjects('Puerta_Almacen', {id: 100, classType: Warehouse_Door, key: 'puerta_1'});
+        for (var i = 0; i < objetosArr.length; i++){
+            objetosArr[i].configure(this.player, objetosArr);
+            this.physics.add.collider(this.player, objetosArr[i]);
+        }
+    }
+
+    createCubos(map, paredes){
+        var objetosArr = map.createFromObjects('Cubos', {gid: 9072, classType: Cubo, key: 'cubo'});
+        for (var i = 0; i < objetosArr.length; i++){
+            this.physics.add.collider(paredes, objetosArr[i]);
+            this.physics.add.collider(this.player, objetosArr[i], this.pushCube, null, this);
+            objetosArr[i].setDrag(1000);
+        }
+    }
+
+    pushCube(player, cubo){
+        player.isPushing = true;
+
+        let blocked = false;
+
+        if (player.body.touching.right && cubo.body.blocked.right) 
+            blocked = true;
+        else if (player.body.touching.left && cubo.body.blocked.left) 
+            blocked = true;
+        else if (player.body.touching.down && cubo.body.blocked.down) 
+            blocked = true;
+        else if (player.body.touching.up && cubo.body.blocked.up) 
+            blocked = true;
+
+        // Si está atrapado, el cubo se vuelve inamovible.
+        // Si vas por el otro lado y lo arrastras a un lugar libre, atrapado será false y volverá a moverse.
+        cubo.setImmovable(blocked);
     }
 }

@@ -1,4 +1,5 @@
-import GameEntity from './gameEntity.js';
+import GameEntity from './game-objects/night/gameEntity.js';
+import Phone from './Phone.js';
 
 export default class Scratcher extends GameEntity {
 
@@ -6,24 +7,21 @@ export default class Scratcher extends GameEntity {
         super(scene, x, y, 'rascador', 0);
         this.setScale(2);
         
-        // Configurar las físicas del propio rascador (el sprite visible)
         scene.physics.add.existing(this);
         this.body.setImmovable(true);
         this.body.setAllowGravity(false);
         this.isScratching = false;
 
-        // Crear la hurtbox pequeña (10x10) para el área de contacto real
+        this.hasDropped = false;
+
         this.hurtbox = scene.add.rectangle(x, y, 10, 10);
         scene.physics.add.existing(this.hurtbox);
         this.hurtbox.body.setSize(10, 10);
         this.hurtbox.body.setAllowGravity(false);
-        this.hurtbox.body.moves = false; // No se mueve por físicas externas
-        this.hurtbox.setVisible(false); // Oculta el rectángulo rojo si no lo necesitas para debugear
+        this.hurtbox.body.moves = false;
+        this.hurtbox.setVisible(false); 
         this.hurtbox.setDepth(5);
     }
-
-    // Ya no necesitas el preUpdate/update de sincronización manual aquí, 
-    // porque al ser estático (moves = false) se queda en su x, y iniciales.
 
     scratch() {
         if (this.isScratching) return;
@@ -32,6 +30,33 @@ export default class Scratcher extends GameEntity {
         this.anims.play('rascador_scratch');
 
         this.once('animationcomplete', () => {
+
+            if (!this.hasDropped) {
+                this.hasDropped = true;
+
+                const phone = new Phone(this.scene, this.x, this.y - 20);
+                phone.setScale(0.5);
+
+                phone.body.setAllowGravity(true);
+                phone.body.setVelocityY(100);
+
+                this.scene.tweens.add({
+                    targets: phone,
+                    angle: 720,
+                    duration: 300,
+                    ease: 'Linear'
+                });
+
+                this.scene.time.delayedCall(300, () => {
+                    if (phone.body) {
+                        phone.body.setAllowGravity(false);
+                        phone.body.setVelocity(0);
+                    }
+                });
+
+                this.scene.interactables.add(phone);
+            }
+
             this.anims.stop();
             this.setFrame(0);
             this.isScratching = false;
