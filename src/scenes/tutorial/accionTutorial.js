@@ -277,7 +277,8 @@ export default class AccionTutorial extends Phaser.Scene {
             }).setOrigin(0.5).setInteractive({ useHandCursor: true })
 
             this.input.keyboard.once('keydown-SPACE', () => {
-                    this.scene.start('phone-tutorial')
+                    this.scene.launch('phone-tutorial');
+                    this.scene.stop(this.scene.key);
             })
         })
     }

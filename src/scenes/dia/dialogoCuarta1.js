@@ -279,7 +279,8 @@ export default class DialogoCuarta1 extends Phaser.Scene {
                 }).setOrigin(0.5).setInteractive()
 
                 this.input.keyboard.once('keydown-SPACE', () => {
-                    this.scene.start('phone')
+                    this.scene.launch('phone');
+                    this.scene.stop(this.scene.key);
                 })
             })
         }

@@ -112,6 +112,8 @@ import yanotekomo from '../../assets/sprites/objetos/yanotekomo.png';
 import halcon from '../../assets/sprites/objetos/halcon.png';
 import vaper from '../../assets/sprites/objetos/vaper.png';
 
+import menuTheme from '../../assets/sound/mainTheme.mp4';
+
 export default class Boot extends Phaser.Scene {
     constructor() {
         super({ key: 'boot' });
@@ -211,6 +213,8 @@ export default class Boot extends Phaser.Scene {
 
         this.load.image('disc', Disc);
 
+        this.load.audio('menuTheme', menuTheme);
+
 
         this.load.spritesheet('bossPhase', BossPhaseImg, {
             frameWidth: 32,
@@ -289,7 +293,7 @@ export default class Boot extends Phaser.Scene {
                 return;
             }
             sceneStarted = true;
-            this.scene.start('level');
+            this.scene.start('start-menu');
         };
 
         const hasFontLoader =

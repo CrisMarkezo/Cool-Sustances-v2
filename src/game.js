@@ -28,6 +28,7 @@ import TiendaCuarta1 from './scenes/dia/tiendaCuarta1';
 import InventoryScene from './scenes/inventory.js';
 import Comic_2 from './scenes/comic_2.js';
 import Comic_1 from './scenes/comic_1.js';
+import AudioScene from './scenes/audioScene.js';
 
 let config = {
     type: Phaser.AUTO,
@@ -67,7 +68,8 @@ let config = {
         Settings,
         Dungeon_1,
         Comic_1,
-        Comic_2
+        Comic_2,
+        AudioScene
     ],
     physics: {
         default: 'arcade',

@@ -44,6 +44,10 @@ export default class Menu extends Phaser.Scene {
         this.currentPosition = this.registry.get('position');
         this.selectedPath = this.registry.get('selectedPath');
 
+        if (!this.scene.isActive('MenuAudioScene')) {
+            this.scene.launch('MenuAudioScene');
+        }
+
         // mostrar onlyMenu de fondo
         this.menuSprite = new MenuSprite(this, 500, 350);
 
@@ -80,11 +84,6 @@ export default class Menu extends Phaser.Scene {
         this.createNodes();
 
         this.widgetSprite = new widgetSprite(this, 500, 120).setInteractive({ useHandCursor: true });
-        this.widgetSprite.on('pointerdown', () => {
-            if (this.currentStep === 5) {
-                this.scene.start('dungeon_1');
-            }
-        });
 
         this.keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
@@ -129,7 +128,10 @@ export default class Menu extends Phaser.Scene {
         }
 
         if (this.currentStep === 5 && (Phaser.Input.Keyboard.JustDown(this.keyE) || Phaser.Input.Keyboard.JustDown(this.keyEnter))) {
-            this.scene.start('dungeon_1');
+            this.scene.launch('dungeon_1');
+            const audioScene = this.scene.get('MenuAudioScene');
+            audioScene.music.stop();
+            this.scene.stop(this.scene.key);
         }
     }
 
@@ -238,7 +240,8 @@ export default class Menu extends Phaser.Scene {
         this.registry.set('step', this.currentStep + 1);
         this.registry.set('position', node.position);
 
-        this.scene.start(node.scene);
+        this.scene.launch(node.scene);
+        this.scene.stop(this.scene.key);
     }
 
     updateSelectionVisuals() {

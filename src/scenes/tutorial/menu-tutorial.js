@@ -30,6 +30,10 @@ export default class MenuTutorial extends Phaser.Scene {
 
         this.currentStep = this.registry.get('tutorialStep');
 
+        if (!this.scene.isActive('MenuAudioScene')) {
+            this.scene.launch('MenuAudioScene');
+        }
+
         // mostrar onlyMenu de fondo
         this.menuSprite = new MenuSprite(this, 500, 350);
 
