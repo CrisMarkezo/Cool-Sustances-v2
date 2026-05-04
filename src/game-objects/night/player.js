@@ -16,9 +16,9 @@ export default class Player extends GameEntity {
         this.body.setMaxVelocity(400, 400);
 
         //Llaves
-        this.llave_almacen = true;
-        this.llave_balcon = true;
-        this.llave_basura = true;
+        this.llave_almacen = false;
+        this.llave_balcon = false;
+        this.llave_basura = false;
         this.llave_boss = false;
 
         this.speed = 100;

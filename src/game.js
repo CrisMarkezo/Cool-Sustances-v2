@@ -12,8 +12,8 @@ import AccionPrimera1 from './scenes/dia/accionPrimera1.js'
 import AccionPrimera2 from './scenes/dia/accionPrimera2.js'
 import AccionSegunda1 from './scenes/dia/accionSegunda1.js'
 import AccionSegunda2 from './scenes/dia/accionSegunda2.js'
-import DialogoPrimero1 from './scenes/dia/dialogoPrimero1'
-import DialogoSegundo1 from './scenes/dia/dialogoSegundo1'
+import DialogoPrimero1 from './scenes/dia/dialogoPrimero1.js'
+import DialogoSegundo1 from './scenes/dia/dialogoSegundo1.js'
 import StartMenu from './scenes/startMenu.js'
 import Settings from './scenes/settings.js'
 import DialogoTercera1 from './scenes/dia/dialogoTercera1';
@@ -63,8 +63,7 @@ let config = {
         InventoryScene,
         StartMenu,
         Settings,
-      Dungeon_01,
-      Inventory
+        Dungeon_1
     ],
     physics: {
         default: 'arcade',
