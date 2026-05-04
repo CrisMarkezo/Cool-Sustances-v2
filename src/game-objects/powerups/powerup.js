@@ -13,13 +13,13 @@ export default class PowerUp extends InteractableObject {
         
         this.type = type;
         this.parameter = num;
-        this.interactionRadius = 50; 
     }
 
     configure(player){
         this.player = player;
         this.body.allowGravity = false;
         this.body.immovable = true;
+        this.interactionRadius = 50;
     }   
 
     preUpdate(t, dt) {
@@ -60,5 +60,6 @@ export default class PowerUp extends InteractableObject {
     // Método que se llama cuando el jugador consigue el objeto
     applyEffect(player) {
         // Método abstracto
+        throw new Error('Debes implementar applyEffect()');
     }
 }

@@ -3,7 +3,7 @@ import Phaser from 'phaser';
 
 export default class Vaper extends PowerUp {
     constructor(scene, x, y) {
-        super(scene, x, y, 'vaper', 'health', 10);
+        super(scene, x, y, 'vaper', 'damage', 10);
     }
 
     applyEffect(player) {

@@ -5,6 +5,7 @@ import Halcon from "../powerups/halcon";
 import Vaper from "../powerups/vaper";
 import Kebab from "../powerups/kebab";
 import Redbull from "../powerups/redbull";
+import Llave_Boss from "./llave_boss";
 
 export default class Chest extends InteractableObject {
 
@@ -81,6 +82,10 @@ export default class Chest extends InteractableObject {
             case 'attack_speed':
                 this.objeto = new Halcon(this.scene, this.x, this.y - 10);
                 this.objeto.setScale(0.15);
+                break;
+            case 'llave_boss':
+                this.objeto = new Llave_Boss(this.scene, this.x, this.y - 10);
+                this.objeto.setScale(0.50);
                 break;
         }
         this.objeto.configure(player);

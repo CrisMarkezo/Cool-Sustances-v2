@@ -15,12 +15,19 @@ export default class Player extends GameEntity {
         this.body.setSize(20, 22); // Cambia la hitbox
         this.body.setMaxVelocity(400, 400);
 
+        //Llaves
+        this.llave_almacen = true;
+        this.llave_balcon = true;
+        this.llave_basura = true;
+        this.llave_boss = false;
+
         this.speed = 100;
         this.damage = 20;
         this.isAttacking = false;
         this.isGrabbing = false;
         this.isInvincible = false;
         this.isKnocked = false;
+        this.isPushing = false;
         this.invincibilityDuration = 1500;
         this.damageKnockbackForce = 180;
 
@@ -81,6 +88,7 @@ export default class Player extends GameEntity {
         super.preUpdate(t, dt);
 
         const cam = this.scene.cameras.main;
+        var velocidadActual = this.speed;
 
         // --- AJUSTES DE POSICIÓN Y ANTIVIBRACIÓN ---
         this.lifeBar.setScale(0.5);
@@ -130,9 +138,11 @@ export default class Player extends GameEntity {
             this.lastMoveY = vy;
         }
 
+        velocidadActual = this.isPushing ? (this.speed * 0.1) : this.speed;
+
         if (!this.isGrabbing && !this.isKnocked) {
             if (vx !== 0 || vy !== 0) {
-                const velocity = new Phaser.Math.Vector2(vx, vy).normalize().scale(this.speed);
+                const velocity = new Phaser.Math.Vector2(vx, vy).normalize().scale(velocidadActual);
                 this.body.setVelocity(velocity.x, velocity.y);
 
                 if (!this.isAttacking && this.anims.currentAnim?.key !== 'cat_run') {
@@ -186,6 +196,8 @@ export default class Player extends GameEntity {
             this.attackSprite.setPosition(this.x + this.lockedOffsetX, this.y + this.lockedOffsetY);
             this.attackHitbox.setPosition(this.x + this.lockedOffsetX, this.y + this.lockedOffsetY);
         }
+
+        this.isPushing = false;
     }
 
     takeDamage(source) {
