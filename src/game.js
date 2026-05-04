@@ -26,6 +26,8 @@ import TiendaTercera1 from './scenes/dia/tiendaTercera1';
 import TiendaTercera2 from './scenes/dia/tiendaTercera2.js';
 import TiendaCuarta1 from './scenes/dia/tiendaCuarta1';
 import InventoryScene from './scenes/inventory.js';
+import Comic_2 from './scenes/comic_2.js';
+import Comic_1 from './scenes/comic_1.js';
 
 let config = {
     type: Phaser.AUTO,
@@ -63,7 +65,9 @@ let config = {
         InventoryScene,
         StartMenu,
         Settings,
-        Dungeon_1
+        Dungeon_1,
+        Comic_1,
+        Comic_2
     ],
     physics: {
         default: 'arcade',

@@ -4,7 +4,7 @@ import Scratcher from '../scratcher.js';
 import Phone from '../Phone.js';
 import Monster from '../game-objects/night/monster.js';
 import PowerUp from '../game-objects/powerups/powerup.js';
-import Boss from '../Boss.js';
+import Boss from '../game-objects/night/boss.js';
 
 export default class Level extends Phaser.Scene {
     constructor() {
@@ -72,7 +72,7 @@ export default class Level extends Phaser.Scene {
 
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
         this.cameras.main.startFollow(this.player, true, 0.1, 0.1);
-        this.cameras.main.setZoom(5);
+        this.cameras.main.setZoom(4);
 
         this.keyI = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
         this.keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
@@ -108,7 +108,12 @@ export default class Level extends Phaser.Scene {
         this.gameOverImage = this.add.image(this.player.x, this.player.y, 'gameover');
         this.gameOverImage.setDepth(99999);
         this.gameOverImage.setVisible(false);
-        this.gameOverImage.setScale(0.2);
+        this.gameOverImage.setScale(0.23);
+
+        this.comic = this.add.image(this.player.x, this.player.y, 'comic_2');
+        this.comic.setDepth(99999);
+        this.comic.setVisible(false);
+        this.comic.setScale(0.2);
 
         // PUERTA
         const doorX = startX + 192;
@@ -123,7 +128,10 @@ export default class Level extends Phaser.Scene {
 
         this.physics.add.overlap(this.player, this.doorZone, () => {
             if (this.playerHasItem() && !this.isGameOver) {
-                this.triggerGameOver(); 
+                this.triggerComic2();
+                this.time.delayedCall(5000, () => {
+                this.scene.start('MenuTutorial');
+            }) 
             }
         }, null, this);
     }
@@ -183,22 +191,22 @@ export default class Level extends Phaser.Scene {
             );
         }
 
-        if (Phaser.Input.Keyboard.JustDown(this.keyI)) {
-            this.inventoryOpen = !this.inventoryOpen;
-            this.inventoryUI.setVisible(this.inventoryOpen);
+        // if (Phaser.Input.Keyboard.JustDown(this.keyI)) {
+        //     this.inventoryOpen = !this.inventoryOpen;
+        //     this.inventoryUI.setVisible(this.inventoryOpen);
 
-            if (this.inventoryOpen) {
-                this.physics.pause();
-                this.player.body.setVelocity(0);
-                this.inventoryUI.setPosition(cam.worldView.centerX, cam.worldView.centerY);
-                this.renderInventory(this.inventoryUI.x - 30, this.inventoryUI.y - 20);
-                if (this.tutorialText) this.tutorialText.setVisible(false);
-            } else {
-                this.physics.resume();
-                this.inventoryItems.clear(true, true);
-                if (this.tutorialText) this.tutorialText.setVisible(true);
-            }
-        }
+        //     if (this.inventoryOpen) {
+        //         this.physics.pause();
+        //         this.player.body.setVelocity(0);
+        //         this.inventoryUI.setPosition(cam.worldView.centerX, cam.worldView.centerY);
+        //         this.renderInventory(this.inventoryUI.x - 30, this.inventoryUI.y - 20);
+        //         if (this.tutorialText) this.tutorialText.setVisible(false);
+        //     } else {
+        //         this.physics.resume();
+        //         this.inventoryItems.clear(true, true);
+        //         if (this.tutorialText) this.tutorialText.setVisible(true);
+        //     }
+        // }
 
         if (this.inventoryOpen) return;
 
@@ -233,6 +241,11 @@ export default class Level extends Phaser.Scene {
             this.cameras.main.worldView.centerX,
             this.cameras.main.worldView.centerY
         );
+
+    }
+
+    triggerComic2() {
+        this.scene.start('phone-tutorial');
 
     }
 

@@ -166,13 +166,13 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         const startY = map.heightInPixels / 2;
 
         this.player = new Player(this, startX-270, startY+1320);
-        this.player.speed = 400;
+        this.player.speed = 200;
 
         this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
         this.cameras.main.startFollow(this.player, true, 0.1, 0.1);
+        this.cameras.main.setZoom(5);
         this.cameras.main.setRoundPixels(true);
-        this.cameras.main.setZoom(2);
         this.cameras.main.centerOn(this.player.x, this.player.y);
 
         this.physics.add.collider(this.player, colisiones_layer);

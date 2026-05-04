@@ -16,11 +16,7 @@ export default class StartMenu extends Phaser.Scene {
             .setOrigin(0.5);
 
         empezarBtn.on('pointerdown', () => {
-            image = this.add.image(490, 350, 'comic_1');
-            image.setScale(0.65);
-            this.time.delayedCall(5000, () => {
-                this.scene.start('level');
-            })
+            this.scene.start('comic_1')
         });
 
         const continuarBtn = this.add.rectangle(500, 350, 320, 70, 0x000000, 0.55)

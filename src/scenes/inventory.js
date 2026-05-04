@@ -3,7 +3,7 @@ import Phaser from 'phaser';
 export default class Inventory extends Phaser.Scene {
 
     constructor() {
-        super('inventory');
+        super(' ');
         this.inventoryItems = null;
         this.inventorySlots = null;
         this.keyEscape = null;

@@ -8,11 +8,14 @@ export default class Player extends GameEntity {
 
         this.uiBarGraphics = null;
 
+         // --- CONFIGURACIÓN FÍSICA (HITBOX) ---
         this.setCollideWorldBounds(true);
         this.body.setAllowGravity(false);
         this.setDepth(10);
+        this.body.setDrag(1000);
 
-        this.body.setSize(20, 22); // Cambia la hitbox
+        this.body.setSize(12, 12); // Cambia la hitbox 20,22
+        this.body.setOffset(this.width / 2 - 6, this.height / 2 - 4);
         this.body.setMaxVelocity(400, 400);
 
         //Llaves
@@ -21,6 +24,7 @@ export default class Player extends GameEntity {
         this.llave_basura = false;
         this.llave_boss = false;
 
+        // --- ATRIBUTOS ---
         this.speed = 100;
         this.damage = 20;
         this.isAttacking = false;
@@ -37,6 +41,7 @@ export default class Player extends GameEntity {
         this.maxHealth = 100;
         this.health = 100;
 
+        // --- CONTROLES ---
         this.cursors = scene.input.keyboard.createCursorKeys();
         this.wasd = scene.input.keyboard.addKeys({
             up: Phaser.Input.Keyboard.KeyCodes.W,
@@ -51,11 +56,12 @@ export default class Player extends GameEntity {
         scene.registry.set('inventory', this.inventory);
         this.nearbyInteractable = null;
 
+        // --- ATAQUE ---
         this.attackHitbox = scene.add.rectangle(this.x, this.y, 20, 20, 0xff0000);
         scene.physics.add.existing(this.attackHitbox);
         this.attackHitbox.body.setAllowGravity(false);
         this.attackHitbox.body.moves = false;
-        this.attackHitbox.body.setSize(20, 20);
+        this.attackHitbox.body.setSize(10, 12);
         this.attackHitbox.setVisible(false);
         this.attackHitbox.body.enable = false;
 
@@ -69,20 +75,26 @@ export default class Player extends GameEntity {
         this.lastMoveX = 1;
         this.lastMoveY = 0;
 
-        // --- BARRA DE VIDA (UI) ---
-        this.lifeBar = scene.add.image(0, 0, 'healthbar');
-        
-        // Mantenemos origen (1, 0) para anclar por la esquina superior derecha
-        this.lifeBar.setOrigin(1, 0);
-        this.lifeBar.setDepth(9999);
-
-        // Parámetros del PNG original
-        this.barX = 910;
-        this.barY = 30;
-        
-        // AJUSTE CROP: 53 píxeles para ignorar el borde derecho del PNG
+       // --- CONFIGURACIÓN UI VIDA ---
+        this.barX = 910; // Coordenada X en healthbar.png
+        this.barY = 28;  // Coordenada Y en healthbar.png
         this.barWidth = 53;
         this.barHeight = 20;
+        
+        this.currentUiScale = 2; 
+
+        this.lifeBarBg = scene.add.image(0, 0, 'healthbar');
+        this.lifeBarBg.setOrigin(1, 0);
+        this.lifeBarBg.setDepth(9998);
+        this.lifeBarBg.setTint(0x000000);
+        this.lifeBarBg.setAlpha(0.6);
+        this.lifeBarBg.setCrop(this.barX, this.barY, this.barWidth, this.barHeight);
+        this.lifeBarBg.setScale(this.currentUiScale);
+
+        this.lifeBar = scene.add.image(0, 0, 'healthbar');
+        this.lifeBar.setOrigin(1, 0);
+        this.lifeBar.setDepth(9999);
+        this.lifeBar.setScale(this.currentUiScale);
     }
 
     preUpdate(t, dt) {
@@ -91,18 +103,16 @@ export default class Player extends GameEntity {
         const cam = this.scene.cameras.main;
         var velocidadActual = this.speed;
 
-        // --- AJUSTES DE POSICIÓN Y ANTIVIBRACIÓN ---
-        this.lifeBar.setScale(0.5);
-
-        // Margen X: Menos es más a la derecha (estaba en 12, ahora 6)
-        const marginX = 0;
-        // Margen Y: Menos es más arriba (estaba en 2, ahora 1)
+        // --- ACTUALIZACIÓN UI ---
+        const marginX = 50;
         const marginY = -8;
-
-        // Math.round evita que la barra vibre al seguir a la cámara con zoom
         const finalX = Math.round(cam.worldView.right - marginX);
         const finalY = Math.round(cam.worldView.y + marginY);
-        
+
+        this.lifeBarBg.setScale(0.5);
+        this.lifeBarBg.setPosition(finalX, finalY);
+
+        this.lifeBar.setScale(0.5);
         this.lifeBar.setPosition(finalX, finalY);
 
         // --- RECORTE Y LÓGICA ---
@@ -114,8 +124,13 @@ export default class Player extends GameEntity {
             this.barHeight
         );
 
-        if (this.health <= 0) return;
+        if (this.health <= 0) {
+            this.lifeBar.setVisible(false);
+            this.lifeBarBg.setVisible(false);
+            return;
+        }
 
+        // --- MOVIMIENTO E INTERACCIÓN ---
         if (Phaser.Input.Keyboard.JustDown(this.keyE) && this.nearbyInteractable) {
             this.nearbyInteractable.interact(this);
         }
@@ -158,10 +173,10 @@ export default class Player extends GameEntity {
             }
         }
 
+        // --- LÓGICA DE ATAQUE ---
         if (Phaser.Input.Keyboard.JustDown(this.space) && this.canAttack && !this.isGrabbing && !this.isAttacking && !this.isKnocked) {
             this.canAttack = false;
             this.isAttacking = true;
-
             this.lockedOffsetX = 0;
             this.lockedOffsetY = 0;
 
@@ -175,7 +190,6 @@ export default class Player extends GameEntity {
 
             this.attackHitbox.setPosition(this.x + this.lockedOffsetX, this.y + this.lockedOffsetY);
             this.attackHitbox.body.enable = true;
-
             this.attackSprite.setPosition(this.x + this.lockedOffsetX, this.y + this.lockedOffsetY);
             this.attackSprite.setVisible(true);
             this.attackSprite.play('cat_attack');
@@ -204,16 +218,16 @@ export default class Player extends GameEntity {
     takeDamage(source) {
         if (this.isInvincible || this.health <= 0) return;
 
-        this.health -= 10;
+        this.health -= 20;
 
         if (this.health <= 0) {
             this.health = 0;
-            this.body.setVelocity(0, 0);
+            if (this.body)
+                this.body.setVelocity(0, 0);
         }
 
         this.isInvincible = true;
         this.isKnocked = true;
-
         this.scene.cameras.main.shake(150, 0.001);
 
         if (source && this.health > 0) {

@@ -82,7 +82,7 @@ export default class Menu extends Phaser.Scene {
         this.widgetSprite = new widgetSprite(this, 500, 120).setInteractive({ useHandCursor: true });
         this.widgetSprite.on('pointerdown', () => {
             if (this.currentStep === 5) {
-                this.scene.start('mazmorra');
+                this.scene.start('dungeon_1');
             }
         });
 
@@ -129,7 +129,7 @@ export default class Menu extends Phaser.Scene {
         }
 
         if (this.currentStep === 5 && (Phaser.Input.Keyboard.JustDown(this.keyE) || Phaser.Input.Keyboard.JustDown(this.keyEnter))) {
-            this.scene.start('mazmorra');
+            this.scene.start('dungeon_1');
         }
     }
 

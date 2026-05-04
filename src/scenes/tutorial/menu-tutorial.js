@@ -53,7 +53,7 @@ export default class MenuTutorial extends Phaser.Scene {
                 object: mazmorraBtn,
                 pez: this.add.image(485, 125, 'pez').setScale(0.5).setAngle(-15),
                 action: () => {
-                    this.scene.start('dungeon_1');
+                    this.scene.start('comic_2');
                 }
             },
             {

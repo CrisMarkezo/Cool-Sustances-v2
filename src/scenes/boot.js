@@ -112,9 +112,6 @@ import yanotekomo from '../../assets/sprites/objetos/yanotekomo.png';
 import halcon from '../../assets/sprites/objetos/halcon.png';
 import vaper from '../../assets/sprites/objetos/vaper.png';
 
-import Comic_1 from '../../assets/comic1.jpeg';
-import Comic_2 from '../../assets/comic2.jpeg';
-
 export default class Boot extends Phaser.Scene {
     constructor() {
         super({ key: 'boot' });
@@ -212,10 +209,6 @@ export default class Boot extends Phaser.Scene {
         this.load.image('halcon', halcon);
         this.load.image('vaper', vaper);
 
-        this.load.image('comic_1', Comic_1);
-        this.load.image('comic_2', Comic_2);
-
-        this.load.image('phone', Phone);
         this.load.image('disc', Disc);
 
 
@@ -255,7 +248,7 @@ export default class Boot extends Phaser.Scene {
             frameHeight: 32
         });
 
-        this.load.spritesheet('telefono', Phone, {
+        this.load.spritesheet('telefono', phoneItem, {
             frameWidth: 32,
             frameHeight: 32
         });
@@ -296,7 +289,7 @@ export default class Boot extends Phaser.Scene {
                 return;
             }
             sceneStarted = true;
-            this.scene.start('start-menu');
+            this.scene.start('level');
         };
 
         const hasFontLoader =
