@@ -68,7 +68,7 @@ export default class AccionSegunda2 extends Phaser.Scene {
         this.contextoBubble.setStrokeStyle(3, 0Xe76d2c)
         this.contexto = dialogTextSprite.create(this, 325, 250, [
             'Dos personas se alejan de la mesa, una de ellas huele un poco afrutado, le sigues. Mientras camina se le cae algo del bolsillo, es una moneda de 1 euro.',
-            ' Al mismo tiempo hueles algo delicioso alrededor. ¿Qué haces?'
+            'Al mismo tiempo hueles algo delicioso alrededor. ¿Qué haces?'
         ], {
             fontFamily: '"Toonway", sans-serif',
             fontSize: '20px', 
