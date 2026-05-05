@@ -49,7 +49,9 @@ export default class AccionSegunda1 extends Phaser.Scene {
         const inventoryBtn = InventorySprite.create(this, 50, 60)
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'accion', 1200)
-        
+        this.add.image(300, 500, 'bosque').setScale(0.9);
+        this.add.image(400, 500, 'bosque').setScale(0.9);
+        this.add.image(200, 500, 'bosque').setScale(0.9);
         const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);
 
         this.add.text(680, 75, 'Accion', {

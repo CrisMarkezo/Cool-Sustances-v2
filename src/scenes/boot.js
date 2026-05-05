@@ -124,6 +124,7 @@ import catnip from '../../assets/sprites/objetos/cigarros.png';
 import ciggarros from '../../assets/sprites/objetos/cigarros.png';
 
 import Llave_Boss from '../../assets/dungeon/llave_boss.png';
+import bosque from '../../assets/sprites/bosque.png';
 
 export default class Boot extends Phaser.Scene {
     constructor() {
@@ -133,6 +134,7 @@ export default class Boot extends Phaser.Scene {
     preload() {
         // Con setPath podemos establecer el prefijo que se añadirá a todos los load que aparecen a continuación
         //this.load.setPath('assets/sprites/');
+        this.load.image('bosque', bosque);
         this.load.image('dia', dia)
         this.load.image('tienda_dia', tiendaDia)
 
@@ -335,7 +337,7 @@ export default class Boot extends Phaser.Scene {
                 return;
             }
             sceneStarted = true;
-            this.scene.start('start-menu'); 
+            this.scene.start('phone'); //start-menu
         };
 
         const hasFontLoader =

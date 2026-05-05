@@ -75,7 +75,7 @@ export default class DialogoTercera1 extends Phaser.Scene {
         this.contextoBubble = this.add.rectangle(325, 250, 500, 150, 0xC8006E)
         this.contextoBubble.setStrokeStyle(3, 0Xe76d2c)
         this.contexto = dialogTextSprite.create(this, 325, 250, [
-            'Continuas al humano con olor afrutado y acabas dentro de lo que parece un coche muy largo, te acercas para escuchar lo que dice y la música que suena alrededor suyo. '
+            'Continuas con tu camino y acabas dentro de lo que parece un coche muy largo, te acercas a un humano que desprende un olor afrutado para escuchar lo que dice y la música que suena alrededor suyo. '
         ], {       
             fontFamily: '"Toonway", sans-serif',
             fontSize: '20px', 
@@ -206,16 +206,16 @@ export default class DialogoTercera1 extends Phaser.Scene {
             this.character.setTexture('pabloHorny').setScale(0.95)
             this.pico = this.add.triangle(480, 500, 0, 0, 50, 0, 25, 0, 0xdaff8f)
             this.pico.setStrokeStyle(4, 0x000000)
-            this.respuestaBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
+            this.respuestaBubble = this.add.ellipse(400, 300, 350, 200, 0xdaff8f)
             this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
             this.respuesta = dialogTextSprite.create(this, 400, 300, ['SURMIII pero klk ke este gato le sabe demasiado broski, si necesitas ayuda por moncloa dimelo hermano'], {
                 fontFamily: '"Toonway", monospace',
-                fontSize: '28px',
+                fontSize: '24px',
                 color: '#000000',
                 wordWrap: { width: 280 },
                 align: 'center'
             })
-            inventory?.removeItem('halcon')
+            //inventory?.removeItem('halcon')
             this.respuesta.once('complete', () => {
                 this.contextComplete = true;
                 this.nextDialogHint = nextDialogSprite.create(this, 400, 320)
@@ -232,11 +232,11 @@ export default class DialogoTercera1 extends Phaser.Scene {
         this.character.setTexture('pabloEnfadado').setScale(0.95)
         this.pico = this.add.triangle(480, 500, 0, 0, 50, 0, 25, 0, 0xdaff8f)
         this.pico.setStrokeStyle(4, 0x000000)
-        this.respuestaBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
+        this.respuestaBubble = this.add.ellipse(400, 300, 350, 200, 0xdaff8f)
         this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
         this.respuesta = dialogTextSprite.create(this, 400, 300, ['Keloke me estas disiendo surmi dame eso ke te meto!! '], {
             fontFamily: '"Toonway", monospace',
-            fontSize: '28px',
+            fontSize: '24px',
             color: '#000000',
             wordWrap: { width: 280 },
             align: 'center'
@@ -270,9 +270,9 @@ export default class DialogoTercera1 extends Phaser.Scene {
             this.pico.setStrokeStyle(4, 0x000000)
             const dialogoFinalBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
             dialogoFinalBubble.setStrokeStyle(4, 0x000000)
-            const dialogoFinal = dialogTextSprite.create(this, 400, 300, ['Oye pero ahora a donde vas?'], {
+            const dialogoFinal = dialogTextSprite.create(this, 400, 300, ['XAOXAOXAOXAO, si me ves por ahi me dices algo manito mi nombre es Pablo'], {
                 fontFamily: '"Toonway", sans-serif',
-                fontSize: '25px',
+                fontSize: '22px',
                 color: '#000000',
                 wordWrap: { width: 280 }
             })

@@ -68,8 +68,8 @@ export default class AccionQuinta1 extends Phaser.Scene {
         this.contextoBubble = this.add.rectangle(325, 250, 500, 150, 0xE2007C)
         this.contextoBubble.setStrokeStyle(3, 0Xe76d2c)
         this.contexto = dialogTextSprite.create(this, 325, 250, [
-            'Caminas por las calles llenas de gente, todo el mundo parece estar pasándoselo bien. Escuchas a alguien gritar en tu dirección y aparece el tio al que le quitaste el catnip. ',
-            'Parece que sigue enfadado y se te acerca. ¿Qué haces?'
+            'Caminas por las calles llenas de gente, todo el mundo parece estar pasándoselo bien. Escuchas a alguien gritar en tu dirección y aparece el tio al que le gusta mucho el catnip. ',
+            'Parece que esta enfadado y se te acerca. ¿Qué haces?'
         ], {
             fontFamily: '"Toonway", sans-serif',
             fontSize: '20px', 
@@ -127,9 +127,9 @@ export default class AccionQuinta1 extends Phaser.Scene {
         this.opcionesVisibles = true;
         this.selectedOption = 0;
 
-        this.opcion1Bubble = this.add.rectangle(650, 320, 360, 60, 0Xe76d2c)
+        this.opcion1Bubble = this.add.rectangle(400, 320, 360, 60, 0Xe76d2c)
         this.opcion1Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion1 = this.add.text(650, 320, 'Dar catnip', {
+        this.opcion1 = this.add.text(400, 320, 'Dar catnip', {
             fontFamily: '"Keneric", sans-serif',
             fontSize: '22px',
             color: '#ffffff',
@@ -137,9 +137,9 @@ export default class AccionQuinta1 extends Phaser.Scene {
             align: 'center'
         }).setOrigin(0.5).setInteractive()
 
-        this.opcion2Bubble = this.add.rectangle(650, 380, 360, 60, 0Xe76d2c)
+        this.opcion2Bubble = this.add.rectangle(400, 380, 360, 60, 0Xe76d2c)
         this.opcion2Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion2 = this.add.text(650, 380, 'Comerse el catnip en su cara', {
+        this.opcion2 = this.add.text(400, 380, 'Ignorar', {
             fontFamily: '"Keneric", sans-serif',
             fontSize: '22px',
             color: '#ffffff',
@@ -183,7 +183,7 @@ export default class AccionQuinta1 extends Phaser.Scene {
             this.chatBubble.setStrokeStyle(4, 0x000000);
             this.chat = dialogTextSprite.create(this, 400, 300, ['BOFFFF ni de coña el puto gato lo sigue teniendo, eres el mejor, me llamo Iker por cierto te ayudo cuando quieras'], {
                 fontFamily: '"Toonway", monospace',
-                fontSize: '28px',
+                fontSize: '24px',
                 color: '#000000',
                 wordWrap: { width: 280 },
                 align: 'center'
@@ -203,7 +203,7 @@ export default class AccionQuinta1 extends Phaser.Scene {
             this.chatBubble.setStrokeStyle(4, 0x000000);
             this.chat = dialogTextSprite.create(this, 400, 300, ['PERO TU ERES UN HIJO DE LA GRAN PUTA!! espero que te pegue un pelotazo de la ostia gato de mierda'], {
                 fontFamily: '"Toonway", monospace',
-                fontSize: '28px',
+                fontSize: '24px',
                 color: '#000000',
                 wordWrap: { width: 280 },
                 align: 'center'
@@ -218,11 +218,12 @@ export default class AccionQuinta1 extends Phaser.Scene {
         this.opcion2Bubble.destroy()
         this.optionBubbles = []
         this.chatBubble.destroy()
+        this.chat.destroy()
 
-        const bubble = this.add.rectangle(650, 350, 300, 110, 0xffffff)
+        const bubble = this.add.rectangle(400, 350, 300, 110, 0xffffff)
         bubble.setStrokeStyle(4, 0x000000)
 
-        this.add.text(650, 350, mensaje, {
+        this.add.text(400, 350, mensaje, {
             fontFamily: '"PixelAE-Regular", monospace',
             fontSize: '28px',
             color: '#000000',
@@ -232,7 +233,7 @@ export default class AccionQuinta1 extends Phaser.Scene {
         }).setOrigin(0.5)
 
         this.time.delayedCall(2000, () => {
-            const continuar = this.add.text(650, 430, 'Presiona espacio para continuar', {
+            const continuar = this.add.text(400, 430, 'Presiona espacio para continuar', {
                 fontFamily: '"PixelAE-Bold", monospace',
                 fontSize: '20px',
                 color: '#ff028d'

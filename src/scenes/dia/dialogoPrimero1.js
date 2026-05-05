@@ -208,9 +208,9 @@ export default class DialogoPrimero1 extends Phaser.Scene {
             this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
             this.respuesta = dialogTextSprite.create(this, 400, 300, ['Perdón por molestarte, no era mi intención...'], {
                 fontFamily: '"Toonway", monospace',
-                fontSize: '28px',
+                fontSize: '24px',
                 color: '#000000',
-                wordWrap: { width: 280 },
+                wordWrap: { width: 340 },
                 align: 'center'
             })
             this.respuesta.once('complete', () => {
@@ -233,7 +233,7 @@ export default class DialogoPrimero1 extends Phaser.Scene {
         this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
         this.respuesta = dialogTextSprite.create(this, 400, 300, ['Pero que cosita! Lo siento por el humo del cigarro es que me has pillado en mi tipica pitipausa. Que hoy es jueves de FDI y estamos con mikel y pablo bebiendo. Pero yo solo fumo cigarros no la merienda de pablo.'], {
             fontFamily: '"Toonway", monospace',
-            fontSize: '28px',
+            fontSize: '24px',
             color: '#000000',
             wordWrap: { width: 340 },
             align: 'center'
@@ -241,7 +241,7 @@ export default class DialogoPrimero1 extends Phaser.Scene {
         inventory?.addItem({ id: 'cigarros', name: 'cigarros', texture: 'cigarros' })
         this.respuesta.once('complete', () => {
             this.contextComplete = true;
-            this.nextDialogHint = nextDialogSprite.create(this, 450, 320)
+            this.nextDialogHint = nextDialogSprite.create(this, 500, 360)
         })
     }
 
@@ -270,7 +270,7 @@ export default class DialogoPrimero1 extends Phaser.Scene {
             dialogoFinalBubble.setStrokeStyle(4, 0x000000)
             const dialogoFinal = dialogTextSprite.create(this, 400, 300, ['Ha sido un placer little car, mi nombre es Ana recuerdalo'], {
                 fontFamily: '"Toonway", sans-serif',
-                fontSize: '25px',
+                fontSize: '24px',
                 color: '#000000',
                 wordWrap: { width: 320 },
                 align: 'center'
