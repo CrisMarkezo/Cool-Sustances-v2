@@ -115,6 +115,13 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
     }
 
     create() {
+        if (!this.scene.isActive('MazmorraAudioScene')) {
+            this.scene.launch('MazmorraAudioScene');
+        }
+        if (!this.scene.isActive('BossAudioScene')) {
+            this.scene.launch('BossAudioScene');
+        }
+
         var map = this.make.tilemap({ key: 'dungeon_1' });
 
         var paredes = map.addTilesetImage('paredes', 'paredes');
@@ -167,7 +174,6 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         const startY = map.heightInPixels / 2;
 
         this.player = new Player(this, startX-265, startY+1220);
-        this.player.speed = 200;
 
         this.gameOverImage = this.add.image(this.player.x, this.player.y, 'gameover');
         this.gameOverImage.setDepth(99999);

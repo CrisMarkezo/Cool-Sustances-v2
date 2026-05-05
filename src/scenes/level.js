@@ -111,7 +111,7 @@ export default class Level extends Phaser.Scene {
 
         this.physics.add.overlap(this.player, this.doorZone, () => {
             if (this.playerHasItem() && !this.isGameOver) {
-                this.triggerComic2();
+                this.triggerMenu();
                 this.time.delayedCall(5000, () => {
                 this.scene.start('MenuTutorial');
             }) 
@@ -225,7 +225,7 @@ export default class Level extends Phaser.Scene {
 
     }
 
-    triggerComic2() {
+    triggerMenu() {
         this.scene.start('phone-tutorial');
 
     }

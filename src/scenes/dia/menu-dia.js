@@ -154,7 +154,7 @@ export default class Menu extends Phaser.Scene {
             const audioScene = this.scene.get('MenuAudioScene');
             audioScene.music.stop();
             this.scene.stop(this.scene.key);
-            this.scene.start('dungeon_1');
+            this.scene.launch('mazmorra');
         }
     }
 

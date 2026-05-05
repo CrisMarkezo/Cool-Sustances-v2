@@ -194,6 +194,8 @@ export default class DialogoTercera1 extends Phaser.Scene {
     }
 
     confirmarSeleccion() {
+        const inventory = this.registry.get('inventory');
+
         if (this.selectedOption === 0) {
             this.opcionElegida = 1
             this.opcion1.destroy()

@@ -247,6 +247,8 @@ export default class TiendaTutorial extends Phaser.Scene {
     }
 
     confirmarSeleccion() {
+        const inventory = this.registry.get('inventory');
+        
         if (this.selectedOption === 0) {
             if (trySpendMoney(this, 2)) {
                 this.opcionElegida = true

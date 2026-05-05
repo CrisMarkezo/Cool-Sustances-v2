@@ -13,8 +13,8 @@ export default class BossAudio extends Phaser.Scene {
     create() {
         this.music = this.sound.add('bossAudio', {
             loop: true,
-            volume: 0.5
+            volume: 0.2
         });
-        this.music.play();
+        this.registry.set('bossAudio', this.music);
     }
 }

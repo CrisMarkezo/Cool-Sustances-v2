@@ -168,6 +168,8 @@ export default class AccionQuinta1 extends Phaser.Scene {
     }
 
     confirmarSeleccion() {
+        const inventory = this.registry.get('inventory');
+        
         if (this.selectedOption === 0) {
             this.opcionElegida = true
             this.character.setTexture('ikerFeliz').setScale(0.9)

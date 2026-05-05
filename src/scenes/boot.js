@@ -120,7 +120,8 @@ import halcon from '../../assets/sprites/objetos/halcon.png';
 import vaper from '../../assets/sprites/objetos/vaper.png';
 import redbull from '../../assets/sprites/objetos/monster.png';
 import kebad from '../../assets/sprites/objetos/kebab.png';
-import catnip from '../../assets/sprites/objetos/catnip.png';
+import catnip from '../../assets/sprites/objetos/cigarros.png';
+import ciggarros from '../../assets/sprites/objetos/cigarros.png';
 
 import Llave_Boss from '../../assets/dungeon/llave_boss.png';
 
@@ -176,37 +177,37 @@ export default class Boot extends Phaser.Scene {
         this.load.image('dialogoIcon2', dialogoIcon2);
         this.load.image('dialogoIcon3', dialogoIcon3);
 
-    this.load.image('tiendaIcon', tiendaIcon);
-    this.load.image('laliNeutro', laliNeutro);
-    this.load.image('laliFeliz', laliFeliz);
-    this.load.image('laliTriste', laliTriste);
-    this.load.image('laliEnfadada', laliEnfadada);
-    this.load.image('haoNeutro', haoNeutro);
-    this.load.image('haoFeliz', haoFeliz);
-    this.load.image('haoTriste', haoTriste);
-    this.load.image('haoEnfadado', haoEnfadado);
-    this.load.image('haoHorny', haoHorny);
-    this.load.image('mikelNeutro', mikelNeutro);
-    this.load.image('mikelFeliz', mikelFeliz);
-    this.load.image('mikelTriste', mikelTriste);
-    this.load.image('mikelEnfadado', mikelEnfadado);
-    this.load.image('ikerNeutro', ikerNeutro);
-    this.load.image('ikerFeliz', ikerFeliz);
-    this.load.image('ikerTriste', ikerTriste);
-    this.load.image('ikerEnfadado', ikerEnfadado);
-    this.load.image('anaNeutro', anaNeutro);
-    this.load.image('anaFeliz', anaFeliz);
-    this.load.image('anaTriste', anaTriste);
-    this.load.image('anaHorny', anaHorny);
-    this.load.image('anaEnfadada', anaEnfadada);
-    this.load.image('pabloNeutro', pabloNeutro);
-    this.load.image('pabloFeliz', pabloFeliz);
-    this.load.image('pabloTriste', pabloTriste);
-    this.load.image('pabloEnfadado', pabloEnfadado);
-    this.load.image('pabloHorny', pabloHorny);
-    this.load.image('turrasNeutro', turrasNeutro);
-    this.load.image('turrasFeliz', turrasFeliz);
-    this.load.image('turrasEnfadado', turrasEnfadado);
+        this.load.image('tiendaIcon', tiendaIcon);
+        this.load.image('laliNeutro', laliNeutro);
+        this.load.image('laliFeliz', laliFeliz);
+        this.load.image('laliTriste', laliTriste);
+        this.load.image('laliEnfadada', laliEnfadada);
+        this.load.image('haoNeutro', haoNeutro);
+        this.load.image('haoFeliz', haoFeliz);
+        this.load.image('haoTriste', haoTriste);
+        this.load.image('haoEnfadado', haoEnfadado);
+        this.load.image('haoHorny', haoHorny);
+        this.load.image('mikelNeutro', mikelNeutro);
+        this.load.image('mikelFeliz', mikelFeliz);
+        this.load.image('mikelTriste', mikelTriste);
+        this.load.image('mikelEnfadado', mikelEnfadado);
+        this.load.image('ikerNeutro', ikerNeutro);
+        this.load.image('ikerFeliz', ikerFeliz);
+        this.load.image('ikerTriste', ikerTriste);
+        this.load.image('ikerEnfadado', ikerEnfadado);
+        this.load.image('anaNeutro', anaNeutro);
+        this.load.image('anaFeliz', anaFeliz);
+        this.load.image('anaTriste', anaTriste);
+        this.load.image('anaHorny', anaHorny);
+        this.load.image('anaEnfadada', anaEnfadada);
+        this.load.image('pabloNeutro', pabloNeutro);
+        this.load.image('pabloFeliz', pabloFeliz);
+        this.load.image('pabloTriste', pabloTriste);
+        this.load.image('pabloEnfadado', pabloEnfadado);
+        this.load.image('pabloHorny', pabloHorny);
+        this.load.image('turrasNeutro', turrasNeutro);
+        this.load.image('turrasFeliz', turrasFeliz);
+        this.load.image('turrasEnfadado', turrasEnfadado);
 
         this.load.image('laliNeutro', laliNeutro);
         this.load.image('laliFeliz', laliFeliz);
@@ -253,6 +254,7 @@ export default class Boot extends Phaser.Scene {
         this.load.image('redbull', redbull);
         this.load.image('kebab', kebad);
         this.load.image('catnip', catnip);
+        this.load.image('cigarros', ciggarros);
 
         this.load.image('disc', Disc);
 
@@ -333,7 +335,7 @@ export default class Boot extends Phaser.Scene {
                 return;
             }
             sceneStarted = true;
-            this.scene.start('dungeon_1'); // 'start-menu'
+            this.scene.start('start-menu'); 
         };
 
         const hasFontLoader =

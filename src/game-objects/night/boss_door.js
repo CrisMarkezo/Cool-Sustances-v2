@@ -6,6 +6,7 @@ export default class Boss_Door extends InteractableObject {
     constructor(scene, x, y, sprite, frame) {
         super(scene, x, y, sprite, frame);
         this.interactionRadius = 50;
+        this.scene = scene;
     }
 
     configure(player, restoPuertas){
@@ -49,6 +50,13 @@ export default class Boss_Door extends InteractableObject {
 
     interact(player){
         if(player.llave_boss){
+
+            const musicaActual = this.scene.registry.get('mazmorraLooking');
+            if (musicaActual) musicaActual.stop();
+
+            const nuevaMusica = this.scene.registry.get('bossAudio');
+            if (nuevaMusica) nuevaMusica.play();
+
             this.open_door();
         }
         this.player.nearbyInteractable = null;

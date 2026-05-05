@@ -29,6 +29,8 @@ import InventoryScene from './scenes/inventory.js';
 import Comic_2 from './scenes/comic_2.js';
 import Comic_1 from './scenes/comic_1.js';
 import AudioScene from './scenes/audioScene.js';
+import MazmorraAudio from './scenes/mazmorraAudio.js';
+import BossAudio from './scenes/bossAudio.js';
 
 let config = {
     type: Phaser.AUTO,
@@ -69,7 +71,9 @@ let config = {
         Dungeon_1,
         Comic_1,
         Comic_2,
-        AudioScene
+        AudioScene,
+        MazmorraAudio,
+        BossAudio
     ],
     physics: {
         default: 'arcade',

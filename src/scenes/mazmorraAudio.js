@@ -16,5 +16,6 @@ export default class MazmorraAudio extends Phaser.Scene {
             volume: 0.5
         });
         this.music.play();
+        this.registry.set('mazmorraLooking', this.music);
     }
 }
