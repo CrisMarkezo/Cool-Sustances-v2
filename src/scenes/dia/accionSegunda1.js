@@ -22,6 +22,7 @@ export default class AccionSegunda1 extends Phaser.Scene {
         this.nextDialogHint = null;
         this.selectedOption = 0;
         this.optionBubbles = [];
+        this.character = null;
         
         // Keyboard keys
         this.keyA = null;
@@ -62,7 +63,7 @@ export default class AccionSegunda1 extends Phaser.Scene {
             color: '#ffe2f9'
         }).setOrigin(0.5)
 
-        this.add.image(690, 620, 'bin')
+
 
         this.contextoBubble = this.add.rectangle(325, 250, 500, 150, 0xE2007C)
         this.contextoBubble.setStrokeStyle(3, 0Xe76d2c)

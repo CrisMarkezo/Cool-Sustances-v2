@@ -171,21 +171,21 @@ export default class TiendaCuarta1 extends Phaser.Scene {
         this.selectedOption = 0;
         this.opcion1Bubble = this.add.rectangle(650, 500, 560, 60, 0x6969ec)
         this.opcion1Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion1 = this.add.text(650, 500, 'Comprar filtros (2€)', { 
+        this.opcion1 = this.add.text(650, 500, 'Comprar cigarros (2€)', { 
             fontFamily: '"Keneric", sans-serif',
             fontSize: '20px', 
             fill: '#ffffff' 
         }).setOrigin(0.5);
         this.opcion2Bubble = this.add.rectangle(650, 550, 560, 60, 0x6969ec)
         this.opcion2Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion2 = this.add.text(650, 550, 'Comprar litrona (1€)', { 
+        this.opcion2 = this.add.text(650, 550, 'Comprar halcon (1€)', { 
             fontFamily: '"Keneric", sans-serif',
             fontSize: '20px', 
             fill: '#ffffff'
         }).setOrigin(0.5);
         this.opcion3Bubble = this.add.rectangle(650, 600, 560, 60, 0x6969ec)
         this.opcion3Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion3 = this.add.text(650, 600, 'Dar yanotekomo (+1€)', {
+        this.opcion3 = this.add.text(650, 600, 'Dar yanotekomo', {
             fontFamily: '"Keneric", sans-serif',
             fontSize: '20px', 
             fill: '#ffffff' 
@@ -223,7 +223,8 @@ export default class TiendaCuarta1 extends Phaser.Scene {
             if (trySpendMoney(this, 2)) {
                 this.opcionElegida = true
                 this.hao.setTexture('haoFeliz')
-                this.mostrarRecompensa('¡Has comprado filtros (-2€)!')
+                inventory?.addItem({ id: 'cigarros', name: 'cigarros', texture: 'cigarros' })
+                this.mostrarRecompensa('¡Has comprado cigarros (-2€)!')
             } else {
                 this.hao.setTexture('haoEnfadado')
                 this.mostrarContexto([
@@ -238,7 +239,8 @@ export default class TiendaCuarta1 extends Phaser.Scene {
             if (trySpendMoney(this, 1)) {
                 this.opcionElegida = true
                 this.hao.setTexture('haoFeliz')
-                this.mostrarRecompensa('¡Has comprado una litrona (-1€)!')
+                inventory?.addItem({ id: 'halcon', name: 'Halcon', texture: 'halcon' })
+                this.mostrarRecompensa('¡Has comprado una halcon (-1€)!')
             } else {
                 this.hao.setTexture('haoEnfadado')
                 this.mostrarContexto([

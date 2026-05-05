@@ -63,8 +63,7 @@ let config = {
         InventoryScene,
         StartMenu,
         Settings,
-      Dungeon_01,
-      Inventory
+        Dungeon_1
     ],
     physics: {
         default: 'arcade',

@@ -71,7 +71,14 @@ import anaFeliz from '../../assets/sprites/dia/characters/anaFeliz.png'
 import anaTriste from '../../assets/sprites/dia/characters/anaTriste.png'
 import anaHorny from '../../assets/sprites/dia/characters/anaHorny.png'
 import anaEnfadada from '../../assets/sprites/dia/characters/anaEnfadada.png'
-
+import pabloNeutro from '../../assets/sprites/dia/characters/pabloNeutro.png'
+import pabloFeliz from '../../assets/sprites/dia/characters/pabloFeliz.png'
+import pabloTriste from '../../assets/sprites/dia/characters/pabloTriste.png'
+import pabloEnfadado from '../../assets/sprites/dia/characters/pabloEnfadado.png'
+import pabloHorny from '../../assets/sprites/dia/characters/pabloHorny.png'
+import turrasNeutro from '../../assets/sprites/dia/characters/turrasNeutro.png'
+import turrasFeliz from '../../assets/sprites/dia/characters/turrasFeliz.png'
+import turrasEnfadado from '../../assets/sprites/dia/characters/turrasEnfadado.png'
 
 import tiendaIcon from '../../assets/sprites/dia/tiendaIconScene.png'
 import haoNeutro from '../../assets/sprites/dia/characters/haoNeutro.png'
@@ -185,6 +192,14 @@ export default class Boot extends Phaser.Scene {
     this.load.image('anaTriste', anaTriste);
     this.load.image('anaHorny', anaHorny);
     this.load.image('anaEnfadada', anaEnfadada);
+    this.load.image('pabloNeutro', pabloNeutro);
+    this.load.image('pabloFeliz', pabloFeliz);
+    this.load.image('pabloTriste', pabloTriste);
+    this.load.image('pabloEnfadado', pabloEnfadado);
+    this.load.image('pabloHorny', pabloHorny);
+    this.load.image('turrasNeutro', turrasNeutro);
+    this.load.image('turrasFeliz', turrasFeliz);
+    this.load.image('turrasEnfadado', turrasEnfadado);
 
 
     this.load.image('Muebles4', TopDownHouse_FurnitureState1);

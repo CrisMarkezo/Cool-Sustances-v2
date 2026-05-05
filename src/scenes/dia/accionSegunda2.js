@@ -22,6 +22,7 @@ export default class AccionSegunda2 extends Phaser.Scene {
         this.nextDialogHint = null;
         this.selectedOption = 0;
         this.optionBubbles = [];
+        this.character = null;
         
         // Keyboard keys
         this.keyA = null;
@@ -48,6 +49,7 @@ export default class AccionSegunda2 extends Phaser.Scene {
         const inventoryBtn = InventorySprite.create(this, 50, 60)
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'accion', 1200)
+        this.character = this.add.image(700, 500, 'pabloNeutro').setScale(1.2);
         
         const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);
 
@@ -116,6 +118,7 @@ export default class AccionSegunda2 extends Phaser.Scene {
     }
 
     mostrarOpciones() {
+        this.character.setTexture("pabloEnfadado")
         this.contexto.destroy()
         this.contextoBubble.destroy()
         if (this.nextDialogHint) {
@@ -167,6 +170,7 @@ export default class AccionSegunda2 extends Phaser.Scene {
     }
 
     confirmarSeleccion() {
+        this.character.setTexture("pabloFeliz")
         if (this.selectedOption === 0) {
             this.opcionElegida = true
             this.mostrarRecompensa('¡Has conseguido +1€!')
