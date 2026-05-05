@@ -27,8 +27,8 @@ export default class Monster extends GameEntity {
         // --- ESTADOS Y VIDA ---
         this.canBeHit = true;
         this.hitCooldown = 500;
-        this.maxHealth = 100;
-        this.health = 100;
+        this.maxHealth = 200;
+        this.health = 200;
         this.isDead = false; 
 
         this.healthBar = scene.add.graphics();
@@ -181,7 +181,7 @@ export default class Monster extends GameEntity {
     receiveHit(from) {
         if (this.isDead || !this.canBeHit || this.health <= 0) return;
         this.canBeHit = false;
-        this.health -= 5; 
+        this.health -= from.damage / 2; 
         this.setTint(0xff0000);
         this.scene.time.delayedCall(100, () => { if(!this.isDead) this.clearTint(); });
         

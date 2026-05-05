@@ -35,8 +35,8 @@ export default class Monster extends GameEntity {
 
         this.body.setDrag(200);
 
-        this.maxHealth = 30;
-        this.health = 30;
+        this.maxHealth = 60;
+        this.health = 60;
 
         this.healthBar = scene.add.graphics();
     }
@@ -117,7 +117,7 @@ export default class Monster extends GameEntity {
 
         this.canBeHit = false;
         this.isKnocked = true;
-        this.health -= 10;
+        this.health -= from.damage;
 
         if (this.health <= 0) {
             this.die();

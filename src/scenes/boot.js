@@ -113,6 +113,7 @@ import halcon from '../../assets/sprites/objetos/halcon.png';
 import vaper from '../../assets/sprites/objetos/vaper.png';
 import redbull from '../../assets/sprites/objetos/monster.png';
 import kebad from '../../assets/sprites/objetos/kebab.png';
+import catnip from '../../assets/sprites/objetos/catnip.png';
 
 import Llave_Boss from '../../assets/dungeon/llave_boss.png';
 
@@ -214,6 +215,7 @@ export default class Boot extends Phaser.Scene {
         this.load.image('vaper', vaper);
         this.load.image('redbull', redbull);
         this.load.image('kebab', kebad);
+        this.load.image('catnip', catnip);
 
         this.load.image('disc', Disc);
 
@@ -294,7 +296,7 @@ export default class Boot extends Phaser.Scene {
                 return;
             }
             sceneStarted = true;
-            this.scene.start('phone'); // 'start-menu'
+            this.scene.start('dungeon_1'); // 'start-menu'
         };
 
         const hasFontLoader =

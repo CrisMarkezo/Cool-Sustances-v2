@@ -1320,7 +1320,7 @@
                         {
                          "name":"tipo",
                          "type":"string",
-                         "value":"speed"
+                         "value":"damage"
                         }],
                  "rotation":0,
                  "type":"",

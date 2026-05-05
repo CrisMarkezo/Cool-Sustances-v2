@@ -281,6 +281,11 @@ export default class Player extends GameEntity {
         });
     }
 
+    revive(){
+        this.health = 100;
+        this.savePlayerData();
+    }
+
     savePlayerData() {
         // Creamos un objeto solo con la información que nos importa
         const playerData = {

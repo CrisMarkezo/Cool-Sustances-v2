@@ -326,6 +326,15 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         if (this.boss && this.boss.active) {
             this.boss.update(this.player);
         }
+
+        if (this.boss && this.boss.health <= 0) {
+            this.scene.start('start-menu');
+        }
+
+        if (this.player && this.player.health <= 0) {
+            this.scene.restart();
+            this.player.revive();
+        }
     }
 
 
