@@ -71,6 +71,7 @@ export default class Chest extends InteractableObject {
         switch (this.tipo) {
             case 'health':
                 this.objeto = new Kebab(this.scene, this.x, this.y - 10);
+                this.objeto.setScale(0.025);
                 break;
             case 'speed':
                 this.objeto = new Redbull(this.scene, this.x, this.y - 10);

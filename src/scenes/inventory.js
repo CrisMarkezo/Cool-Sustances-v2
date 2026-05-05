@@ -6,6 +6,7 @@ export default class Inventory extends Phaser.Scene {
         super('inventory');
         this.inventoryItems = null;
         this.inventorySlots = null;
+        this.keyEscape = null;
     }
 
     create(){
@@ -18,12 +19,13 @@ export default class Inventory extends Phaser.Scene {
 
             this.keyEscape = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
-        const overlay = this.add.rectangle(500, 350, 1000, 700, 0x000000, 0.35)
-            .setInteractive()
-            .setDepth(1000);
+            const overlay = this.add
+                .rectangle(500, 350, 1000, 700, 0x000000, 0.35)
+                .setInteractive();
+            overlay.setDepth(1000);
 
-        const panel = this.add.image(500, 350, 'inventario')
-            .setDepth(1001);
+            const panel = this.add.image(500, 350, 'inventario');
+            panel.setDepth(1001);
 
             const formatNum = (value) => Number(Number(value || 0).toFixed(2));
             const statsText = 
@@ -48,75 +50,82 @@ export default class Inventory extends Phaser.Scene {
                 strokeThickness: 4
             }).setOrigin(0.5).setDepth(1004);
 
-        this.inventorySlots = this.add.group();
-        this.inventoryItems = this.add.group();
+            this.inventorySlots = this.add.group();
+            this.inventoryItems = this.add.group();
 
-        const slots = [
-            { x: -120, y: -135 },
-            { x: 120, y: -135 },
-            { x: -170, y: -20 },
-            { x: 170, y: -20 }
-        ];
+            const slotLayout = [
+                { x: -120, y: -135 },
+                { x: 120, y: -135 },
+                { x: -170, y: -20 },
+                { x: 170, y: -20 },
+            ];
 
-        const items = sourceInventory
-            ? sourceInventory.getFlatItems()
-            : [];
+            const inventoryObjects = sourceInventory
+                ? sourceInventory.getFlatItems()
+                : [];
 
-        slots.forEach((s, i) => {
+            const visibleSlots = sourceInventory && typeof sourceInventory.getCapacity === 'function'
+                ? slotLayout.slice(0, sourceInventory.getCapacity())
+                : slotLayout;
 
-            const x = panel.x + s.x;
-            const y = panel.y + s.y;
+            visibleSlots.forEach((slot, index) => {
+                const slotX = panel.x + slot.x;
+                const slotY = panel.y + slot.y;
+                const slotMarker = this.add.ellipse(slotX, slotY, 86, 86, 0x2b1a12, 0.18)
+                    .setStrokeStyle(2, 0xf2c58a, 0.4)
+                    .setDepth(1002);
+                this.inventorySlots.add(slotMarker);
+                const item = inventoryObjects[index];
 
-            this.add.ellipse(x, y, 86, 86, 0x2b1a12, 0.18)
-                .setStrokeStyle(2, 0xf2c58a, 0.4)
-                .setDepth(1002);
+                if (!item) 
+                    return;
 
-            const item = items[i];
-            if (!item) return;
+                const textureKey = typeof item.texture === 'string'
+                    ? item.texture
+                    : item.texture?.key;
 
-            const key = typeof item.texture === 'string'
-                ? item.texture
-                : item.texture?.key;
+                if (!textureKey) {
+                    return;
+                }
 
-            if (!key) return;
+                const icon = this.add.image(slotX, slotY, textureKey)
+                    .setDisplaySize(56, 56)
+                    .setScrollFactor(0)
+                    .setDepth(1003);
+                this.inventoryItems.add(icon);
+            });
 
-            this.add.image(x, y, key)
-                .setDisplaySize(56, 56)
-                .setDepth(1003);
-        });
+            const closeInventory = () => {
+                if (sourceSceneKey && this.scene.isPaused(sourceSceneKey)) {
+                    this.scene.resume(sourceSceneKey);
+                }
+                this.scene.stop();
+            };
 
-        const closeInventory = () => {
+            overlay.on('pointerdown', (pointer) => {
+                const bounds = panel.getBounds();
+                const clickedInsidePanel = Phaser.Geom.Rectangle.Contains(bounds, pointer.x, pointer.y);
+                if (!clickedInsidePanel) {
+                    closeInventory();
+                }
+            });
 
-            if (sourceSceneKey) {
-                this.scene.resume(sourceSceneKey);
-            }
+            this.keyEscape?.on('down', closeInventory);
 
-            this.scene.stop();
-        };
 
-        overlay.on('pointerdown', (pointer) => {
 
-            const bounds = panel.getBounds();
+            // this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+            //     this.keyEscape?.off('down', closeInventory);
+            //     this.inventoryItems?.clear(true, true);
+            //     this.inventorySlots?.clear(true, true);
+            // });
 
-            const inside = Phaser.Geom.Rectangle.Contains(
-                bounds,
-                pointer.x,
-                pointer.y
-            );
-
-            if (!inside) closeInventory();
-        });
-
-        // Daba problemas
-        // this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-        //     this.keyEscape?.off('down', closeInventory);
-        //     this.inventoryItems?.clear(true, true);
-        //     this.inventorySlots?.clear(true, true);
-        // });
         } catch (err) {
             console.error('❌ Error in Inventory.create():', err);
             console.error('Stack:', err.stack);
             throw err;
         }
+
     }
+
 }

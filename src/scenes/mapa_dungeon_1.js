@@ -167,8 +167,14 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         const startY = map.heightInPixels / 2;
 
         this.player = new Player(this, startX-265, startY+1220);
+        this.player.speed = 200;
+
+        this.gameOverImage = this.add.image(this.player.x, this.player.y, 'gameover');
+        this.gameOverImage.setDepth(99999);
+        this.gameOverImage.setVisible(false);
+        this.gameOverImage.setScale(0.23);
         
-        //
+        // Enemigos
         this.monsters = [];
         this.monsters.push(new Monster(this, startX - 270, startY + 1040));
         this.monsters.push(new Monster(this, startX - 350, startY + 1050));
@@ -211,9 +217,6 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         this.monsters.push(new Monster(this, startX-350, startY-700));
         this.monsters.push(new Monster(this, startX-350, startY-400));
         this.monsters.push(new Monster(this, startX-350, startY+50));
-
-
-
         
         this.monsters.forEach(monster => {
         this.physics.add.collider(monster, colisiones_layer);
@@ -235,15 +238,7 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         this.physics.add.collider(this.boss, colisiones_layer);
         this.physics.add.collider(this.boss, paredes_layer);
         this.physics.add.overlap(this.player, this.boss, this.handlePlayerMonsterContact, null, this);
-        this.physics.add.overlap(this.player.attackHitbox, this.boss, this.hitMonster, null, this);
-        
-            
-
-
-
-
-        this.player.speed = 200;
-       
+        this.physics.add.overlap(this.player.attackHitbox, this.boss, this.hitMonster, null, this);   
 
         this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -255,8 +250,6 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         this.physics.add.collider(this.player, colisiones_layer);
         this.physics.add.collider(this.player, paredes_layer);
         this.physics.add.collider(this.player, vacio_layer);
-
-        
 
         this.anims.create({
             key: 'chest_idle_anim',
@@ -314,16 +307,26 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         this.createPuertaAlmacen(map);
     }
 
-   update() {
-    if (this.monsters) {
-        this.monsters.forEach(monster => {
-            monster.update(this.player);
-        });
+    update() {
+        const cam = this.cameras.main;
+        if (!this.isGameOver && this.player.health <= 0) {
+            this.triggerGameOver();
+        }
+
+        if (this.isGameOver) {
+            this.gameOverImage.setPosition(cam.worldView.centerX, cam.worldView.centerY);
+            return;
+        }
+
+        if (this.monsters) {
+            this.monsters.forEach(monster => {
+                monster.update(this.player);
+            });
+        }
+        if (this.boss && this.boss.active) {
+            this.boss.update(this.player);
+        }
     }
-    if (this.boss && this.boss.active) {
-        this.boss.update(this.player);
-    }
-}
 
 
     createChest(map){
@@ -396,9 +399,21 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
     }
 
     hitMonster(hitbox, monster) {
-    if (this.player.isAttacking && monster.canBeHit && hitbox.body.enable) {
-        monster.receiveHit(this.player);
-        hitbox.body.enable = false;
+        if (this.player.isAttacking && monster.canBeHit && hitbox.body.enable) {
+            monster.receiveHit(this.player);
+            hitbox.body.enable = false;
+        }
     }
-}
+
+    triggerGameOver() {
+        this.isGameOver = true;
+        this.physics.pause();
+        this.player.body.setVelocity(0, 0);
+        this.gameOverImage.setVisible(true);
+        this.gameOverImage.setPosition(
+            this.cameras.main.worldView.centerX,
+            this.cameras.main.worldView.centerY
+        );
+
+    }
 }

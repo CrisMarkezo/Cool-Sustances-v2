@@ -5,6 +5,7 @@ import Phone from '../Phone.js';
 import Monster from '../game-objects/night/monster.js';
 import PowerUp from '../game-objects/powerups/powerup.js';
 import Boss from '../game-objects/night/boss.js';
+import Kebab from '../game-objects/powerups/kebab.js';
 
 export default class Level extends Phaser.Scene {
     constructor() {
