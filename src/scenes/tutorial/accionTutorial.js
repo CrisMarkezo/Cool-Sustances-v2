@@ -144,17 +144,11 @@ export default class AccionTutorial extends Phaser.Scene {
             this.scene.bringToTop('settings');
         }
         if (Phaser.Input.Keyboard.JustDown(this.keyQ)){
-            console.log('🔵 Q pressed - attempting to open inventory');
             try {
-                console.log('🔵 Pausing accionTutorial...');
                 this.scene.pause()
-                console.log('🔵 Launching inventory scene...');
                 this.scene.launch('inventory', { from: this.scene.key })
-                console.log('🔵 Bringing inventory to top...');
                 this.scene.bringToTop('inventory')
-                console.log('✅ Inventory opened successfully');
             } catch (err) {
-                console.error('❌ Error opening inventory:', err);
                 console.error('Stack:', err.stack);
                 // Try to resume if there was an error
                 try {
@@ -240,7 +234,6 @@ export default class AccionTutorial extends Phaser.Scene {
         if (this.selectedOption === 0) {
             this.opcionElegida = true
             addMoney(this, 2)
-            inventory?.addItem({ id: 'moneda', name: 'Moneda', texture: 'star' })
             this.mostrarRecompensa('¡Has conseguido 2€!')
             return
         }

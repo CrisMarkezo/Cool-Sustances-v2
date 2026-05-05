@@ -22,6 +22,7 @@ export default class AccionSegunda2 extends Phaser.Scene {
         this.nextDialogHint = null;
         this.selectedOption = 0;
         this.optionBubbles = [];
+        this.character = null;
         
         // Keyboard keys
         this.keyA = null;
@@ -48,6 +49,7 @@ export default class AccionSegunda2 extends Phaser.Scene {
         const inventoryBtn = InventorySprite.create(this, 50, 60)
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'accion', 1200)
+        this.character = this.add.image(700, 500, 'pabloNeutro').setScale(1.2);
         
         const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);
 
@@ -68,7 +70,7 @@ export default class AccionSegunda2 extends Phaser.Scene {
         this.contextoBubble.setStrokeStyle(3, 0Xe76d2c)
         this.contexto = dialogTextSprite.create(this, 325, 250, [
             'Dos personas se alejan de la mesa, una de ellas huele un poco afrutado, le sigues. Mientras camina se le cae algo del bolsillo, es una moneda de 1 euro.',
-            ' Al mismo tiempo hueles algo delicioso alrededor. ¿Qué haces?'
+            'Al mismo tiempo hueles algo delicioso alrededor. ¿Qué haces?'
         ], {
             fontFamily: '"Toonway", sans-serif',
             fontSize: '20px', 
@@ -116,6 +118,7 @@ export default class AccionSegunda2 extends Phaser.Scene {
     }
 
     mostrarOpciones() {
+        this.character.setTexture("pabloEnfadado")
         this.contexto.destroy()
         this.contextoBubble.destroy()
         if (this.nextDialogHint) {
@@ -167,13 +170,15 @@ export default class AccionSegunda2 extends Phaser.Scene {
     }
 
     confirmarSeleccion() {
+        this.character.setTexture("pabloFeliz")
         if (this.selectedOption === 0) {
             this.opcionElegida = true
+            addMoney(this, 1)
             this.mostrarRecompensa('¡Has conseguido +1€!')
             return
         }
         this.opcionElegida = true
-        
+        inventory?.addItem({ id: 'yanotekomo', name: 'yanotekomo', texture: 'yanotekomo' })
         this.mostrarRecompensa('¡Has conseguido 1 yanotekomo!')
     }
 

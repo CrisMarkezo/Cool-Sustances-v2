@@ -41,11 +41,15 @@ export default class Inventory {
     }
 
     // Elimina el item en una posición concreta (fila, col)
-    removeAt(row, col) {
-        if (row >= 0 && row < this.rows && col >= 0 && col < this.cols) {
-            const prev = this.slots[row][col];
-            this.slots[row][col] = null;
-            return prev;
+    removeItem(name) {
+        for (let i = 0; i < this.rows; i++) {
+            for (let j = 0; j < this.cols; j++) {
+                if (this.slots[i][j] && this.slots[i][j].name === name) {
+                    const prev = this.slots[i][j];
+                    this.slots[i][j] = null;
+                    return prev;
+                }
+            }
         }
         return null;
     }
