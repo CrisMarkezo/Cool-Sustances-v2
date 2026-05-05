@@ -8,6 +8,12 @@ export default class Vaper extends PowerUp {
 
     applyEffect(player) {
         player.damage += this.parameter;
+       
+        // Actualizamos la data del jugador
+        const sourceData = this.scene.registry.get('playerData');
+        sourceData.damage = player.damage;
+        this.scene.registry.set('playerData', sourceData); 
+
         this.destroy();
     }
 }

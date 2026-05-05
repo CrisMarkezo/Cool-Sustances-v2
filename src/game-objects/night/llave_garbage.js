@@ -37,9 +37,9 @@ export default class Llave_Garbage extends InteractableObject {
 
         // Falta probar que se añada al inventario
         const added = player.inventory.addItem({
-            id: 'llave_garbage',
+            id: 'llave_basurero',
             name: 'Llave',
-            texture: 'llave_garbage',
+            texture: 'llave_basurero',
             frame: 0
         });
 

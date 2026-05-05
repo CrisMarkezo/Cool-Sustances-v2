@@ -18,28 +18,34 @@ export default class Player extends GameEntity {
         this.body.setOffset(this.width / 2 - 6, this.height / 2 - 4);
         this.body.setMaxVelocity(400, 400);
 
-        //Llaves
-        this.llave_almacen = false;
-        this.llave_balcon = false;
-        this.llave_basura = false;
-        this.llave_boss = false;
+        // Atributos y llaves guardadas
+        const savedData = scene.registry.get('playerData');
 
         // --- ATRIBUTOS ---
-        this.speed = 100;
-        this.damage = 20;
+        this.maxHealth = savedData ? savedData.maxHealth : 100;
+        this.health = savedData ? savedData.health : 100;
+        this.speed = savedData ? savedData.speed : 100;
+        this.damage = savedData ? savedData.damage : 20;
+        this.attackCooldown = savedData ? savedData.attackCooldown : 300;
+        
+        this.invincibilityDuration = 1500;
+        this.damageKnockbackForce = 180;
+
+        //Llaves
+        this.llave_almacen = savedData ? savedData.llaves.almacen : false;
+        this.llave_balcon = savedData ? savedData.llaves.balcon : false;
+        this.llave_basura = savedData ? savedData.llaves.basura : false;
+        this.llave_boss = savedData ? savedData.llaves.boss : false;
+
+        // Si es la primera vez que lo creamos guardamos sus valores
+        if(!savedData) this.savePlayerData();
+
         this.isAttacking = false;
         this.isGrabbing = false;
         this.isInvincible = false;
         this.isKnocked = false;
         this.isPushing = false;
-        this.invincibilityDuration = 1500;
-        this.damageKnockbackForce = 180;
-
         this.canAttack = true;
-        this.attackCooldown = 300;
-
-        this.maxHealth = 100;
-        this.health = 100;
 
         // --- CONTROLES ---
         this.cursors = scene.input.keyboard.createCursorKeys();
@@ -51,9 +57,16 @@ export default class Player extends GameEntity {
         });
         this.space = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.keyE = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+        this.keyQ = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
 
         this.inventory = scene.registry.get('inventory') || new Inventory(3, 3);
         scene.registry.set('inventory', this.inventory);
+        scene.registry.set('health', this.health);
+        scene.registry.set('damage', this.damage);
+        scene.registry.set('speed', this.speed);
+        scene.registry.set('attack_speed', 300 / this.attackCooldown);
+        scene.registry.set('player', this);
+
         this.nearbyInteractable = null;
 
         // --- ATAQUE ---
@@ -99,6 +112,13 @@ export default class Player extends GameEntity {
 
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
+
+        // Logica del inventario
+        if (Phaser.Input.Keyboard.JustDown(this.keyQ)){
+            this.scene.scene.pause(); // Se puede quitar si quisierasmos
+            this.scene.scene.launch('inventory', { from: this.scene.scene.key });
+            this.scene.scene.bringToTop('inventory');
+        }
 
         const cam = this.scene.cameras.main;
         var velocidadActual = this.speed;
@@ -213,12 +233,14 @@ export default class Player extends GameEntity {
         }
 
         this.isPushing = false;
+        this.savePlayerData();
     }
 
     takeDamage(source) {
         if (this.isInvincible || this.health <= 0) return;
 
         this.health -= 20;
+        this.scene.registry.set('health', this.health); // Actualizamos la vida actual 
 
         if (this.health <= 0) {
             this.health = 0;
@@ -257,5 +279,25 @@ export default class Player extends GameEntity {
                 this.isInvincible = false;
             }
         });
+    }
+
+    savePlayerData() {
+        // Creamos un objeto solo con la información que nos importa
+        const playerData = {
+            health: this.health,
+            maxHealth: this.maxHealth,
+            damage: this.damage,
+            speed: this.speed,
+            attackCooldown: this.attackCooldown,
+            llaves: {
+                almacen: this.llave_almacen,
+                balcon: this.llave_balcon,
+                basura: this.llave_basura,
+                boss: this.llave_boss
+            }
+        };
+
+        // Guardamos objeto
+        this.scene.registry.set('playerData', playerData);
     }
 }

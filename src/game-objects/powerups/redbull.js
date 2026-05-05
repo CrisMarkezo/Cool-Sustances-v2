@@ -8,6 +8,12 @@ export default class Redbull extends PowerUp {
 
     applyEffect(player) {
         player.speed += this.parameter;
+        
+        // Actualizamos la data del jugador
+        const sourceData = this.scene.registry.get('playerData');
+        sourceData.speed = player.speed;
+        this.scene.registry.set('playerData', sourceData); 
+
         this.destroy();
     }
 }

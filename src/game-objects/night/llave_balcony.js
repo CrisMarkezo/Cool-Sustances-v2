@@ -37,9 +37,9 @@ export default class Llave_Balcony extends InteractableObject {
 
         // Falta probar que se añada al inventario
         const added = player.inventory.addItem({
-            id: 'llave_balcony',
+            id: 'llave_balcon',
             name: 'Llave',
-            texture: 'llave_balcony',
+            texture: 'llave_balcon',
             frame: 0
         });
 

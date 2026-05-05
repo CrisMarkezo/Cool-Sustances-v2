@@ -3,16 +3,20 @@ import Phaser from 'phaser';
 export default class Inventory extends Phaser.Scene {
 
     constructor() {
-        super('Inventory');
-
+        super('inventory');
         this.inventoryItems = null;
         this.inventorySlots = null;
     }
 
     create(){
+        try {
+            const sourceSceneKey = this.scene.settings.data?.from;
+            const sourceInventory = this.registry.get('inventory');
 
-        const sourceSceneKey = this.scene.settings.data?.from;
-        const sourceInventory = this.registry.get('inventory');
+            // Informacion global del jugador
+            const sourceData = this.registry.get('playerData');
+
+            this.keyEscape = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
         const overlay = this.add.rectangle(500, 350, 1000, 700, 0x000000, 0.35)
             .setInteractive()
@@ -21,13 +25,28 @@ export default class Inventory extends Phaser.Scene {
         const panel = this.add.image(500, 350, 'inventario')
             .setDepth(1001);
 
-        this.add.text(500, 635, 'ESC para salir', {
-            fontFamily: '"Toonway", sans-serif',
-            fontSize: '22px',
-            color: '#fff',
-            stroke: '#000',
-            strokeThickness: 4
-        }).setOrigin(0.5).setDepth(1004);
+            const formatNum = (value) => Number(Number(value || 0).toFixed(2));
+            const statsText = 
+                `${formatNum(sourceData.speed)}\n` +
+                `${formatNum(sourceData.damage)}\n` +
+                `${formatNum(300/sourceData.attackCooldown)}\n` +
+                `${formatNum(sourceData.health)}`;
+
+            this.add.text(550, 410, statsText, {
+                fontFamily: '"Toonway", sans-serif',
+                fontSize: '18px',
+                color: '#ffffff',
+                stroke: '#000000',
+                strokeThickness: 4
+            }).setOrigin(0.5).setDepth(1004);
+
+            this.add.text(500, 635, 'Presiona ESC para salir', {
+                fontFamily: '"Toonway", sans-serif',
+                fontSize: '22px',
+                color: '#ffffff',
+                stroke: '#000000',
+                strokeThickness: 4
+            }).setOrigin(0.5).setDepth(1004);
 
         this.inventorySlots = this.add.group();
         this.inventoryItems = this.add.group();
@@ -88,10 +107,16 @@ export default class Inventory extends Phaser.Scene {
             if (!inside) closeInventory();
         });
 
-        this.input.keyboard.on('keydown-ESC', closeInventory);
-
-        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-            this.input.keyboard.off('keydown-ESC', closeInventory);
-        });
+        // Daba problemas
+        // this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+        //     this.keyEscape?.off('down', closeInventory);
+        //     this.inventoryItems?.clear(true, true);
+        //     this.inventorySlots?.clear(true, true);
+        // });
+        } catch (err) {
+            console.error('❌ Error in Inventory.create():', err);
+            console.error('Stack:', err.stack);
+            throw err;
+        }
     }
 }

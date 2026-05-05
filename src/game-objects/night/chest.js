@@ -74,6 +74,7 @@ export default class Chest extends InteractableObject {
                 break;
             case 'speed':
                 this.objeto = new Redbull(this.scene, this.x, this.y - 10);
+                this.objeto.setScale(0.05);
                 break;
             case 'damage':
                 this.objeto = new Vaper(this.scene, this.x, this.y - 10);

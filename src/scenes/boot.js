@@ -111,8 +111,9 @@ import star from '../../assets/sprites/star.png';
 import yanotekomo from '../../assets/sprites/objetos/yanotekomo.png';
 import halcon from '../../assets/sprites/objetos/halcon.png';
 import vaper from '../../assets/sprites/objetos/vaper.png';
+import redbull from '../../assets/sprites/objetos/monster.png';
 
-import menuTheme from '../../assets/sound/mainTheme.mp4';
+import Llave_Boss from '../../assets/dungeon/llave_boss.png';
 
 export default class Boot extends Phaser.Scene {
     constructor() {
@@ -122,6 +123,9 @@ export default class Boot extends Phaser.Scene {
     preload() {
         // Con setPath podemos establecer el prefijo que se añadirá a todos los load que aparecen a continuación
         //this.load.setPath('assets/sprites/');
+
+        this.load.image('llave_boss', Llave_Boss);
+
         this.load.image('dia', dia)
         this.load.image('tienda_dia', tiendaDia)
 
@@ -210,11 +214,9 @@ export default class Boot extends Phaser.Scene {
         this.load.image('yanotekomo', yanotekomo);
         this.load.image('halcon', halcon);
         this.load.image('vaper', vaper);
+        this.load.image('redbull', redbull);
 
         this.load.image('disc', Disc);
-
-        this.load.audio('menuTheme', menuTheme);
-
 
         this.load.spritesheet('bossPhase', BossPhaseImg, {
             frameWidth: 32,
@@ -293,7 +295,7 @@ export default class Boot extends Phaser.Scene {
                 return;
             }
             sceneStarted = true;
-            this.scene.start('start-menu');
+            this.scene.start('dungeon_1'); // 'start-menu'
         };
 
         const hasFontLoader =

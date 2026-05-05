@@ -8,6 +8,12 @@ export default class Kebab extends PowerUp {
 
     applyEffect(player) {
         player.health = Math.min(player.health + this.parameter, player.maxHealth);
+       
+        // Actualizamos la data del jugador
+        const sourceData = this.scene.registry.get('playerData');
+        sourceData.health = player.health;
+        this.scene.registry.set('playerData', sourceData); 
+
         this.destroy();
     }
 }

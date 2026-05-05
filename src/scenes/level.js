@@ -34,21 +34,13 @@ export default class Level extends Phaser.Scene {
         this.player = new Player(this, startX, startY);
         this.rascador = new Scratcher(this, startX + 210, startY);
 
-        
-
         this.interactables = this.physics.add.group();
-        
 
         this.physics.add.collider(this.player, this.colisiones);
-        
-
-        
-
+    
         this.physics.add.overlap(this.player.attackHitbox, this.rascador.hurtbox, () => {
             this.hitRascador(this.player.attackHitbox, this.rascador);
         }, null, this);
-
-        
 
         this.physics.add.overlap(
             this.player,
