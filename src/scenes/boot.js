@@ -67,7 +67,14 @@ import anaFeliz from '../../assets/sprites/dia/characters/anaFeliz.png'
 import anaTriste from '../../assets/sprites/dia/characters/anaTriste.png'
 import anaHorny from '../../assets/sprites/dia/characters/anaHorny.png'
 import anaEnfadada from '../../assets/sprites/dia/characters/anaEnfadada.png'
-
+import pabloNeutro from '../../assets/sprites/dia/characters/pabloNeutro.png'
+import pabloFeliz from '../../assets/sprites/dia/characters/pabloFeliz.png'
+import pabloTriste from '../../assets/sprites/dia/characters/pabloTriste.png'
+import pabloEnfadado from '../../assets/sprites/dia/characters/pabloEnfadado.png'
+import pabloHorny from '../../assets/sprites/dia/characters/pabloHorny.png'
+import turrasNeutro from '../../assets/sprites/dia/characters/turrasNeutro.png'
+import turrasFeliz from '../../assets/sprites/dia/characters/turrasFeliz.png'
+import turrasEnfadado from '../../assets/sprites/dia/characters/turrasEnfadado.png'
 
 import tiendaIcon from '../../assets/sprites/dia/tiendaIconScene.png'
 import haoNeutro from '../../assets/sprites/dia/characters/haoNeutro.png'
@@ -168,7 +175,37 @@ export default class Boot extends Phaser.Scene {
         this.load.image('dialogoIcon2', dialogoIcon2);
         this.load.image('dialogoIcon3', dialogoIcon3);
 
-        this.load.image('tiendaIcon', tiendaIcon);
+    this.load.image('tiendaIcon', tiendaIcon);
+    this.load.image('laliNeutro', laliNeutro);
+    this.load.image('laliFeliz', laliFeliz);
+    this.load.image('laliTriste', laliTriste);
+    this.load.image('laliEnfadada', laliEnfadada);
+    this.load.image('haoNeutro', haoNeutro);
+    this.load.image('haoFeliz', haoFeliz);
+    this.load.image('haoTriste', haoTriste);
+    this.load.image('haoEnfadado', haoEnfadado);
+    this.load.image('haoHorny', haoHorny);
+    this.load.image('mikelNeutro', mikelNeutro);
+    this.load.image('mikelFeliz', mikelFeliz);
+    this.load.image('mikelTriste', mikelTriste);
+    this.load.image('mikelEnfadado', mikelEnfadado);
+    this.load.image('ikerNeutro', ikerNeutro);
+    this.load.image('ikerFeliz', ikerFeliz);
+    this.load.image('ikerTriste', ikerTriste);
+    this.load.image('ikerEnfadado', ikerEnfadado);
+    this.load.image('anaNeutro', anaNeutro);
+    this.load.image('anaFeliz', anaFeliz);
+    this.load.image('anaTriste', anaTriste);
+    this.load.image('anaHorny', anaHorny);
+    this.load.image('anaEnfadada', anaEnfadada);
+    this.load.image('pabloNeutro', pabloNeutro);
+    this.load.image('pabloFeliz', pabloFeliz);
+    this.load.image('pabloTriste', pabloTriste);
+    this.load.image('pabloEnfadado', pabloEnfadado);
+    this.load.image('pabloHorny', pabloHorny);
+    this.load.image('turrasNeutro', turrasNeutro);
+    this.load.image('turrasFeliz', turrasFeliz);
+    this.load.image('turrasEnfadado', turrasEnfadado);
 
         this.load.image('laliNeutro', laliNeutro);
         this.load.image('laliFeliz', laliFeliz);

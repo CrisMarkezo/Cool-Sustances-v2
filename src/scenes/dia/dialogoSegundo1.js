@@ -4,6 +4,7 @@ import RuedaSprite from '../../game-objects/ruedaSprite.js'
 import dialogTextSprite from '../../game-objects/dialogTextSprite.js';
 import nextDialogSprite from '../../game-objects/nextDialogSprite.js';
 import IconSprite from '../../game-objects/iconSprite.js'
+import { addMoney } from '../../utils/money.js';
 
 export default class DialogoSegundo1 extends Phaser.Scene {
     constructor(){
@@ -65,7 +66,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
             color: '#ffe2f9'
         }).setOrigin(0.5)
         //this.add.image(200, 500, 'cubatita');
-        this.character = this.add.image(700, 500, 'laliNeutro').setScale(1.2);
+        this.character = this.add.image(700, 500, 'turrasNeutro').setScale(0.95);
 
         //Buttons
         const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);
@@ -199,7 +200,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
             this.opcion1Bubble.destroy()
             this.opcion2Bubble.destroy()
             this.optionBubbles = []
-            this.character.setTexture('laliEnfadada').setScale(1.2)
+            this.character.setTexture('turrasEnfadado').setScale(1.2)
             this.pico = this.add.triangle(480, 500, 0, 0, 50, 0, 25, 0, 0xdaff8f)
             this.pico.setStrokeStyle(4, 0x000000)
             this.respuestaBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
@@ -211,6 +212,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
                 wordWrap: { width: 280 },
                 align: 'center'
             })
+            addMoney(this, 1)
             this.respuesta.once('complete', () => {
                 this.contextComplete = true;
                 this.nextDialogHint = nextDialogSprite.create(this, 400, 320)
@@ -224,12 +226,12 @@ export default class DialogoSegundo1 extends Phaser.Scene {
         this.opcion1Bubble.destroy()
         this.opcion2Bubble.destroy()
         this.optionBubbles = []
-        this.character.setTexture('laliFeliz').setScale(1.2)
+        this.character.setTexture('turrasFeliz').setScale(1.2)
         this.pico = this.add.triangle(480, 500, 0, 0, 50, 0, 25, 0, 0xdaff8f)
         this.pico.setStrokeStyle(4, 0x000000)
         this.respuestaBubble = this.add.ellipse(400, 300, 500, 300, 0xdaff8f)
         this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
-        this.respuesta = dialogTextSprite.create(this, 400, 300, ['Seguro que le caerias bien a Iker un tío que fuma una cosa que huele MUY bien en techito... a bueno que digo seguro que a mi novia Albani te intentaría raptar de lo mono que eres... es una chica que siempre esta bebiendo vodka. '], {
+        this.respuesta = dialogTextSprite.create(this, 400, 300, ['Seguro que le caerias bien a Iker un tío que fuma una cosa que huele MUY bien en techito... a bueno que digo seguro que a mi novia Albani te intentaría raptar de lo mono que eres... es una chica que siempre esta bebiendo. '], {
             fontFamily: '"Toonway", monospace',
             fontSize: '28px',
             color: '#000000',
@@ -260,7 +262,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
                 wordWrap: { width: 280 },
                 align: 'center'
             }).setOrigin(0.5)
-            this.character.setTexture('laliTriste').setScale(0.95)
+            this.character.setTexture('turrasFeliz').setScale(0.95)
             this.pico = this.add.triangle(480, 400, 0, 0, 50, 0, 25, 0, 0xdaff8f)
             this.pico.setStrokeStyle(4, 0x000000)
             const dialogoFinalBubble = this.add.ellipse(400, 300, 320, 150, 0xdaff8f)

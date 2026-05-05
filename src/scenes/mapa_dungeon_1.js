@@ -51,7 +51,7 @@ import Warehouse_Door from '../game-objects/night/warehouse_door.js';
 
 export default class mapa_dungeon_1 extends Phaser.Scene {
     constructor() {
-        super({ key: 'dungeon_1' });
+        super({ key: 'mazmorra' });
     }
 
     preload(){

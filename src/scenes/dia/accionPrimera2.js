@@ -186,6 +186,7 @@ export default class AccionPrimera2 extends Phaser.Scene {
                 wordWrap: { width: 280 },
                 align: 'center'
             })
+            addMoney(this, 1)
             this.mostrarRecompensa('¡Has conseguido una moneda!')
             return
         }
@@ -196,6 +197,7 @@ export default class AccionPrimera2 extends Phaser.Scene {
         this.optionBubbles = []
         this.opcionElegida = true
         this.character.setTexture('mikelFeliz')
+        inventory?.addItem({ id: 'halcon', name: 'halcon', texture: 'halcon' })
         this.mostrarRecompensa('¡Has conseguido una cerveza!')
     }
 

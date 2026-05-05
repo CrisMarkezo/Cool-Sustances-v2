@@ -188,7 +188,7 @@ export default class DialogoTutorial extends Phaser.Scene {
             align: 'center'
         }).setOrigin(0.5).setInteractive({ useHandCursor: true });
         this.opcion2Bubble = this.add.rectangle(400, 400, 360, 60, 0Xe76d2c)
-        this.opcion2 = this.add.text(400, 400, 'Aceptar la loncha de jamón y seguir con tu camino', { 
+        this.opcion2 = this.add.text(400, 400, 'Aceptar la loncha de jamón', { 
             fontFamily: '"Keneric", sans-serif',
             fontSize: '20px', 
             fill: '#ffffff',
@@ -256,6 +256,7 @@ export default class DialogoTutorial extends Phaser.Scene {
         this.pico.setStrokeStyle(4, 0x000000)
         this.respuestaBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
         this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
+        //añadir stat
         this.respuesta = dialogTextSprite.create(this, 400, 300, ['AYY!!! que mono!'], {
             fontFamily: '"Toonway", monospace',
             fontSize: '28px',

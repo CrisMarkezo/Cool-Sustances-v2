@@ -22,6 +22,7 @@ export default class AccionSegunda1 extends Phaser.Scene {
         this.nextDialogHint = null;
         this.selectedOption = 0;
         this.optionBubbles = [];
+        this.character = null;
         
         // Keyboard keys
         this.keyA = null;
@@ -62,12 +63,12 @@ export default class AccionSegunda1 extends Phaser.Scene {
             color: '#ffe2f9'
         }).setOrigin(0.5)
 
-        this.add.image(690, 620, 'bin')
+
 
         this.contextoBubble = this.add.rectangle(325, 250, 500, 150, 0xE2007C)
         this.contextoBubble.setStrokeStyle(3, 0Xe76d2c)
         this.contexto = dialogTextSprite.create(this, 325, 250, [
-            'Sigues caminando por el campus, sigues un camino que te lleva a un bosque. Te pierdes un poco hasta que ves unos humanos y decides seguirles hasat llegar al lado de una gran carretera.',
+            'Sigues caminando por el campus, sigues un camino que te lleva a un bosque. Te pierdes un poco hasta que ves unos humanos y decides seguirles hasta llegar al lado de una gran carretera.',
             'Ves que uno de ellos se le cae una cosa brillante, parece una moneda. Al mismo tiempo, ves en la esquina algo que huele delicioso. ¿Qué haces?'
         ], {
             fontFamily: '"Toonway", sans-serif',
@@ -169,10 +170,12 @@ export default class AccionSegunda1 extends Phaser.Scene {
     confirmarSeleccion() {
         if (this.selectedOption === 0) {
             this.opcionElegida = true
+            addMoney(this, 2)
             this.mostrarRecompensa('¡Has conseguido 2€!')
             return
         }
         this.opcionElegida = true
+        inventory?.addItem({ id: 'yanotekomo', name: 'yanotekomo', texture: 'yanotekomo' } )
         this.mostrarRecompensa('¡Has conseguido 1 yanotekomo!')
     }
 

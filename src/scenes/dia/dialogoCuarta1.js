@@ -65,7 +65,7 @@ export default class DialogoCuarta1 extends Phaser.Scene {
             color: '#ffe2f9'
         }).setOrigin(0.5)
         //this.add.image(200, 500, 'cubatita');
-        this.character = this.add.image(700, 500, 'laliNeutro').setScale(1.2);
+        this.character = this.add.image(700, 500, 'mikelNeutro').setScale(1.2);
 
         //Buttons
         const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);
@@ -75,7 +75,7 @@ export default class DialogoCuarta1 extends Phaser.Scene {
         this.contextoBubble = this.add.rectangle(325, 250, 500, 150, 0xC8006E)
         this.contextoBubble.setStrokeStyle(3, 0Xe76d2c)
         this.contexto = dialogTextSprite.create(this, 325, 250, [
-            'Aparece una chica preguntandote que hace una cosa tan bonita en medio de la calle, ofreciendote una loncha de jamón. ¿Qué haces?'
+            '¿Qué haces?'
         ], {       
             fontFamily: '"Toonway", sans-serif',
             fontSize: '20px', 
@@ -199,7 +199,7 @@ export default class DialogoCuarta1 extends Phaser.Scene {
             this.opcion1Bubble.destroy()
             this.opcion2Bubble.destroy()
             this.optionBubbles = []
-            this.character.setTexture('laliEnfadada').setScale(1.2)
+            this.character.setTexture('mikelEnfadada').setScale(1.2)
             this.pico = this.add.triangle(480, 500, 0, 0, 50, 0, 25, 0, 0xdaff8f)
             this.pico.setStrokeStyle(4, 0x000000)
             this.respuestaBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
@@ -224,7 +224,7 @@ export default class DialogoCuarta1 extends Phaser.Scene {
         this.opcion1Bubble.destroy()
         this.opcion2Bubble.destroy()
         this.optionBubbles = []
-        this.character.setTexture('laliFeliz').setScale(1.2)
+        this.character.setTexture('mikelFeliz').setScale(1.2)
         this.pico = this.add.triangle(480, 500, 0, 0, 50, 0, 25, 0, 0xdaff8f)
         this.pico.setStrokeStyle(4, 0x000000)
         this.respuestaBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
@@ -260,7 +260,7 @@ export default class DialogoCuarta1 extends Phaser.Scene {
                 wordWrap: { width: 280 },
                 align: 'center'
             }).setOrigin(0.5)
-            this.character.setTexture('laliTriste').setScale(0.95)
+            this.character.setTexture('mikelTriste').setScale(0.95)
             this.pico = this.add.triangle(480, 400, 0, 0, 50, 0, 25, 0, 0xdaff8f)
             this.pico.setStrokeStyle(4, 0x000000)
             const dialogoFinalBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)

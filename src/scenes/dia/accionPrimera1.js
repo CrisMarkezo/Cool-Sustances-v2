@@ -179,6 +179,7 @@ export default class AccionPrimera1 extends Phaser.Scene {
             this.opcion2Bubble.destroy()
             this.optionBubbles = []
             this.opcionElegida = true
+            inventory?.addItem({ id: 'cigarros', name: 'cigarros', texture: 'cigarros' })
             this.mostrarRecompensa('¡Has conseguido unos cigarros!')
             return
         }
@@ -198,6 +199,7 @@ export default class AccionPrimera1 extends Phaser.Scene {
             wordWrap: { width: 280 },
             align: 'center'
         })
+        inventory?.addItem({ id: 'catWeed', name: 'catWeed', texture: 'catWeed' })
         this.mostrarRecompensa('¡Has conseguido 1 catWeed!')
 
     }
