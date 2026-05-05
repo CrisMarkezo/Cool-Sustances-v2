@@ -186,6 +186,7 @@ export default class AccionQuinta1 extends Phaser.Scene {
                 wordWrap: { width: 280 },
                 align: 'center'
             })
+            inventory?.removeItem('catWeed')
             this.mostrarRecompensa('¡Has conseguido caerle bien!')
             return
         }
@@ -195,7 +196,7 @@ export default class AccionQuinta1 extends Phaser.Scene {
             this.opcion2Bubble.destroy()
             this.optionBubbles = []
             this.opcionElegida = true
-            this.character.setTexture('mikelTriste')
+            this.character.setTexture('ikerEnfadado')
             this.chatBubble = this.add.ellipse(400, 300, 200, 100, 0xdaff8f)
             this.chatBubble.setStrokeStyle(4, 0x000000);
             this.chat = dialogTextSprite.create(this, 400, 300, ['PERO TU ERES UN HIJO DE LA GRAN PUTA!! espero que te pegue un pelotazo de la ostia gato de mierda'], {

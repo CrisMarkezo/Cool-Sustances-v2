@@ -173,11 +173,12 @@ export default class AccionSegunda2 extends Phaser.Scene {
         this.character.setTexture("pabloFeliz")
         if (this.selectedOption === 0) {
             this.opcionElegida = true
+            addMoney(this, 1)
             this.mostrarRecompensa('¡Has conseguido +1€!')
             return
         }
         this.opcionElegida = true
-        
+        inventory?.addItem({ id: 'yanotekomo', name: 'yanotekomo', texture: 'yanotekomo' })
         this.mostrarRecompensa('¡Has conseguido 1 yanotekomo!')
     }
 

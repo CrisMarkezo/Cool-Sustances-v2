@@ -236,6 +236,7 @@ export default class DialogoPrimero1 extends Phaser.Scene {
             wordWrap: { width: 340 },
             align: 'center'
         })
+        inventory?.addItem({ id: 'cigarros', name: 'cigarros', texture: 'cigarros' })
         this.respuesta.once('complete', () => {
             this.contextComplete = true;
             this.nextDialogHint = nextDialogSprite.create(this, 450, 320)

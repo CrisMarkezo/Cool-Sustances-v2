@@ -4,6 +4,7 @@ import RuedaSprite from '../../game-objects/ruedaSprite.js'
 import dialogTextSprite from './../../game-objects/dialogTextSprite';
 import nextDialogSprite from './../../game-objects/nextDialogSprite';
 import IconSprite from '../../game-objects/iconSprite.js'
+import { addMoney } from '../../utils/money.js';
 
 export default class DialogoSegundo1 extends Phaser.Scene {
     constructor(){
@@ -211,6 +212,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
                 wordWrap: { width: 280 },
                 align: 'center'
             })
+            addMoney(this, 1)
             this.respuesta.once('complete', () => {
                 this.contextComplete = true;
                 this.nextDialogHint = nextDialogSprite.create(this, 400, 320)
@@ -229,7 +231,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
         this.pico.setStrokeStyle(4, 0x000000)
         this.respuestaBubble = this.add.ellipse(400, 300, 500, 300, 0xdaff8f)
         this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
-        this.respuesta = dialogTextSprite.create(this, 400, 300, ['Seguro que le caerias bien a Iker un tío que fuma una cosa que huele MUY bien en techito... a bueno que digo seguro que a mi novia Albani te intentaría raptar de lo mono que eres... es una chica que siempre esta bebiendo vodka. '], {
+        this.respuesta = dialogTextSprite.create(this, 400, 300, ['Seguro que le caerias bien a Iker un tío que fuma una cosa que huele MUY bien en techito... a bueno que digo seguro que a mi novia Albani te intentaría raptar de lo mono que eres... es una chica que siempre esta bebiendo. '], {
             fontFamily: '"Toonway", monospace',
             fontSize: '28px',
             color: '#000000',

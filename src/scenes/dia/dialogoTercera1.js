@@ -206,13 +206,14 @@ export default class DialogoTercera1 extends Phaser.Scene {
             this.pico.setStrokeStyle(4, 0x000000)
             this.respuestaBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
             this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
-            this.respuesta = dialogTextSprite.create(this, 400, 300, [''], {
+            this.respuesta = dialogTextSprite.create(this, 400, 300, ['SURMIII pero klk ke este gato le sabe demasiado broski, si necesitas ayuda por moncloa dimelo hermano'], {
                 fontFamily: '"Toonway", monospace',
                 fontSize: '28px',
                 color: '#000000',
                 wordWrap: { width: 280 },
                 align: 'center'
             })
+            inventory?.removeItem('halcon')
             this.respuesta.once('complete', () => {
                 this.contextComplete = true;
                 this.nextDialogHint = nextDialogSprite.create(this, 400, 320)
@@ -231,7 +232,7 @@ export default class DialogoTercera1 extends Phaser.Scene {
         this.pico.setStrokeStyle(4, 0x000000)
         this.respuestaBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
         this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
-        this.respuesta = dialogTextSprite.create(this, 400, 300, ['Keloke me estas disiendo surmi dame eso ke te meto!! that evil twink will pay, puto gato polla de mierda te voy a quemar la cola'], {
+        this.respuesta = dialogTextSprite.create(this, 400, 300, ['Keloke me estas disiendo surmi dame eso ke te meto!! '], {
             fontFamily: '"Toonway", monospace',
             fontSize: '28px',
             color: '#000000',

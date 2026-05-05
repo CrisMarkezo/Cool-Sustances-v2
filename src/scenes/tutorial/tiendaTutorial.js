@@ -206,7 +206,7 @@ export default class TiendaTutorial extends Phaser.Scene {
         }).setOrigin(0.5);
         this.opcion2Bubble = this.add.rectangle(650, 550, 560, 60, 0x6969ec)
         this.opcion2Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion2 = this.add.text(650, 550, 'Comprar litrona (1€)', { 
+        this.opcion2 = this.add.text(650, 550, 'Comprar halcon (1€)', { 
             fontFamily: '"Keneric", sans-serif',
             fontSize: '20px', 
             fill: '#ffffff'
@@ -251,7 +251,8 @@ export default class TiendaTutorial extends Phaser.Scene {
             if (trySpendMoney(this, 2)) {
                 this.opcionElegida = true
                 this.hao.setTexture('haoFeliz')
-                this.mostrarRecompensa('¡Has comprado filtros (-2€)!')
+                inventory?.addItem({ id: 'cigarros', name: 'cigarros', texture: 'cigarros' })
+                this.mostrarRecompensa('¡Has comprado cigarros (-2€)!')
             } else {
                 this.hao.setTexture('haoEnfadado')
                 this.mostrarContexto([
@@ -266,7 +267,8 @@ export default class TiendaTutorial extends Phaser.Scene {
             if (trySpendMoney(this, 1)) {
                 this.opcionElegida = true
                 this.hao.setTexture('haoFeliz')
-                this.mostrarRecompensa('¡Has comprado una litrona (-1€)!')
+                inventory?.addItem({ id: 'halcon', name: 'halcon', texture: 'halcon' })
+                this.mostrarRecompensa('¡Has comprado una halcon (-1€)!')
             } else {
                 this.hao.setTexture('haoEnfadado')
                 this.mostrarContexto([
@@ -280,6 +282,7 @@ export default class TiendaTutorial extends Phaser.Scene {
         if (this.selectedOption === 2) {
             this.opcionElegida = true
             this.hao.setTexture('haoHorny').setScale(0.9)
+            inventory?.removeItem('yanotekomo')
             this.mostrarRecompensa('¡Has conseguido 1€ (+1€)!')
             addMoney(this, 1)
             return;
