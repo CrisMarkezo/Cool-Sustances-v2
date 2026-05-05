@@ -14,6 +14,7 @@ export default class Monster extends GameEntity {
         this.fireRate = 2000;
         this.nextFire = 0;
         this.projectileSpeed = 70;
+        this.fireRange = 250; // <--- DISTANCIA PARA ACTIVAR DISPARO (Ajusta este número)
         this.projectiles = scene.physics.add.group();
 
         // --- CONFIGURACIÓN ATAQUE ESPECIAL ---
@@ -34,6 +35,7 @@ export default class Monster extends GameEntity {
     }
 
     update(target) {
+        // Si está muerto, no hay target, no hay vida o el inventario está abierto, no hacer nada
         if (this.isDead || !target || this.health <= 0 || this.scene.inventoryOpen) {
             if (this.healthBar) this.healthBar.clear();
             return;
@@ -41,13 +43,20 @@ export default class Monster extends GameEntity {
 
         const currentTime = this.scene.time.now;
         
+        // Calculamos la distancia entre el Boss y el Jugador
+        const distance = Phaser.Math.Distance.Between(this.x, this.y, target.x, target.y);
+
         if (this.body) this.setFlipX(target.x > this.x);
 
-        if (!this.isDoingSpecial && currentTime > this.nextSpecialAttack) {
+        // --- LÓGICA DE ATAQUES ---
+        
+        // 1. Ataque Especial (Se activa solo si el jugador está en rango)
+        if (!this.isDoingSpecial && distance < this.fireRange && currentTime > this.nextSpecialAttack) {
             this.startSpecialAttack(target);
         }
 
-        if (!this.isDoingSpecial && currentTime > this.nextFire) {
+        // 2. Disparo Normal (Solo si está en rango, no está en el especial y pasó el cooldown)
+        if (!this.isDoingSpecial && distance < this.fireRange && currentTime > this.nextFire) {
             this.shootProjectile(target, this.projectileSpeed);
             this.nextFire = currentTime + this.fireRate;
         }
@@ -64,22 +73,17 @@ export default class Monster extends GameEntity {
     createProjectile(angle, speed, target) {
         if (this.isDead || !this.scene) return;
 
-        
         const projectile = this.scene.physics.add.sprite(this.x, this.y, 'disc');
         projectile.setScale(0.3);
         this.projectiles.add(projectile);
 
-        // Configuración física del proyectil
         projectile.body.setAllowGravity(false);
-        // Ajustamos el body a 24x24 para que sea más justo, siendo el sprite 32x32
         projectile.body.setSize(5, 5); 
 
-        // Movimiento
         projectile.body.setVelocity(Math.cos(angle) * speed, Math.sin(angle) * speed);
 
-        // Rotación: Le damos una rotación inicial aleatoria y una velocidad de giro constante
         projectile.setRotation(Phaser.Math.FloatBetween(0, Math.PI * 2));
-        projectile.body.setAngularVelocity(300); // Gira a 300 grados por segundo
+        projectile.body.setAngularVelocity(300);
 
         this.scene.physics.add.overlap(projectile, target, () => {
             if (target.takeDamage) target.takeDamage(this);

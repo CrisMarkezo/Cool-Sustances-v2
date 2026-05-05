@@ -5,7 +5,7 @@ import widgetSprite from '../../game-objects/widgetSprite.js'
 export default class Menu extends Phaser.Scene {
 
     constructor(){
-        super({key: 'phone'});
+        super({ key: 'phone' });
 
         this.currentStep = 0;
         this.currentPosition = 1;
@@ -21,24 +21,17 @@ export default class Menu extends Phaser.Scene {
         this.keyDown = null;
         this.keyE = null;
         this.keyEnter = null;
+        this.keyG = null;
 
         this.xByPosition = [410, 500, 590];
         this.yByStep = [450, 390, 330, 260, 200];
     }
 
     create(){
-        // Inicializar el progreso si no existe
-        if (!this.registry.has('step')) {
-            this.registry.set('step', 0);
-        }
 
-        if(!this.registry.has('position')){
-            this.registry.set('position', 1);
-        }
-
-        if (!this.registry.has('selectedPath')){
-            this.registry.set('selectedPath', []);
-        }
+        if (!this.registry.has('step')) this.registry.set('step', 0);
+        if (!this.registry.has('position')) this.registry.set('position', 1);
+        if (!this.registry.has('selectedPath')) this.registry.set('selectedPath', []);
 
         this.currentStep = this.registry.get('step');
         this.currentPosition = this.registry.get('position');
@@ -52,10 +45,12 @@ export default class Menu extends Phaser.Scene {
         this.menuSprite = new MenuSprite(this, 500, 350);
 
         const drawSelectedPath = () => {
+
             const points = [];
 
             this.selectedPath.forEach((node, stepIndex) => {
                 if (!node || typeof node.position !== 'number') return;
+
                 const point = this.getNodePosition(stepIndex, node.position);
                 if (point) points.push(point);
             });
@@ -73,17 +68,25 @@ export default class Menu extends Phaser.Scene {
                 graphics.strokePath();
             }
 
-            points.forEach((point) => {
-                this.add.image(point.x, point.y, 'pez').setScale(0.35).setDepth(5);
+            points.forEach(p => {
+                this.add.image(p.x, p.y, 'pez')
+                    .setScale(0.35)
+                    .setDepth(5);
             });
         };
 
-        // Mantener el trazado del recorrido ya realizado
         drawSelectedPath();
 
         this.createNodes();
 
-        this.widgetSprite = new widgetSprite(this, 500, 120).setInteractive({ useHandCursor: true });
+        this.widgetSprite = new widgetSprite(this, 500, 120)
+            .setInteractive({ useHandCursor: true });
+
+        this.widgetSprite.on('pointerdown', () => {
+            if (this.currentStep === 5) {
+                this.scene.start('dungeon_1');
+            }
+        });
 
         this.keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
@@ -91,98 +94,117 @@ export default class Menu extends Phaser.Scene {
         this.keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
         this.keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+        this.keyG = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.G);
 
         this.buildCurrentRowSelection();
         this.updateSelectionVisuals();
 
-        // anuncio en el menú de decoracion, pero podría usarse para otra cosa
         this.add.text(520, 550, 'Do not fret if you want to hurt yourself!', {
             fontFamily: '"pixelAE-Bold", monospace',
             fontSize: '10px',
             fill: '#000000',
             align: 'center'
         }).setOrigin(0.5);
+
         this.add.text(520, 570, 'Call or text the number 667 if you need asistance', {
             fontFamily: '"pixelAE-Regular", monospace',
             fontSize: '9px',
             fill: '#000000',
             align: 'center',
-            wordWrap: { width: 200 },
+            wordWrap: { width: 200 }
         }).setOrigin(0.5);
     }
 
-    update() {
-        if (this.currentStep < 5) {
-            if (Phaser.Input.Keyboard.JustDown(this.keyLeft) || Phaser.Input.Keyboard.JustDown(this.keyUp)) {
-                this.moveSelection(-1);
-            }
+    update(){
 
-            if (Phaser.Input.Keyboard.JustDown(this.keyRight) || Phaser.Input.Keyboard.JustDown(this.keyDown)) {
-                this.moveSelection(1);
-            }
+        if (Phaser.Input.Keyboard.JustDown(this.keyG)) {
 
-            if (Phaser.Input.Keyboard.JustDown(this.keyE) || Phaser.Input.Keyboard.JustDown(this.keyEnter)) {
-                this.activateSelectedNode();
-            }
+            if (this.scene.isActive('Inventory')) return;
+
+            this.scene.pause();
+            this.scene.launch('Inventory', {
+                from: 'phone'
+            });
+
             return;
         }
 
-        if (this.currentStep === 5 && (Phaser.Input.Keyboard.JustDown(this.keyE) || Phaser.Input.Keyboard.JustDown(this.keyEnter))) {
-            this.scene.launch('dungeon_1');
-            const audioScene = this.scene.get('MenuAudioScene');
-            audioScene.music.stop();
-            this.scene.stop(this.scene.key);
+        if (this.currentStep < 5) {
+
+            if (Phaser.Input.Keyboard.JustDown(this.keyLeft) ||
+                Phaser.Input.Keyboard.JustDown(this.keyUp)) {
+                this.moveSelection(-1);
+            }
+
+            if (Phaser.Input.Keyboard.JustDown(this.keyRight) ||
+                Phaser.Input.Keyboard.JustDown(this.keyDown)) {
+                this.moveSelection(1);
+            }
+
+            if (Phaser.Input.Keyboard.JustDown(this.keyE) ||
+                Phaser.Input.Keyboard.JustDown(this.keyEnter)) {
+                this.activateSelectedNode();
+            }
         }
     }
 
-    getNodePosition(stepIndex, positionIndex) {
+    getNodePosition(stepIndex, positionIndex){
+
         if (stepIndex < 0 || stepIndex >= this.yByStep.length) return null;
         if (positionIndex < 0 || positionIndex >= this.xByPosition.length) return null;
 
-        return { x: this.xByPosition[positionIndex], y: this.yByStep[stepIndex] };
+        return {
+            x: this.xByPosition[positionIndex],
+            y: this.yByStep[stepIndex]
+        };
     }
 
-    createNodes() {
+    createNodes(){
+
         const nodeLayout = [
             [
                 { key: 'accionMenu', scene: 'accion-primera-1' },
                 { key: 'dialogoMenu', scene: 'dialogo-primera-1' },
-                { key: 'accionMenu', scene: 'accion-primera-2' },
+                { key: 'accionMenu', scene: 'accion-primera-2' }
             ],
             [
                 { key: 'dialogoMenu', scene: 'dialogo-segunda-1' },
                 { key: 'accionMenu', scene: 'accion-segunda-1' },
-                { key: 'accionMenu', scene: 'accion-segunda-2' },
+                { key: 'accionMenu', scene: 'accion-segunda-2' }
             ],
             [
                 { key: 'tiendaMenu', scene: 'tienda-tercera-1' },
                 { key: 'tiendaMenu', scene: 'tienda-tercera-2' },
-                { key: 'dialogoMenu', scene: 'dialogo-tercera-1' },
+                { key: 'dialogoMenu', scene: 'dialogo-tercera-1' }
             ],
             [
                 { key: 'accionMenu', scene: 'accion-cuarta-1' },
                 { key: 'dialogoMenu', scene: 'dialogo-cuarta-1' },
-                { key: 'tiendaMenu', scene: 'tienda-cuarta-1' },
+                { key: 'tiendaMenu', scene: 'tienda-cuarta-1' }
             ],
             [
                 { key: 'dialogoMenu', scene: 'dialogo-quinta-1' },
                 { key: 'accionMenu', scene: 'accion-quinta-1' },
-                { key: 'dialogoMenu', scene: 'dialogo-quinta-2' },
-            ],
+                { key: 'dialogoMenu', scene: 'dialogo-quinta-2' }
+            ]
         ];
 
         this.menuNodes = [];
 
         nodeLayout.forEach((row, stepIndex) => {
+
             row.forEach((nodeConfig, positionIndex) => {
+
                 const point = this.getNodePosition(stepIndex, positionIndex);
-                const object = this.add.image(point.x, point.y, nodeConfig.key).setInteractive({ useHandCursor: true });
+
+                const object = this.add.image(point.x, point.y, nodeConfig.key)
+                    .setInteractive({ useHandCursor: true });
 
                 const node = {
                     step: stepIndex,
                     position: positionIndex,
                     scene: nodeConfig.scene,
-                    object,
+                    object
                 };
 
                 object.on('pointerdown', () => {
@@ -194,9 +216,13 @@ export default class Menu extends Phaser.Scene {
         });
     }
 
-    buildCurrentRowSelection() {
+    buildCurrentRowSelection(){
+
         this.currentRowNodes = this.menuNodes
-            .filter((node) => node.step === this.currentStep && this.isReachablePosition(node.position))
+            .filter(n =>
+                n.step === this.currentStep &&
+                this.isReachablePosition(n.position)
+            )
             .sort((a, b) => a.position - b.position);
 
         if (!this.currentRowNodes.length) {
@@ -204,31 +230,40 @@ export default class Menu extends Phaser.Scene {
             return;
         }
 
-        const selectedByPosition = this.currentRowNodes.findIndex((node) => node.position === this.currentPosition);
-        this.selectedIndex = selectedByPosition >= 0 ? selectedByPosition : 0;
+        const found = this.currentRowNodes.findIndex(
+            n => n.position === this.currentPosition
+        );
+
+        this.selectedIndex = found >= 0 ? found : 0;
     }
 
-    isReachablePosition(nextPosition) {
+    isReachablePosition(nextPosition){
         if (this.currentStep === 0) return true;
         return Math.abs(nextPosition - this.currentPosition) <= 1;
     }
 
-    moveSelection(direction) {
+    moveSelection(direction){
+
         if (!this.currentRowNodes.length) return;
 
         const total = this.currentRowNodes.length;
-        this.selectedIndex = (this.selectedIndex + direction + total) % total;
+
+        this.selectedIndex =
+            (this.selectedIndex + direction + total) % total;
+
         this.updateSelectionVisuals();
     }
 
-    activateSelectedNode() {
+    activateSelectedNode(){
+
         const node = this.currentRowNodes[this.selectedIndex];
         if (!node) return;
 
         this.tryActivateNode(node);
     }
 
-    tryActivateNode(node) {
+    tryActivateNode(node){
+
         if (!node) return;
         if (this.currentStep !== node.step) return;
         if (!this.isReachablePosition(node.position)) return;
@@ -244,18 +279,21 @@ export default class Menu extends Phaser.Scene {
         this.scene.stop(this.scene.key);
     }
 
-    updateSelectionVisuals() {
+    updateSelectionVisuals(){
+
         const selectedNode = this.currentRowNodes[this.selectedIndex];
 
-        this.menuNodes.forEach((node) => {
-            const isCurrentRow = node.step === this.currentStep;
-            const isReachable = isCurrentRow && this.isReachablePosition(node.position);
-            const isSelected = selectedNode === node;
-            const completedNode = this.selectedPath[node.step];
+        this.menuNodes.forEach(node => {
+
+            const isRow = node.step === this.currentStep;
+            const reachable = isRow && this.isReachablePosition(node.position);
+            const selected = selectedNode === node;
+
+            const completed = this.selectedPath[node.step];
             const isCompleted =
                 node.step < this.currentStep &&
-                completedNode &&
-                completedNode.position === node.position;
+                completed &&
+                completed.position === node.position;
 
             if (isCompleted) {
                 node.object.clearTint();
@@ -263,13 +301,13 @@ export default class Menu extends Phaser.Scene {
                 return;
             }
 
-            if (isSelected) {
+            if (selected) {
                 node.object.clearTint();
                 node.object.setScale(1.2);
                 return;
             }
 
-            if (isReachable) {
+            if (reachable) {
                 node.object.clearTint();
                 node.object.setScale(1);
                 return;

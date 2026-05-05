@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import Player from '../game-objects/night/player.js';
-
+import Monster from '../game-objects/night/monster.js';
 // Dungeon (Mapa)
 import Dungeon from '../../assets/dungeon/Dungeon_1.json';
 import Ambulance from '../../assets/dungeon/Ambulance.png';
@@ -33,6 +33,7 @@ import Suelo_Boss from '../../assets/dungeon/mainlevbuild.png';
 import Fondo_Boss from '../../assets/dungeon/Space Background.png'
 
 // Objetos
+import Boss from '../game-objects/night/boss.js';
 import Chest_IDLE from '../../assets/dungeon/Chest_Idle.png';
 import Chest_EMPTY from '../../assets/dungeon/Chest_Opening_Empty.png';
 import Chest_GOLD from '../../assets/dungeon/Chest_Opening_Gold.png';
@@ -165,19 +166,97 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         const startX = map.widthInPixels / 2;
         const startY = map.heightInPixels / 2;
 
-        this.player = new Player(this, startX-270, startY+1320);
+        this.player = new Player(this, startX-265, startY+1220);
+        
+        //
+        this.monsters = [];
+        this.monsters.push(new Monster(this, startX - 270, startY + 1040));
+        this.monsters.push(new Monster(this, startX - 350, startY + 1050));
+        this.monsters.push(new Monster(this, startX - 900, startY + 1050));
+        this.monsters.push(new Monster(this, startX + 100, startY + 1020));
+        this.monsters.push(new Monster(this, startX + 300, startY + 900));
+        this.monsters.push(new Monster(this, startX + 500, startY + 1040));
+        this.monsters.push(new Monster(this, startX + 700, startY + 1040));
+        this.monsters.push(new Monster(this, startX + 800, startY + 800));
+        this.monsters.push(new Monster(this, startX + 800, startY + 500));
+        this.monsters.push(new Monster(this, startX + 500, startY + 600));
+        this.monsters.push(new Monster(this, startX + 660, startY + 100));
+        this.monsters.push(new Monster(this, startX + 720, startY + 100));
+        this.monsters.push(new Monster(this, startX + 350, startY+90));
+        this.monsters.push(new Monster(this, startX + 290, startY+90));
+        this.monsters.push(new Monster(this, startX + 150, startY+60));
+        this.monsters.push(new Monster(this, startX + 100, startY+400));
+        this.monsters.push(new Monster(this, startX - 100, startY+400));
+        this.monsters.push(new Monster(this, startX - 100, startY+600));
+        this.monsters.push(new Monster(this, startX - 350, startY+600));
+        this.monsters.push(new Monster(this, startX - 500, startY+400));
+        this.monsters.push(new Monster(this, startX - 900, startY+600));
+        this.monsters.push(new Monster(this, startX - 900, startY+450));
+        this.monsters.push(new Monster(this, startX - 750, startY));
+        this.monsters.push(new Monster(this, startX -1000, startY));
+        this.monsters.push(new Monster(this, startX, startY+300));
+        this.monsters.push(new Monster(this, startX + 540, startY + 100));
+        this.monsters.push(new Monster(this, startX + 340, startY + 500));
+        this.monsters.push(new Monster(this, startX + 200, startY + 800));
+        this.monsters.push(new Monster(this, startX , startY + 800));
+        this.monsters.push(new Monster(this, startX-500 , startY + 800));
+        this.monsters.push(new Monster(this, startX +1100, startY + 300));
+        this.monsters.push(new Monster(this, startX +1100, startY));
+        this.monsters.push(new Monster(this, startX +1150, startY-100));
+        this.monsters.push(new Monster(this, startX, startY-250));
+        this.monsters.push(new Monster(this, startX+300, startY-250));
+        this.monsters.push(new Monster(this, startX+300, startY-500));
+        this.monsters.push(new Monster(this, startX, startY-500));
+        this.monsters.push(new Monster(this, startX, startY-700));
+        this.monsters.push(new Monster(this, startX-350, startY-700));
+        this.monsters.push(new Monster(this, startX-350, startY-400));
+        this.monsters.push(new Monster(this, startX-350, startY+50));
+
+
+
+        
+        this.monsters.forEach(monster => {
+        this.physics.add.collider(monster, colisiones_layer);
+        this.physics.add.collider(monster, paredes_layer);
+
+        this.physics.add.overlap(this.player, monster, this.handlePlayerMonsterContact, null, this);
+        this.physics.add.overlap(this.player.attackHitbox, monster, this.hitMonster, null, this);
+        });
+
+
+        // --- BOSS (EL CAMBIO IMPORTANTE ESTÁ AQUÍ) ---
+        this.boss = new Boss(this, startX - 800, startY-250);
+        
+        // Si la clase Boss no lo hace en su constructor, hay que forzarlo:
+        this.add.existing(this.boss); 
+        this.physics.add.existing(this.boss);
+
+        // Colisiones y Daño para el Boss
+        this.physics.add.collider(this.boss, colisiones_layer);
+        this.physics.add.collider(this.boss, paredes_layer);
+        this.physics.add.overlap(this.player, this.boss, this.handlePlayerMonsterContact, null, this);
+        this.physics.add.overlap(this.player.attackHitbox, this.boss, this.hitMonster, null, this);
+        
+            
+
+
+
+
         this.player.speed = 200;
+       
 
         this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
         this.cameras.main.startFollow(this.player, true, 0.1, 0.1);
-        this.cameras.main.setZoom(5);
+        this.cameras.main.setZoom(4);
         this.cameras.main.setRoundPixels(true);
         this.cameras.main.centerOn(this.player.x, this.player.y);
 
         this.physics.add.collider(this.player, colisiones_layer);
         this.physics.add.collider(this.player, paredes_layer);
         this.physics.add.collider(this.player, vacio_layer);
+
+        
 
         this.anims.create({
             key: 'chest_idle_anim',
@@ -235,9 +314,17 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         this.createPuertaAlmacen(map);
     }
 
-    update(){
-        
+   update() {
+    if (this.monsters) {
+        this.monsters.forEach(monster => {
+            monster.update(this.player);
+        });
     }
+    if (this.boss && this.boss.active) {
+        this.boss.update(this.player);
+    }
+}
+
 
     createChest(map){
         var objetosArr = map.createFromObjects('Cofres', {gid: 8830, classType: Chest});
@@ -307,4 +394,11 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         // Si vas por el otro lado y lo arrastras a un lugar libre, atrapado será false y volverá a moverse.
         cubo.setImmovable(blocked);
     }
+
+    hitMonster(hitbox, monster) {
+    if (this.player.isAttacking && monster.canBeHit && hitbox.body.enable) {
+        monster.receiveHit(this.player);
+        hitbox.body.enable = false;
+    }
+}
 }

@@ -18,9 +18,9 @@ export default class Monster extends GameEntity {
 
         this.waypoints = [
             { x: x, y: y },
-            { x: x + 100, y: y },
-            { x: x + 100, y: y + 100 },
-            { x: x, y: y + 100 }
+            { x: x + 40, y: y },
+            { x: x + 40, y: y + 40 },
+            { x: x, y: y + 40 }
         ];
 
         this.currentWaypointIndex = 0;

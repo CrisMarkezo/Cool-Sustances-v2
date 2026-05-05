@@ -32,33 +32,23 @@ export default class Level extends Phaser.Scene {
         const startY = map.heightInPixels / 2;
 
         this.player = new Player(this, startX, startY);
-        this.monster = new Monster(this, startX - 100, startY);
-        this.boss = new Boss(this, startX - 50, startY + 45);
         this.rascador = new Scratcher(this, startX + 210, startY);
 
-        this.phone = new Phone(this, startX + 100, startY);
-        this.phone.setScale(0.5);
-
-        this.phone2 = new Phone(this, startX + 130, startY);
-        this.phone2.setScale(0.5);
+        
 
         this.interactables = this.physics.add.group();
-        this.interactables.add(this.phone);
-        this.interactables.add(this.phone2);
+        
 
         this.physics.add.collider(this.player, this.colisiones);
-        this.physics.add.collider(this.monster, this.colisiones);
-        this.physics.add.collider(this.boss, this.colisiones);
+        
 
-        this.physics.add.overlap(this.player, this.monster, this.handlePlayerMonsterContact, null, this);
-        this.physics.add.overlap(this.player, this.boss, this.handlePlayerMonsterContact, null, this);
+        
 
         this.physics.add.overlap(this.player.attackHitbox, this.rascador.hurtbox, () => {
             this.hitRascador(this.player.attackHitbox, this.rascador);
         }, null, this);
 
-        this.physics.add.overlap(this.player.attackHitbox, this.monster, this.hitMonster, null, this);
-        this.physics.add.overlap(this.player.attackHitbox, this.boss, this.hitMonster, null, this);
+        
 
         this.physics.add.overlap(
             this.player,
@@ -123,7 +113,7 @@ export default class Level extends Phaser.Scene {
 
         //ÚNICA HITBOX AZUL (Solo para colisión de cambio de escena)
         
-        this.doorZone = this.add.rectangle(doorX, doorY - 12, 12, 15, 0x0000ff, 0.5); 
+        this.doorZone = this.add.rectangle(doorX, doorY - 12, 12, 15, 0x0000ff, 0); 
         this.physics.add.existing(this.doorZone, true);
 
         this.physics.add.overlap(this.player, this.doorZone, () => {
@@ -161,7 +151,7 @@ export default class Level extends Phaser.Scene {
                 width,
                 height,
                 0xff0000,
-                0.3
+                0
             );
         } else {
             this.debugRect.setPosition(this.doorZone.x, this.doorVisual.y + offsetY);
@@ -210,8 +200,6 @@ export default class Level extends Phaser.Scene {
 
         if (this.inventoryOpen) return;
 
-        this.monster.update(this.player);
-        this.boss.update(this.player);
 
         this.player.nearbyInteractable = null;
 

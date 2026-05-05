@@ -3,113 +3,95 @@ import Phaser from 'phaser';
 export default class Inventory extends Phaser.Scene {
 
     constructor() {
-        super(' ');
+        super('Inventory');
+
         this.inventoryItems = null;
         this.inventorySlots = null;
-        this.keyEscape = null;
     }
 
     create(){
-        try {
-            const sourceSceneKey = this.scene.settings.data?.from;
-            
-            const sourceInventory = this.registry.get('inventory');
 
-            this.keyEscape = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+        const sourceSceneKey = this.scene.settings.data?.from;
+        const sourceInventory = this.registry.get('inventory');
 
-            const overlay = this.add
-                .rectangle(500, 350, 1000, 700, 0x000000, 0.35)
-                .setInteractive();
-            overlay.setDepth(1000);
+        const overlay = this.add.rectangle(500, 350, 1000, 700, 0x000000, 0.35)
+            .setInteractive()
+            .setDepth(1000);
 
-            const panel = this.add.image(500, 350, 'inventario');
-            panel.setDepth(1001);
+        const panel = this.add.image(500, 350, 'inventario')
+            .setDepth(1001);
 
-            this.add.text(500, 635, 'Presiona ESC para salir', {
-                fontFamily: '"Toonway", sans-serif',
-                fontSize: '22px',
-                color: '#ffffff',
-                stroke: '#000000',
-                strokeThickness: 4
-            }).setOrigin(0.5).setDepth(1004);
+        this.add.text(500, 635, 'ESC para salir', {
+            fontFamily: '"Toonway", sans-serif',
+            fontSize: '22px',
+            color: '#fff',
+            stroke: '#000',
+            strokeThickness: 4
+        }).setOrigin(0.5).setDepth(1004);
 
-            this.inventorySlots = this.add.group();
-            this.inventoryItems = this.add.group();
+        this.inventorySlots = this.add.group();
+        this.inventoryItems = this.add.group();
 
-            const slotLayout = [
-                { x: -120, y: -135 },
-                { x: 120, y: -135 },
-                { x: -170, y: -20 },
-                { x: 170, y: -20 },
-            ];
+        const slots = [
+            { x: -120, y: -135 },
+            { x: 120, y: -135 },
+            { x: -170, y: -20 },
+            { x: 170, y: -20 }
+        ];
 
-            const inventoryObjects = sourceInventory
-                ? sourceInventory.getFlatItems()
-                : [];
+        const items = sourceInventory
+            ? sourceInventory.getFlatItems()
+            : [];
 
-            const visibleSlots = sourceInventory && typeof sourceInventory.getCapacity === 'function'
-                ? slotLayout.slice(0, sourceInventory.getCapacity())
-                : slotLayout;
+        slots.forEach((s, i) => {
 
-            visibleSlots.forEach((slot, index) => {
-                const slotX = panel.x + slot.x;
-                const slotY = panel.y + slot.y;
+            const x = panel.x + s.x;
+            const y = panel.y + s.y;
 
-                const slotMarker = this.add.ellipse(slotX, slotY, 86, 86, 0x2b1a12, 0.18)
-                    .setStrokeStyle(2, 0xf2c58a, 0.4)
-                    .setDepth(1002);
+            this.add.ellipse(x, y, 86, 86, 0x2b1a12, 0.18)
+                .setStrokeStyle(2, 0xf2c58a, 0.4)
+                .setDepth(1002);
 
-                this.inventorySlots.add(slotMarker);
+            const item = items[i];
+            if (!item) return;
 
-                const item = inventoryObjects[index];
+            const key = typeof item.texture === 'string'
+                ? item.texture
+                : item.texture?.key;
 
-                if (!item) {
-                    return;
-                }
+            if (!key) return;
 
-                const textureKey = typeof item.texture === 'string'
-                    ? item.texture
-                    : item.texture?.key;
+            this.add.image(x, y, key)
+                .setDisplaySize(56, 56)
+                .setDepth(1003);
+        });
 
-                if (!textureKey) {
-                    return;
-                }
+        const closeInventory = () => {
 
-                const icon = this.add.image(slotX, slotY, textureKey)
-                    .setDisplaySize(56, 56)
-                    .setScrollFactor(0)
-                    .setDepth(1003);
+            if (sourceSceneKey) {
+                this.scene.resume(sourceSceneKey);
+            }
 
-                this.inventoryItems.add(icon);
-            });
+            this.scene.stop();
+        };
 
-            const closeInventory = () => {
-                if (sourceSceneKey && this.scene.isPaused(sourceSceneKey)) {
-                    this.scene.resume(sourceSceneKey);
-                }
-                this.scene.stop();
-            };
+        overlay.on('pointerdown', (pointer) => {
 
-            overlay.on('pointerdown', (pointer) => {
-                const bounds = panel.getBounds();
-                const clickedInsidePanel = Phaser.Geom.Rectangle.Contains(bounds, pointer.x, pointer.y);
+            const bounds = panel.getBounds();
 
-                if (!clickedInsidePanel) {
-                    closeInventory();
-                }
-            });
+            const inside = Phaser.Geom.Rectangle.Contains(
+                bounds,
+                pointer.x,
+                pointer.y
+            );
 
-            this.keyEscape?.on('down', closeInventory);
+            if (!inside) closeInventory();
+        });
 
-            this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-                this.keyEscape?.off('down', closeInventory);
-                this.inventoryItems?.clear(true, true);
-                this.inventorySlots?.clear(true, true);
-            });
-        } catch (err) {
-            console.error('❌ Error in Inventory.create():', err);
-            console.error('Stack:', err.stack);
-            throw err;
-        }
+        this.input.keyboard.on('keydown-ESC', closeInventory);
+
+        this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+            this.input.keyboard.off('keydown-ESC', closeInventory);
+        });
     }
 }
