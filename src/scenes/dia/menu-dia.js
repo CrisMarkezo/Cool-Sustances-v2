@@ -24,7 +24,7 @@ export default class Menu extends Phaser.Scene {
         this.keyG = null;
 
         this.xByPosition = [410, 500, 590];
-        this.yByStep = [450, 390, 330, 260, 200];
+        this.yByStep = [450, 390, 330, 260];
     }
 
     create(){
@@ -83,11 +83,8 @@ export default class Menu extends Phaser.Scene {
             .setInteractive({ useHandCursor: true });
 
         this.widgetSprite.on('pointerdown', () => {
-            if (this.currentStep === 5) {
-                this.scene.launch('dungeon_1');
-                const audioScene = this.scene.get('MenuAudioScene');
-                audioScene.music.stop();
-                this.scene.stop(this.scene.key);
+            if (this.currentStep === 4) {
+                this.scene.start('mazmorra');
             }
         });
 
@@ -118,24 +115,9 @@ export default class Menu extends Phaser.Scene {
         }).setOrigin(0.5);
     }
 
-    update(){
-
-        if (Phaser.Input.Keyboard.JustDown(this.keyG)) {
-
-            if (this.scene.isActive('Inventory')) return;
-
-            this.scene.pause();
-            this.scene.launch('Inventory', {
-                from: 'phone'
-            });
-
-            return;
-        }
-
-        if (this.currentStep < 5) {
-
-            if (Phaser.Input.Keyboard.JustDown(this.keyLeft) ||
-                Phaser.Input.Keyboard.JustDown(this.keyUp)) {
+    update() {
+        if (this.currentStep < 4) {
+            if (Phaser.Input.Keyboard.JustDown(this.keyLeft) || Phaser.Input.Keyboard.JustDown(this.keyUp)) {
                 this.moveSelection(-1);
             }
 
@@ -150,11 +132,8 @@ export default class Menu extends Phaser.Scene {
             }
         }
 
-        if (this.currentStep === 5 && (Phaser.Input.Keyboard.JustDown(this.keyE) || Phaser.Input.Keyboard.JustDown(this.keyEnter))) {
-            const audioScene = this.scene.get('MenuAudioScene');
-            audioScene.music.stop();
-            this.scene.stop(this.scene.key);
-            this.scene.launch('mazmorra');
+        if (this.currentStep === 4 && (Phaser.Input.Keyboard.JustDown(this.keyE) || Phaser.Input.Keyboard.JustDown(this.keyEnter))) {
+            this.scene.start('mazmorra');
         }
     }
 
@@ -192,11 +171,6 @@ export default class Menu extends Phaser.Scene {
                 { key: 'dialogoMenu', scene: 'dialogo-cuarta-1' },
                 { key: 'tiendaMenu', scene: 'tienda-cuarta-1' }
             ],
-            [
-                { key: 'dialogoMenu', scene: 'dialogo-quinta-1' },
-                { key: 'accionMenu', scene: 'accion-quinta-1' },
-                { key: 'dialogoMenu', scene: 'dialogo-quinta-2' }
-            ]
         ];
 
         this.menuNodes = [];

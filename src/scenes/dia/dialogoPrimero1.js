@@ -77,7 +77,7 @@ export default class DialogoPrimero1 extends Phaser.Scene {
         this.contexto = dialogTextSprite.create(this, 325, 250, [
             'Una chica aparece frente a ti, preguntándote qué haces alli. Tiene un cigarro en la mano, tu te acercas para escucharla hablar y dejar que te toque ¿Qué haces?'
         ], {       
-            fontFamily: '"Toonway", sans-serif',
+            fontFamily: '"PixelAE-Regular", monospace',
             fontSize: '20px', 
             fill: '#ffffff',
             wordWrap: { width: 500 },
@@ -207,8 +207,8 @@ export default class DialogoPrimero1 extends Phaser.Scene {
             this.respuestaBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
             this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
             this.respuesta = dialogTextSprite.create(this, 400, 300, ['Perdón por molestarte, no era mi intención...'], {
-                fontFamily: '"Toonway", monospace',
-                fontSize: '24px',
+                fontFamily: '"PixelAE-Regular", monospace',
+                fontSize: '28px',
                 color: '#000000',
                 wordWrap: { width: 340 },
                 align: 'center'
@@ -231,9 +231,9 @@ export default class DialogoPrimero1 extends Phaser.Scene {
         this.pico.setStrokeStyle(4, 0x000000)
         this.respuestaBubble = this.add.ellipse(400, 300, 500, 300, 0xdaff8f)
         this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
-        this.respuesta = dialogTextSprite.create(this, 400, 300, ['Pero que cosita! Lo siento por el humo del cigarro es que me has pillado en mi tipica pitipausa. Que hoy es jueves de FDI y estamos con mikel y pablo bebiendo. Pero yo solo fumo cigarros no la merienda de pablo.'], {
-            fontFamily: '"Toonway", monospace',
-            fontSize: '24px',
+        this.respuesta = dialogTextSprite.create(this, 400, 300, ['Pero que cosita! Hoy es jueves de FDI y estamos con mikel y pablo bebiendo. Pero yo solo fumo cigarros no la merienda de pablo.'], {
+            fontFamily: '"PixelAE-Regular", monospace',
+            fontSize: '28px',
             color: '#000000',
             wordWrap: { width: 340 },
             align: 'center'
@@ -268,9 +268,9 @@ export default class DialogoPrimero1 extends Phaser.Scene {
             this.pico.setStrokeStyle(4, 0x000000)
             const dialogoFinalBubble = this.add.ellipse(400, 300, 320, 150, 0xdaff8f)
             dialogoFinalBubble.setStrokeStyle(4, 0x000000)
-            const dialogoFinal = dialogTextSprite.create(this, 400, 300, ['Ha sido un placer little car, mi nombre es Ana recuerdalo'], {
-                fontFamily: '"Toonway", sans-serif',
-                fontSize: '24px',
+            const dialogoFinal = dialogTextSprite.create(this, 400, 300, ['Ha sido un placer little car, mi nombre es Ana!'], {
+                fontFamily: '"PixelAE-Regular", monospace',
+                fontSize: '25px',
                 color: '#000000',
                 wordWrap: { width: 320 },
                 align: 'center'

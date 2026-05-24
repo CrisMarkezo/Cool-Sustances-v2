@@ -65,7 +65,7 @@ export default class DialogoCuarta1 extends Phaser.Scene {
             color: '#ffe2f9'
         }).setOrigin(0.5)
         //this.add.image(200, 500, 'cubatita');
-        this.character = this.add.image(700, 500, 'mikelNeutro').setScale(1.2);
+        this.character = this.add.image(700, 500, 'albaniNeutro').setScale(1.2);
 
         //Buttons
         const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);
@@ -75,7 +75,7 @@ export default class DialogoCuarta1 extends Phaser.Scene {
         this.contextoBubble = this.add.rectangle(325, 250, 500, 150, 0xC8006E)
         this.contextoBubble.setStrokeStyle(3, 0Xe76d2c)
         this.contexto = dialogTextSprite.create(this, 325, 250, [
-            '¿Qué haces?'
+            'Sales de la tienda y pasa por delante de un bar. Ves que está turras con una chica muy guapa. Te acercas y ves que la chica te mira con interés. ¿Qué haces?'
         ], {       
             fontFamily: '"Toonway", sans-serif',
             fontSize: '20px', 
@@ -129,7 +129,7 @@ export default class DialogoCuarta1 extends Phaser.Scene {
             if (this.nextDialogHint) {
                 this.nextDialogHint.destroy()
             }
-            this.mostrarRecompensa('¡Has perdido el corazón de la chica!')
+            this.mostrarRecompensa('¡Has consguido la amistad de Albani!')
             this.opcionElegida = 0; // Reset to prevent multiple triggers
         }
         if (this.opcionElegida == 2 && Phaser.Input.Keyboard.JustDown(this.keySpace)) {
@@ -138,7 +138,7 @@ export default class DialogoCuarta1 extends Phaser.Scene {
             if (this.nextDialogHint) {
                 this.nextDialogHint.destroy()
             }
-            this.mostrarRecompensa('¡Has conseguido una loncha de jamón!')
+            this.mostrarRecompensa('¡Has conseguido información!')
             this.opcionElegida = 0; // Reset to prevent multiple triggers
         }
 
@@ -153,7 +153,7 @@ export default class DialogoCuarta1 extends Phaser.Scene {
         }
         this.opcion1Bubble = this.add.rectangle(400, 350, 360, 60, 0Xe76d2c)
         this.opcion1Bubble.setStrokeStyle(3, 0x1F2A44).setInteractive({ useHandCursor: true })
-        this.opcion1 = this.add.text(400, 350, 'Bufar y seguir con tu camino', { 
+        this.opcion1 = this.add.text(400, 350, 'Dar catWeed (-1 catWeed)', { 
             fontFamily: '"Keneric", sans-serif',
             fontSize: '20px', 
             fill: '#ffffff', 
@@ -161,7 +161,7 @@ export default class DialogoCuarta1 extends Phaser.Scene {
             align: 'center'
         }).setOrigin(0.5).setInteractive({ useHandCursor: true });
         this.opcion2Bubble = this.add.rectangle(400, 400, 360, 60, 0Xe76d2c)
-        this.opcion2 = this.add.text(400, 400, 'Aceptar la loncha de jamón y seguir con tu camino', { 
+        this.opcion2 = this.add.text(400, 400, 'Escucharla', { 
             fontFamily: '"Keneric", sans-serif',
             fontSize: '20px', 
             fill: '#ffffff',
@@ -199,12 +199,12 @@ export default class DialogoCuarta1 extends Phaser.Scene {
             this.opcion1Bubble.destroy()
             this.opcion2Bubble.destroy()
             this.optionBubbles = []
-            this.character.setTexture('mikelEnfadada').setScale(1.2)
+            this.character.setTexture('albaniFeliz').setScale(1.2)
             this.pico = this.add.triangle(480, 500, 0, 0, 50, 0, 25, 0, 0xdaff8f)
             this.pico.setStrokeStyle(4, 0x000000)
             this.respuestaBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
             this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
-            this.respuesta = dialogTextSprite.create(this, 400, 300, ['Jo tio, porque no me quieres...'], {
+            this.respuesta = dialogTextSprite.create(this, 400, 300, ['AYY pero que eres el mejor, si necesias no dudes en maullarme!'], {
                 fontFamily: '"Toonway", monospace',
                 fontSize: '28px',
                 color: '#000000',
@@ -224,12 +224,12 @@ export default class DialogoCuarta1 extends Phaser.Scene {
         this.opcion1Bubble.destroy()
         this.opcion2Bubble.destroy()
         this.optionBubbles = []
-        this.character.setTexture('mikelFeliz').setScale(1.2)
+        this.character.setTexture('albaniHorny').setScale(1.2)
         this.pico = this.add.triangle(480, 500, 0, 0, 50, 0, 25, 0, 0xdaff8f)
         this.pico.setStrokeStyle(4, 0x000000)
         this.respuestaBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
         this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
-        this.respuesta = dialogTextSprite.create(this, 400, 300, ['AYY!!! que mono!'], {
+        this.respuesta = dialogTextSprite.create(this, 400, 300, ['Tu eres el gatito del que me ha hablado turras? Pues si que eres mono, no tendrás algo que ofrecerme? Como algo que le robaste un amigo..'], {
             fontFamily: '"Toonway", monospace',
             fontSize: '28px',
             color: '#000000',
@@ -265,7 +265,7 @@ export default class DialogoCuarta1 extends Phaser.Scene {
             this.pico.setStrokeStyle(4, 0x000000)
             const dialogoFinalBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
             dialogoFinalBubble.setStrokeStyle(4, 0x000000)
-            const dialogoFinal = dialogTextSprite.create(this, 400, 300, ['Oye pero ahora a donde vas?'], {
+            const dialogoFinal = dialogTextSprite.create(this, 400, 300, ['Mi nombre es albani! Nos vemos :3'], {
                 fontFamily: '"Toonway", sans-serif',
                 fontSize: '25px',
                 color: '#000000',

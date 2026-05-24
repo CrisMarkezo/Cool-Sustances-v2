@@ -69,7 +69,7 @@ export default class AccionPrimera2 extends Phaser.Scene {
         this.contextoBubble = this.add.rectangle(325, 250, 500, 150, 0xE2007C)
         this.contextoBubble.setStrokeStyle(3, 0Xe76d2c)
         this.contexto = dialogTextSprite.create(this, 325, 250, [
-            'Te despiertas debajo de una mesa, tus nuevos dueños están sentados alrededor. Todos parecen tener una botella en la mano, ves que uno de ellos deja un cubo lleno de esas botellas. ',
+            'Te despiertas debajo de una mesa, tus nuevos dueños están sentados alrededor. Ves que uno de ellos deja un cubo lleno de botellas. ',
             'Al mismo tiempo, escuchas un ruido, rodando aparece una moneda y una mano intentando cogerla. ¿Qué haces?'
         ], {
             fontFamily: '"Toonway", sans-serif',

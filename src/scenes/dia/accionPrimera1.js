@@ -71,9 +71,9 @@ export default class AccionPrimera1 extends Phaser.Scene {
         this.contextoBubble.setStrokeStyle(3, 0Xe76d2c)
         this.contexto = dialogTextSprite.create(this, 325, 250, [
             'Te despiertas en lo que tus nuevos dueños llaman techito, y ves en una de las esquinas un montón de colillas y una cajetilla sin acabar. ',
-            'Pero uno de los que se encuentran en techito parece ser que tiene algo en la mano que huele MUY bien. ¿Qué haces?'
+            'Pero uno de los dueños tiene algo en la mano que huele MUY bien. ¿Qué haces?'
         ], {
-            fontFamily: '"Toonway", sans-serif',
+            fontFamily: '"PixelAE-Regular", monospace',
             fontSize: '20px', 
             fill: '#ffffff',
             wordWrap: { width: 500 },
@@ -193,7 +193,7 @@ export default class AccionPrimera1 extends Phaser.Scene {
         this.chatBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
         this.chatBubble.setStrokeStyle(4, 0x000000);
         this.chat = dialogTextSprite.create(this, 400, 300, ['PERO QUE C**O HACES'], {
-            fontFamily: '"Toonway", monospace',
+            fontFamily: '"PixelAE-Regular", monospace',
             fontSize: '28px',
             color: '#000000',
             wordWrap: { width: 280 },
