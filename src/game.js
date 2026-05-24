@@ -18,10 +18,7 @@ import StartMenu from './scenes/startMenu.js'
 import Settings from './scenes/settings.js'
 import DialogoTercera1 from './scenes/dia/dialogoTercera1';
 import AccionCuarta1 from './scenes/dia/accionCuarta1';
-import AccionQuinta1 from './scenes/dia/accionQuinta1.js';
 import DialogoCuarta1 from './scenes/dia/dialogoCuarta1.js';
-import DialogoQuinta1 from './scenes/dia/dialogoQuinta1';
-import DialogoQuinta2 from './scenes/dia/dialogoQuinta2.js';
 import TiendaTercera1 from './scenes/dia/tiendaTercera1';
 import TiendaTercera2 from './scenes/dia/tiendaTercera2.js';
 import TiendaCuarta1 from './scenes/dia/tiendaCuarta1';
@@ -50,13 +47,10 @@ let config = {
         AccionSegunda1,
         AccionSegunda2,
         AccionCuarta1,
-        AccionQuinta1,
         DialogoPrimero1,
         DialogoSegundo1,
         DialogoTercera1,
         DialogoCuarta1,
-        DialogoQuinta1,
-        DialogoQuinta2,
         TiendaTercera1,
         TiendaTercera2,
         TiendaCuarta1,

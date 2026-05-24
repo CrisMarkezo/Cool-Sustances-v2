@@ -22,6 +22,8 @@ export default class AccionCuarta1 extends Phaser.Scene {
         this.nextDialogHint = null;
         this.selectedOption = 0;
         this.optionBubbles = [];
+        this.character = null;
+        this.character2 = null;
         
         // Keyboard keys
         this.keyA = null;
@@ -48,6 +50,8 @@ export default class AccionCuarta1 extends Phaser.Scene {
         const inventoryBtn = InventorySprite.create(this, 50, 60)
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'accion', 1200)
+        this.character = this.add.image(690, 500, 'pabloNeutro').setScale(1.2);
+        this.character2 = this.add.image(480, 500, 'anaNeutro').setScale(1.2);
         
         const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);
 
@@ -62,15 +66,12 @@ export default class AccionCuarta1 extends Phaser.Scene {
             color: '#ffe2f9'
         }).setOrigin(0.5)
 
-        this.add.image(690, 620, 'bin')
-
         this.contextoBubble = this.add.rectangle(325, 250, 500, 150, 0xE2007C)
         this.contextoBubble.setStrokeStyle(3, 0Xe76d2c)
         this.contexto = dialogTextSprite.create(this, 325, 250, [
-            'Te despiertas en lo que tus nuevos dueños llaman techito, y ves en una de las esquinas un montón de pipas con una bolsa sin acabar. ',
-            'Pero uno de los que se encuentran en techito parece ser que quiere darte algo. ¿Qué haces?'
+            'Sales de la tienda y pasas por delante de un bar. Ves que está pablo y ana. Te acercas y cada uno te mira como si estuvieran esperando que les des algo. ¿Qué haces?',
         ], {
-            fontFamily: '"Toonway", sans-serif',
+            fontFamily: '"PixelAE-Regular", monospace',
             fontSize: '20px', 
             fill: '#ffffff',
             wordWrap: { width: 500 },
@@ -128,7 +129,7 @@ export default class AccionCuarta1 extends Phaser.Scene {
 
         this.opcion1Bubble = this.add.rectangle(650, 320, 360, 60, 0Xe76d2c)
         this.opcion1Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion1 = this.add.text(650, 320, 'Recoger pipas del suelo', {
+        this.opcion1 = this.add.text(650, 320, 'Dar cigarros', {
             fontFamily: '"Keneric", sans-serif',
             fontSize: '22px',
             color: '#ffffff',
@@ -138,7 +139,7 @@ export default class AccionCuarta1 extends Phaser.Scene {
 
         this.opcion2Bubble = this.add.rectangle(650, 380, 360, 60, 0Xe76d2c)
         this.opcion2Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion2 = this.add.text(650, 380, 'Aceptar la ofrenda', {
+        this.opcion2 = this.add.text(650, 380, 'Dar cerveza', {
             fontFamily: '"Keneric", sans-serif',
             fontSize: '22px',
             color: '#ffffff',
@@ -169,11 +170,15 @@ export default class AccionCuarta1 extends Phaser.Scene {
     confirmarSeleccion() {
         if (this.selectedOption === 0) {
             this.opcionElegida = true
-            this.mostrarRecompensa('¡Has conseguido una bolsa de pipas!')
+            this.character.setTexture('pabloTriste').setScale(1.2)
+            this.character2.setTexture('anaFeliz').setScale(1.2)
+            this.mostrarRecompensa('¡Has conseguido la amistad de Ana!')
             return
         }
-        this.opcionElegida = true
-        this.mostrarRecompensa('¡Has conseguido 1 catWeed!')
+        this.opcionElegida = true;
+        this.character.setTexture('PabloAnaEnfadados').setScale(1.2)
+        this.character2.destroy();
+        this.mostrarRecompensa('¡Has conseguido la amistad de Pablo!')
     }
 
     mostrarRecompensa = (mensaje) => {
@@ -181,7 +186,7 @@ export default class AccionCuarta1 extends Phaser.Scene {
         this.opcion2.destroy()
         this.opcion1Bubble.destroy()
         this.opcion2Bubble.destroy()
-            this.optionBubbles = []
+        this.optionBubbles = []
 
         const bubble = this.add.rectangle(650, 350, 300, 110, 0xffffff)
         bubble.setStrokeStyle(4, 0x000000)

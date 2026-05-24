@@ -53,4 +53,14 @@ export default class Inventory {
         }
         return null;
     }
+
+    hasItem(name) {
+        for (let i = 0; i < this.rows; i++) {
+            for (let j = 0; j < this.cols; j++) {
+                if (this.slots[i][j] && this.slots[i][j].name === name) {
+                    return true;
+                }
+            }
+        }        return false;
+    }
 }

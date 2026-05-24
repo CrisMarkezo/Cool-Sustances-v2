@@ -68,7 +68,7 @@ export default class AccionSegunda1 extends Phaser.Scene {
         this.contextoBubble = this.add.rectangle(325, 250, 500, 150, 0xE2007C)
         this.contextoBubble.setStrokeStyle(3, 0Xe76d2c)
         this.contexto = dialogTextSprite.create(this, 325, 250, [
-            'Sigues caminando por el campus, sigues un camino que te lleva a un bosque. Te pierdes un poco hasta que ves unos humanos y decides seguirles hasta llegar al lado de una gran carretera.',
+            'Sigues caminando y acabas en un bosque. Te pierdes un poco hasta llegar al lado de una gran carretera.',
             'Ves que uno de ellos se le cae una cosa brillante, parece una moneda. Al mismo tiempo, ves en la esquina algo que huele delicioso. ¿Qué haces?'
         ], {
             fontFamily: '"Toonway", sans-serif',

@@ -23,7 +23,7 @@ export default class Menu extends Phaser.Scene {
         this.keyEnter = null;
 
         this.xByPosition = [410, 500, 590];
-        this.yByStep = [450, 390, 330, 260, 200];
+        this.yByStep = [450, 390, 330, 260];
     }
 
     create(){
@@ -81,7 +81,7 @@ export default class Menu extends Phaser.Scene {
 
         this.widgetSprite = new widgetSprite(this, 500, 120).setInteractive({ useHandCursor: true });
         this.widgetSprite.on('pointerdown', () => {
-            if (this.currentStep === 5) {
+            if (this.currentStep === 4) {
                 this.scene.start('mazmorra');
             }
         });
@@ -113,7 +113,7 @@ export default class Menu extends Phaser.Scene {
     }
 
     update() {
-        if (this.currentStep < 5) {
+        if (this.currentStep < 4) {
             if (Phaser.Input.Keyboard.JustDown(this.keyLeft) || Phaser.Input.Keyboard.JustDown(this.keyUp)) {
                 this.moveSelection(-1);
             }
@@ -128,7 +128,7 @@ export default class Menu extends Phaser.Scene {
             return;
         }
 
-        if (this.currentStep === 5 && (Phaser.Input.Keyboard.JustDown(this.keyE) || Phaser.Input.Keyboard.JustDown(this.keyEnter))) {
+        if (this.currentStep === 4 && (Phaser.Input.Keyboard.JustDown(this.keyE) || Phaser.Input.Keyboard.JustDown(this.keyEnter))) {
             this.scene.start('mazmorra');
         }
     }
@@ -161,11 +161,6 @@ export default class Menu extends Phaser.Scene {
                 { key: 'accionMenu', scene: 'accion-cuarta-1' },
                 { key: 'dialogoMenu', scene: 'dialogo-cuarta-1' },
                 { key: 'tiendaMenu', scene: 'tienda-cuarta-1' },
-            ],
-            [
-                { key: 'dialogoMenu', scene: 'dialogo-quinta-1' },
-                { key: 'accionMenu', scene: 'accion-quinta-1' },
-                { key: 'dialogoMenu', scene: 'dialogo-quinta-2' },
             ],
         ];
 
