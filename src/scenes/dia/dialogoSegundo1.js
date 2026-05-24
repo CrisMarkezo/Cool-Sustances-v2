@@ -53,6 +53,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
 
         //IU setup
         this.add.image(500, 350, 'dia');
+        this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.35);
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'dialogo', 1200)
         this.add.text(670, 75, 'Dialogo', {

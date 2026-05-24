@@ -49,6 +49,9 @@ export default class AccionTutorial extends Phaser.Scene {
         this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
 
+
+        this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
+
         createMoneyHud(this)
         this.add.image(500, 350, 'dia')
         const inventoryBtn = InventorySprite.create(this, 50, 60)

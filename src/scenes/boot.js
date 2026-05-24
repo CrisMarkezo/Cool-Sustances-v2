@@ -47,6 +47,10 @@ import accionIcon2 from '../../assets/sprites/dia/accionIconAnimation2.png'
 import accionIcon3 from '../../assets/sprites/dia/accionIconAnimation3.png'
 import accionIcon4 from '../../assets/sprites/dia/accionIconAnimation4.png'
 
+import cubatita from '../../assets/sprites/dia/characters/cubatita.png'
+import cubatita2 from '../../assets/sprites/dia/characters/cubatita2.png'
+import cubatitaSit from '../../assets/sprites/dia/characters/cubatitaSit.png'
+
 import dialogoIcon1 from '../../assets/sprites/dia/dialogoIconAnimation1.png'
 import dialogoIcon2 from '../../assets/sprites/dia/dialogoIconAnimation2.png'
 import dialogoIcon3 from '../../assets/sprites/dia/dialogoAnimation3.png'
@@ -129,6 +133,7 @@ import ciggarros from '../../assets/sprites/objetos/cigarros.png';
 
 import Llave_Boss from '../../assets/dungeon/llave_boss.png';
 import bosque from '../../assets/sprites/bosque.png';
+import crc1 from './../../node_modules/crc/crc1';
 
 export default class Boot extends Phaser.Scene {
     constructor() {
@@ -183,37 +188,24 @@ export default class Boot extends Phaser.Scene {
         this.load.image('dialogoIcon2', dialogoIcon2);
         this.load.image('dialogoIcon3', dialogoIcon3);
 
-        this.load.image('tiendaIcon', tiendaIcon);
-        this.load.image('laliNeutro', laliNeutro);
-        this.load.image('laliFeliz', laliFeliz);
-        this.load.image('laliTriste', laliTriste);
-        this.load.image('laliEnfadada', laliEnfadada);
-        this.load.image('haoNeutro', haoNeutro);
-        this.load.image('haoFeliz', haoFeliz);
-        this.load.image('haoTriste', haoTriste);
-        this.load.image('haoEnfadado', haoEnfadado);
-        this.load.image('haoHorny', haoHorny);
-        this.load.image('mikelNeutro', mikelNeutro);
-        this.load.image('mikelFeliz', mikelFeliz);
-        this.load.image('mikelTriste', mikelTriste);
-        this.load.image('mikelEnfadado', mikelEnfadado);
-        this.load.image('ikerNeutro', ikerNeutro);
-        this.load.image('ikerFeliz', ikerFeliz);
-        this.load.image('ikerTriste', ikerTriste);
-        this.load.image('ikerEnfadado', ikerEnfadado);
-        this.load.image('anaNeutro', anaNeutro);
-        this.load.image('anaFeliz', anaFeliz);
-        this.load.image('anaTriste', anaTriste);
-        this.load.image('anaHorny', anaHorny);
-        this.load.image('anaEnfadada', anaEnfadada);
+        this.load.image('cubatita', cubatita);
+        this.load.image('cubatita2', cubatita2);
+        this.load.image('cubatitaSit', cubatitaSit);
+
         this.load.image('pabloNeutro', pabloNeutro);
         this.load.image('pabloFeliz', pabloFeliz);
         this.load.image('pabloTriste', pabloTriste);
         this.load.image('pabloEnfadado', pabloEnfadado);
         this.load.image('pabloHorny', pabloHorny);
+        this.load.image('PabloAnaEnfadados', PabloAnaEnfadados);
+
         this.load.image('turrasNeutro', turrasNeutro);
         this.load.image('turrasFeliz', turrasFeliz);
         this.load.image('turrasEnfadado', turrasEnfadado);
+
+        this.load.image('albaniNeutro', albaniNeutro);
+        this.load.image('albaniFeliz', albaniFeliz);
+        this.load.image('albaniHorny', albaniHorny);
 
         this.load.image('laliNeutro', laliNeutro);
         this.load.image('laliFeliz', laliFeliz);
@@ -341,7 +333,7 @@ export default class Boot extends Phaser.Scene {
                 return;
             }
             sceneStarted = true;
-            this.scene.start('phone'); //start-menu
+            this.scene.start('start-menu'); //start-menu
         };
 
         const hasFontLoader =

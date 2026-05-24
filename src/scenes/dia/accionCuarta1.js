@@ -47,6 +47,7 @@ export default class AccionCuarta1 extends Phaser.Scene {
 
         createMoneyHud(this)
         this.add.image(500, 350, 'dia')
+        this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
         const inventoryBtn = InventorySprite.create(this, 50, 60)
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'accion', 1200)

@@ -121,7 +121,7 @@ export default class Inventory extends Phaser.Scene {
             // });
 
         } catch (err) {
-            console.error('❌ Error in Inventory.create():', err);
+            console.error('Error in Inventory.create():', err);
             console.error('Stack:', err.stack);
             throw err;
         }

@@ -41,10 +41,16 @@ export default class Inventory {
     }
 
     // Elimina el item en una posición concreta (fila, col)
-    removeItem(name) {
+    removeItem(identifier) {
+        if (identifier == null) return null;
+        const idStr = String(identifier).toLowerCase();
         for (let i = 0; i < this.rows; i++) {
             for (let j = 0; j < this.cols; j++) {
-                if (this.slots[i][j] && this.slots[i][j].name === name) {
+                const item = this.slots[i][j];
+                if (!item) continue;
+                const name = item.name ? String(item.name).toLowerCase() : null;
+                const id = item.id ? String(item.id).toLowerCase() : null;
+                if (name === idStr || id === idStr) {
                     const prev = this.slots[i][j];
                     this.slots[i][j] = null;
                     return prev;
@@ -55,12 +61,19 @@ export default class Inventory {
     }
 
     hasItem(name) {
+        if (name == null) return false;
+        const idStr = String(name).toLowerCase();
         for (let i = 0; i < this.rows; i++) {
             for (let j = 0; j < this.cols; j++) {
-                if (this.slots[i][j] && this.slots[i][j].name === name) {
+                const item = this.slots[i][j];
+                if (!item) continue;
+                const itemName = item.name ? String(item.name).toLowerCase() : null;
+                const itemId = item.id ? String(item.id).toLowerCase() : null;
+                if (itemName === idStr || itemId === idStr) {
                     return true;
                 }
             }
-        }        return false;
+        }
+        return false;
     }
 }

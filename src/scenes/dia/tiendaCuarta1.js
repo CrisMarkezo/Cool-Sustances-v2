@@ -46,6 +46,7 @@ export default class TiendaCuarta1 extends Phaser.Scene {
     create(){
 
         const bgImg = this.add.image(500, 350, 'tienda_dia');
+        this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.35);
         //const player = this.add.image(200, 500, 'cubatita');
         RuedaSprite.create(this, 920, 85, 'rueda_tienda')  
         const icon = this.add.image(920, 85, 'tiendaIcon')

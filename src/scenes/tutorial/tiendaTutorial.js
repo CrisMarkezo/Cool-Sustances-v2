@@ -49,7 +49,7 @@ export default class TiendaTutorial extends Phaser.Scene {
     create(){
 
         const bgImg = this.add.image(500, 350, 'tienda_dia');
-        //const player = this.add.image(200, 500, 'cubatita');
+        this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
         RuedaSprite.create(this, 920, 85, 'rueda_tienda')  
         const icon = this.add.image(920, 85, 'tiendaIcon')
         this.hao = this.add.image(400, 190, 'haoNeutro')
@@ -282,12 +282,22 @@ export default class TiendaTutorial extends Phaser.Scene {
         }
 
         if (this.selectedOption === 2) {
-            this.opcionElegida = true
-            this.hao.setTexture('haoHorny').setScale(0.9)
-            inventory?.removeItem('yanotekomo')
-            this.mostrarRecompensa('¡Has conseguido 1€ (+1€)!')
-            addMoney(this, 1)
-            return;
+            if (!inventory?.hasItem('yanotekomo')) {
+                this.hao.setTexture('haoEnfadado')
+                this.mostrarContexto([
+                    '看来你没有 yanotekomo.', '快去赚点钱，这样才能买到它们',
+                    'Parece que no tienes el yanotekomo. ¡Consigue uno para poder comprarlo!'
+                ])
+                return;
+            }
+            else {
+                this.opcionElegida = true
+                this.hao.setTexture('haoHorny').setScale(0.9)
+                inventory?.removeItem('yanotekomo')
+                this.mostrarRecompensa('¡Has conseguido 1€ (+1€)!')
+                addMoney(this, 1)
+                return;
+            }
         }
 
         this.opcionElegida = true

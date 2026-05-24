@@ -67,7 +67,7 @@ export default class DialogoTutorial extends Phaser.Scene {
             fontSize: '20px',
             color: '#ffe2f9'
         }).setOrigin(0.5)
-        //this.add.image(200, 500, 'cubatita');
+        this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
         this.lali = this.add.image(700, 500, 'laliNeutro').setScale(1.2);
 
         //Buttons
@@ -188,7 +188,7 @@ export default class DialogoTutorial extends Phaser.Scene {
             align: 'center'
         }).setOrigin(0.5).setInteractive({ useHandCursor: true });
         this.opcion2Bubble = this.add.rectangle(400, 400, 360, 60, 0Xe76d2c)
-        this.opcion2 = this.add.text(400, 400, 'Aceptar la loncha de jamón', { 
+        this.opcion2 = this.add.text(400, 400, 'Comerse la loncha de jamón', { 
             fontFamily: '"Keneric", sans-serif',
             fontSize: '20px', 
             fill: '#ffffff',
