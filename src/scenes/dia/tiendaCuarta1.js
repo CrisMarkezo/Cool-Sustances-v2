@@ -24,6 +24,8 @@ export default class TiendaCuarta1 extends Phaser.Scene {
         this.nextDialogHint = null;
         this.selectedOption = 0;
         this.optionBubbles = [];
+        this.cubatita = null;
+        this.character = null;
 
         // Keyboard keys
         this.keyUp = null;
@@ -46,8 +48,7 @@ export default class TiendaCuarta1 extends Phaser.Scene {
     create(){
 
         const bgImg = this.add.image(500, 350, 'tienda_dia');
-        this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.35);
-        //const player = this.add.image(200, 500, 'cubatita');
+        this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.35);
         RuedaSprite.create(this, 920, 85, 'rueda_tienda')  
         const icon = this.add.image(920, 85, 'tiendaIcon')
         this.hao = this.add.image(400, 190, 'haoNeutro')
@@ -221,7 +222,7 @@ export default class TiendaCuarta1 extends Phaser.Scene {
 
     confirmarSeleccion() {
         const inventory = this.registry.get('inventory');
-
+        this.cubatita.setTexture('cubatita2');
         if (this.selectedOption === 0) {
             if (trySpendMoney(this, 2)) {
                 this.opcionElegida = true
@@ -294,7 +295,7 @@ export default class TiendaCuarta1 extends Phaser.Scene {
                     fontSize: '20px',
                     color: '#0080ff'
                 }).setOrigin(0.5).setInteractive({ useHandCursor: true })
-
+                this.cubatita.setTexture('cubatitaSit').setScale(0.8);
                 this.input.keyboard.once('keydown-SPACE', () => {
                     this.scene.launch('phone');
                     this.scene.stop(this.scene.key);

@@ -27,6 +27,8 @@ export default class TiendaTutorial extends Phaser.Scene {
         this.nextDialogHint = null;
         this.selectedOption = 0;
         this.optionBubbles = [];
+        this.cubatita = null;
+        this.character = null;
 
         // Keyboard keys
         this.keyUp = null;
@@ -48,8 +50,9 @@ export default class TiendaTutorial extends Phaser.Scene {
 
     create(){
 
+        const inventory = this.registry.get('inventory');
         const bgImg = this.add.image(500, 350, 'tienda_dia');
-        this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
+        this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
         RuedaSprite.create(this, 920, 85, 'rueda_tienda')  
         const icon = this.add.image(920, 85, 'tiendaIcon')
         this.hao = this.add.image(400, 190, 'haoNeutro')
@@ -86,17 +89,17 @@ export default class TiendaTutorial extends Phaser.Scene {
         ])
 
 
-        this.contextTutorialBubble = this.add.rectangle(325, 620, 500, 200, 0x00C4FF)
+        this.contextTutorialBubble = this.add.rectangle(325, 620, 450, 200, 0x00C4FF)
         this.contextTutorialBubble.setStrokeStyle(3, 0X000000)
         this.contextTutorial = dialogTextSprite.create(this, 325, 620, [
-            'Nos econtramos en la escena de la tienda! Aquí puedes comprar distintos objetos.',
-            'Ciertos objetos serán utiles para sobrevivir en el evento del final del dia y otros son objetos para intercambiar con personajes y nos den objetos especiales o dinero.',
-            'El dinero se encuentra en la parte superior izquierda, y se gasta al comprar objetos. ¡Ten cuidado de no quedarte sin dinero!',
+            'Nos econtramos en la escena de la tienda! Donde puedes comprar objetos.',
+            'Algunos serán utiles para sobrevivir en el evento del final del dia y otros son objetos para intercambiar con personajes y nos den stats especiales.',
+            'El dinero se encuentra en la parte superior izquierda. ¡Ten cuidado de no quedarte sin dinero!',
         ], {
             fontFamily: '"PixelAE-Regular", monospace',
             fontSize: '16px', 
             fill: '#000000',
-            wordWrap: { width: 480 },
+            wordWrap: { width: 420 },
             align: 'center'
         })
         
@@ -332,7 +335,7 @@ export default class TiendaTutorial extends Phaser.Scene {
                     fontSize: '20px',
                     color: '#0080ff'
                 }).setOrigin(0.5).setInteractive({ useHandCursor: true })
-
+                this.cubatita.setTexture('cubatitaSit').setScale(0.8);
                 this.input.keyboard.once('keydown-SPACE', () => {
                     this.scene.launch('phone-tutorial');
                     this.scene.stop(this.scene.key);

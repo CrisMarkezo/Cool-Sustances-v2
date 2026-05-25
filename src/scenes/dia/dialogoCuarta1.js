@@ -21,6 +21,10 @@ export default class DialogoCuarta1 extends Phaser.Scene {
         this.nextDialogHint = null;
         this.selectedOption = 0;
         this.optionBubbles = [];
+        this.character = null;
+        this.cubatita = null;
+        this.cubatitaBubble = null;
+        this.cubatitaTexto = null;
 
         // Keyboard keys
         this.keyA = null;
@@ -52,7 +56,7 @@ export default class DialogoCuarta1 extends Phaser.Scene {
 
         //IU setup
         this.add.image(500, 350, 'dia');
-        this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
+        this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'dialogo', 1200)
         this.add.text(670, 75, 'Dialogo', {
@@ -65,7 +69,6 @@ export default class DialogoCuarta1 extends Phaser.Scene {
             fontSize: '20px',
             color: '#ffe2f9'
         }).setOrigin(0.5)
-        //this.add.image(200, 500, 'cubatita');
         this.character = this.add.image(700, 500, 'albaniNeutro').setScale(1.2);
 
         //Buttons
@@ -193,7 +196,9 @@ export default class DialogoCuarta1 extends Phaser.Scene {
     }
 
     confirmarSeleccion() {
-        if (this.selectedOption === 0) {
+        const inventory = this.registry.get('inventory');
+        this.cubatita.setTexture('cubatita2');
+        if (this.selectedOption === 0 && inventory?.hasItem('catWeed')) {
             this.opcionElegida = 1
             this.opcion1.destroy()
             this.opcion2.destroy()
@@ -217,6 +222,18 @@ export default class DialogoCuarta1 extends Phaser.Scene {
                 this.nextDialogHint = nextDialogSprite.create(this, 400, 320)
             })
             return
+        }
+        else if (this.selectedOption === 0 && !inventory?.hasItem('catWeed')) {
+            this.opcionElegida = 0;
+            this.cubatitaBubble = this.add.rectangle(500, 580, 300, 110, 0xffffff)
+            this.cubatitaBubble.setStrokeStyle(4, 0x000000)
+            this.cubatitaTexto = this.add.text(500, 580, 'No tengo catWeed...', {
+                fontFamily: '"PixelAE-Regular", monospace',
+                fontSize: '20px',
+                color: '#000000',
+                wordWrap: { width: 280 },
+                align: 'center'
+            }).setOrigin(0.5)
         }
 
         this.opcionElegida = 2
@@ -278,7 +295,7 @@ export default class DialogoCuarta1 extends Phaser.Scene {
                     fontSize: '20px',
                     color: '#C8006E'
                 }).setOrigin(0.5).setInteractive()
-
+                this.cubatita.setTexture('cubatitaSit').setScale(0.8);
                 this.input.keyboard.once('keydown-SPACE', () => {
                     this.scene.launch('phone');
                     this.scene.stop(this.scene.key);

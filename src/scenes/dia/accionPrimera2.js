@@ -25,6 +25,7 @@ export default class AccionPrimera2 extends Phaser.Scene {
         this.character = null;
         this.chatBubble = null;
         this.chat = null;
+        this.cubatita = null;
         
         // Keyboard keys
         this.keyA = null;
@@ -45,7 +46,8 @@ export default class AccionPrimera2 extends Phaser.Scene {
         this.keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
         this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-
+        
+        this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
         createMoneyHud(this)
         this.add.image(500, 350, 'dia')
         this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
@@ -170,6 +172,8 @@ export default class AccionPrimera2 extends Phaser.Scene {
     }
 
     confirmarSeleccion() {
+        const inventory = this.registry.get('inventory');
+        this.cubatita.setTexture('cubatita2');
         if (this.selectedOption === 0) {
             this.opcion1.destroy()
             this.opcion2.destroy()
@@ -222,7 +226,7 @@ export default class AccionPrimera2 extends Phaser.Scene {
                 fontSize: '20px',
                 color: '#ff028d'
             }).setOrigin(0.5).setInteractive({ useHandCursor: true })
-
+            this.cubatita.setTexture('cubatitaSit').setScale(0.8)
             this.input.keyboard.once('keydown-SPACE', () => {
                     this.scene.launch('phone');
                     this.scene.stop(this.scene.key);

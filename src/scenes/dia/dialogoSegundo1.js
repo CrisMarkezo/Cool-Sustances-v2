@@ -22,6 +22,11 @@ export default class DialogoSegundo1 extends Phaser.Scene {
         this.nextDialogHint = null;
         this.selectedOption = 0;
         this.optionBubbles = [];
+        this.character = null;
+        this.contexto = null;
+        this.contextoBubble = null;
+        this.pico = null;
+        this.cubatita = null;
 
         // Keyboard keys
         this.keyA = null;
@@ -33,14 +38,10 @@ export default class DialogoSegundo1 extends Phaser.Scene {
         this.keyQ = null;
         this.keyS = null;
         this.keyEnter = null;
-
-        this.character = null;
-        this.contexto = null;
-        this.contextoBubble = null;
-        this.pico = null;
     }
 
     create(){
+        const inventory = this.registry.get('inventory');
         this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B);
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -53,7 +54,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
 
         //IU setup
         this.add.image(500, 350, 'dia');
-        this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.35);
+        this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.35);
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'dialogo', 1200)
         this.add.text(670, 75, 'Dialogo', {
@@ -194,6 +195,8 @@ export default class DialogoSegundo1 extends Phaser.Scene {
     }
 
     confirmarSeleccion() {
+        this.cubatita.setTexture('cubatita2');
+        const inventory = this.registry.get('inventory');
         if (this.selectedOption === 0) {
             this.opcionElegida = 1
             this.opcion1.destroy()
@@ -281,7 +284,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
                     fontSize: '20px',
                     color: '#C8006E'
                 }).setOrigin(0.5).setInteractive()
-
+                this.cubatita.setTexture('cubatitaSit').setScale(0.8)
                 this.input.keyboard.once('keydown-SPACE', () => {
                     this.scene.launch('phone');
                     this.scene.stop(this.scene.key);

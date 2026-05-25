@@ -133,7 +133,8 @@ import ciggarros from '../../assets/sprites/objetos/cigarros.png';
 
 import Llave_Boss from '../../assets/dungeon/llave_boss.png';
 import bosque from '../../assets/sprites/bosque.png';
-import crc1 from './../../node_modules/crc/crc1';
+import techoBarras from '../../assets/sprites/techoBarras.png';
+import techoPared from '../../assets/sprites/techoPared.png';
 
 export default class Boot extends Phaser.Scene {
     constructor() {
@@ -144,8 +145,10 @@ export default class Boot extends Phaser.Scene {
         // Con setPath podemos establecer el prefijo que se añadirá a todos los load que aparecen a continuación
         //this.load.setPath('assets/sprites/');
         this.load.image('bosque', bosque);
-        this.load.image('dia', dia)
-        this.load.image('tienda_dia', tiendaDia)
+        this.load.image('techoBarras', techoBarras);
+        this.load.image('techoPared', techoPared);
+        this.load.image('dia', dia);
+        this.load.image('tienda_dia', tiendaDia);
 
         this.load.image('startMenu', startMenu);
 

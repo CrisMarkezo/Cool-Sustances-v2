@@ -21,6 +21,7 @@ export default class DialogoTercera1 extends Phaser.Scene {
         this.nextDialogHint = null;
         this.selectedOption = 0;
         this.optionBubbles = [];
+        this.cubatita = null;
 
         // Keyboard keys
         this.keyA = null;
@@ -50,9 +51,10 @@ export default class DialogoTercera1 extends Phaser.Scene {
         this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
 
+        const inventory = this.registry.get('inventory');
         //IU setup
         this.add.image(500, 350, 'dia');
-        this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
+        this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'dialogo', 1200)
         this.add.text(670, 75, 'Dialogo', {
@@ -196,7 +198,7 @@ export default class DialogoTercera1 extends Phaser.Scene {
 
     confirmarSeleccion() {
         const inventory = this.registry.get('inventory');
-
+        this.cubatita.setTexture('cubatita2');
         if (this.selectedOption === 0) {
             this.opcionElegida = 1
             this.opcion1.destroy()
@@ -283,7 +285,7 @@ export default class DialogoTercera1 extends Phaser.Scene {
                     fontSize: '20px',
                     color: '#C8006E'
                 }).setOrigin(0.5).setInteractive()
-
+                this.cubatita.setTexture('cubatitaSit').setScale(0.8);
                 this.input.keyboard.once('keydown-SPACE', () => {
                     this.scene.launch('phone');
                     this.scene.stop(this.scene.key);

@@ -28,6 +28,8 @@ export default class AccionTutorial extends Phaser.Scene {
         this.nextDialogHint = null;
         this.selectedOption = 0;
         this.optionBubbles = [];
+        this.cubatita = null;
+        this.character = null;
         
         // Keyboard keys
         this.keyA = null;
@@ -48,9 +50,9 @@ export default class AccionTutorial extends Phaser.Scene {
         this.keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
         this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        const inventory = this.registry.get('inventory');
 
-
-        this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
+        this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
 
         createMoneyHud(this)
         this.add.image(500, 350, 'dia')
@@ -153,7 +155,6 @@ export default class AccionTutorial extends Phaser.Scene {
                 this.scene.bringToTop('inventory')
             } catch (err) {
                 console.error('Stack:', err.stack);
-                // Try to resume if there was an error
                 try {
                     this.scene.resume()
                 } catch (e) {
@@ -198,7 +199,7 @@ export default class AccionTutorial extends Phaser.Scene {
         this.selectTutorialBubble.setStrokeStyle(3, 0X000000)
         this.selectTutorial = dialogTextSprite.create(this, 325, 500, [
             'Aqui tienes las opciones que puedes elegir, se navegan con las teclas W y S y seleccionas con la tecla E.',
-            'Una vez elegida la opción, puedes ver los diferentes objetos que tienes en el inventario, que se encuentra pulsando la tecla I. ¡Elige la que más te guste!'
+            'Una vez elegida la opción, puedes ver los diferentes objetos que tienes en el inventario, que se encuentra pulsando la tecla Q.'
         ], {
             fontFamily: '"PixelAE-Regular", monospace',
             fontSize: '16px', 
@@ -207,12 +208,11 @@ export default class AccionTutorial extends Phaser.Scene {
             align: 'center'
         })
 
-        this.optionBubbles = [this.opcion1Bubble, this.opcion2Bubble]
-        this.actualizarSeleccionVisual()
-        
         this.selectTutorial.once('complete', () => {
             this.selectTutorialComplete = true;
         })
+        this.optionBubbles = [this.opcion1Bubble, this.opcion2Bubble]
+        this.actualizarSeleccionVisual()
     }
 
     moverSeleccion(direction) {
@@ -271,7 +271,7 @@ export default class AccionTutorial extends Phaser.Scene {
                 fontSize: '20px',
                 color: '#ff028d'
             }).setOrigin(0.5).setInteractive({ useHandCursor: true })
-
+            this.cubatita.setTexture('cubatitaSit').setScale(0.8);
             this.input.keyboard.once('keydown-SPACE', () => {
                     this.scene.launch('phone-tutorial');
                     this.scene.stop(this.scene.key);

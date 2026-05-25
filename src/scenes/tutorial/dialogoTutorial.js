@@ -24,6 +24,8 @@ export default class DialogoTutorial extends Phaser.Scene {
         this.contextTutorialComplete = false;
         this.selectedOption = 0;
         this.optionBubbles = [];
+        this.cubatita = null;
+        this.character = null;
 
         // Keyboard keys
         this.keyA = null;
@@ -43,6 +45,7 @@ export default class DialogoTutorial extends Phaser.Scene {
     }
 
     create(){
+        const inventory = this.registry.get('inventory');
         this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B);
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -67,7 +70,7 @@ export default class DialogoTutorial extends Phaser.Scene {
             fontSize: '20px',
             color: '#ffe2f9'
         }).setOrigin(0.5)
-        this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
+        this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
         this.lali = this.add.image(700, 500, 'laliNeutro').setScale(1.2);
 
         //Buttons
@@ -87,16 +90,16 @@ export default class DialogoTutorial extends Phaser.Scene {
             align: 'center'
         });
 
-        this.contextTutorialBubble = this.add.rectangle(325, 450, 500, 150, 0x00C4FF)
+        this.contextTutorialBubble = this.add.rectangle(325, 450, 450, 150, 0x00C4FF)
         this.contextTutorialBubble.setStrokeStyle(3, 0X000000)
         this.contextTutorial = dialogTextSprite.create(this, 325, 450, [
             'Nos econtramos en la escena de dialogo. En esta escena puedes interactuar con los personajes y tomar decisiones que afectarán tus relaciones con dichos personajes.',
-            'Puedes elegir diferentes respuestas para subir tu relación con ellos o no, pero recuerda que si te llevas bien con ellos puede que te hagan un favor.'
+            'Recuerda que si te llevas bien con ellos puede que te hagan un favor.'
         ], {
             fontFamily: '"PixelAE-Regular", monospace',
             fontSize: '16px', 
             fill: '#000000',
-            wordWrap: { width: 480 },
+            wordWrap: { width: 420 },
             align: 'center'
         })
                 
@@ -165,7 +168,7 @@ export default class DialogoTutorial extends Phaser.Scene {
             if (this.nextDialogHint) {
                 this.nextDialogHint.destroy()
             }
-            this.mostrarRecompensa('¡Has conseguido una loncha de jamón!')
+            this.mostrarRecompensa('¡Has conseguido comerse la loncha de jamón!')
             this.opcionElegida = 0; // Reset to prevent multiple triggers
         }
 
@@ -305,7 +308,7 @@ export default class DialogoTutorial extends Phaser.Scene {
                     fontSize: '20px',
                     color: '#C8006E'
                 }).setOrigin(0.5).setInteractive()
-
+                this.cubatita.setTexture('cubatitaSit').setScale(0.8);
                 this.input.keyboard.once('keydown-SPACE', () => {
                     this.scene.launch('phone-tutorial');
                     this.scene.stop(this.scene.key);

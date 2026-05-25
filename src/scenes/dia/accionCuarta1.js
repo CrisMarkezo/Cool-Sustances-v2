@@ -6,6 +6,7 @@ import dialogTextSprite from '../../game-objects/dialogTextSprite.js'
 import nextDialogSprite from '../../game-objects/nextDialogSprite.js'
 import IconSprite from '../../game-objects/iconSprite.js'
 import { addMoney, createMoneyHud } from '../../utils/money.js'
+import Interactable from './../../interactable';
 
 export default class AccionCuarta1 extends Phaser.Scene {
     constructor(){
@@ -24,6 +25,7 @@ export default class AccionCuarta1 extends Phaser.Scene {
         this.optionBubbles = [];
         this.character = null;
         this.character2 = null;
+        this.cubatita = null;
         
         // Keyboard keys
         this.keyA = null;
@@ -45,9 +47,11 @@ export default class AccionCuarta1 extends Phaser.Scene {
         this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
 
+
+        const inventory = this.registry.get('inventory');
         createMoneyHud(this)
         this.add.image(500, 350, 'dia')
-        this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
+        this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
         const inventoryBtn = InventorySprite.create(this, 50, 60)
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'accion', 1200)
@@ -169,17 +173,45 @@ export default class AccionCuarta1 extends Phaser.Scene {
     }
 
     confirmarSeleccion() {
-        if (this.selectedOption === 0) {
+        const inventory = this.registry.get('inventory');
+         this.cubatita.setTexture('cubatita2');
+        if (this.selectedOption === 0 && inventory?.hasItem('cigarros')) {
             this.opcionElegida = true
             this.character.setTexture('pabloTriste').setScale(1.2)
             this.character2.setTexture('anaFeliz').setScale(1.2)
             this.mostrarRecompensa('¡Has conseguido la amistad de Ana!')
             return
         }
+        else if (this.selectedOption === 0 && !inventory?.hasItem('cigarros')) {
+            this.opcionElegida = 0;
+            this.cubatitaBubble = this.add.rectangle(500, 580, 300, 110, 0xffffff)
+            this.cubatitaBubble.setStrokeStyle(4, 0x000000)
+            this.cubatitaTexto = this.add.text(500, 580, 'No tengo cigarros...', {
+                fontFamily: '"PixelAE-Regular", monospace',
+                fontSize: '20px',
+                color: '#000000',
+                wordWrap: { width: 280 },
+                align: 'center'
+            }).setOrigin(0.5)
+        }
+
         this.opcionElegida = true;
-        this.character.setTexture('PabloAnaEnfadados').setScale(1.2)
-        this.character2.destroy();
-        this.mostrarRecompensa('¡Has conseguido la amistad de Pablo!')
+        if (this.selectedOption === 1 && inventory?.hasItem('cerveza')) {
+            this.character.setTexture('PabloAnaEnfadados').setScale(1.2)
+            this.character2.destroy();
+            this.mostrarRecompensa('¡Has conseguido la amistad de Pablo!')
+        }
+        else if (this.selectedOption === 1 && !inventory?.hasItem('cerveza')) {
+            this.cubatitaBubble = this.add.rectangle(500, 580, 300, 110, 0xffffff)
+            this.cubatitaBubble.setStrokeStyle(4, 0x000000)
+            this.cubatitaTexto = this.add.text(500, 580, 'No tengo cerveza...', {
+                fontFamily: '"PixelAE-Regular", monospace',
+                fontSize: '20px',
+                color: '#000000',
+                wordWrap: { width: 280 },
+                align: 'center'
+            }).setOrigin(0.5)
+        }
     }
 
     mostrarRecompensa = (mensaje) => {
@@ -202,12 +234,13 @@ export default class AccionCuarta1 extends Phaser.Scene {
         }).setOrigin(0.5)
 
         this.time.delayedCall(2000, () => {
+            this.cubatita.setTexture('cubatitaSit').setScale(0.8);
             const continuar = this.add.text(650, 430, 'Presiona espacio para continuar', {
                 fontFamily: '"PixelAE-Bold", monospace',
                 fontSize: '20px',
                 color: '#ff028d'
             }).setOrigin(0.5).setInteractive({ useHandCursor: true })
-
+            this.cubatita.setTexture('cubatitaSit').setScale(0.8)
             this.input.keyboard.once('keydown-SPACE', () => {
                     this.scene.launch('phone');
                     this.scene.stop(this.scene.key);

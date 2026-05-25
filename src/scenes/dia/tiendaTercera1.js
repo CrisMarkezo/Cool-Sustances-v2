@@ -4,6 +4,7 @@ import RuedaSprite from '../../game-objects/ruedaSprite.js'
 import dialogTextSprite from '../../game-objects/dialogTextSprite.js'
 import nextDialogSprite from '../../game-objects/nextDialogSprite.js'
 import { addMoney, createMoneyHud, trySpendMoney } from '../../utils/money.js'
+import Interactable from './../../interactable';
 
 export default class TiendaTercera1 extends Phaser.Scene {
     constructor(){
@@ -24,6 +25,8 @@ export default class TiendaTercera1 extends Phaser.Scene {
         this.nextDialogHint = null;
         this.selectedOption = 0;
         this.optionBubbles = [];
+        this.cubatita = null;
+        this.hao = null;
 
         // Keyboard keys
         this.keyUp = null;
@@ -45,9 +48,9 @@ export default class TiendaTercera1 extends Phaser.Scene {
 
     create(){
 
+        const inventory = this.registry.get('inventory');
         const bgImg = this.add.image(500, 350, 'tienda_dia');
-        this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
-        //const player = this.add.image(200, 500, 'cubatita');
+        this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
         RuedaSprite.create(this, 920, 85, 'rueda_tienda')  
         const icon = this.add.image(920, 85, 'tiendaIcon')
         this.hao = this.add.image(400, 190, 'haoNeutro')
@@ -220,6 +223,7 @@ export default class TiendaTercera1 extends Phaser.Scene {
     }
 
     confirmarSeleccion() {
+        const inventory = this.registry.get('inventory');
         if (this.selectedOption === 0) {
             if (trySpendMoney(this, 2)) {
                 this.opcionElegida = true
@@ -253,11 +257,22 @@ export default class TiendaTercera1 extends Phaser.Scene {
         }
 
         if (this.selectedOption === 2) {
-            this.opcionElegida = true
-            this.hao.setTexture('haoHorny').setScale(0.9)
-            this.mostrarRecompensa('¡Has conseguido 1€ (+1€)!')
-            addMoney(this, 1)
-            return;
+           if (!inventory?.hasItem('yanotekomo')) {
+                this.hao.setTexture('haoEnfadado')
+                this.mostrarContexto([
+                    '看来你没有 yanotekomo.', '快去赚点钱，这样才能买到它们',
+                    'Parece que no tienes el yanotekomo. ¡Consigue uno para poder comprarlo!'
+                ])
+                return;
+            }
+            else {
+                this.opcionElegida = true
+                this.hao.setTexture('haoHorny').setScale(0.9)
+                inventory?.removeItem('yanotekomo')
+                this.mostrarRecompensa('¡Has conseguido 1€ (+1€)!')
+                addMoney(this, 1)
+                return;
+            }
         }
 
         this.opcionElegida = true
@@ -266,6 +281,7 @@ export default class TiendaTercera1 extends Phaser.Scene {
     }
 
     mostrarRecompensa = (mensaje) => {
+        this.cubatita.setTexture('cubatita2');
             this.opcion1.destroy()
             this.opcion2.destroy()
             this.opcion3.destroy()
@@ -292,7 +308,7 @@ export default class TiendaTercera1 extends Phaser.Scene {
                     fontSize: '20px',
                     color: '#0080ff'
                 }).setOrigin(0.5).setInteractive({ useHandCursor: true })
-
+                this.cubatita.setTexture('cubatitaSit').setScale(0.8)
                 this.input.keyboard.once('keydown-SPACE', () => {
                     this.scene.launch('phone');
                     this.scene.stop(this.scene.key);

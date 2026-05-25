@@ -24,6 +24,8 @@ export default class TiendaTercera2 extends Phaser.Scene {
         this.nextDialogHint = null;
         this.selectedOption = 0;
         this.optionBubbles = [];
+        this.character = null;
+        this.cubatita = null;
 
         // Keyboard keys
         this.keyUp = null;
@@ -45,6 +47,7 @@ export default class TiendaTercera2 extends Phaser.Scene {
 
     create(){
 
+        const inventory = this.registry.get('inventory');
         const bgImg = this.add.image(500, 350, 'tienda_dia');
         this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.35);
         //const player = this.add.image(200, 500, 'cubatita');
@@ -220,6 +223,8 @@ export default class TiendaTercera2 extends Phaser.Scene {
     }
 
     confirmarSeleccion() {
+        const inventory = this.registry.get('inventory');
+         this.cubatita.setTexture('cubatita2');
         if (this.selectedOption === 0) {
             if (trySpendMoney(this, 2)) {
                 this.opcionElegida = true
@@ -292,7 +297,7 @@ export default class TiendaTercera2 extends Phaser.Scene {
                     fontSize: '20px',
                     color: '#0080ff'
                 }).setOrigin(0.5).setInteractive({ useHandCursor: true })
-
+                this.cubatita.setTexture('cubatitaSit').setScale(0.8)
                 this.input.keyboard.once('keydown-SPACE', () => {
                     this.scene.launch('phone');
                     this.scene.stop(this.scene.key);

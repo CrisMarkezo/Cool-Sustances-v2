@@ -21,6 +21,7 @@ export default class DialogoPrimero1 extends Phaser.Scene {
         this.nextDialogHint = null;
         this.selectedOption = 0;
         this.optionBubbles = [];
+        this.cubatita = null;
 
         // Keyboard keys
         this.keyA = null;
@@ -50,6 +51,7 @@ export default class DialogoPrimero1 extends Phaser.Scene {
         this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
 
+        this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
         //IU setup
         this.add.image(500, 350, 'dia');
         this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
@@ -193,8 +195,8 @@ export default class DialogoPrimero1 extends Phaser.Scene {
     }
 
     confirmarSeleccion() {
+        this.cubatita.setTexture('cubatita2');
         const inventory = this.registry.get('inventory');
-        
         if (this.selectedOption === 0) {
             this.opcionElegida = 1
             this.opcion1.destroy()
@@ -282,7 +284,7 @@ export default class DialogoPrimero1 extends Phaser.Scene {
                     fontSize: '20px',
                     color: '#C8006E'
                 }).setOrigin(0.5).setInteractive()
-
+                this.cubatita.setTexture('cubatitaSit').setScale(0.8)
                 this.input.keyboard.once('keydown-SPACE', () => {
                     this.scene.launch('phone');
                     this.scene.stop(this.scene.key);

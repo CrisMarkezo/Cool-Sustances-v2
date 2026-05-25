@@ -25,6 +25,7 @@ export default class AccionPrimera1 extends Phaser.Scene {
         this.character = null;
         this.chatBubble = null;
         this.chat = null;
+        this.cubatita = null;
         
         // Keyboard keys
         this.keyA = null;
@@ -48,7 +49,9 @@ export default class AccionPrimera1 extends Phaser.Scene {
 
         createMoneyHud(this)
         this.add.image(500, 350, 'dia')
-        this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
+        this.add.image(950, 700, 'techoPared').setOrigin(1,1).setScale(1.2);
+        this.add.image(950, 700, 'techoBarras').setOrigin(1,1).setScale(0.8);
+        this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
         const inventoryBtn = InventorySprite.create(this, 50, 60)
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'accion', 1200)
@@ -173,6 +176,8 @@ export default class AccionPrimera1 extends Phaser.Scene {
     }
 
     confirmarSeleccion() {
+        const inventory = this.registry.get('inventory');
+        this.cubatita.setTexture('cubatita2');
         if (this.selectedOption === 0) {
             this.opcion1.destroy()
             this.opcion2.destroy()
@@ -206,7 +211,6 @@ export default class AccionPrimera1 extends Phaser.Scene {
     }
 
     mostrarRecompensa = (mensaje) => {
-
         const bubble = this.add.rectangle(500, 580, 300, 110, 0xffffff)
         bubble.setStrokeStyle(4, 0x000000)
 
@@ -225,7 +229,7 @@ export default class AccionPrimera1 extends Phaser.Scene {
                 fontSize: '20px',
                 color: '#ff028d'
             }).setOrigin(0.5).setInteractive({ useHandCursor: true })
-
+            this.cubatita.setTexture('cubatitaSit').setScale(0.8);
             this.input.keyboard.once('keydown-SPACE', () => {
                     this.scene.launch('phone');
                     this.scene.stop(this.scene.key);
