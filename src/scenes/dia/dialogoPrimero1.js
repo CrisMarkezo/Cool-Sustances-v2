@@ -215,7 +215,7 @@ export default class DialogoPrimero1 extends Phaser.Scene {
             this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
             this.respuesta = dialogTextSprite.create(this, 400, 300, ['Perdón por molestarte, no era mi intención...'], {
                 fontFamily: '"PixelAE-Regular", monospace',
-                fontSize: '28px',
+                fontSize: '20px',
                 color: '#000000',
                 wordWrap: { width: 340 },
                 align: 'center'
@@ -240,7 +240,7 @@ export default class DialogoPrimero1 extends Phaser.Scene {
         this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
         this.respuesta = dialogTextSprite.create(this, 400, 300, ['Pero que cosita! Hoy es jueves de FDI y estamos con mikel y pablo bebiendo. Pero yo solo fumo cigarros no la merienda de pablo.'], {
             fontFamily: '"PixelAE-Regular", monospace',
-            fontSize: '28px',
+            fontSize: '20px',
             color: '#000000',
             wordWrap: { width: 340 },
             align: 'center'
@@ -271,13 +271,11 @@ export default class DialogoPrimero1 extends Phaser.Scene {
                 align: 'center'
             }).setOrigin(0.5)
             this.character.setTexture('anaHorny').setScale(0.95)
-            this.pico = this.add.triangle(480, 400, 0, 0, 50, 0, 25, 0, 0xdaff8f)
-            this.pico.setStrokeStyle(4, 0x000000)
             const dialogoFinalBubble = this.add.ellipse(400, 300, 320, 150, 0xdaff8f)
             dialogoFinalBubble.setStrokeStyle(4, 0x000000)
             const dialogoFinal = dialogTextSprite.create(this, 400, 300, ['Ha sido un placer little car, mi nombre es Ana!'], {
                 fontFamily: '"PixelAE-Regular", monospace',
-                fontSize: '25px',
+                fontSize: '20px',
                 color: '#000000',
                 wordWrap: { width: 320 },
                 align: 'center'

@@ -237,6 +237,7 @@ export default class DialogoCuarta1 extends Phaser.Scene {
                 wordWrap: { width: 280 },
                 align: 'center'
             }).setOrigin(0.5)
+            return
         }
 
         this.opcionElegida = 2
@@ -251,8 +252,8 @@ export default class DialogoCuarta1 extends Phaser.Scene {
         this.respuestaBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
         this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
         this.respuesta = dialogTextSprite.create(this, 400, 300, ['Tu eres el gatito del que me ha hablado turras? Pues si que eres mono, no tendrás algo que ofrecerme? Como algo que le robaste un amigo..'], {
-            fontFamily: '"Toonway", monospace',
-            fontSize: '28px',
+            fontFamily: '"PixelAE-Regular", monospace',
+            fontSize: '20px',
             color: '#000000',
             wordWrap: { width: 280 },
             align: 'center'
@@ -261,6 +262,7 @@ export default class DialogoCuarta1 extends Phaser.Scene {
             this.contextComplete = true;
             this.nextDialogHint = nextDialogSprite.create(this, 400, 320)
         })
+        return
     }
 
     mostrarRecompensa = (mensaje) => {
@@ -282,13 +284,11 @@ export default class DialogoCuarta1 extends Phaser.Scene {
                 align: 'center'
             }).setOrigin(0.5)
             this.character.setTexture('albaniHorny').setScale(0.95)
-            this.pico = this.add.triangle(480, 400, 0, 0, 50, 0, 25, 0, 0xdaff8f)
-            this.pico.setStrokeStyle(4, 0x000000)
             const dialogoFinalBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
             dialogoFinalBubble.setStrokeStyle(4, 0x000000)
             const dialogoFinal = dialogTextSprite.create(this, 400, 300, ['Mi nombre es albani! Nos vemos :3'], {
-                fontFamily: '"Toonway", sans-serif',
-                fontSize: '25px',
+                fontFamily: '"PixelAE-Regular", monospace',
+                fontSize: '20px',
                 color: '#000000',
                 wordWrap: { width: 280 }
             })
