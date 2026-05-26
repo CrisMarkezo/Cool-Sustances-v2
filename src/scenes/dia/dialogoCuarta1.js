@@ -56,8 +56,10 @@ export default class DialogoCuarta1 extends Phaser.Scene {
 
         //IU setup
         this.add.image(500, 350, 'dia');
+        this.add.image(700, 450, 'barraBar').setScale(0.7);
         this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
         RuedaSprite.create(this, 920, 85, 'rueda')
+
         IconSprite.create(this, 920, 85, 'dialogo', 1200)
         this.add.text(670, 75, 'Dialogo', {
             fontFamily: '"Toonway", sans-serif',
@@ -69,7 +71,8 @@ export default class DialogoCuarta1 extends Phaser.Scene {
             fontSize: '20px',
             color: '#ffe2f9'
         }).setOrigin(0.5)
-        this.character = this.add.image(700, 500, 'albaniNeutro').setScale(1.2);
+        this.add.image(900, 500, 'turrasFeliz').setScale(0.7);
+        this.character = this.add.image(700, 500, 'albaniNeutro');
 
         //Buttons
         const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);
@@ -81,8 +84,8 @@ export default class DialogoCuarta1 extends Phaser.Scene {
         this.contexto = dialogTextSprite.create(this, 325, 250, [
             'Sales de la tienda y pasa por delante de un bar. Ves que está turras con una chica muy guapa. Te acercas y ves que la chica te mira con interés. ¿Qué haces?'
         ], {       
-            fontFamily: '"Toonway", sans-serif',
-            fontSize: '20px', 
+            fontFamily: '"PixelAE-Regular", monospace',
+            fontSize: '18px', 
             fill: '#ffffff',
             wordWrap: { width: 500 },
             align: 'center'

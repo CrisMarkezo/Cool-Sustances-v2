@@ -22,7 +22,6 @@ export default class AccionSegunda1 extends Phaser.Scene {
         this.nextDialogHint = null;
         this.selectedOption = 0;
         this.optionBubbles = [];
-        this.character = null;
         this.cubatita = null;
         
         // Keyboard keys
@@ -45,16 +44,16 @@ export default class AccionSegunda1 extends Phaser.Scene {
         this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
 
-        this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
         createMoneyHud(this)
         this.add.image(500, 350, 'dia')
-        this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
         const inventoryBtn = InventorySprite.create(this, 50, 60)
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'accion', 1200)
         this.add.image(300, 500, 'bosque').setScale(0.9);
         this.add.image(400, 500, 'bosque').setScale(0.9);
         this.add.image(200, 500, 'bosque').setScale(0.9);
+        this.add.image(900, 600, 'busAzul').setScale(0.5);
+        this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
         const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);
 
         this.add.text(680, 75, 'Accion', {
@@ -76,8 +75,8 @@ export default class AccionSegunda1 extends Phaser.Scene {
             'Sigues caminando y acabas en un bosque. Te pierdes un poco hasta llegar al lado de una gran carretera.',
             'Ves que uno de ellos se le cae una cosa brillante, parece una moneda. Al mismo tiempo, ves en la esquina algo que huele delicioso. ¿Qué haces?'
         ], {
-            fontFamily: '"Toonway", sans-serif',
-            fontSize: '20px', 
+            fontFamily: '"PixelAE-Regular", sans-serif',
+            fontSize: '18px', 
             fill: '#ffffff',
             wordWrap: { width: 500 },
             align: 'center'

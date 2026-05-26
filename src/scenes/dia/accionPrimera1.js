@@ -49,8 +49,8 @@ export default class AccionPrimera1 extends Phaser.Scene {
 
         createMoneyHud(this)
         this.add.image(500, 350, 'dia')
-        this.add.image(950, 700, 'techoPared').setOrigin(1,1).setScale(1.2);
-        this.add.image(950, 700, 'techoBarras').setOrigin(1,1).setScale(0.8);
+        this.add.image(950, 690, 'techoPared').setOrigin(1,1).setScale(1.1);
+        this.add.image(999, 450, 'techoBarras').setScale(0.9);
         this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
         const inventoryBtn = InventorySprite.create(this, 50, 60)
         RuedaSprite.create(this, 920, 85, 'rueda')

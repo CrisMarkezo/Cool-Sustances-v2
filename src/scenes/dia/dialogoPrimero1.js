@@ -50,11 +50,15 @@ export default class DialogoPrimero1 extends Phaser.Scene {
         this.keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-
-        this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
         //IU setup
         this.add.image(500, 350, 'dia');
-        this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
+        this.add.image(800, 500, 'mesas');
+        this.add.image(850, 600, 'cuboCerveza');
+        this.add.image(300, 500, 'bosque').setScale(0.9);
+        this.add.image(400, 500, 'bosque').setScale(0.9);
+
+        this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
+
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'dialogo', 1200)
         this.add.text(670, 75, 'Dialogo', {

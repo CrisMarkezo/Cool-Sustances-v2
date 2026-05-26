@@ -21,8 +21,10 @@ export default class AccionCuarta1 extends Phaser.Scene {
         this.opcion1Bubble = null;
         this.opcion2Bubble = null;
         this.nextDialogHint = null;
+        this.retryDialogHint = null;
         this.selectedOption = 0;
         this.optionBubbles = [];
+        this.waitingForRetry = false;
         this.character = null;
         this.character2 = null;
         this.cubatita = null;
@@ -51,12 +53,13 @@ export default class AccionCuarta1 extends Phaser.Scene {
         const inventory = this.registry.get('inventory');
         createMoneyHud(this)
         this.add.image(500, 350, 'dia')
+        this.add.image(700, 450, 'barraBar').setScale(0.7);
         this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
         const inventoryBtn = InventorySprite.create(this, 50, 60)
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'accion', 1200)
-        this.character = this.add.image(690, 500, 'pabloNeutro').setScale(1.2);
-        this.character2 = this.add.image(480, 500, 'anaNeutro').setScale(1.2);
+        this.character = this.add.image(800, 500, 'pabloNeutro');
+        this.character2 = this.add.image(600, 500, 'anaNeutro');
         
         const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);
 
@@ -96,8 +99,12 @@ export default class AccionCuarta1 extends Phaser.Scene {
             this.mostrarOpciones();
         }
 
+        if (this.waitingForRetry && Phaser.Input.Keyboard.JustDown(this.keySpace)) {
+            this.cerrarMensajeCubatita()
+        }
+
         // Handle option selection with W/S and confirm with E
-        if (this.opcionesVisibles && !this.opcionElegida) {
+        if (this.opcionesVisibles && !this.opcionElegida && !this.waitingForRetry) {
             if (Phaser.Input.Keyboard.JustDown(this.keyW)) {
                 this.moverSeleccion(-1)
             }
@@ -132,9 +139,9 @@ export default class AccionCuarta1 extends Phaser.Scene {
         this.opcionesVisibles = true;
         this.selectedOption = 0;
 
-        this.opcion1Bubble = this.add.rectangle(650, 320, 360, 60, 0Xe76d2c)
+        this.opcion1Bubble = this.add.rectangle(350, 320, 360, 60, 0Xe76d2c)
         this.opcion1Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion1 = this.add.text(650, 320, 'Dar cigarros', {
+        this.opcion1 = this.add.text(350, 320, 'Dar cigarros', {
             fontFamily: '"Keneric", sans-serif',
             fontSize: '22px',
             color: '#ffffff',
@@ -142,9 +149,9 @@ export default class AccionCuarta1 extends Phaser.Scene {
             align: 'center'
         }).setOrigin(0.5).setInteractive()
 
-        this.opcion2Bubble = this.add.rectangle(650, 380, 360, 60, 0Xe76d2c)
+        this.opcion2Bubble = this.add.rectangle(350, 380, 360, 60, 0Xe76d2c)
         this.opcion2Bubble.setStrokeStyle(3, 0x000000).setInteractive({ useHandCursor: true })
-        this.opcion2 = this.add.text(650, 380, 'Dar cerveza', {
+        this.opcion2 = this.add.text(350, 380, 'Acercarte y escuchar', {
             fontFamily: '"Keneric", sans-serif',
             fontSize: '22px',
             color: '#ffffff',
@@ -183,8 +190,8 @@ export default class AccionCuarta1 extends Phaser.Scene {
             return
         }
         else if (this.selectedOption === 0 && !inventory?.hasItem('cigarros')) {
-            this.opcionElegida = 0;
-            this.cubatitaBubble = this.add.rectangle(500, 580, 300, 110, 0xffffff)
+            this.waitingForRetry = true;
+            this.cubatitaBubble = this.add.ellipse(500, 580, 300, 110, 0xffffff)
             this.cubatitaBubble.setStrokeStyle(4, 0x000000)
             this.cubatitaTexto = this.add.text(500, 580, 'No tengo cigarros...', {
                 fontFamily: '"PixelAE-Regular", monospace',
@@ -193,24 +200,36 @@ export default class AccionCuarta1 extends Phaser.Scene {
                 wordWrap: { width: 280 },
                 align: 'center'
             }).setOrigin(0.5)
+            this.retryDialogHint = nextDialogSprite.create(this, 650, 620)
+            
+            return
         }
 
         this.opcionElegida = true;
-        if (this.selectedOption === 1 && inventory?.hasItem('cerveza')) {
+        if (this.selectedOption === 1) {
             this.character.setTexture('PabloAnaEnfadados').setScale(1.2)
-            this.character2.destroy();
-            this.mostrarRecompensa('¡Has conseguido la amistad de Pablo!')
+            this.mostrarRecompensa('Parece que ana quiere cigarros desesperadamente...')
+            return
         }
-        else if (this.selectedOption === 1 && !inventory?.hasItem('cerveza')) {
-            this.cubatitaBubble = this.add.rectangle(500, 580, 300, 110, 0xffffff)
-            this.cubatitaBubble.setStrokeStyle(4, 0x000000)
-            this.cubatitaTexto = this.add.text(500, 580, 'No tengo cerveza...', {
-                fontFamily: '"PixelAE-Regular", monospace',
-                fontSize: '20px',
-                color: '#000000',
-                wordWrap: { width: 280 },
-                align: 'center'
-            }).setOrigin(0.5)
+    }
+
+    cerrarMensajeCubatita() {
+        this.waitingForRetry = false
+        this.opcionElegida = false
+
+        if (this.cubatitaBubble) {
+            this.cubatitaBubble.destroy()
+            this.cubatitaBubble = null
+        }
+
+        if (this.cubatitaTexto) {
+            this.cubatitaTexto.destroy()
+            this.cubatitaTexto = null
+        }
+
+        if (this.retryDialogHint) {
+            this.retryDialogHint.destroy()
+            this.retryDialogHint = null
         }
     }
 

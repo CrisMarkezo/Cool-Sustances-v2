@@ -47,14 +47,18 @@ export default class AccionSegunda2 extends Phaser.Scene {
 
         createMoneyHud(this)
         this.add.image(500, 350, 'dia')
-        this.add.image(300, 500, 'bosque').setScale(1.2);
-        this.add.image(400, 500, 'bosque').setScale(1.2);
-        this.add.image(200, 500, 'bosque').setScale(1.2);
+        this.add.image(300, 450, 'bosque').setScale(1.2);
+        this.add.image(400, 450, 'bosque').setScale(1.2);
+        this.add.image(200, 450, 'bosque').setScale(1.2);
+        this.add.image(500, 450, 'bosque').setScale(1.2); 
+        this.add.image(600, 450, 'bosque').setScale(1.2);
+        this.add.image(700, 450, 'bosque').setScale(1.2);
+        this.add.image(900, 600, 'busAzul').setScale(0.3);
         this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
         const inventoryBtn = InventorySprite.create(this, 50, 60)
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'accion', 1200)
-        this.character = this.add.image(700, 800, 'pabloNeutro').setScale(0.5);
+        this.character = this.add.image(800, 600, 'pabloNeutro').setScale(0.2);
         
         const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);
 
@@ -75,8 +79,8 @@ export default class AccionSegunda2 extends Phaser.Scene {
             'Dos personas se alejan de la mesa, una de ellas huele un poco afrutado, le sigues. Mientras camina se le cae algo del bolsillo, es una moneda de 1 euro.',
             'Al mismo tiempo hueles algo delicioso alrededor. ¿Qué haces?'
         ], {
-            fontFamily: '"Toonway", sans-serif',
-            fontSize: '20px', 
+            fontFamily: '"PixelAE-Regular", monospace',
+            fontSize: '18px', 
             fill: '#ffffff',
             wordWrap: { width: 500 },
             align: 'center'

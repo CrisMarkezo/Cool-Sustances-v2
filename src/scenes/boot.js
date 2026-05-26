@@ -133,8 +133,13 @@ import ciggarros from '../../assets/sprites/objetos/cigarros.png';
 
 import Llave_Boss from '../../assets/dungeon/llave_boss.png';
 import bosque from '../../assets/sprites/bosque.png';
-import techoBarras from '../../assets/sprites/techoBarras.png';
-import techoPared from '../../assets/sprites/techoPared.png';
+import techoBarras from '../../assets/sprites/dia/techoBarras.png';
+import techoPared from '../../assets/sprites/dia/techoPared.png';
+import barraBar from '../../assets/sprites/dia/barraBar.png';
+import cuboCerveza from '../../assets/sprites/dia/cuboCerveza.png';
+import mesas from '../../assets/sprites/dia/mesas.png';
+import busAzul from '../../assets/sprites/dia/busAzul.png';
+import escalerasEntrada from '../../assets/sprites/dia/escalerasEntrada.png';
 
 export default class Boot extends Phaser.Scene {
     constructor() {
@@ -147,8 +152,15 @@ export default class Boot extends Phaser.Scene {
         this.load.image('bosque', bosque);
         this.load.image('techoBarras', techoBarras);
         this.load.image('techoPared', techoPared);
+        this.load.image('barraBar', barraBar);
+        this.load.image('cuboCerveza', cuboCerveza);
+        this.load.image('mesas', mesas);
+        this.load.image('busAzul', busAzul);
+        this.load.image('escalerasEntrada', escalerasEntrada);
+
         this.load.image('dia', dia);
         this.load.image('tienda_dia', tiendaDia);
+
 
         this.load.image('startMenu', startMenu);
 
@@ -336,7 +348,7 @@ export default class Boot extends Phaser.Scene {
                 return;
             }
             sceneStarted = true;
-            this.scene.start('start-menu'); //start-menu
+            this.scene.start('accion-cuarta-1'); //start-menu
         };
 
         const hasFontLoader =

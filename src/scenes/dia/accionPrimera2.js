@@ -47,10 +47,12 @@ export default class AccionPrimera2 extends Phaser.Scene {
         this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         
-        this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
+        
         createMoneyHud(this)
         this.add.image(500, 350, 'dia')
-        this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
+        this.add.image(200, 500, 'mesas')
+        this.add.image(500, 600, 'cuboCerveza')
+        this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
         const inventoryBtn = InventorySprite.create(this, 50, 60)
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'accion', 1200)
@@ -75,8 +77,8 @@ export default class AccionPrimera2 extends Phaser.Scene {
             'Te despiertas debajo de una mesa, tus nuevos dueños están sentados alrededor. Ves que uno de ellos deja un cubo lleno de botellas. ',
             'Al mismo tiempo, escuchas un ruido, rodando aparece una moneda y una mano intentando cogerla. ¿Qué haces?'
         ], {
-            fontFamily: '"Toonway", sans-serif',
-            fontSize: '20px', 
+            fontFamily: '"PixelAE-Regular", sans-serif',
+            fontSize: '18px', 
             fill: '#ffffff',
             wordWrap: { width: 500 },
             align: 'center'

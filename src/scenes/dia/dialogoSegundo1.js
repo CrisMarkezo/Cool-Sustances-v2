@@ -54,7 +54,8 @@ export default class DialogoSegundo1 extends Phaser.Scene {
 
         //IU setup
         this.add.image(500, 350, 'dia');
-        this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.35);
+        this.add.image(700, 500, 'escalerasEntrada').setScale(1.2);
+        this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'dialogo', 1200)
         this.add.text(670, 75, 'Dialogo', {
@@ -81,7 +82,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
             'Después de asustarte por la reacción del chaval decides ir hacía la entrada principal, donde te quedas mirando a la gente pasar, hasta que ves a una chico que te llama la atención. Decides acercarte a hablar con el.'
         ], {       
             fontFamily: '"PixelAE-Regular", monospace',
-            fontSize: '20px', 
+            fontSize: '18px', 
             fill: '#ffffff',
             wordWrap: { width: 500 },
             align: 'center'
