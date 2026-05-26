@@ -164,7 +164,9 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         var paredes_layer = map.createLayer('Paredes', [paredes, calle, arboles, lamp_down, lamp_right, taxi, 
             ambulance, civic_1, civic_2, brown_coupe, yellow_coupe, supercar, suv, jeep, bus, luxury, police, 
             banio, suelo_boss, decorative, decoraciones_2, suelo_exterior], 0, 0);
+        var puertas_layer = map.createLayer('Puertas', [suelo_exterior], 0, 0);
         
+        puertas_layer.setDepth(100);
         cosmeticos_suelo.setDepth(20);
         colisiones_layer.setVisible(false);
         paredes_layer.setCollisionByExclusion([-1],true);
