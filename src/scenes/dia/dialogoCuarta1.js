@@ -281,7 +281,7 @@ export default class DialogoCuarta1 extends Phaser.Scene {
                 wordWrap: { width: 280 },
                 align: 'center'
             }).setOrigin(0.5)
-            this.character.setTexture('mikelTriste').setScale(0.95)
+            this.character.setTexture('albaniHorny').setScale(0.95)
             this.pico = this.add.triangle(480, 400, 0, 0, 50, 0, 25, 0, 0xdaff8f)
             this.pico.setStrokeStyle(4, 0x000000)
             const dialogoFinalBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)

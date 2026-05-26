@@ -52,7 +52,7 @@ export default class TiendaTercera2 extends Phaser.Scene {
         this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
         //const player = this.add.image(200, 500, 'cubatita');
         RuedaSprite.create(this, 920, 85, 'rueda_tienda')  
-        IconSprite.create(this, 920, 85, 'accion', 1200)
+        this.add.image(920, 85, 'tiendaIcon').setScale(1.2)
         this.hao = this.add.image(400, 190, 'haoNeutro')
         this.add.text(670, 77, 'TUTORIAL: Tienda', {
             fontFamily: '"Toonway", sans-serif',

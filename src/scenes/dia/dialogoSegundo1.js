@@ -27,6 +27,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
         this.contextoBubble = null;
         this.pico = null;
         this.cubatita = null;
+        this.recompensaEnCurso = false;
 
         // Keyboard keys
         this.keyA = null;
@@ -127,7 +128,8 @@ export default class DialogoSegundo1 extends Phaser.Scene {
                 this.confirmarSeleccion()
             }
         }
-        if (this.opcionElegida == 1 && Phaser.Input.Keyboard.JustDown(this.keySpace)) {
+        if (!this.recompensaEnCurso && this.opcionElegida == 1 && Phaser.Input.Keyboard.JustDown(this.keySpace)) {
+            this.recompensaEnCurso = true;
             this.respuesta.destroy()
             this.respuestaBubble.destroy()
             if (this.nextDialogHint) {
@@ -136,7 +138,8 @@ export default class DialogoSegundo1 extends Phaser.Scene {
             this.mostrarRecompensa('¡Has conseguido más velocidad!')
             this.opcionElegida = 0; // Reset to prevent multiple triggers
         }
-        if (this.opcionElegida == 2 && Phaser.Input.Keyboard.JustDown(this.keySpace)) {
+        if (!this.recompensaEnCurso && this.opcionElegida == 2 && Phaser.Input.Keyboard.JustDown(this.keySpace)) {
+            this.recompensaEnCurso = true;
             this.respuesta.destroy()
             this.respuestaBubble.destroy()
             if (this.nextDialogHint) {
@@ -212,7 +215,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
             this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
             this.respuesta = dialogTextSprite.create(this, 400, 300, ['Pero porque quieres tanto esta monster? toma un euro si eso ya te comrpas tu una no te jode'], {
                 fontFamily: '"PixelAE-Regular", monospace',
-                fontSize: '28px',
+                fontSize: '20px',
                 color: '#000000',
                 wordWrap: { width: 280 },
                 align: 'center'
@@ -238,7 +241,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
         this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
         this.respuesta = dialogTextSprite.create(this, 400, 300, ['Seguro que le caerias bien a Iker un tío que fuma una cosa que huele MUY bien en techito... a bueno que digo seguro que a mi novia Albani te intentaría raptar de lo mono que eres... es una chica que siempre esta fumando. '], {
             fontFamily: '"PixelAE-Regular", monospace',
-            fontSize: '28px',
+            fontSize: '20px',
             color: '#000000',
             wordWrap: { width: 340 },
             align: 'center'
@@ -250,6 +253,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
     }
 
     mostrarRecompensa = (mensaje) => {
+            this.opcionesVisibles = false;
             if (this.respuestaBubble) {
                 this.respuestaBubble.destroy()
             }
@@ -274,7 +278,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
             dialogoFinalBubble.setStrokeStyle(4, 0x000000)
             const dialogoFinal = dialogTextSprite.create(this, 400, 300, ['Bueno me voy a la cafeteria gatito, mi nombre es turras encantado!'], {
                 fontFamily: '"PixelAE-Regular", monospace',
-                fontSize: '25px',
+                fontSize: '20px',
                 color: '#000000',
                 wordWrap: { width: 320 },
                 align: 'center'
