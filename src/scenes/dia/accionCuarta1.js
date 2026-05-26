@@ -59,7 +59,7 @@ export default class AccionCuarta1 extends Phaser.Scene {
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'accion', 1200)
         this.character = this.add.image(800, 500, 'pabloNeutro');
-        this.character2 = this.add.image(600, 500, 'anaNeutro');
+        this.character2 = this.add.image(900, 500, 'anaNeutro');
         
         const settingsBtn = this.add.image(20, 670, 'settings').setInteractive().setScale(0.7);
 
@@ -239,11 +239,12 @@ export default class AccionCuarta1 extends Phaser.Scene {
         this.opcion1Bubble.destroy()
         this.opcion2Bubble.destroy()
         this.optionBubbles = []
+        this.character2.destroy();
 
-        const bubble = this.add.rectangle(650, 350, 300, 110, 0xffffff)
+        const bubble = this.add.rectangle(350, 350, 300, 110, 0xffffff)
         bubble.setStrokeStyle(4, 0x000000)
 
-        this.add.text(650, 350, mensaje, {
+        this.add.text(350, 350, mensaje, {
             fontFamily: '"PixelAE-Regular", monospace',
             fontSize: '28px',
             color: '#000000',
@@ -254,7 +255,7 @@ export default class AccionCuarta1 extends Phaser.Scene {
 
         this.time.delayedCall(2000, () => {
             this.cubatita.setTexture('cubatitaSit').setScale(0.8);
-            const continuar = this.add.text(650, 430, 'Presiona espacio para continuar', {
+            const continuar = this.add.text(350, 430, 'Presiona espacio para continuar', {
                 fontFamily: '"PixelAE-Bold", monospace',
                 fontSize: '20px',
                 color: '#ff028d'

@@ -25,6 +25,8 @@ export default class DialogoCuarta1 extends Phaser.Scene {
         this.cubatita = null;
         this.cubatitaBubble = null;
         this.cubatitaTexto = null;
+        this.waitingForRetry = false;
+        this.retryDialogHint = null;
 
         // Keyboard keys
         this.keyA = null;
@@ -115,6 +117,9 @@ export default class DialogoCuarta1 extends Phaser.Scene {
             this.scene.pause()
             this.scene.launch('inventory', { from: this.scene.key })
             this.scene.bringToTop('inventory')
+        }
+        if (this.waitingForRetry && Phaser.Input.Keyboard.JustDown(this.keySpace)) {
+            this.cerrarMensajeCubatita()
         }
 
         if (this.opcionesVisibles && this.opcionElegida == 0) {
@@ -227,16 +232,18 @@ export default class DialogoCuarta1 extends Phaser.Scene {
             return
         }
         else if (this.selectedOption === 0 && !inventory?.hasItem('catWeed')) {
-            this.opcionElegida = 0;
-            this.cubatitaBubble = this.add.rectangle(500, 580, 300, 110, 0xffffff)
+            this.waitingForRetry = true;
+            this.cubatitaBubble = this.add.ellipse(500, 580, 300, 110, 0xffffff)
             this.cubatitaBubble.setStrokeStyle(4, 0x000000)
-            this.cubatitaTexto = this.add.text(500, 580, 'No tengo catWeed...', {
+            this.cubatitaTexto = this.add.text(500, 580, 'No tengo cigarros...', {
                 fontFamily: '"PixelAE-Regular", monospace',
                 fontSize: '20px',
                 color: '#000000',
                 wordWrap: { width: 280 },
                 align: 'center'
             }).setOrigin(0.5)
+            this.retryDialogHint = nextDialogSprite.create(this, 650, 620)
+            
             return
         }
 
@@ -263,6 +270,27 @@ export default class DialogoCuarta1 extends Phaser.Scene {
             this.nextDialogHint = nextDialogSprite.create(this, 400, 320)
         })
         return
+    }
+
+
+    cerrarMensajeCubatita() {
+        this.waitingForRetry = false
+        this.opcionElegida = false
+
+        if (this.cubatitaBubble) {
+            this.cubatitaBubble.destroy()
+            this.cubatitaBubble = null
+        }
+
+        if (this.cubatitaTexto) {
+            this.cubatitaTexto.destroy()
+            this.cubatitaTexto = null
+        }
+
+        if (this.retryDialogHint) {
+            this.retryDialogHint.destroy()
+            this.retryDialogHint = null
+        }
     }
 
     mostrarRecompensa = (mensaje) => {

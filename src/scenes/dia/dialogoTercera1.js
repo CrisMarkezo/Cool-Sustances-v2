@@ -133,7 +133,7 @@ export default class DialogoTercera1 extends Phaser.Scene {
             if (this.nextDialogHint) {
                 this.nextDialogHint.destroy()
             }
-            inventory?.removeItem('cerveza')
+            inventory?.removeItem('halcon')
             //añadir mas stat en algun lado
             this.mostrarRecompensa('¡-1 de cerveza!')
             this.opcionElegida = 0; // Reset to prevent multiple triggers
@@ -200,7 +200,7 @@ export default class DialogoTercera1 extends Phaser.Scene {
     confirmarSeleccion() {
         const inventory = this.registry.get('inventory');
         this.cubatita.setTexture('cubatita2');
-        if (this.selectedOption === 0 && inventory?.hasItem('cerveza')) {
+        if (this.selectedOption === 0 && inventory?.hasItem('halcon')) {
             this.opcionElegida = 1
             this.opcion1.destroy()
             this.opcion2.destroy()
@@ -225,8 +225,7 @@ export default class DialogoTercera1 extends Phaser.Scene {
                 this.nextDialogHint = nextDialogSprite.create(this, 400, 320)
             })
             return
-        } else if (this.selectedOption === 0 && !inventory?.hasItem('cerveza')) {
-            // Si el jugador intenta dar cerveza pero no la tiene, mostramos un mensaje de error
+        } else if (this.selectedOption === 0 && !inventory?.hasItem('halcon')) {
             this.respuestaBubble = this.add.ellipse(400, 300, 350, 200, 0xdaff8f)
             this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
             this.respuesta = dialogTextSprite.create(this, 400, 300, ['p*to gato p*lla de mierda te voy a kemar toa la kola'], {
@@ -239,8 +238,9 @@ export default class DialogoTercera1 extends Phaser.Scene {
             this.respuesta.once('complete', () => {
                 this.contextComplete = true;
                 this.nextDialogHint = nextDialogSprite.create(this, 400, 320)
-            })
-            destroy(this.respuesta, this.respuestaBubble)
+            }) 
+            this.respuesta.destroy()
+            this.respuestaBubble.destroy()
             return
         }
 
