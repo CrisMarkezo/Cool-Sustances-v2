@@ -35,7 +35,9 @@ let config = {
     height: 700,
     parent: 'juego',
     scale: {
-        autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        fullscreenTarget: 'juego' 
     },
     pixelArt: true,
     scene: [
@@ -72,10 +74,34 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 0 }, // top-down, sin gravedad
+            gravity: { y: 0 }, 
             debug: false
         }
     }
 };
+
+// Parche CSS corregido: El uso estricto de pseudo-clases :fullscreen 
+// evita que las propiedades alteren las dimensiones del div en modo ventana.
+const style = document.createElement('style');
+style.innerHTML = `
+    #juego {
+        max-width: 1000px;
+        max-height: 700px;
+    }
+    #juego:fullscreen {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        background-color: #000000 !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        height: 100vh !important;
+        max-height: 100vh !important;
+    }
+    #juego:fullscreen canvas {
+        margin: auto !important;
+    }
+`;
+document.head.appendChild(style);
 
 new Phaser.Game(config);

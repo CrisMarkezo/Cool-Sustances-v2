@@ -24,17 +24,17 @@ export default class Player extends GameEntity {
         // --- ATRIBUTOS ---
         this.maxHealth = savedData ? savedData.maxHealth : 100;
         this.health = savedData ? savedData.health : 100;
-        this.speed = savedData ? savedData.speed : 200;
+        this.speed = savedData ? savedData.speed : 150;
         this.damage = savedData ? savedData.damage : 20;
         this.attackCooldown = savedData ? savedData.attackCooldown : 300;
         
         this.invincibilityDuration = 1500;
-        this.damageKnockbackForce = 180;
+        this.damageKnockbackForce = 320; 
 
         //Llaves
-        this.llave_almacen = savedData ? savedData.llaves.almacen : false;
-        this.llave_balcon = savedData ? savedData.llaves.balcon : false;
-        this.llave_basura = savedData ? savedData.llaves.basura : false;
+        this.llave_almacen = savedData ? savedData.llaves.almacen : true;
+        this.llave_balcon = savedData ? savedData.llaves.balcon : true;
+        this.llave_basura = savedData ? savedData.llaves.basura : true;
         this.llave_boss = savedData ? savedData.llaves.boss : false;
 
         // Si es la primera vez que lo creamos guardamos sus valores
@@ -69,12 +69,13 @@ export default class Player extends GameEntity {
 
         this.nearbyInteractable = null;
 
-        // --- ATAQUE ---
-        this.attackHitbox = scene.add.rectangle(this.x, this.y, 20, 20, 0xff0000);
+        // --- ATAQUE (ÁREA DE EFECTO MULTI-OBJETIVO) ---
+        // Aumentamos ligeramente el tamaño de la hitbox (24x24) para mejorar el registro de múltiples objetivos simétricos
+        this.attackHitbox = scene.add.rectangle(this.x, this.y, 24, 24, 0xff0000);
         scene.physics.add.existing(this.attackHitbox);
         this.attackHitbox.body.setAllowGravity(false);
         this.attackHitbox.body.moves = false;
-        this.attackHitbox.body.setSize(10, 12);
+        this.attackHitbox.body.setSize(12, 12); 
         this.attackHitbox.setVisible(false);
         this.attackHitbox.body.enable = false;
 
@@ -89,8 +90,8 @@ export default class Player extends GameEntity {
         this.lastMoveY = 0;
 
        // --- CONFIGURACIÓN UI VIDA ---
-        this.barX = 910; // Coordenada X en healthbar.png
-        this.barY = 28;  // Coordenada Y en healthbar.png
+        this.barX = 910; 
+        this.barY = 28;  
         this.barWidth = 53;
         this.barHeight = 20;
         
@@ -113,9 +114,8 @@ export default class Player extends GameEntity {
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
 
-        // Logica del inventario
         if (Phaser.Input.Keyboard.JustDown(this.keyQ)){
-            this.scene.scene.pause(); // Se puede quitar si quisierasmos
+            this.scene.scene.pause(); 
             this.scene.scene.launch('inventory', { from: this.scene.scene.key });
             this.scene.scene.bringToTop('inventory');
         }
@@ -176,18 +176,20 @@ export default class Player extends GameEntity {
 
         velocidadActual = this.isPushing ? (this.speed * 0.1) : this.speed;
 
-        if (!this.isGrabbing && !this.isKnocked) {
+        if (this.isAttacking) {
+            this.body.setVelocity(0, 0);
+        } else if (!this.isGrabbing && !this.isKnocked) { 
             if (vx !== 0 || vy !== 0) {
                 const velocity = new Phaser.Math.Vector2(vx, vy).normalize().scale(velocidadActual);
                 this.body.setVelocity(velocity.x, velocity.y);
 
-                if (!this.isAttacking && this.anims.currentAnim?.key !== 'cat_run') {
+                if (this.anims.currentAnim?.key !== 'cat_run') {
                     this.anims.play('cat_run');
                 }
             } else {
                 this.body.setVelocity(0);
 
-                if (!this.isAttacking && this.anims.currentAnim?.key !== 'cat_idle') {
+                if (this.anims.currentAnim?.key !== 'cat_idle') {
                     this.anims.play('cat_idle');
                 }
             }
@@ -200,26 +202,38 @@ export default class Player extends GameEntity {
             this.lockedOffsetX = 0;
             this.lockedOffsetY = 0;
 
+            this.body.setVelocity(0, 0);
+            if (this.anims.currentAnim?.key !== 'cat_idle') {
+                this.anims.play('cat_idle');
+            }
+
+            // Desplazamiento de la hitbox según dirección
             if (this.lastMoveY !== 0 && this.lastMoveX === 0) {
-                this.lockedOffsetY = this.lastMoveY * 15;
+                this.lockedOffsetY = this.lastMoveY * 16;
                 this.attackSprite.setFlipX(false);
             } else {
-                this.lockedOffsetX = this.lastMoveX * 15;
+                this.lockedOffsetX = this.lastMoveX * 16;
                 this.attackSprite.setFlipX(this.lastMoveX === -1);
             }
 
             this.attackHitbox.setPosition(this.x + this.lockedOffsetX, this.y + this.lockedOffsetY);
             this.attackHitbox.body.enable = true;
+            
             this.attackSprite.setPosition(this.x + this.lockedOffsetX, this.y + this.lockedOffsetY);
             this.attackSprite.setVisible(true);
             this.attackSprite.play('cat_attack');
 
             const animSpeed = 300 / this.attackCooldown;
             this.attackSprite.anims.timeScale = animSpeed;
+            
             this.attackSprite.once('animationcomplete', () => {
                 this.isAttacking = false;
                 this.attackHitbox.body.enable = false;
                 this.attackSprite.setVisible(false);
+
+                if (this.body.velocity.x === 0 && this.body.velocity.y === 0) {
+                    this.anims.play('cat_idle');
+                }
 
                 this.scene.time.delayedCall(this.attackCooldown, () => {
                     this.canAttack = true;
@@ -240,7 +254,7 @@ export default class Player extends GameEntity {
         if (this.isInvincible || this.health <= 0) return;
 
         this.health -= 20;
-        this.scene.registry.set('health', this.health); // Actualizamos la vida actual 
+        this.scene.registry.set('health', this.health); 
 
         if (this.health <= 0) {
             this.health = 0;
@@ -264,7 +278,7 @@ export default class Player extends GameEntity {
             );
         }
 
-        this.scene.time.delayedCall(250, () => {
+        this.scene.time.delayedCall(350, () => {
             this.isKnocked = false;
         });
 
@@ -287,7 +301,6 @@ export default class Player extends GameEntity {
     }
 
     savePlayerData() {
-        // Creamos un objeto solo con la información que nos importa
         const playerData = {
             health: this.health,
             maxHealth: this.maxHealth,
@@ -302,7 +315,6 @@ export default class Player extends GameEntity {
             }
         };
 
-        // Guardamos objeto
         this.scene.registry.set('playerData', playerData);
     }
 }
