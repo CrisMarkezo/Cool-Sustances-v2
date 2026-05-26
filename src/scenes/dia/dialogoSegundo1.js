@@ -135,7 +135,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
             if (this.nextDialogHint) {
                 this.nextDialogHint.destroy()
             }
-            this.mostrarRecompensa('¡Has conseguido más velocidad!')
+            this.mostrarRecompensa('¡Has conseguido un euro!')
             this.opcionElegida = 0; // Reset to prevent multiple triggers
         }
         if (!this.recompensaEnCurso && this.opcionElegida == 2 && Phaser.Input.Keyboard.JustDown(this.keySpace)) {
@@ -213,7 +213,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
             this.pico.setStrokeStyle(4, 0x000000)
             this.respuestaBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
             this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
-            this.respuesta = dialogTextSprite.create(this, 600, 450, ['Pero porque quieres tanto esta monster? toma un euro si eso ya te comrpas tu una no te jode'], {
+            this.respuesta = dialogTextSprite.create(this, 400, 450, ['Pero porque quieres tanto esta monster? toma un euro si eso ya te comrpas tu una no te jode'], {
                 fontFamily: '"PixelAE-Regular", monospace',
                 fontSize: '20px',
                 color: '#000000',
@@ -223,7 +223,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
             addMoney(this, 1)
             this.respuesta.once('complete', () => {
                 this.contextComplete = true;
-                this.nextDialogHint = nextDialogSprite.create(this, 400, 320)
+                this.nextDialogHint = nextDialogSprite.create(this, 500, 320)
             })
             return
         }
