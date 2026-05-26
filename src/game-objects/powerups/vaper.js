@@ -14,6 +14,7 @@ export default class Vaper extends PowerUp {
         sourceData.damage = player.damage;
         this.scene.registry.set('playerData', sourceData); 
 
+        this.infoText.destroy();
         this.destroy();
     }
 }

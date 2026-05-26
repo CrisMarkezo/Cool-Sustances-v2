@@ -14,6 +14,7 @@ export default class Warehouse_Door extends InteractableObject {
         this.restoPuertas = restoPuertas;
         this.body.allowGravity = false;
         this.body.immovable = true;
+        this.setDepth(200);
     }   
 
     preUpdate(t, dt){

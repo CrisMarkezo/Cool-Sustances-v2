@@ -12,8 +12,9 @@ export default class Monster extends GameEntity {
 
         this.play(`${this.ratKey}_move`);
 
-        this.patrolSpeed = 30;
-        this.chaseSpeed = 45;
+        // --- AJUSTES DE AGRESIVIDAD (VELOCIDADES REDUCIDAS A LA MITAD) ---
+        this.patrolSpeed = 17.5; // Modificado: Antes 35
+        this.chaseSpeed = 42.5;  // Modificado: Antes 85
         this.speed = this.patrolSpeed;
 
         this.waypoints = [
@@ -24,8 +25,8 @@ export default class Monster extends GameEntity {
         ];
 
         this.currentWaypointIndex = 0;
-        this.detectionRange = 25;
-        this.chaseRange = 300;
+        this.detectionRange = 90; // Detecta al jugador desde mucho más lejos
+        this.chaseRange = 450;     // No dejará de perseguir fácilmente
         this.currentVisionRange = this.detectionRange;
 
         this.canBeHit = true;
@@ -56,15 +57,21 @@ export default class Monster extends GameEntity {
         if (!this.isKnocked) {
             const distance = Phaser.Math.Distance.Between(this.x, this.y, target.x, target.y);
 
+            // Sistema de alerta y persecución implacable
             if (distance < this.currentVisionRange) {
                 this.currentVisionRange = this.chaseRange;
                 this.chase(target);
             } else {
+                // Si el jugador logra escapar del rango máximo, vuelve a patrullar
+                this.currentVisionRange = this.detectionRange;
                 this.patrol();
             }
 
-            if (distance < 15 && target.takeDamage) {
-                target.takeDamage(this);
+            // Ataque físico por colisión de hitboxes nativas (más preciso y agresivo que la distancia matemática directa)
+            if (target && target.takeDamage) {
+                this.scene.physics.overlap(this, target, () => {
+                    target.takeDamage(this);
+                });
             }
         }
 
@@ -124,6 +131,28 @@ export default class Monster extends GameEntity {
             return;
         }
 
+        
+        let blinkCount = 0;
+        const totalBlinks = 4; // Cuántas veces va a cambiar de color
+
+        const flashEvent = this.scene.time.addEvent({
+            delay: 140, // Velocidad del parpadeo en milisegundos
+            repeat: totalBlinks - 1,
+            callback: () => {
+                if (!this.active) return; // Por seguridad si la rata muere mientras parpadea
+
+                if (blinkCount % 2 === 0) {
+                    // Se pone oscuro (0x555555 es un gris/negro que oscurece el sprite original)
+                    this.setTint(0x555555); 
+                } else {
+                    // Vuelve a su color normal y limpio
+                    this.clearTint(); 
+                }
+                blinkCount++;
+            }
+        });
+        // =========================================================================
+
         const dir = new Phaser.Math.Vector2(
             this.x - from.x,
             this.y - from.y
@@ -149,8 +178,26 @@ export default class Monster extends GameEntity {
     }
 
     die() {
+        // 1. Desactivar físicas, controles y limpiar la barra de vida de inmediato
         this.body.enable = false;
         this.healthBar.clear();
-        this.destroy();
+        this.isKnocked = true; // Evita que se ejecute lógica de movimiento en el update
+
+        // Detener la animación de caminar si se estaba reproduciendo
+        this.anims.stop();
+
+        // 2. Crear un Tween para rotar 90 grados en sentido horario
+        this.scene.tweens.add({
+            targets: this,
+            angle: 90,           // Rota 90 grados (sentido horario)
+            duration: 400, 
+            ease: 'Quad.easeOut', // Efecto de frenado suave al caer
+            onComplete: () => {
+                // 3. Destruir definitivamente el sprite tras una pequeña pausa en el suelo
+                this.scene.time.delayedCall(300, () => {
+                    this.destroy();
+                });
+            }
+        });
     }
 }

@@ -72,14 +72,14 @@ export default class Level extends Phaser.Scene {
             0,
             0,
             'WASD: moverse | ESPACIO: atacar\nE: interactuar | Golpea el rascador',
-            {
-                fontFamily: 'Arial',
-                fontSize: '8px',
-                color: '#f5e6c8',
+                {
+                fontFamily: '"Toonway", sans-serif',
+                fontSize: '8px',                  // Mantiene el tamaño pequeño porque tu cámara tiene zoom (x4)
+                color: '#ffffff',                 // Blanco como el inventario
                 align: 'center',
-                backgroundColor: '#4b2e1a',
-                padding: { x: 6, y: 4 },
-                resolution: 2
+                stroke: '#000000',                // Contorno negro
+                strokeThickness: 3,               // Grosor del contorno adaptado al tamaño de la fuente
+                resolution: 4                     // Mayor resolución para que los bordes pixelados se vean ultra definidos
             }
         );
 

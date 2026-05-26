@@ -14,6 +14,7 @@ export default class Redbull extends PowerUp {
         sourceData.speed = player.speed;
         this.scene.registry.set('playerData', sourceData); 
 
+        this.infoText.destroy();
         this.destroy();
     }
 }
