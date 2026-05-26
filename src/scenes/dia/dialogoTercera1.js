@@ -96,6 +96,7 @@ export default class DialogoTercera1 extends Phaser.Scene {
     }
     
     update(){
+        const inventory = this.registry.get('inventory');
         // Show options when space is pressed (after hint is shown)
         if (this.contextComplete && !this.opcionesVisibles && this.nextDialogHint && Phaser.Input.Keyboard.JustDown(this.keySpace)) {
             this.mostrarOpciones();
