@@ -135,8 +135,12 @@ export default class DialogoTercera1 extends Phaser.Scene {
                 this.nextDialogHint.destroy()
             }
             inventory?.removeItem('halcon')
+            const sourceData = this.registry.get('playerData');
+            sourceData.damage = sourceData.damage + 10;
+            this.registry.set('playerData', sourceData); 
+
             //añadir mas stat en algun lado
-            this.mostrarRecompensa('¡-1 de cerveza!')
+            this.mostrarRecompensa('¡-1 de cerveza y +10 de daño!')
             this.opcionElegida = 0; // Reset to prevent multiple triggers
         }
         if (this.opcionElegida == 2 && Phaser.Input.Keyboard.JustDown(this.keySpace)) {

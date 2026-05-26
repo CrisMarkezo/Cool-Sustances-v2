@@ -63,6 +63,7 @@ export default class Llave_Garbage extends InteractableObject {
         player.llave_garbage = true;
         player.nearbyInteractable = null;
 
+        player.llave_basurero = true;
         this.infoText.destroy();
         this.destroy();
     }

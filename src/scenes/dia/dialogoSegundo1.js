@@ -145,7 +145,12 @@ export default class DialogoSegundo1 extends Phaser.Scene {
             if (this.nextDialogHint) {
                 this.nextDialogHint.destroy()
             }
-            this.mostrarRecompensa('¡Has conseguido más información!')
+
+            const sourceData = this.registry.get('playerData');
+            sourceData.attackCooldown = Math.max(0, sourceData.attackCooldown - 30);
+            this.registry.set('playerData', sourceData); 
+
+            this.mostrarRecompensa('¡Has conseguido más información y más velocidad de ataque!')
             this.opcionElegida = 0; // Reset to prevent multiple triggers
         }
 

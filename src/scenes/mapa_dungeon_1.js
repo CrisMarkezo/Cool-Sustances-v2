@@ -38,6 +38,7 @@ import Chest_IDLE from '../../assets/dungeon/Chest_Idle.png';
 import Chest_EMPTY from '../../assets/dungeon/Chest_Opening_Empty.png';
 import Chest_GOLD from '../../assets/dungeon/Chest_Opening_Gold.png';
 import Llave_Boss from '../../assets/dungeon/llave_boss.png';
+import Llave_Basurero from '../../assets/dungeon/llave_basurero.png';
 import Barrote from '../../assets/dungeon/barrote_boss.png';
 import Cubo_png from '../../assets/dungeon/cubo.png';
 import Puerta_1 from '../../assets/dungeon/puerta_1.png';
@@ -87,6 +88,7 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         this.load.image('suelo_boss', Suelo_Boss);
         this.load.image('barrote', Barrote);
         this.load.image('llave_boss', Llave_Boss);
+        this.load.image('llave_basurero', Llave_Basurero);
 
         this.load.spritesheet('puerta_1', Puerta_1, {
             frameWidth: 32,

@@ -67,6 +67,7 @@ export default class StartMenu extends Phaser.Scene {
                 txtAjustes.setText('Pantalla Completa');
             }
         });
-        this.player = new Player(this, 0, 0);
+        this.player = new Player(this, 510, 550);
+        this.player.setScale(2);
     }
 }
