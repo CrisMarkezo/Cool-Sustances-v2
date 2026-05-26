@@ -213,7 +213,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
             this.pico.setStrokeStyle(4, 0x000000)
             this.respuestaBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
             this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
-            this.respuesta = dialogTextSprite.create(this, 400, 300, ['Pero porque quieres tanto esta monster? toma un euro si eso ya te comrpas tu una no te jode'], {
+            this.respuesta = dialogTextSprite.create(this, 600, 450, ['Pero porque quieres tanto esta monster? toma un euro si eso ya te comrpas tu una no te jode'], {
                 fontFamily: '"PixelAE-Regular", monospace',
                 fontSize: '20px',
                 color: '#000000',

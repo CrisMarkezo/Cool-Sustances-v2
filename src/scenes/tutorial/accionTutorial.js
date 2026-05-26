@@ -52,10 +52,9 @@ export default class AccionTutorial extends Phaser.Scene {
         this.keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         const inventory = this.registry.get('inventory');
 
-        this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
-
         createMoneyHud(this)
         this.add.image(500, 350, 'dia')
+        this.cubatita = this.add.image(80, 680, 'cubatita').setOrigin(0,1).setScale(0.8);
         const inventoryBtn = InventorySprite.create(this, 50, 60)
         RuedaSprite.create(this, 920, 85, 'rueda')
         IconSprite.create(this, 920, 85, 'accion', 1200)
@@ -251,7 +250,7 @@ export default class AccionTutorial extends Phaser.Scene {
         this.opcion2.destroy()
         this.opcion1Bubble.destroy()
         this.opcion2Bubble.destroy()
-            this.optionBubbles = []
+        this.optionBubbles = []
 
         const bubble = this.add.rectangle(650, 350, 300, 110, 0xffffff)
         bubble.setStrokeStyle(4, 0x000000)

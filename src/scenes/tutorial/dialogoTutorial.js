@@ -83,7 +83,7 @@ export default class DialogoTutorial extends Phaser.Scene {
         this.contexto = dialogTextSprite.create(this, 325, 250, [
             'Aparece una chica preguntandote que hace una cosa tan bonita en medio de la calle, ofreciendote una loncha de jamón. ¿Qué haces?'
         ], {       
-            fontFamily: '"Toonway", sans-serif',
+            fontFamily: '"PixelAE-Regular", monospace',
             fontSize: '20px', 
             fill: '#ffffff',
             wordWrap: { width: 500 },
@@ -235,7 +235,7 @@ export default class DialogoTutorial extends Phaser.Scene {
             this.respuestaBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
             this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
             this.respuesta = dialogTextSprite.create(this, 400, 300, ['Jo tio, porque no me quieres...'], {
-                fontFamily: '"Toonway", monospace',
+                fontFamily: '"PixelAE-Regular", monospace',
                 fontSize: '28px',
                 color: '#000000',
                 wordWrap: { width: 280 },
@@ -261,7 +261,7 @@ export default class DialogoTutorial extends Phaser.Scene {
         this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
         //añadir stat
         this.respuesta = dialogTextSprite.create(this, 400, 300, ['AYY!!! que mono!'], {
-            fontFamily: '"Toonway", monospace',
+            fontFamily: '"PixelAE-Regular", monospace',
             fontSize: '28px',
             color: '#000000',
             wordWrap: { width: 280 },
@@ -295,7 +295,7 @@ export default class DialogoTutorial extends Phaser.Scene {
             const dialogoFinalBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
             dialogoFinalBubble.setStrokeStyle(4, 0x000000)
             const dialogoFinal = dialogTextSprite.create(this, 400, 300, ['Oye pero ahora a donde vas?'], {
-                fontFamily: '"Toonway", sans-serif',
+                fontFamily: '"PixelAE-Regular", monospace',
                 fontSize: '25px',
                 color: '#000000',
                 wordWrap: { width: 280 }
