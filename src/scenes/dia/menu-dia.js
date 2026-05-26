@@ -84,7 +84,10 @@ export default class Menu extends Phaser.Scene {
 
         this.widgetSprite.on('pointerdown', () => {
             if (this.currentStep === 4) {
-                this.scene.start('mazmorra');
+                const audioScene = this.scene.get('MenuAudioScene');
+                audioScene.music.stop();
+                this.scene.stop(this.scene.key);
+                this.scene.launch('mazmorra');
             }
         });
 
@@ -133,7 +136,10 @@ export default class Menu extends Phaser.Scene {
         }
 
         if (this.currentStep === 4 && (Phaser.Input.Keyboard.JustDown(this.keyE) || Phaser.Input.Keyboard.JustDown(this.keyEnter))) {
-            this.scene.start('mazmorra');
+            const audioScene = this.scene.get('MenuAudioScene');
+            audioScene.music.stop();
+            this.scene.stop(this.scene.key);
+            this.scene.launch('mazmorra');
         }
     }
 
@@ -301,7 +307,7 @@ export default class Menu extends Phaser.Scene {
             node.object.setScale(1);
         });
 
-        if (this.currentStep === 5) {
+        if (this.currentStep === 4) {
             this.widgetSprite.clearTint();
             this.widgetSprite.setScale(1.08);
         } else {

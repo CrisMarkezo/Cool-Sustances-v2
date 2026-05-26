@@ -16,5 +16,6 @@ export default class AudioScene extends Phaser.Scene {
             volume: 0.5
         });
         this.music.play();
+        this.registry.set('MenuAudioScene', this.music);
     }
 }

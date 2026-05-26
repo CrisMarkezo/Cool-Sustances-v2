@@ -16,12 +16,13 @@ export default class PowerUp extends InteractableObject {
 
         // Texto flotante de la interfaz
         this.infoText = scene.add.text(x, y - 20, this.getDescription(), {
-            fontFamily: 'monospace',
-            fontSize: '14px',
+            fontFamily: '"Toonway", sans-serif',
+            fontSize: '8px',
             color: '#ffffff',
             backgroundColor: '#000000aa',
             padding: { x: 8, y: 4 },
-            align: 'center'
+            align: 'center',             
+            resolution: 4   
         });
 
         this.infoText.setOrigin(0.5, 1);

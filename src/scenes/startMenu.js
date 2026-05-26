@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import Player from '../game-objects/night/player';
 
 export default class StartMenu extends Phaser.Scene {
     constructor() {
@@ -6,6 +7,10 @@ export default class StartMenu extends Phaser.Scene {
     }
 
     create() {
+        if (!this.scene.isActive('StartAudioScene')) {
+            this.scene.launch('StartAudioScene');
+        }
+
         // Guardamos el centro real y dinámico de la pantalla
         const centerX = this.cameras.main.centerX;
         const centerY = this.cameras.main.centerY;
@@ -13,8 +18,7 @@ export default class StartMenu extends Phaser.Scene {
         // --- IMAGEN DE FONDO ---
         // Se posiciona exactamente en el centro de la pantalla
         var image = this.add.image(centerX, centerY, 'startMenu');
-        image.setScale(1.50);
-
+        
         // --- BOTÓN EMPEZAR ---
         // Situado en el centro horizontal (centerX) y un poco más arriba del vertical (centerY - 100)
         const empezarBtn = this.add.rectangle(centerX, centerY - 100, 320, 70, 0x000000, 0.55)
@@ -38,7 +42,10 @@ export default class StartMenu extends Phaser.Scene {
             .setOrigin(0.5);
 
         continuarBtn.on('pointerdown', () => {
-            this.scene.start('phone');
+            const audioScene = this.scene.get('StartAudioScene');
+            audioScene.music.stop();
+            this.scene.stop(this.scene.key);
+            this.scene.launch('phone');
         });
 
         // --- BOTÓN PANTALLA COMPLETA ---
@@ -60,5 +67,6 @@ export default class StartMenu extends Phaser.Scene {
                 txtAjustes.setText('Pantalla Completa');
             }
         });
+        this.player = new Player(this, 0, 0);
     }
 }

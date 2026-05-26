@@ -186,7 +186,11 @@ export default class AccionCuarta1 extends Phaser.Scene {
             this.opcionElegida = true
             this.character.setTexture('pabloTriste').setScale(1.2)
             this.character2.setTexture('anaFeliz').setScale(1.2)
-            this.mostrarRecompensa('¡Has conseguido la amistad de Ana!')
+            this.mostrarRecompensa('¡Has conseguido la amistad de Ana, te ha dado la llave del almacén!')
+            const sourceData = this.registry.get('playerData');
+            sourceData.llaves.almacen = true;
+            this.registry.set('playerData', sourceData);
+            
             return
         }
         else if (this.selectedOption === 0 && !inventory?.hasItem('cigarros')) {

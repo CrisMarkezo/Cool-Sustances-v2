@@ -128,7 +128,7 @@ import halcon from '../../assets/sprites/objetos/halcon.png';
 import vaper from '../../assets/sprites/objetos/vaper.png';
 import redbull from '../../assets/sprites/objetos/monster.png';
 import kebad from '../../assets/sprites/objetos/kebab.png';
-import catnip from '../../assets/sprites/objetos/cigarros.png';
+import catWeed from '../../assets/sprites/objetos/catWeed.png';
 import ciggarros from '../../assets/sprites/objetos/cigarros.png';
 
 import Llave_Boss from '../../assets/dungeon/llave_boss.png';
@@ -266,7 +266,7 @@ export default class Boot extends Phaser.Scene {
         this.load.image('vaper', vaper);
         this.load.image('redbull', redbull);
         this.load.image('kebab', kebad);
-        this.load.image('catnip', catnip);
+        this.load.image('catWeed', catWeed);
         this.load.image('cigarros', ciggarros);
 
         this.load.image('disc', Disc);
@@ -348,7 +348,7 @@ export default class Boot extends Phaser.Scene {
                 return;
             }
             sceneStarted = true;
-            this.scene.start('accion-cuarta-1'); //start-menu
+            this.scene.start('start-menu'); //start-menu
         };
 
         const hasFontLoader =

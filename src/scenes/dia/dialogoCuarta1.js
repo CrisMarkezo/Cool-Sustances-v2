@@ -141,7 +141,7 @@ export default class DialogoCuarta1 extends Phaser.Scene {
             if (this.nextDialogHint) {
                 this.nextDialogHint.destroy()
             }
-            this.mostrarRecompensa('¡Has consguido la amistad de Albani!')
+            this.mostrarRecompensa('¡Has consguido la amistad de Albani y la llave del balcón!')
             this.opcionElegida = 0; // Reset to prevent multiple triggers
         }
         if (this.opcionElegida == 2 && Phaser.Input.Keyboard.JustDown(this.keySpace)) {
@@ -249,6 +249,11 @@ export default class DialogoCuarta1 extends Phaser.Scene {
                 this.contextComplete = true;
                 this.nextDialogHint = nextDialogSprite.create(this, 400, 320)
             })
+
+            const sourceData = this.registry.get('playerData');
+            sourceData.llaves.balcon = true;
+            this.registry.set('playerData', sourceData);
+
             return
         }
         else if (this.selectedOption === 0 && !inventory?.hasItem('catWeed')) {

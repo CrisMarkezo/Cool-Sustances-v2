@@ -226,8 +226,10 @@ export default class Level extends Phaser.Scene {
     }
 
     triggerMenu() {
-        this.scene.start('phone-tutorial');
-
+        const audioScene = this.scene.get('StartAudioScene');
+        audioScene.music.stop();
+        this.scene.stop(this.scene.key);
+        this.scene.launch('phone-tutorial');
     }
 
     renderInventory(firstX, firstY) {

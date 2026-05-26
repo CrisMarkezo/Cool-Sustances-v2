@@ -1,10 +1,25 @@
 import InteractableObject from "../../InteractableObject.js";
 
-// Llave que solo se encuentra por el dia
+// Llave que solo se encuentra por la noche
 export default class Llave_Garbage extends InteractableObject {
 
     constructor(scene, x, y) {
         super(scene, x, y, 'llave_basurero', 0);
+
+        // Texto flotante de la interfaz
+        this.infoText = scene.add.text(x, y - 20, "Llave del Basurero", {
+            fontFamily: '"Toonway", sans-serif',
+            fontSize: '8px',
+            color: '#ffffff',
+            backgroundColor: '#000000aa',
+            padding: { x: 8, y: 4 },
+            align: 'center',             
+            resolution: 4                     
+        });
+
+        this.infoText.setOrigin(0.5, 1);
+        this.infoText.setVisible(false);
+        this.infoText.setDepth(100);
     }
 
     configure(player){
@@ -24,39 +39,31 @@ export default class Llave_Garbage extends InteractableObject {
         if (distancia < this.interactionRadius) {
             if (!this.player.nearbyInteractable || this.player.nearbyInteractable === this) {
                 this.player.nearbyInteractable = this;
+                this.infoText.setVisible(true);
             }
         } else if (this.player.nearbyInteractable === this) {
             this.player.nearbyInteractable = null;
+            this.infoText.setVisible(false);
         }
     }
 
-    // Cambiar seguramente
     interact(player) {
         if (player.isGrabbing) 
             return;
 
-        // Falta probar que se añada al inventario
-        const added = player.inventory.addItem({
-            id: 'llave_basurero',
-            name: 'Llave',
-            texture: 'llave_basurero',
-            frame: 0
+        player.isGrabbing = true;
+        player.setVelocity(0);
+
+        player.anims.play('cat_grabbing', true);
+
+        player.once('animationcomplete', () => {
+            player.isGrabbing = false;
+            player.anims.play('cat_idle', true);
         });
+        player.llave_garbage = true;
+        player.nearbyInteractable = null;
 
-        if (added) {
-            player.isGrabbing = true;
-            player.setVelocity(0);
-
-            player.anims.play('cat_grabbing', true);
-
-            player.once('animationcomplete', () => {
-                player.isGrabbing = false;
-                player.anims.play('cat_idle', true);
-            });
-            player.llave_basura = true;
-            player.nearbyInteractable = null;
-
-            this.destroy();
-        }
+        this.infoText.destroy();
+        this.destroy();
     }
 }

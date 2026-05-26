@@ -32,9 +32,9 @@ export default class Player extends GameEntity {
         this.damageKnockbackForce = 320; 
 
         //Llaves
-        this.llave_almacen = savedData ? savedData.llaves.almacen : true;
-        this.llave_balcon = savedData ? savedData.llaves.balcon : true;
-        this.llave_basura = savedData ? savedData.llaves.basura : true;
+        this.llave_almacen = savedData ? savedData.llaves.almacen : false;
+        this.llave_balcon = savedData ? savedData.llaves.balcon : false;
+        this.llave_basura = savedData ? savedData.llaves.basura : false;
         this.llave_boss = savedData ? savedData.llaves.boss : false;
 
         // Si es la primera vez que lo creamos guardamos sus valores
@@ -109,6 +109,7 @@ export default class Player extends GameEntity {
         this.lifeBar.setOrigin(1, 0);
         this.lifeBar.setDepth(9999);
         this.lifeBar.setScale(this.currentUiScale);
+        this.savePlayerData();
     }
 
     preUpdate(t, dt) {

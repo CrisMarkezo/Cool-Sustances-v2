@@ -6,6 +6,7 @@ import Vaper from "../powerups/vaper";
 import Kebab from "../powerups/kebab";
 import Redbull from "../powerups/redbull";
 import Llave_Boss from "./llave_boss";
+import Llave_Garbage from "./llave_garbage";
 
 export default class Chest extends InteractableObject {
 
@@ -87,6 +88,10 @@ export default class Chest extends InteractableObject {
                 break;
             case 'llave_boss':
                 this.objeto = new Llave_Boss(this.scene, this.x, this.y - 10);
+                this.objeto.setScale(0.50);
+                break;
+            case 'llave_basurero':
+                this.objeto = new Llave_Garbage(this.scene, this.x, this.y - 10);
                 this.objeto.setScale(0.50);
                 break;
         }
