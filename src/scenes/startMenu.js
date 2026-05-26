@@ -37,6 +37,10 @@ export default class StartMenu extends Phaser.Scene {
         this.add.text(centerX, centerY, 'Continuar', { fontFamily: '"Toonway"', fontSize: '25px', color: '#ffffff' })
             .setOrigin(0.5);
 
+        continuarBtn.on('pointerdown', () => {
+            this.scene.start('phone');
+        });
+
         // --- BOTÓN PANTALLA COMPLETA ---
         // Situado en el centro horizontal y un poco más abajo del vertical (centerY + 100)
         const fullScreenBtn = this.add.rectangle(centerX, centerY + 100, 320, 70, 0x000000, 0.55)

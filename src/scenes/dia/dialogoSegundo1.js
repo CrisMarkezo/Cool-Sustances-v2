@@ -213,7 +213,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
             this.pico.setStrokeStyle(4, 0x000000)
             this.respuestaBubble = this.add.ellipse(400, 300, 300, 150, 0xdaff8f)
             this.respuestaBubble.setStrokeStyle(4, 0x000000).setInteractive({ useHandCursor: true })
-            this.respuesta = dialogTextSprite.create(this, 400, 450, ['Pero porque quieres tanto esta monster? toma un euro si eso ya te comrpas tu una no te jode'], {
+            this.respuesta = dialogTextSprite.create(this, 400, 300, ['Pero porque quieres tanto esta monster? toma un euro si eso ya te comrpas tu una no te jode'], {
                 fontFamily: '"PixelAE-Regular", monospace',
                 fontSize: '20px',
                 color: '#000000',
@@ -223,7 +223,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
             addMoney(this, 1)
             this.respuesta.once('complete', () => {
                 this.contextComplete = true;
-                this.nextDialogHint = nextDialogSprite.create(this, 500, 320)
+                this.nextDialogHint = nextDialogSprite.create(this, 450, 320)
             })
             return
         }
@@ -248,7 +248,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
         })
         this.respuesta.once('complete', () => {
             this.contextComplete = true;
-            this.nextDialogHint = nextDialogSprite.create(this, 450, 320)
+            this.nextDialogHint = nextDialogSprite.create(this, 500, 320)
         })
     }
 
@@ -282,7 +282,7 @@ export default class DialogoSegundo1 extends Phaser.Scene {
                 align: 'center'
             })
             this.time.delayedCall(2000, () => {
-                const continuar = this.add.text(500, 660, 'Presiona enter para continuar', {
+                const continuar = this.add.text(500, 660, 'Presiona espacio para continuar', {
                     fontFamily: '"PixelAE-Bold", monospace',
                     fontSize: '20px',
                     color: '#C8006E'

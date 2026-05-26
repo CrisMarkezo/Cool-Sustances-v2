@@ -341,7 +341,7 @@ export default class DialogoCuarta1 extends Phaser.Scene {
                 wordWrap: { width: 280 }
             })
             this.time.delayedCall(2000, () => {
-                const continuar = this.add.text(500, 660, 'Presiona enter para continuar', {
+                const continuar = this.add.text(500, 660, 'Presiona espacio para continuar', {
                     fontFamily: '"PixelAE-Bold", monospace',
                     fontSize: '20px',
                     color: '#C8006E'
