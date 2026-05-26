@@ -14,6 +14,7 @@ export default class Halcon extends PowerUp {
         sourceData.attackCooldown = player.attackCooldown;
         this.scene.registry.set('playerData', sourceData); 
 
+        this.infoText.destroy();
         this.destroy();
     }
 }

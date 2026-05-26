@@ -24,7 +24,7 @@ export default class Player extends GameEntity {
         // --- ATRIBUTOS ---
         this.maxHealth = savedData ? savedData.maxHealth : 100;
         this.health = savedData ? savedData.health : 100;
-        this.speed = savedData ? savedData.speed : 200;
+        this.speed = savedData ? savedData.speed : 150;
         this.damage = savedData ? savedData.damage : 20;
         this.attackCooldown = savedData ? savedData.attackCooldown : 300;
         

@@ -13,13 +13,43 @@ export default class PowerUp extends InteractableObject {
         
         this.type = type;
         this.parameter = num;
+
+        // Texto flotante de la interfaz
+        this.infoText = scene.add.text(x, y - 20, this.getDescription(), {
+            fontFamily: 'monospace',
+            fontSize: '14px',
+            color: '#ffffff',
+            backgroundColor: '#000000aa',
+            padding: { x: 8, y: 4 },
+            align: 'center'
+        });
+
+        this.infoText.setOrigin(0.5, 1);
+        this.infoText.setVisible(false);
+        this.infoText.setDepth(100);
+    }
+
+    getDescription() {
+        switch(this.type) {
+            case 'health': 
+                return `+${this.parameter} Vida\n(Pulsa E para coger)`;
+            case 'speed': 
+                return `+${this.parameter} Velocidad\n(Pulsa E para coger)`;
+            case 'damage': 
+                return `+${this.parameter} Daño\n(Pulsa E para coger)`;
+            case 'attack_speed': 
+                return `+${this.parameter} Velocidad de ataque\n(Pulsa E para coger)`;
+            default: 
+                return `Objeto desconocido\n(Pulsa E para coger)`;
+        }
     }
 
     configure(player){
         this.player = player;
         this.body.allowGravity = false;
         this.body.immovable = true;
-        this.interactionRadius = 50;
+        this.interactionRadius = 30;
+        this.intefaceRadius = 100;
     }   
 
     preUpdate(t, dt) {
@@ -32,9 +62,11 @@ export default class PowerUp extends InteractableObject {
         if (distancia < this.interactionRadius) {
             if (!this.player.nearbyInteractable || this.player.nearbyInteractable === this) {
                 this.player.nearbyInteractable = this;
+                this.infoText.setVisible(true);
             }
         } else if (this.player.nearbyInteractable === this) {
             this.player.nearbyInteractable = null;
+            this.infoText.setVisible(false);
         }
     }
 
@@ -54,6 +86,7 @@ export default class PowerUp extends InteractableObject {
         });
         player.nearbyInteractable = null;
 
+        this.infoText.setVisible(false);
         this.applyEffect(player);
     }
 

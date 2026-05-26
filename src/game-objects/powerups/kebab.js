@@ -14,6 +14,7 @@ export default class Kebab extends PowerUp {
         sourceData.health = player.health;
         this.scene.registry.set('playerData', sourceData); 
 
+        this.infoText.destroy();
         this.destroy();
     }
 }
