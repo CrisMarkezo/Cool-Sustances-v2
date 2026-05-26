@@ -157,12 +157,32 @@ export default class DialogoCuarta1 extends Phaser.Scene {
     }
 
     mostrarOpciones() {
-        this.contexto.destroy()
-        this.contextoBubble.destroy()
+        // Guard: si ya están visibles las opciones no hagas nada
+        if (this.opcionesVisibles) return
+
+        // Limpia cualquier diálogo previo para evitar solapamientos
+        if (this.contexto) {
+            this.contexto.destroy()
+            this.contexto = null
+        }
+        if (this.contextoBubble) {
+            this.contextoBubble.destroy()
+            this.contextoBubble = null
+        }
+        if (this.respuesta) {
+            this.respuesta.destroy()
+            this.respuesta = null
+        }
+        if (this.respuestaBubble) {
+            this.respuestaBubble.destroy()
+            this.respuestaBubble = null
+        }
         if (this.nextDialogHint) {
             this.nextDialogHint.destroy()
             this.nextDialogHint = null
         }
+        // Evita que el flag de contexto permita reentradas
+        this.contextComplete = false
         this.opcion1Bubble = this.add.rectangle(400, 350, 360, 60, 0Xe76d2c)
         this.opcion1Bubble.setStrokeStyle(3, 0x1F2A44).setInteractive({ useHandCursor: true })
         this.opcion1 = this.add.text(400, 350, 'Dar catWeed (-1 catWeed)', { 
