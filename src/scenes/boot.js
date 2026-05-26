@@ -9,7 +9,7 @@ import settingsOn from '../../assets/sprites/settingsButton.png'
 import settingsOff from '../../assets/sprites/settingsButtonOff.png'
 import settingsPanel from '../../assets/sprites/inventarioPrueba.jpeg'
 
-import startMenu from '../../assets/sprites/startPrueba.jpeg'
+import startMenu from '../../assets/sprites/inicio.jpg'
 
 import dia from '../../assets/sprites/dia/UIDaySinRueda.png'
 import tiendaDia from '../../assets/sprites/dia/UITiendaSinRueda.png'
