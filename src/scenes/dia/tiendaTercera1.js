@@ -224,6 +224,7 @@ export default class TiendaTercera1 extends Phaser.Scene {
 
     confirmarSeleccion() {
         const inventory = this.registry.get('inventory');
+        this.cubatita.setTexture('cubatita2').setScale(0.8);
         if (this.selectedOption === 0) {
             if (trySpendMoney(this, 2)) {
                 this.opcionElegida = true
