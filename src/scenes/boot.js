@@ -337,7 +337,7 @@ export default class Boot extends Phaser.Scene {
                 return;
             }
             sceneStarted = true;
-            this.scene.start('phone'); //start-menu
+            this.scene.start('mazmorra'); //start-menu, mazmorra
         };
 
         const hasFontLoader =
