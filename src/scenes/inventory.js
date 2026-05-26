@@ -17,7 +17,7 @@ export default class Inventory extends Phaser.Scene {
             // Informacion global del jugador
             const sourceData = this.registry.get('playerData');
 
-            this.keyEscape = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+            this.keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
 
             const overlay = this.add
                 .rectangle(500, 350, 1000, 700, 0x000000, 0.35)
@@ -42,7 +42,7 @@ export default class Inventory extends Phaser.Scene {
                 strokeThickness: 4
             }).setOrigin(0.5).setDepth(1004);
 
-            this.add.text(500, 635, 'Presiona ESC para salir', {
+            this.add.text(500, 635, 'Presiona Q para salir', {
                 fontFamily: '"Toonway", sans-serif',
                 fontSize: '22px',
                 color: '#ffffff',
@@ -110,7 +110,7 @@ export default class Inventory extends Phaser.Scene {
                 }
             });
 
-            this.keyEscape?.on('down', closeInventory);
+            this.keyQ?.on('down', closeInventory);
 
 
 

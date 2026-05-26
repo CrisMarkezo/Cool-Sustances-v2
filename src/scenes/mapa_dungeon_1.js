@@ -224,13 +224,17 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         this.monsters.push(new Monster(this, startX-350, startY-400));
         this.monsters.push(new Monster(this, startX-350, startY+50));
         
+        // CÓDIGO CORREGIDO (PON ESTO):
         this.monsters.forEach(monster => {
         this.physics.add.collider(monster, colisiones_layer);
         this.physics.add.collider(monster, paredes_layer);
 
+        // Mantenemos el daño que te hacen los monstruos al tocarte
         this.physics.add.overlap(this.player, monster, this.handlePlayerMonsterContact, null, this);
-        this.physics.add.overlap(this.player.attackHitbox, monster, this.hitMonster, null, this);
         });
+
+        // Agrupamos el overlap de la hitbox con TODOS los monstruos a la vez fuera del bucle
+        this.physics.add.overlap(this.player.attackHitbox, this.monsters, this.hitMonster, null, this);
 
 
         // --- BOSS (EL CAMBIO IMPORTANTE ESTÁ AQUÍ) ---
@@ -413,12 +417,25 @@ export default class mapa_dungeon_1 extends Phaser.Scene {
         cubo.setImmovable(blocked);
     }
 
-    hitMonster(hitbox, monster) {
-        if (this.player.isAttacking && monster.canBeHit && hitbox.body.enable) {
-            monster.receiveHit(this.player);
-            hitbox.body.enable = false;
-        }
+   hitMonster(hitbox, monster) {
+    
+    if (this.player.isAttacking && hitbox.body.enable && monster.canBeHit && !monster.hitInCurrentAttack) {
+        
+        // Bloqueamos inmediatamente al monstruo para este ataque
+        monster.hitInCurrentAttack = true;
+
+        // El monstruo procesa su vida y su knockback hacia atrás
+        monster.receiveHit(this.player);
+        
+        
+        this.player.attackSprite.once('animationcomplete', () => {
+            if (monster && monster.active) {
+                monster.hitInCurrentAttack = false;
+            }
+        });
     }
+    }
+    
 
     triggerGameOver() {
         this.isGameOver = true;
